@@ -3,12 +3,21 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
-export default function ButtonAppBar() {
+export default function Header() {
   return (
     <Box>
       <AppBar position="static">
-        <Box sx={{ display: "flex", gap: "30px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "30px",
+            alignItems: "center",
+            bgcolor: "#000101",
+            height: "50px",
+          }}
+        >
           <Typography variant="h6" sx={{ ml: "30px" }}>
             Title
           </Typography>
@@ -16,22 +25,29 @@ export default function ButtonAppBar() {
           <Typography variant="h6">MOVIES</Typography>
           <Typography variant="h6">TV SERIES</Typography>
           <Typography variant="h6">SEARCH</Typography>
-          <Typography variant="h6">SUN MARK</Typography>
+          <DarkModeOutlinedIcon />
+          <Button
+            color="inherit"
+            sx={{
+              border: "solid",
+              backgroundColor: "red",
+              borderColor: "red",
+              position: "absolute",
+              right: "20px",
+              // hover時にボタンをすこし暗くする実装をする
+            }}
+          >
+            SIGN IN
+          </Button>
         </Box>
-        <Button
-          color="inherit"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            variant: "contained",
-            color: "red",
-            position: "absolute",
-            right: 0,
-          }}
-        >
-          SIGN IN
-        </Button>
       </AppBar>
     </Box>
   );
 }
+
+// display: "flex",
+//             justifyContent: "center",
+//             variant: "contained",
+//             color: "red",
+//             position: "absolute",
+//             right: 0,
