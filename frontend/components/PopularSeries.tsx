@@ -16,7 +16,7 @@ const PopularMSeries = () => {
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
+        "https://api.themoviedb.org/3/tv/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setMovies(response.data.results);
     } catch (error) {
