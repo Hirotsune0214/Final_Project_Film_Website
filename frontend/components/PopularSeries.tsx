@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 
 // interfaceを使い回して良いのか
 interface films {
@@ -31,14 +33,20 @@ const PopularMSeries = () => {
   // swiper.jsを使って画像を表示させる
   return (
     <div>
-      <h1>Popular Series</h1>
-      <div style={{ display: "flex" }}>
-        {movies.map((movie: films) => (
-          <div key={movie.id}>
-            <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
-          </div>
-        ))}
-      </div>
+      <Swiper
+        slidesPerView="auto"
+        grabCursor={true}
+        style={{ width: "100%", height: "max-content" }}
+      >
+        <h1>Popular Series</h1>
+        <div style={{ display: "flex" }}>
+          {movies.map((movie: films) => (
+            <div key={movie.id}>
+              <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
+            </div>
+          ))}
+        </div>
+      </Swiper>
     </div>
   );
 };

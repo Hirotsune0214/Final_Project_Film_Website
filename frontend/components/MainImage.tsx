@@ -18,6 +18,7 @@ const MainImage = () => {
         "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
       );
       setMovies(response.data.results);
+      console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +30,7 @@ const MainImage = () => {
 
   return (
     <div>
-      <p>Hello Next.js</p>
+      <p>Main Image</p>
       {/* {movies.map((movie: films) => (
         <div key={movie.id}>
           <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
