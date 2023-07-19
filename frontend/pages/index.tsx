@@ -1,11 +1,7 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
-import MainImage from "@/components/MainImage";
-import PopularMovies from "@/components/PopularMovies";
-import PopularMSeries from "@/components/PopularSeries";
-import TopRatedMovies from "@/components/TopRatedMovies";
-import TopRatedSeries from "@/components/TopRatedSeries";
+import Search from "@/components/Search";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,11 +19,7 @@ export default function Home() {
         />
       </Head>
       <Header />
-      <MainImage />
-      <PopularMovies />
-      <PopularMSeries />
-      <TopRatedMovies />
-      <TopRatedSeries />
+      <Search />
     </>
   );
 }
