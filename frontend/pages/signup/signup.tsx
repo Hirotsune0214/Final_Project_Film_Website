@@ -3,8 +3,36 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
+import { authApi } from "";
 
 const signup = () => {
+  // TODO: 型を変更する
+  const handleSubmit: (e: any) => void = async (e) => {
+    // 入力欄の文字列を取得
+    // TODO: recoilを使用するなら取得の方法はrecoilを使用する
+    e.preventDefault();
+    const data = new FormData(e.target);
+    // trimをつけることで、空白を取り除いて表示してくれる
+    // TODO: 赤で表示されているのを消す
+    const username = data.get("username").trim();
+    const password = data.get("password").trim();
+    const confirmPassword = data.get("confirmPassword").trim();
+    console.log(username);
+    console.log(password);
+    console.log(confirmPassword);
+
+    // 新規登録APIを叩く
+    try {
+      const res = await authApi.register({
+        username,
+        password,
+        confirmPassword,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <Box
@@ -17,6 +45,7 @@ const signup = () => {
           height: "100vh",
           component: "form",
         }}
+        onSubmit={handleSubmit}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
@@ -36,7 +65,7 @@ const signup = () => {
             autoComplete="username"
             autoFocus
           />
-          <TextField
+          {/* <TextField
             margin="normal"
             required
             fullWidth
@@ -45,7 +74,7 @@ const signup = () => {
             name="email"
             autoComplete="email"
             autoFocus
-          />
+          /> */}
           <TextField
             margin="normal"
             required
@@ -61,7 +90,7 @@ const signup = () => {
             fullWidth
             name="confirmPassword"
             label="confirmPassword"
-            type="confirmPassword"
+            type="password"
             id="confirmPassword"
           />
           <LoadingButton
