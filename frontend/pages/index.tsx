@@ -22,6 +22,7 @@ export default function Home() {
           href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
         />
       </Head>
+
       <Header />
       <MainImage />
       <PopularMovies />

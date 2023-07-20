@@ -1,16 +1,24 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import { Box } from "@mui/material";
 
+// interfaceを使い回して良いのか
 interface films {
   id: string;
   poster_path: string;
   title: string;
+  original_title: string;
+  release_date: string;
+  vote_average: number;
+  backdrop_path: "string";
 }
 
-const MainImage = () => {
+const PopularMovies = () => {
   const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
 
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState<films[]>([]);
 
   const fetchMovies = async () => {
     try {
@@ -24,21 +32,64 @@ const MainImage = () => {
     }
   };
 
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  };
+
   useEffect(() => {
     fetchMovies();
   }, []);
 
+  console.log(movies);
+
   return (
     <div>
-      <p>Main Image</p>
-      {/* {movies.map((movie: films) => (
-        <div key={movie.id}>
-          <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
-          <h2>{movie.title}</h2>
-        </div>
-      ))} */}
+      {/* Swiperコンポーネント */}
+      <Swiper
+        slidesPerView="auto"
+        grabCursor={true}
+        style={{ width: "100%", height: "max-content" }}
+      >
+        {movies.map((movie: films) => (
+          <SwiperSlide key={movie.id}>
+            <div
+              style={{
+                backgroundImage: `URL(${URL}${movie.backdrop_path})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                height: "100vh",
+              }}
+            >
+              <div>{movie.vote_average}</div>
+              <div>{extractYearFromDate(movie.release_date)}</div>
+              <div>{movie.original_title}</div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
 
-export default MainImage;
+export default PopularMovies;
+
+/*
+
+return (
+    <div>
+      <div
+        style={{
+          backgroundImage: `URL(${URL}${
+            movies.length > 0 ? movies[0].backdrop_path : ""
+          })`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          height: "100vh",
+        }}
+      ></div>
+      <div>{`${movie.vote_average}`}</div>
+      <div>{extractYearFromDate(movie.release_date)}</div>
+      <div>{`${movie.original_title}`}</div>
+    </div>
+  );
+  */
