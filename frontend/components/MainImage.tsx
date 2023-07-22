@@ -43,7 +43,7 @@ const PopularMovies = () => {
   console.log(movies);
 
   return (
-    <div>
+    <div style={{}}>
       {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
@@ -56,6 +56,18 @@ const PopularMovies = () => {
                 height: "100vh",
               }}
             >
+              {/* ここに再度divを追加して記述する理由 */}
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  position: "absolute",
+                  top: "0px",
+                  left: "0px",
+                  backgroundImage:
+                    "linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0))",
+                }}
+              ></div>
               <div>{movie.vote_average}</div>
               <div>{extractYearFromDate(movie.release_date)}</div>
               <div>{movie.original_title}</div>
@@ -68,24 +80,11 @@ const PopularMovies = () => {
 };
 
 export default PopularMovies;
-
 /*
-
-return (
-    <div>
-      <div
-        style={{
-          backgroundImage: `URL(${URL}${
-            movies.length > 0 ? movies[0].backdrop_path : ""
-          })`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          height: "100vh",
-        }}
-      ></div>
-      <div>{`${movie.vote_average}`}</div>
-      <div>{extractYearFromDate(movie.release_date)}</div>
-      <div>{`${movie.original_title}`}</div>
-    </div>
-  );
+width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-image: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
   */
