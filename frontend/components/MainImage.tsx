@@ -80,11 +80,3 @@ const PopularMovies = () => {
 };
 
 export default PopularMovies;
-/*
-width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background-image: linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0));
-  */

@@ -45,10 +45,3 @@ export default function Header() {
     </Box>
   );
 }
-
-// display: "flex",
-//             justifyContent: "center",
-//             variant: "contained",
-//             color: "red",
-//             position: "absolute",
-//             right: 0,
