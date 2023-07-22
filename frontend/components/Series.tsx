@@ -44,9 +44,25 @@ const Series = () => {
         <button>POPULAR</button>
         <button>TOP RATED</button>
       </div>
-      <div>
+      <div
+        style={{
+          marginTop: "20px",
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gridGap: "10px",
+          cursor: "pointer",
+        }}
+      >
         {dramas.map((drama: SeriesData) => (
-          <img src={`${URL}${drama.poster_path}`} alt={drama.title} />
+          <img
+            src={`${URL}${drama.poster_path}`}
+            alt={drama.title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
         ))}
       </div>
     </div>
