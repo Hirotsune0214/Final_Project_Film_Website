@@ -14,19 +14,14 @@ const img = process.env.IMG;
 
 const Search = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
-  // https://developer.themoviedb.org/reference/movie-changesどこにsearchのurlがあるのか
-  // const API_SEARCH =
-  //   "https://api.themoviedb.org/3/search/movie?api_key=bb46848237eacc0a36827f6639b47ee3&query";
 
   const [movies, setMovies] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  // const [searchResults, setSearchResults] = useState<films[]>([]);
 
   const searchMovies = async () => {
     try {
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/movie?query=${searchValue}&api_key=${API_KEY}`
-        // "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
       );
       setMovies(response.data.results);
       console.log(response.data.results);
@@ -84,10 +79,21 @@ const Search = () => {
       </Box>
       <Box sx={{ mt: "30px" }}>
         <div>
-          <div style={{ display: "flex" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gridGap: "10px",
+              cursor: "pointer",
+            }}
+          >
             {movies.map((movie: films) => (
               <div key={movie.id}>
-                <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
+                <img
+                  src={`${URL}${movie.poster_path}`}
+                  alt={movie.title}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
               </div>
             ))}
           </div>
