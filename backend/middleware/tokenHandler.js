@@ -8,7 +8,8 @@ const tokenDecode = (req) => {
   if (bearerHeader) {
     const bearer = bearerHeader.split(" ")[1];
     try {
-      const decodedToken = JWT.verify(bearer, process.env.TOKEN_SECRET_KEY);
+      // process.env.TOKEN_SECRET_KEYではなく、SECRET_KEYの可能性
+      const decodedToken = JWT.verify(bearer, process.env.SECRET_KEY);
       return decodedToken;
     } catch {
       // 秘密鍵やbearerが正しくない場合は、そのままfalseを返す
