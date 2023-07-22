@@ -33,19 +33,13 @@ const TopRatedMovies = () => {
   // swiper.jsを使って画像を表示させる
   return (
     <div>
-      <Swiper
-        slidesPerView="auto"
-        grabCursor={true}
-        style={{ width: "100%", height: "max-content" }}
-      >
-        <h1>Top Rated Movies</h1>
-        <div style={{ display: "flex" }}>
-          {movies.map((movie: films) => (
-            <div key={movie.id}>
-              <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
-            </div>
-          ))}
-        </div>
+      <h1>Top Rated Movies</h1>
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+        {movies.map((movie: films) => (
+          <SwiperSlide key={movie.id}>
+            <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

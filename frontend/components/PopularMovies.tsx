@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Swiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 interface films {
   id: string;
@@ -29,21 +29,20 @@ const MainImage = () => {
     fetchMovies();
   }, []);
 
+  console.log(URL);
   return (
     <div>
-      <Swiper
-        slidesPerView="auto"
-        grabCursor={true}
-        style={{ width: "100%", height: "max-content" }}
-      >
-        <h1>Popular Movies</h1>
-        <div style={{ display: "flex" }}>
-          {movies.map((movie: films) => (
-            <div key={movie.id}>
-              <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
-            </div>
-          ))}
-        </div>
+      <h1>Popular Movies</h1>
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+        {movies.map((movie: films) => (
+          <SwiperSlide key={movie.id}>
+            <img
+              style={{ width: "100%" }}
+              src={`${URL}${movie.poster_path}`}
+              alt={movie.title}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

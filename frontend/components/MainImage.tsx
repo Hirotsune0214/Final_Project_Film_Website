@@ -45,11 +45,7 @@ const PopularMovies = () => {
   return (
     <div>
       {/* Swiperコンポーネント */}
-      <Swiper
-        slidesPerView="auto"
-        grabCursor={true}
-        style={{ width: "100%", height: "max-content" }}
-      >
+      <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <div

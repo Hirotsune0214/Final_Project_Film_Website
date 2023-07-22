@@ -33,17 +33,17 @@ const PopularMSeries = () => {
   // swiper.jsを使って画像を表示させる
   return (
     <div>
-      <Swiper
-        slidesPerView="auto"
-        grabCursor={true}
-        style={{ width: "100%", height: "max-content" }}
-      >
-        <h1>Popular Series</h1>
+      <h1>Popular Series</h1>
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         <div style={{ display: "flex" }}>
           {movies.map((movie: films) => (
-            <div key={movie.id}>
-              <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
-            </div>
+            <SwiperSlide key={movie.id}>
+              <img
+                style={{ width: "100%" }}
+                src={`${URL}${movie.poster_path}`}
+                alt={movie.title}
+              />
+            </SwiperSlide>
           ))}
         </div>
       </Swiper>
