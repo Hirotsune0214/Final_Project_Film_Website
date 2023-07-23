@@ -22,7 +22,8 @@ const PopularMovies = () => {
   const fetchDramas = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/trending/tv/day?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
+        // "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
+        "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setDramas(response.data.results);
       console.log(response.data.results);

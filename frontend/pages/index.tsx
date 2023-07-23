@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import MainImage from "@/components/MainImage";
-import Series from "@/components/Series";
+import Movies from "@/components/Movies";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +22,7 @@ export default function Home() {
 
       <Header />
       <MainImage />
-      <Series />
+      <Movies />
     </>
   );
 }
