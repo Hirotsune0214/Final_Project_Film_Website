@@ -57,12 +57,10 @@ exports.login = async (req, res) => {
     if (descryptedPassword !== password) {
       return res.status(401).json({
         // errorsの後に[]を付けていなかったのでエラーの可能性
-        errors: [
-          {
-            param: "password",
-            message: "Invalid password",
-          },
-        ],
+        errors: {
+          param: "password",
+          message: "Invalid password",
+        },
       });
     }
 

@@ -13,7 +13,7 @@ app.use("/api", require("./routes/auth"));
 
 // DB接続
 try {
-  mongoose.connect(process.env.MONGOURL);
+  mongoose.connect(process.env.MONGO_URL);
   console.log("Connect to DB");
 } catch (error) {
   console.log(error);
