@@ -19,7 +19,8 @@ const MainImage = () => {
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
+        // ここのAPIを確認する
+        "https://api.themoviedb.org/3/trending/all/day?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setMovies(response.data.results);
       console.log(response.data.results);
@@ -28,9 +29,9 @@ const MainImage = () => {
     }
   };
 
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  };
+  // const extractYearFromDate = (dateString: string): string => {
+  //   return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  // };
 
   const boxSX = {
     "&:hover": {},
@@ -43,7 +44,7 @@ const MainImage = () => {
   console.log(URL);
   return (
     <div>
-      <h1>Popular Movies</h1>
+      <h1>YOU MAY ALSO LIKE</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
@@ -55,7 +56,7 @@ const MainImage = () => {
               />
 
               <div>{movie.vote_average}</div>
-              <div>{extractYearFromDate(movie.release_date)}</div>
+              <div>{movie.release_date}</div>
               <div>{movie.title}</div>
             </Box>
           </SwiperSlide>
