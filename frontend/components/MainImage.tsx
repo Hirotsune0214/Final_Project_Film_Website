@@ -36,6 +36,8 @@ const PopularMovies = () => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
 
+
+
   useEffect(() => {
     fetchMovies();
   }, []);
@@ -68,6 +70,7 @@ const PopularMovies = () => {
                     "linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0))",
                 }}
               ></div>
+
               <div>{movie.vote_average}</div>
               <div>{extractYearFromDate(movie.release_date)}</div>
               <div>{movie.original_title}</div>
