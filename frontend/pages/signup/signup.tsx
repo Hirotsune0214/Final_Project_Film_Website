@@ -1,35 +1,95 @@
-import React from "react";
+import React, { FC, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import { authApi } from "";
+import authApi from "../api/authApi";
 
-const signup = () => {
-  // TODO: 型を変更する
-  const handleSubmit: (e: any) => void = async (e) => {
-    // 入力欄の文字列を取得
-    // TODO: recoilを使用するなら取得の方法はrecoilを使用する
+const signup: FC = () => {
+  // エラー時の表示
+  const [usernameErrText, setUsernameErrText] = useState("");
+  const [passwordErrText, setPasswordErrText] = useState("");
+  const [confirmErrText, setConfirmErrText] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setUsernameErrText("");
+    setPasswordErrText("");
+    setConfirmErrText("");
+
+    // 入力欄の文字列を取得
     const data = new FormData(e.target);
-    // trimをつけることで、空白を取り除いて表示してくれる
-    // TODO: 赤で表示されているのを消す
-    const username = data.get("username").trim();
-    const password = data.get("password").trim();
-    const confirmPassword = data.get("confirmPassword").trim();
+    // trimで空白を取り除いた状態でユーザーネームだけを取得できる
+    // as stringをつけるtypescriptの意味
+    const username = (data.get("username") as string).trim();
+    const password = (data.get("password") as string).trim();
+    const confirmPassword = (data.get("confirmPassword") as string).trim();
+
     console.log(username);
     console.log(password);
     console.log(confirmPassword);
 
+    let error = false;
+
+    // ちゃんと入力されているかの確認
+    if (username === "") {
+      error = true;
+      setUsernameErrText("名前を入力してください");
+    }
+    if (password === "") {
+      error = true;
+      setPasswordErrText("パスワードを入力してください");
+    }
+    if (confirmPassword === "") {
+      error = true;
+      setConfirmErrText("確認用パスワードを入力してください");
+    }
+    // パスワードと確認用パスワードの確認
+    if (password !== confirmPassword) {
+      error = true;
+      setConfirmErrText("パスワードと確認用パスワードが異なります。");
+    }
+
+    // errorがあった場合、そのままreturnしてその下を実行しないようにする
+
+    if (error) return;
+
+    setLoading(true);
+
     // 新規登録APIを叩く
+    // APIはtry、catchで記述する
     try {
+      // authApiは、registerが存在する
       const res = await authApi.register({
+        // parameter.
+        // postmanのbodyになる
         username,
         password,
         confirmPassword,
       });
+      setLoading(false);
+      // 成功したらtokenの名称でローカルストレージに保存する
+      localStorage.setItem("token", res.token);
+      console.log("新規登録");
     } catch (err) {
-      console.log(err);
+      const errors = err.data.errors;
+      console.log(errors);
+      // エラーを展開する
+      // TODO: forEachを使用して良いのか
+      errors.forEach((err) => {
+        if (err.path === "username") {
+          setUsernameErrText(err.msg);
+          console.log(err.msg);
+        }
+        if (err.path === "password") {
+          setPasswordErrText(err.msg);
+        }
+        if (err.path === "confirmPassword") {
+          setConfirmErrText(err.msg);
+        }
+      });
+      setLoading(false);
     }
   };
 
@@ -53,7 +113,8 @@ const signup = () => {
         <Typography component="h1" variant="h5" sx={{ color: "black" }}>
           Sign up
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        {/* noValidateで、デフォルトで表示されるエラーを消してくれる */}
+        <Box component="form" noValidate sx={{ mt: 1 }} noValidate>
           <TextField
             margin="normal"
             required
@@ -64,6 +125,11 @@ const signup = () => {
             // 下記2つが必要かわからない
             autoComplete="username"
             autoFocus
+            // helperTextの中に入れるとエラーを表示してくれる
+            helperText={usernameErrText}
+            // 空でなければエラーを出す。つまりエラーがあれば
+            error={usernameErrText !== ""}
+            disabled={loading}
           />
           {/* <TextField
             margin="normal"
@@ -83,6 +149,10 @@ const signup = () => {
             label="Password"
             type="password"
             id="password"
+            helperText={passwordErrText}
+            // 空でなければエラーを出す。つまりエラーがあれば
+            error={passwordErrText !== ""}
+            disabled={loading}
           />
           <TextField
             margin="normal"
@@ -92,12 +162,16 @@ const signup = () => {
             label="confirmPassword"
             type="password"
             id="confirmPassword"
+            helperText={confirmErrText}
+            // 空でなければエラーを出す。つまりエラーがあれば
+            error={confirmErrText !== ""}
+            disabled={loading}
           />
           <LoadingButton
             sx={{ mt: 3, mb: 2 }}
             fullWidth
             type="submit"
-            loading={false}
+            loading={loading}
             color="primary"
             variant="outlined"
           >
