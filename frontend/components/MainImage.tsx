@@ -36,8 +36,6 @@ const PopularMovies = () => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
 
-
-
   useEffect(() => {
     fetchMovies();
   }, []);

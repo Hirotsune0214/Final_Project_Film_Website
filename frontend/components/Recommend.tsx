@@ -11,7 +11,7 @@ interface films {
   release_date: string;
 }
 
-const MainImage = () => {
+const Recommend = () => {
   const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
@@ -66,4 +66,4 @@ const MainImage = () => {
   );
 };
 
-export default MainImage;
+export default Recommend;
