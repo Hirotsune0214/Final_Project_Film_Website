@@ -75,9 +75,11 @@ const Search = () => {
           value={searchValue}
           onChange={handleSearch}
         />
+
         <button onClick={handleClick}>Search</button>
       </Box>
-      <Box sx={{ mt: "30px" }}>
+
+      <Box sx={{ mt: "30px", padding: "16px" }}>
         <div>
           <div
             style={{
