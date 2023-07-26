@@ -36,7 +36,7 @@ const Movies = () => {
   console.log(dramas);
 
   return (
-    <div style={{ display: "block" }}>
+    <div style={{ display: "block", padding: "16px" }}>
       <div
         style={{
           display: "flex",
