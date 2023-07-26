@@ -16,7 +16,7 @@ interface films {
 }
 
 const PopularMovies = () => {
-  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
+  const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState<films[]>([]);
 
@@ -35,8 +35,6 @@ const PopularMovies = () => {
   const extractYearFromDate = (dateString: string): string => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
-
-
 
   useEffect(() => {
     fetchMovies();
