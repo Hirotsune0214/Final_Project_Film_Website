@@ -36,13 +36,19 @@ const Series = () => {
   console.log(dramas);
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <h1>TV Series</h1>
-      <div style={{ display: "flex", gap: "20px" }}>
-        <button>POPULAR</button>
-        <button>TOP RATED</button>
+    <div style={{ display: "block", padding: "16px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h1>TV Series</h1>
+        <div style={{ display: "flex", gap: "20px" }}>
+          <button>POPULAR</button>
+          <button>TOP RATED</button>
+        </div>
       </div>
       <div
         style={{
