@@ -12,7 +12,7 @@ interface films {
 }
 
 const MainImage = () => {
-  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
+  const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
 
@@ -36,14 +36,18 @@ const MainImage = () => {
     "&:hover": {},
   };
 
+  const container = {
+    padding: "16px",
+  };
+
   useEffect(() => {
     fetchMovies();
   }, []);
 
   console.log(URL);
   return (
-    <div>
-      <h1>Popular Movies</h1>
+    <div style={container}>
+      <h1>POPULAR MOVIES</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>

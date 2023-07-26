@@ -11,7 +11,7 @@ interface films {
 }
 
 const PopularMSeries = () => {
-  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
+  const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
 
@@ -26,14 +26,17 @@ const PopularMSeries = () => {
     }
   };
 
+  const container = {
+    padding: "16px",
+  };
+
   useEffect(() => {
     fetchMovies();
   }, []);
 
-  // swiper.jsを使って画像を表示させる
   return (
-    <div>
-      <h1>Popular Series</h1>
+    <div style={container}>
+      <h1>POPULAR SERIES</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         <div style={{ display: "flex" }}>
           {movies.map((movie: films) => (

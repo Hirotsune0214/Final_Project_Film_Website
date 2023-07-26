@@ -26,19 +26,29 @@ const TopRatedSeries = () => {
     }
   };
 
+  const container = {
+    padding: "16px",
+  };
+
   useEffect(() => {
     fetchMovies();
   }, []);
 
   return (
-    <div>
-      <h1>Top Rated Movies</h1>
+    <div style={container}>
+      <h1>TOP RATED SERIES</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
-        {movies.map((movie: films) => (
-          <SwiperSlide key={movie.id}>
-            <img src={`${URL}${movie.poster_path}`} alt={movie.title} />
-          </SwiperSlide>
-        ))}
+        <div style={{ display: "flex" }}>
+          {movies.map((movie: films) => (
+            <SwiperSlide key={movie.id}>
+              <img
+                style={{ width: "100%" }}
+                src={`${URL}${movie.poster_path}`}
+                alt={movie.title}
+              />
+            </SwiperSlide>
+          ))}
+        </div>
       </Swiper>
     </div>
   );
