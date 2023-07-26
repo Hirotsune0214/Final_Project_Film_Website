@@ -33,7 +33,16 @@ const MainImage = () => {
   };
 
   const boxSX = {
-    "&:hover": {},
+    "&:hover": {
+      transition: "all 0.3s ease 0s",
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+      top: "0px",
+      left: "0px",
+      backgroundImage:
+        "linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))",
+    },
   };
 
   const container = {
