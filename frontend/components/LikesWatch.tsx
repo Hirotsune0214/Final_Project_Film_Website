@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
@@ -17,10 +17,15 @@ const LikesWatch = () => {
     color: "red",
   };
 
+  const handleLike = () => {};
+
   return (
     <>
       <div>
-        <FavoriteBorderOutlinedIcon sx={likesButton} />
+        <FavoriteBorderOutlinedIcon
+          sx={likesButton}
+          onClick={() => handleLike()}
+        />
         <Button sx={movieButton}>
           <PlayArrowIcon />
           WATCH NOW

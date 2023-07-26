@@ -5,6 +5,7 @@ import LikesWatch from "./LikesWatch";
 import Videos from "./Videos";
 import BackDrops from "./BackDrops";
 import Posters from "./Posters";
+import Reviews from "./Reviews";
 
 const SingleMovieMain = () => {
   return (
@@ -15,6 +16,7 @@ const SingleMovieMain = () => {
       <Videos />
       <BackDrops />
       <Posters />
+      <Reviews />
     </div>
   );
 };
