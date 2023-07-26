@@ -3,7 +3,7 @@ import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { Button } from "@mui/material";
 import ReviewArea from "./ReviewArea";
 import axios from "axios";
-
+ 
 const Reviews = () => {
   const [inputText, setInputText] = useState<string>("");
 
