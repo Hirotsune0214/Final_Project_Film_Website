@@ -62,7 +62,11 @@ const MainImage = () => {
           <SwiperSlide key={movie.id}>
             <Box sx={boxSX}>
               <img
-                style={{ width: "100%" }}
+                style={{
+                  width: "100%",
+                  boxShadow: "0 12px 12px gray",
+                  transition: "box-shadow .5s",
+                }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
               />
