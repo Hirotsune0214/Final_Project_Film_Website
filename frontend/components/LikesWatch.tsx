@@ -10,6 +10,7 @@ const LikesWatch = () => {
   const [like, setLike] = useState(10);
   // 押されているかの判定
   const [isLiked, setIsLiked] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   // TODO: ボタンの修正を行う
   const movieButton = {
@@ -30,14 +31,27 @@ const LikesWatch = () => {
     setIsLiked(!isLiked);
   };
 
+  const handleFavorites = () => {
+    if (!favorites) {
+      // お気に入りに追加する
+      setFavorites((prevFavorites) => [...prevFavorites, movie]);
+    } else {
+      // お気に入りから削除
+      prevFavorites.filter(favorite.id !== movieButton.id);
+    }
+  };
+
   return (
     <>
       <div>
         {/* いいねボタンとして実装する */}
         <ThumbUpAltIcon onClick={() => handleLike()} />
         <span>{like}people gave likes</span>
-        {/* favoriteに変更する？ */}
-        <FavoriteBorderOutlinedIcon sx={likesButton} />
+        {/* favoriteに変更する */}
+        <FavoriteBorderOutlinedIcon
+          sx={likesButton}
+          onClick={() => handleFavorites()}
+        />
         <Button sx={movieButton}>
           <PlayArrowIcon />
           WATCH NOW
@@ -48,8 +62,3 @@ const LikesWatch = () => {
 };
 
 export default LikesWatch;
-
-// "&:hover": {
-//   border: "1px solid #00FF00",
-//   color: "gray",
-//   backgroundColor: "lightblue",
