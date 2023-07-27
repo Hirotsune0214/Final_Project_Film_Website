@@ -8,8 +8,8 @@ const Footer: () => React.JSX.Element = () => {
       sx={{
         bgcolor: "#131313",
         color: "#ffffff",
-        py: 3, // 上下の余白
-        px: 3, // 左右の余白
+        py: 3,
+        px: 3,
         position: "fixed",
         bottom: 0,
         width: "100%",
