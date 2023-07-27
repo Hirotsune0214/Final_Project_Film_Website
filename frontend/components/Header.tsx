@@ -44,8 +44,6 @@ export default function Header() {
               borderColor: "red",
               position: "absolute",
               right: "20px",
-              // hoverの実装を行う
-              // "&:hover": {},
             }}
           >
             SIGN IN
