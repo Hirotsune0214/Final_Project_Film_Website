@@ -9,7 +9,6 @@ import authUtils from "@/utils/authUtils";
 
 const login: FC = () => {
   // JWTがあった場合に遷移する
-  // const navigate = useNavigate();
 
   // エラー時の表示
   const [usernameErrText, setUsernameErrText] = useState("");
