@@ -9,7 +9,6 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // Connect to Database
-// 接続ができないので確認する
 mongoose
   .connect(process.env.MONGOURL)
   .then(() => {
