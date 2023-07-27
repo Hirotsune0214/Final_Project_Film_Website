@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const Post = require("../models/Post");
+const movieController = require("../controllers/movieReview");
 
 // Create post "review, comments"
+// ログインしているかどうかの判定をミドルウェアに導入して、コメントできるできないを導入しないといけない
 router.post("/", async (req, res) => {
   const newPost = new Post(req.body);
   try {
@@ -11,6 +12,8 @@ router.post("/", async (req, res) => {
     return res.status(500).json(err);
   }
 });
+
+// router.post("/", movieController.create)
 
 // Update post "review, comments"
 router.put("/:id", async (req, res) => {
