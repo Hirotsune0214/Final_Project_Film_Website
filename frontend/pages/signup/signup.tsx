@@ -32,7 +32,7 @@ const signup: FC = () => {
 
     let error = false;
 
-    // ちゃんと入力されているかの確認
+    // ちゃんと入力されているかの確認するコード
     if (username === "") {
       error = true;
       setUsernameErrText("名前を入力してください");
