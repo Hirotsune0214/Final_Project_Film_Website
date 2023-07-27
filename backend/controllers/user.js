@@ -37,10 +37,12 @@ exports.login = async (req, res) => {
     const user = await newUser.findOne({ username: username });
     if (!user) {
       return res.status(401).json({
-        errors: {
-          param: "username",
-          message: "Invalid username",
-        },
+        errors: [
+          {
+            param: "username",
+            msg: "Invalid username",
+          },
+        ],
       });
     }
 
@@ -56,10 +58,12 @@ exports.login = async (req, res) => {
     // descryptedPasswordが入力されたパスワードと合っていない場合エラーになる
     if (descryptedPassword !== password) {
       return res.status(401).json({
-        errors: {
-          param: "password",
-          message: "Invalid password",
-        },
+        errors: [
+          {
+            param: "password",
+            msg: "Invalid password",
+          },
+        ],
       });
     }
 
