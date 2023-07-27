@@ -23,8 +23,10 @@ const Search = () => {
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/movie?query=${searchValue}&api_key=${API_KEY}`
       );
-      setMovies(response.data.results);
-      console.log(response.data.results);
+
+      if (response.data.results) {
+        setMovies(response.data.results);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -32,19 +34,12 @@ const Search = () => {
 
   useEffect(() => {
     searchMovies();
-  }, []);
+  }, [searchValue]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
   console.log(setSearchValue);
-
-  const handleClick = (e: any) => {
-    searchMovies();
-
-    console.log(API_KEY);
-    console.log(searchMovies());
-  };
 
   return (
     <div>
@@ -75,8 +70,6 @@ const Search = () => {
           value={searchValue}
           onChange={handleSearch}
         />
-
-        <button onClick={handleClick}>Search</button>
       </Box>
 
       <Box sx={{ mt: "30px", padding: "16px" }}>
