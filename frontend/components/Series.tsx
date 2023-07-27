@@ -20,7 +20,8 @@ const Series = () => {
   const fetchDramas = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/tv/airing_today?api_key=bb46848237eacc0a36827f6639b47ee3"
+        // "https://api.themoviedb.org/3/tv/airing_today?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/discover/tv?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setDramas(response.data.results);
       // console.log(response.data.results);
