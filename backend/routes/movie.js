@@ -1,3 +1,5 @@
+// 映画にいいねを押下するapi
+
 const router = require("express").Router();
 const Movie = require("../models/Movie");
 
