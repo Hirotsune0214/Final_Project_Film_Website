@@ -8,7 +8,7 @@ import Recommend from "@/components/Recommend";
 import Movies from "@/components/Movies";
 
 import Content from "@/components/container/Content";
-import MainImage from "@/components/MainImage";
+import MainImage from "@/components/MainImageMovies";
 
 const inter = Inter({ subsets: ["latin"] });
 

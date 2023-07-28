@@ -6,6 +6,7 @@ import { LoadingButton } from "@mui/lab";
 import authApi from "../api/authApi";
 import { useNavigate } from "react-router-dom";
 import authUtils from "@/utils/authUtils";
+import Link from "next/link";
 
 const login: FC = () => {
   // JWTがあった場合に遷移する
@@ -114,7 +115,7 @@ const login: FC = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5" sx={{ color: "black" }}>
-          Sign in
+          Login
         </Typography>
         {/* noValidateで、デフォルトで表示されるエラーを消してくれる */}
         <Box component="form" noValidate sx={{ mt: 1 }} noValidate>
@@ -166,11 +167,13 @@ const login: FC = () => {
             color="primary"
             variant="outlined"
           >
-            SIGN IN
+            LOGIN
           </LoadingButton>
         </Box>
         {/* 位置を調整する */}
-        <Button>Don't have an account? Sign Up</Button>
+        <Button>
+          <Link href="/signup/signup">Don't have an account? Sign Up</Link>
+        </Button>
       </Box>
     </>
   );
