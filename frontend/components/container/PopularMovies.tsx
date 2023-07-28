@@ -1,8 +1,7 @@
+import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import { Box } from "@mui/material";
 
 interface films {
   id: string;
@@ -12,7 +11,7 @@ interface films {
   release_date: string;
 }
 
-const TopRatedMovies = () => {
+const PopularMovies = () => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
@@ -20,9 +19,10 @@ const TopRatedMovies = () => {
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/top_rated?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
       );
       setMovies(response.data.results);
+      console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -33,26 +33,36 @@ const TopRatedMovies = () => {
   };
 
   const boxSX = {
-    "&:hover": {},
-  };
-
-  const container = {
-    padding: "16px",
+    "&:hover": {
+      transition: "all 0.3s ease 0s",
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+      top: "0px",
+      left: "0px",
+      backgroundImage:
+        "linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))",
+    },
   };
 
   useEffect(() => {
     fetchMovies();
   }, []);
 
+  console.log(URL);
   return (
-    <div style={container}>
-      <h1>TOP RATED MOVIES</h1>
+    <div>
+      <h1>POPULAR MOVIES</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <Box sx={boxSX}>
               <img
-                style={{ width: "100%" }}
+                style={{
+                  width: "100%",
+                  boxShadow: "0 12px 12px gray",
+                  transition: "box-shadow .5s",
+                }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
               />
@@ -68,4 +78,4 @@ const TopRatedMovies = () => {
   );
 };
 
-export default TopRatedMovies;
+export default PopularMovies;

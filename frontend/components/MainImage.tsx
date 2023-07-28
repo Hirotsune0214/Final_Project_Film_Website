@@ -17,7 +17,7 @@ interface Series {
 }
 
 const MainImage = () => {
-  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
+  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
 
   const [dramas, setDramas] = useState<Series[]>([]);
 

@@ -1,17 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import { Navigation } from "swiper/modules";
+import { Box } from "@mui/material";
 
-// interfaceを使い回して良いのか
 interface films {
   id: string;
   poster_path: string;
   title: string;
+  vote_average: number;
+  release_date: string;
 }
 
-const PopularMSeries = () => {
+const TopRatedMovies = () => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
@@ -19,7 +20,7 @@ const PopularMSeries = () => {
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/tv/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/movie/top_rated?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setMovies(response.data.results);
     } catch (error) {
@@ -27,8 +28,12 @@ const PopularMSeries = () => {
     }
   };
 
-  const container = {
-    padding: "16px",
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  };
+
+  const boxSX = {
+    "&:hover": {},
   };
 
   useEffect(() => {
@@ -36,23 +41,27 @@ const PopularMSeries = () => {
   }, []);
 
   return (
-    <div style={container}>
-      <h1>POPULAR SERIES</h1>
+    <div>
+      <h1>TOP RATED MOVIES</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
-        <div style={{ display: "flex" }}>
-          {movies.map((movie: films) => (
-            <SwiperSlide key={movie.id}>
+        {movies.map((movie: films) => (
+          <SwiperSlide key={movie.id}>
+            <Box sx={boxSX}>
               <img
                 style={{ width: "100%" }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
               />
-            </SwiperSlide>
-          ))}
-        </div>
+
+              <div>{movie.vote_average}</div>
+              <div>{extractYearFromDate(movie.release_date)}</div>
+              <div>{movie.title}</div>
+            </Box>
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
 };
 
-export default PopularMSeries;
+export default TopRatedMovies;
