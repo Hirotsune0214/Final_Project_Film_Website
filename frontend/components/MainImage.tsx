@@ -6,9 +6,10 @@ import { Box } from "@mui/material";
 
 
 // interfaceを使い回して良いのか
-interface films {
+
 
 interface Series {
+
 
   id: string;
   poster_path: string;
@@ -21,8 +22,7 @@ interface Series {
 }
 
 const MainImage = () => {
-  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
-
+  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
 
   const [dramas, setDramas] = useState<Series[]>([]);
 
@@ -41,11 +41,15 @@ const MainImage = () => {
   };
 
 
+
   const extractYearFromDate = (dateString: string): string => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
 
   useEffect(() => {
+    fetchDramas();
+  }, []);
+
     fetchMovies();
   }, []);
 
@@ -57,11 +61,12 @@ const MainImage = () => {
       {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
 
-        {movies.map((movie: films) => (
-          <SwiperSlide key={movie.id}>
+        {dramas.map((drama: Series) => (
+          <SwiperSlide key={drama.id}>
             <div
               style={{
-                backgroundImage: `URL(${URL}${movie.backdrop_path})`,
+                backgroundImage: `URL(${URL}${drama.backdrop_path})`,
+
 
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
@@ -82,9 +87,9 @@ const MainImage = () => {
               ></div>
 
 
-              <div>{movie.vote_average}</div>
-              <div>{extractYearFromDate(movie.release_date)}</div>
-              <div>{movie.original_title}</div>
+              <div>{drama.vote_average}</div>
+              <div>{extractYearFromDate(drama.release_date)}</div>
+              <div>{drama.original_title}</div>
 
             </div>
           </SwiperSlide>

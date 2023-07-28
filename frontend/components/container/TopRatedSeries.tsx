@@ -10,15 +10,15 @@ interface films {
   title: string;
 }
 
-const PopularMSeries = () => {
-  const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
+const TopRatedSeries = () => {
+  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
 
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/tv/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/tv/top_rated?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setMovies(response.data.results);
     } catch (error) {
@@ -26,17 +26,13 @@ const PopularMSeries = () => {
     }
   };
 
-  const container = {
-    padding: "16px",
-  };
-
   useEffect(() => {
     fetchMovies();
   }, []);
 
   return (
-    <div style={container}>
-      <h1>POPULAR SERIES</h1>
+    <div>
+      <h1>TOP RATED SERIES</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         <div style={{ display: "flex" }}>
           {movies.map((movie: films) => (
@@ -54,4 +50,4 @@ const PopularMSeries = () => {
   );
 };
 
-export default PopularMSeries;
+export default TopRatedSeries;

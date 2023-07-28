@@ -11,7 +11,7 @@ interface films {
   release_date: string;
 }
 
-const MainImage = () => {
+const PopularMovies = () => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
@@ -45,17 +45,13 @@ const MainImage = () => {
     },
   };
 
-  const container = {
-    padding: "16px",
-  };
-
   useEffect(() => {
     fetchMovies();
   }, []);
 
   console.log(URL);
   return (
-    <div style={container}>
+    <div>
       <h1>POPULAR MOVIES</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
@@ -82,4 +78,4 @@ const MainImage = () => {
   );
 };
 
-export default MainImage;
+export default PopularMovies;

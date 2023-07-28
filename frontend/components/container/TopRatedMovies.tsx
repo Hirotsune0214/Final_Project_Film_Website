@@ -36,16 +36,12 @@ const TopRatedMovies = () => {
     "&:hover": {},
   };
 
-  const container = {
-    padding: "16px",
-  };
-
   useEffect(() => {
     fetchMovies();
   }, []);
 
   return (
-    <div style={container}>
+    <div>
       <h1>TOP RATED MOVIES</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
