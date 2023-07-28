@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -30,11 +31,17 @@ export default function Header() {
               borderRadius: "3px",
             }}
           >
-            HOME
+            <Link href="/">HOME</Link>
           </Typography>
-          <Typography variant="h6">MOVIES</Typography>
-          <Typography variant="h6">TV SERIES</Typography>
-          <Typography variant="h6">SEARCH</Typography>
+          <Typography variant="h6">
+            <Link href="/movies/movies">MOVIES</Link>
+          </Typography>
+          <Typography variant="h6">
+            <Link href="/tv/tv">TV SERIES</Link>
+          </Typography>
+          <Typography variant="h6">
+            <Link href="/search/search">SEARCH</Link>
+          </Typography>
           <DarkModeOutlinedIcon />
           <Button
             color="inherit"
@@ -46,7 +53,7 @@ export default function Header() {
               right: "20px",
             }}
           >
-            SIGN IN
+            <Link href="/login/login">LOGIN</Link>
           </Button>
         </Box>
       </AppBar>

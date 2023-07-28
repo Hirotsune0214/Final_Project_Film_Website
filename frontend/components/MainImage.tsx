@@ -1,16 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import { Box } from "@mui/material";
-
+import "swiper/css";
 
 // interfaceを使い回して良いのか
-
-
 interface Series {
-
-
   id: string;
   poster_path: string;
   title: string;
@@ -18,7 +12,6 @@ interface Series {
   release_date: string;
   vote_average: number;
   backdrop_path: "string";
-
 }
 
 const MainImage = () => {
@@ -40,8 +33,6 @@ const MainImage = () => {
     }
   };
 
-
-
   const extractYearFromDate = (dateString: string): string => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
@@ -50,23 +41,15 @@ const MainImage = () => {
     fetchDramas();
   }, []);
 
-    fetchMovies();
-  }, []);
-
-  console.log(movies);
-
-
   return (
     <div style={{}}>
       {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
-
         {dramas.map((drama: Series) => (
           <SwiperSlide key={drama.id}>
             <div
               style={{
                 backgroundImage: `URL(${URL}${drama.backdrop_path})`,
-
 
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
@@ -86,11 +69,9 @@ const MainImage = () => {
                 }}
               ></div>
 
-
               <div>{drama.vote_average}</div>
               <div>{extractYearFromDate(drama.release_date)}</div>
               <div>{drama.original_title}</div>
-
             </div>
           </SwiperSlide>
         ))}
