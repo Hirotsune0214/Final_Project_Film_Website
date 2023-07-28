@@ -11,7 +11,9 @@ import Recommend from "@/components/Recommend";
 import Movies from "@/components/Movies";
 
 
+
 import Search from "@/components/Search";
+
 
 
 
@@ -41,6 +43,7 @@ export default function Home() {
       <Movies />
 
       <Search />
+
 
 
     </>
