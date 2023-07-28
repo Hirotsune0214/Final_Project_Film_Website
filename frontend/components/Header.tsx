@@ -37,7 +37,7 @@ export default function Header() {
             <Link href="/movies/movies">MOVIES</Link>
           </Typography>
           <Typography variant="h6">
-            <Link href="/tv/tv">TV SERIES</Link>
+            <Link href="/dramas/dramas">TV SERIES</Link>
           </Typography>
           <Typography variant="h6">
             <Link href="/search/search">SEARCH</Link>

@@ -14,7 +14,7 @@ interface Series {
   backdrop_path: "string";
 }
 
-const MainImage = () => {
+const MainImageMovies = () => {
   const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
 
   const [dramas, setDramas] = useState<Series[]>([]);
@@ -22,7 +22,6 @@ const MainImage = () => {
   const fetchDramas = async () => {
     try {
       const response = await axios.get(
-        // "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
         "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setDramas(response.data.results);
@@ -80,4 +79,4 @@ const MainImage = () => {
   );
 };
 
-export default MainImage;
+export default MainImageMovies;

@@ -4,6 +4,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import authApi from "../api/authApi";
+import Link from "next/link";
 
 const signup: FC = () => {
   // エラー時の表示
@@ -179,7 +180,9 @@ const signup: FC = () => {
           </LoadingButton>
         </Box>
         {/* 位置を調整する */}
-        <Button>Already have an account? Sign In</Button>
+        <Button>
+          <Link href="/login/login">Already have an account? LOGIN</Link>
+        </Button>
       </Box>
     </>
   );

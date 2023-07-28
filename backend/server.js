@@ -7,18 +7,10 @@ require("dotenv").config();
 // corsでクライアントとサーバーのポート番号が違う場合でも繋げれるようにする
 const cors = require("cors");
 
-<<<<<<< HEAD
-// Connect to Database
-mongoose
-  .connect(process.env.MONGOURL)
-  .then(() => {
-    console.log("Connecting to DB");
-=======
 app.use(
   // 誰を許可するのか
   cors({
     origin: "http://localhost:3000",
->>>>>>> main
   })
 );
 app.use(express.json());
