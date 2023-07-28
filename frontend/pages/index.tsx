@@ -2,8 +2,13 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 
 import Header from "@/components/Header";
+<<<<<<< HEAD
+import MainImage from "@/components/MainImage";
+import Movies from "@/components/Movies";
+=======
 import Search from "@/components/Search";
 
+>>>>>>> main
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,8 +27,13 @@ export default function Home() {
       </Head>
 
       <Header />
+<<<<<<< HEAD
+      <MainImage />
+      <Movies />
+=======
       <Search />
 
+>>>>>>> main
     </>
   );
 }
