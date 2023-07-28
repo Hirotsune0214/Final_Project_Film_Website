@@ -13,7 +13,7 @@ interface SeriesData {
 }
 
 const Movies = () => {
-  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
+  const URL = "https://image.tmdb.org/t/p/w500";
 
   const [dramas, setDramas] = useState<SeriesData[]>([]);
 
