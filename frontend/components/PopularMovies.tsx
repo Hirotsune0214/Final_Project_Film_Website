@@ -11,7 +11,7 @@ interface films {
   release_date: string;
 }
 
-const MainImage = () => {
+const PopularMovies = () => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
@@ -82,4 +82,4 @@ const MainImage = () => {
   );
 };
 
-export default MainImage;
+export default PopularMovies;
