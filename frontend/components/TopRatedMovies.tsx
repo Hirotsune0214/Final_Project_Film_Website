@@ -44,7 +44,6 @@ const TopRatedMovies = () => {
     fetchMovies();
   }, []);
 
-  // swiper.jsを使って画像を表示させる
   return (
     <div style={container}>
       <h1>TOP RATED MOVIES</h1>
