@@ -58,12 +58,13 @@ exports.login = async (req, res) => {
     // descryptedPasswordが入力されたパスワードと合っていない場合エラーになる
     if (descryptedPassword !== password) {
       return res.status(401).json({
-        errors: [
-          {
-            param: "password",
-            msg: "Invalid password",
-          },
-        ],
+
+        // errorsの後に[]を付けていなかったのでエラーの可能性
+        errors: {
+          param: "password",
+          message: "Invalid password",
+        },
+
       });
     }
 
