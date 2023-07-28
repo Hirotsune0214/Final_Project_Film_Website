@@ -23,7 +23,6 @@ const Movies = () => {
         "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setDramas(response.data.results);
-      // console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
