@@ -14,7 +14,7 @@ interface Series {
   backdrop_path: string;
 }
 
-const PopularMovies = () => {
+const MainImage = () => {
   const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
 
   const [dramas, setDramas] = useState<Series[]>([]);
@@ -75,4 +75,4 @@ const PopularMovies = () => {
   );
 };
 
-export default PopularMovies;
+export default MainImage;
