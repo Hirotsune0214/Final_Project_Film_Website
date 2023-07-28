@@ -21,7 +21,17 @@ export default function Header() {
           <Typography variant="h6" sx={{ ml: "30px" }}>
             Title
           </Typography>
-          <Typography variant="h6">HOME</Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              border: "solid",
+              backgroundColor: "red",
+              borderColor: "red",
+              borderRadius: "3px",
+            }}
+          >
+            HOME
+          </Typography>
           <Typography variant="h6">MOVIES</Typography>
           <Typography variant="h6">TV SERIES</Typography>
           <Typography variant="h6">SEARCH</Typography>
@@ -34,8 +44,6 @@ export default function Header() {
               borderColor: "red",
               position: "absolute",
               right: "20px",
-              // hoverの実装を行う
-              // "&:hover": {},
             }}
           >
             SIGN IN
