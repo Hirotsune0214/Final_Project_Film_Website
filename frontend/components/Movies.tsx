@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+// moviesのボタンが押下されたらデフォルトでpopularになっている
+
 // interfaceを使い回して良いのか
 interface SeriesData {
   id: string;
@@ -32,7 +34,20 @@ const Movies = () => {
     fetchDramas();
   }, []);
 
-  console.log(dramas);
+  const fetchPopularDramas = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.themoviedb.org/3/movie/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
+      );
+      setDramas(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePopularButton = () => {
+    fetchPopularDramas();
+  };
 
   return (
     <div style={{ display: "block", padding: "16px" }}>
@@ -46,7 +61,7 @@ const Movies = () => {
         <h1>Movies</h1>
 
         <div>
-          <button>POPULAR</button>
+          <button onClick={handlePopularButton}>POPULAR</button>
           <button>TOP RATED</button>
         </div>
       </div>
