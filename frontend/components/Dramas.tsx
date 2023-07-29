@@ -17,10 +17,21 @@ const Movies = () => {
 
   const [dramas, setDramas] = useState<SeriesData[]>([]);
 
-  const fetchDramas = async () => {
+  const fetchPopularDramas = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/discover/tv?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/tv/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
+      );
+      setDramas(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchTopRatedDramas = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.themoviedb.org/3/tv/top_rated?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setDramas(response.data.results);
     } catch (error) {
@@ -29,10 +40,16 @@ const Movies = () => {
   };
 
   useEffect(() => {
-    fetchDramas();
+    fetchPopularDramas();
   }, []);
 
-  console.log(dramas);
+  const handleDramasPopularButton = () => {
+    fetchPopularDramas();
+  };
+
+  const handleDramasTopRatedButton = () => {
+    fetchTopRatedDramas();
+  };
 
   return (
     <div style={{ display: "block", padding: "16px" }}>
@@ -43,11 +60,11 @@ const Movies = () => {
           alignItems: "center",
         }}
       >
-        <h1>Dramas</h1>
+        <h1>TV Series</h1>
 
         <div>
-          <button>POPULAR</button>
-          <button>TOP RATED</button>
+          <button onClick={handleDramasPopularButton}>POPULAR</button>
+          <button onClick={handleDramasTopRatedButton}>TOP RATED</button>
         </div>
       </div>
       <div
