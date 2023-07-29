@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-// moviesのボタンが押下されたらデフォルトでpopularになっている
-
-// interfaceを使い回して良いのか
-interface SeriesData {
+// TODO: リファクタリンで、type.tsに移動させる
+interface MoviesData {
   id: string;
   poster_path: string;
   title: string;
@@ -17,36 +15,40 @@ interface SeriesData {
 const Movies = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-  const [dramas, setDramas] = useState<SeriesData[]>([]);
+  const [movies, setMovies] = useState<MoviesData[]>([]);
 
-  const fetchDramas = async () => {
+  const fetchPopularMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/movie/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
-      setDramas(response.data.results);
+      setMovies(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchTopRatedMovies = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.themoviedb.org/3/movie/top_rated?api_key=bb46848237eacc0a36827f6639b47ee3"
+      );
+      setMovies(response.data.results);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchDramas();
+    fetchPopularMovies();
   }, []);
 
-  const fetchPopularDramas = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
-      );
-      setDramas(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
+  const handlePopularButton = () => {
+    fetchPopularMovies();
   };
 
-  const handlePopularButton = () => {
-    fetchPopularDramas();
+  const handleTopRatedButton = () => {
+    fetchTopRatedMovies();
   };
 
   return (
@@ -62,7 +64,7 @@ const Movies = () => {
 
         <div>
           <button onClick={handlePopularButton}>POPULAR</button>
-          <button>TOP RATED</button>
+          <button onClick={handleTopRatedButton}>TOP RATED</button>
         </div>
       </div>
       <div
@@ -74,10 +76,10 @@ const Movies = () => {
           cursor: "pointer",
         }}
       >
-        {dramas.map((drama: SeriesData) => (
+        {movies.map((movie: MoviesData) => (
           <img
-            src={`${URL}${drama.poster_path}`}
-            alt={drama.title}
+            src={`${URL}${movie.poster_path}`}
+            alt={movie.title}
             style={{
               width: "100%",
               height: "100%",
