@@ -43,11 +43,11 @@ const Movies = () => {
     fetchPopularMovies();
   }, []);
 
-  const handlePopularButton = () => {
+  const handlePopularMovieButton = () => {
     fetchPopularMovies();
   };
 
-  const handleTopRatedButton = () => {
+  const handleTopRatedMovieButton = () => {
     fetchTopRatedMovies();
   };
 
@@ -63,8 +63,8 @@ const Movies = () => {
         <h1>Movies</h1>
 
         <div>
-          <button onClick={handlePopularButton}>POPULAR</button>
-          <button onClick={handleTopRatedButton}>TOP RATED</button>
+          <button onClick={handlePopularMovieButton}>POPULAR</button>
+          <button onClick={handleTopRatedMovieButton}>TOP RATED</button>
         </div>
       </div>
       <div
