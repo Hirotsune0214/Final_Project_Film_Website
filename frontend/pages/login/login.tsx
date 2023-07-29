@@ -7,8 +7,10 @@ import authApi from "../api/authApi";
 import { useNavigate } from "react-router-dom";
 import authUtils from "@/utils/authUtils";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const login: FC = () => {
+  const router = useRouter();
   // JWTがあった場合に遷移する
 
   // エラー時の表示
@@ -89,7 +91,7 @@ const login: FC = () => {
       const isAuth = await authUtils.isAuthenticated();
       // isAuthがtrueならメインページにリダイレクトするようにする
       if (isAuth) {
-        // navigate("/")
+        router.push("/");
       }
       checkAuth();
     };
