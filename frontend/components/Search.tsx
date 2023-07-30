@@ -6,6 +6,7 @@ interface films {
   id: string;
   poster_path: string;
   title: string;
+  profile_path: string;
 }
 
 const API_KEY = "bb46848237eacc0a36827f6639b47ee3";
@@ -15,31 +16,57 @@ const img = process.env.IMG;
 const Search = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-  const [movies, setMovies] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
-  const searchMovies = async () => {
+  const fetchSearchMovies = async () => {
     try {
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/movie?query=${searchValue}&api_key=${API_KEY}`
       );
 
-      if (response.data.results) {
-        setMovies(response.data.results);
-      }
+      console.log(response.data.results);
+      setSearchResults(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchSearchDramas = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/search/tv?query=${searchValue}&api_key=${API_KEY}`
+      );
+
+      setSearchResults(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchSearchPeople = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/search/person?query=${searchValue}&api_key=${API_KEY}`
+      );
+
+      // データの取得(+)
+      console.log(response.data.results);
+      setSearchResults(response.data.results);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    searchMovies();
+    fetchSearchMovies();
+    fetchSearchDramas();
+    fetchSearchPeople();
   }, [searchValue]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
-  console.log(setSearchValue);
 
   return (
     <div>
@@ -51,9 +78,9 @@ const Search = () => {
           gap: "10px",
         }}
       >
-        <button>MOVIE</button>
-        <button>TV</button>
-        <button>PEOPLE</button>
+        <button onClick={fetchSearchMovies}>MOVIE</button>
+        <button onClick={fetchSearchDramas}>TV</button>
+        <button onClick={fetchSearchPeople}>PEOPLE</button>
       </Box>
       <Box
         sx={{
@@ -82,13 +109,29 @@ const Search = () => {
               cursor: "pointer",
             }}
           >
-            {movies.map((movie: films) => (
-              <div key={movie.id}>
-                <img
-                  src={`${URL}${movie.poster_path}`}
-                  alt={movie.title}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
+            {searchResults.map((searchResult: films) => (
+              <div key={searchResult.id}>
+                {searchResult.poster_path ? (
+                  <img
+                    src={`${URL}${searchResult.poster_path}`}
+                    alt={searchResult.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={`${URL}${searchResult.profile_path}`}
+                    alt={searchResult.title}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                )}
               </div>
             ))}
           </div>
