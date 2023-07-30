@@ -10,8 +10,8 @@ interface films {
 }
 
 const API_KEY = "bb46848237eacc0a36827f6639b47ee3";
-// const SEARCH_KEY = process.env.SEARCH_MOVIES;
-// const img = process.env.IMG;
+const SEARCH_KEY = process.env.SEARCH_MOVIES;
+const img = process.env.IMG;
 
 const Search = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
