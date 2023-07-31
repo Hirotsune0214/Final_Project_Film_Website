@@ -35,15 +35,33 @@ const PopularMovies = () => {
   };
 
   const boxSX = {
-    "&:hover": {
-      transition: "all 0.3s ease 0s",
+    "&:hover .MuiBox-text": {
+      // Use .MuiBox-text for the text inside Box
+      opacity: 1,
+    },
+    "& img": {
       width: "100%",
       height: "100%",
+    },
+    "& .MuiBox-text": {
+      // Use .MuiBox-text for the text inside Box
       position: "absolute",
-      top: "0px",
-      left: "0px",
-      backgroundImage:
-        "linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))",
+      width: "100%",
+      height: "100%",
+      top: 0,
+      left: 0,
+      textAlign: "center",
+      color: "#fff",
+      backgroundColor: "rgba(0,0,0,0.6)",
+      transition: ".3s ease-in-out",
+      opacity: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      "& p": {
+        lineHeight: 1.8,
+      },
     },
   };
 
