@@ -26,7 +26,7 @@ const Posters = () => {
   return (
     <div>
       <h1>POSTERS</h1>
-      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+      {/* <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {posters.map((poster: any) => (
           <SwiperSlide key={poster.id}>
             <Box>
@@ -38,7 +38,7 @@ const Posters = () => {
             </Box>
           </SwiperSlide>
         ))}
-      </Swiper>
+      </Swiper> */}
     </div>
   );
 };

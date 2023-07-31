@@ -2,8 +2,8 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 
 import Header from "@/components/Header";
-import SingleMovieMain from "@/components/SingleMovieMain";
-import Videos from "@/components/Videos";
+import SingleMovieMain from "@/components/detailsOfSingleUnit/SingleMovieMain";
+import Videos from "@/components/detailsOfSingleUnit/Videos";
 import Recommend from "@/components/Recommend";
 import Movies from "@/components/Movies";
 

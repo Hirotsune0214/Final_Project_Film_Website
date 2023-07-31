@@ -4,13 +4,13 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 
-const LikesWatch = () => {
-  // いいねを保存するための状態変数
-  // TODO: 後ほどstateの初期値の値を変更する
-  const [like, setLike] = useState(10);
+const FavoriteWatch = () => {
+  // const [favorites, setFavorites] = useState([]);
+
+  // TODO: 後ほど削除
+  const [favorites, setFavorites] = useState(10);
   // 押されているかの判定
-  const [isLiked, setIsLiked] = useState(false);
-  const [favorites, setFavorites] = useState([]);
+  const [isfavorited, setIsFavorited] = useState(false);
 
   // TODO: ボタンの修正を行う
   const movieButton = {
@@ -25,33 +25,30 @@ const LikesWatch = () => {
     color: "red",
   };
 
-  const handleLike = () => {
+  const handleFavorites = () => {
     // isLikedがtrue(押されているなら)ならlikeをマイナス1して、false(押されているなら)likeをプラス1する
-    setLike(isLiked ? like - 1 : like + 1);
-    setIsLiked(!isLiked);
+    setFavorites(isfavorited ? favorites - 1 : favorites + 1);
+    setIsFavorited(!isfavorited);
   };
 
-  const handleFavorites = () => {
-    if (!favorites) {
-      // お気に入りに追加する
-      setFavorites((prevFavorites) => [...prevFavorites, movie]);
-    } else {
-      // お気に入りから削除
-      prevFavorites.filter(favorite.id !== movieButton.id);
-    }
-  };
+  // const handleFavorites = () => {
+  //   if (!favorites) {
+  //     // お気に入りに追加する
+  //     setFavorites((prevFavorites) => [...prevFavorites, movie]);
+  //   } else {
+  //     // お気に入りから削除
+  //     prevFavorites.filter(favorite.id !== movieButton.id);
+  //   }
+  // };
 
   return (
     <>
       <div>
-        {/* いいねボタンとして実装する */}
-        <ThumbUpAltIcon onClick={() => handleLike()} />
-        <span>{like}people gave likes</span>
-        {/* favoriteに変更する */}
         <FavoriteBorderOutlinedIcon
           sx={likesButton}
           onClick={() => handleFavorites()}
         />
+        <span>{favorites}people have added to their favorites</span>
         <Button sx={movieButton}>
           <PlayArrowIcon />
           WATCH NOW
@@ -61,4 +58,4 @@ const LikesWatch = () => {
   );
 };
 
-export default LikesWatch;
+export default FavoriteWatch;
