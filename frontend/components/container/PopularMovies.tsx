@@ -39,11 +39,11 @@ const PopularMovies = () => {
       // Use .MuiBox-text for the text inside Box
       opacity: 1,
     },
-    "& img": {
+    "& .img": {
       width: "100%",
       height: "100%",
     },
-    "& .MuiBox-text": {
+    "& .text": {
       // Use .MuiBox-text for the text inside Box
       position: "absolute",
       width: "100%",
@@ -85,6 +85,7 @@ const PopularMovies = () => {
               sx={boxSX}
             >
               <img
+                className="img"
                 style={{
                   width: "100%",
                   boxShadow: "0 12px 12px gray",
@@ -93,7 +94,7 @@ const PopularMovies = () => {
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
               />
-              <Box>
+              <Box className="text">
                 <div>{movie.vote_average}</div>
                 <div>{extractYearFromDate(movie.release_date)}</div>
                 <div>{movie.title}</div>
