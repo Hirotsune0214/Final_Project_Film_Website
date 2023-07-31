@@ -10,47 +10,20 @@ interface films {
 }
 
 const API_KEY = "bb46848237eacc0a36827f6639b47ee3";
-const SEARCH_KEY = process.env.SEARCH_MOVIES;
-const img = process.env.IMG;
 
 const Search = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
   const [searchResults, setSearchResults] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [category, setCategory] = useState("movie");
 
-  const fetchSearchMovies = async () => {
+  const fetchSearch = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?query=${searchValue}&api_key=${API_KEY}`
+        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&api_key=${API_KEY}`
       );
 
-      console.log(response.data.results);
-      setSearchResults(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchSearchDramas = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/tv?query=${searchValue}&api_key=${API_KEY}`
-      );
-
-      setSearchResults(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchSearchPeople = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/person?query=${searchValue}&api_key=${API_KEY}`
-      );
-
-      // データの取得(+)
       console.log(response.data.results);
       setSearchResults(response.data.results);
     } catch (error) {
@@ -59,9 +32,7 @@ const Search = () => {
   };
 
   useEffect(() => {
-    fetchSearchMovies();
-    fetchSearchDramas();
-    fetchSearchPeople();
+    fetchSearch();
   }, [searchValue]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,9 +49,9 @@ const Search = () => {
           gap: "10px",
         }}
       >
-        <button onClick={fetchSearchMovies}>MOVIE</button>
-        <button onClick={fetchSearchDramas}>TV</button>
-        <button onClick={fetchSearchPeople}>PEOPLE</button>
+        <button onClick={() => setCategory("movie")}>MOVIE</button>
+        <button onClick={() => setCategory("tv")}>TV</button>
+        <button onClick={() => setCategory("person")}>PEOPLE</button>
       </Box>
       <Box
         sx={{
