@@ -34,9 +34,11 @@ const PopularMovies = () => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
 
-  /*
   const boxSX = {
-    "&:hover .MuiBox-text": {
+    maxWidth: "500px",
+    margin: "0 auto",
+    position: "relative",
+    "&:hover .text": {
       opacity: 1,
     },
     "& .img": {
@@ -63,7 +65,6 @@ const PopularMovies = () => {
       },
     },
   };
-  */
 
   useEffect(() => {
     fetchMovies();
@@ -82,9 +83,10 @@ const PopularMovies = () => {
               onMouseLeave={() => {
                 setIshover(false);
               }}
-              // sx={boxSX}
+              sx={boxSX}
             >
               <img
+                className="img"
                 style={{
                   width: "100%",
                   boxShadow: "0 12px 12px gray",
@@ -93,7 +95,7 @@ const PopularMovies = () => {
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
               />
-              <Box>
+              <Box className="text">
                 <div>{movie.vote_average}</div>
                 <div>{extractYearFromDate(movie.release_date)}</div>
                 <div>{movie.title}</div>
