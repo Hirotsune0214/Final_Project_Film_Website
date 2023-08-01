@@ -21,7 +21,7 @@ const AuthLayout = () => {
     checkAuth();
   }, [router]);
 
-  return <div>AuthLayout</div>;
+  return <div></div>;
 };
 
 export default AuthLayout;

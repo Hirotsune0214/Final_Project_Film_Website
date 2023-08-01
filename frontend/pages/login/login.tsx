@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import authUtils from "@/utils/authUtils";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import AuthLayout from "@/src/layout/AuthLayout";
 
 const login: FC = () => {
   const router = useRouter();
@@ -101,43 +102,44 @@ const login: FC = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          background: "white",
-          height: "100vh",
-          component: "form",
-        }}
-        onSubmit={handleSubmit}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5" sx={{ color: "black" }}>
-          Login
-        </Typography>
-        {/* noValidateで、デフォルトで表示されるエラーを消してくれる */}
-        <Box component="form" noValidate sx={{ mt: 1 }} noValidate>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            // 下記2つが必要かわからない
-            autoComplete="username"
-            autoFocus
-            // helperTextの中に入れるとエラーを表示してくれる
-            helperText={usernameErrText}
-            // 空でなければエラーを出す。つまりエラーがあれば
-            error={usernameErrText !== ""}
-            disabled={loading}
-          />
-          {/* <TextField
+      <AuthLayout>
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            background: "white",
+            height: "100vh",
+            component: "form",
+          }}
+          onSubmit={handleSubmit}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5" sx={{ color: "black" }}>
+            Login
+          </Typography>
+          {/* noValidateで、デフォルトで表示されるエラーを消してくれる */}
+          <Box component="form" noValidate sx={{ mt: 1 }} noValidate>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              // 下記2つが必要かわからない
+              autoComplete="username"
+              autoFocus
+              // helperTextの中に入れるとエラーを表示してくれる
+              helperText={usernameErrText}
+              // 空でなければエラーを出す。つまりエラーがあれば
+              error={usernameErrText !== ""}
+              disabled={loading}
+            />
+            {/* <TextField
             margin="normal"
             required
             fullWidth
@@ -147,36 +149,37 @@ const login: FC = () => {
             autoComplete="email"
             autoFocus
           /> */}
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            helperText={passwordErrText}
-            // 空でなければエラーを出す。つまりエラーがあれば
-            error={passwordErrText !== ""}
-            disabled={loading}
-          />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              helperText={passwordErrText}
+              // 空でなければエラーを出す。つまりエラーがあれば
+              error={passwordErrText !== ""}
+              disabled={loading}
+            />
 
-          <LoadingButton
-            sx={{ mt: 3, mb: 2 }}
-            fullWidth
-            type="submit"
-            loading={loading}
-            color="primary"
-            variant="outlined"
-          >
-            LOGIN
-          </LoadingButton>
+            <LoadingButton
+              sx={{ mt: 3, mb: 2 }}
+              fullWidth
+              type="submit"
+              loading={loading}
+              color="primary"
+              variant="outlined"
+            >
+              LOGIN
+            </LoadingButton>
+          </Box>
+          {/* 位置を調整する */}
+          <Button>
+            <Link href="/signup/signup">Don't have an account? Sign Up</Link>
+          </Button>
         </Box>
-        {/* 位置を調整する */}
-        <Button>
-          <Link href="/signup/signup">Don't have an account? Sign Up</Link>
-        </Button>
-      </Box>
+      </AuthLayout>
     </>
   );
 };

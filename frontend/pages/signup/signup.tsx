@@ -6,6 +6,7 @@ import { LoadingButton } from "@mui/lab";
 import authApi from "../api/authApi";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import AuthLayout from "@/src/layout/AuthLayout";
 
 const signup: FC = () => {
   const router = useRouter();
@@ -100,43 +101,44 @@ const signup: FC = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          background: "white",
-          height: "100vh",
-          component: "form",
-        }}
-        onSubmit={handleSubmit}
-      >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5" sx={{ color: "black" }}>
-          Sign up
-        </Typography>
-        {/* noValidateで、デフォルトで表示されるエラーを消してくれる */}
-        <Box component="form" noValidate sx={{ mt: 1 }} noValidate>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            // 下記2つが必要かわからない
-            autoComplete="username"
-            autoFocus
-            // helperTextの中に入れるとエラーを表示してくれる
-            helperText={usernameErrText}
-            // 空でなければエラーを出す。つまりエラーがあれば
-            error={usernameErrText !== ""}
-            disabled={loading}
-          />
-          {/* <TextField
+      <AuthLayout>
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            background: "white",
+            height: "100vh",
+            component: "form",
+          }}
+          onSubmit={handleSubmit}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5" sx={{ color: "black" }}>
+            Sign up
+          </Typography>
+          {/* noValidateで、デフォルトで表示されるエラーを消してくれる */}
+          <Box component="form" noValidate sx={{ mt: 1 }} noValidate>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              // 下記2つが必要かわからない
+              autoComplete="username"
+              autoFocus
+              // helperTextの中に入れるとエラーを表示してくれる
+              helperText={usernameErrText}
+              // 空でなければエラーを出す。つまりエラーがあれば
+              error={usernameErrText !== ""}
+              disabled={loading}
+            />
+            {/* <TextField
             margin="normal"
             required
             fullWidth
@@ -146,48 +148,49 @@ const signup: FC = () => {
             autoComplete="email"
             autoFocus
           /> */}
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            helperText={passwordErrText}
-            // 空でなければエラーを出す。つまりエラーがあれば
-            error={passwordErrText !== ""}
-            disabled={loading}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="confirmPassword"
-            label="confirmPassword"
-            type="password"
-            id="confirmPassword"
-            helperText={confirmErrText}
-            // 空でなければエラーを出す。つまりエラーがあれば
-            error={confirmErrText !== ""}
-            disabled={loading}
-          />
-          <LoadingButton
-            sx={{ mt: 3, mb: 2 }}
-            fullWidth
-            type="submit"
-            loading={loading}
-            color="primary"
-            variant="outlined"
-          >
-            SIGN UP
-          </LoadingButton>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              helperText={passwordErrText}
+              // 空でなければエラーを出す。つまりエラーがあれば
+              error={passwordErrText !== ""}
+              disabled={loading}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="confirmPassword"
+              type="password"
+              id="confirmPassword"
+              helperText={confirmErrText}
+              // 空でなければエラーを出す。つまりエラーがあれば
+              error={confirmErrText !== ""}
+              disabled={loading}
+            />
+            <LoadingButton
+              sx={{ mt: 3, mb: 2 }}
+              fullWidth
+              type="submit"
+              loading={loading}
+              color="primary"
+              variant="outlined"
+            >
+              SIGN UP
+            </LoadingButton>
+          </Box>
+          {/* 位置を調整する */}
+          <Button>
+            <Link href="/login/login">Already have an account? LOGIN</Link>
+          </Button>
         </Box>
-        {/* 位置を調整する */}
-        <Button>
-          <Link href="/login/login">Already have an account? LOGIN</Link>
-        </Button>
-      </Box>
+      </AuthLayout>
     </>
   );
 };
