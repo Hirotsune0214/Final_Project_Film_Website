@@ -35,15 +35,34 @@ const PopularMovies = () => {
   };
 
   const boxSX = {
-    "&:hover": {
-      transition: "all 0.3s ease 0s",
+    maxWidth: "500px",
+    margin: "0 auto",
+    position: "relative",
+    "&:hover .text": {
+      opacity: 1,
+    },
+    "& .img": {
       width: "100%",
       height: "100%",
+    },
+    "& .text": {
       position: "absolute",
-      top: "0px",
-      left: "0px",
-      backgroundImage:
-        "linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))",
+      width: "100%",
+      height: "100%",
+      top: 0,
+      left: 0,
+      textAlign: "center",
+      color: "#fff",
+      backgroundColor: "rgba(0,0,0,0.6)",
+      transition: ".3s ease-in-out",
+      opacity: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      "& p": {
+        lineHeight: 1.8,
+      },
     },
   };
 
@@ -67,6 +86,7 @@ const PopularMovies = () => {
               sx={boxSX}
             >
               <img
+                className="img"
                 style={{
                   width: "100%",
                   boxShadow: "0 12px 12px gray",
@@ -75,7 +95,7 @@ const PopularMovies = () => {
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
               />
-              <Box>
+              <Box className="text">
                 <div>{movie.vote_average}</div>
                 <div>{extractYearFromDate(movie.release_date)}</div>
                 <div>{movie.title}</div>
