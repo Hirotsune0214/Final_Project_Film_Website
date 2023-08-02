@@ -89,6 +89,7 @@ const PopularMSeries = () => {
                 className="img"
                 style={{
                   width: "100%",
+                  height: "70vh",
                   boxShadow: "0 12px 12px gray",
                   transition: "box-shadow .5s",
                 }}
