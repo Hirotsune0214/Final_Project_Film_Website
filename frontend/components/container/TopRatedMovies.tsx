@@ -16,6 +16,7 @@ const TopRatedMovies = () => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
+  const [ishover, setIshover] = useState(false);
 
   const fetchMovies = async () => {
     try {
@@ -33,7 +34,35 @@ const TopRatedMovies = () => {
   };
 
   const boxSX = {
-    "&:hover": {},
+    maxWidth: "500px",
+    margin: "0 auto",
+    position: "relative",
+    "&:hover .text": {
+      opacity: 1,
+    },
+    "& .img": {
+      width: "100%",
+      height: "100%",
+    },
+    "& .text": {
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      top: 0,
+      left: 0,
+      textAlign: "center",
+      color: "#fff",
+      backgroundColor: "rgba(0,0,0,0.6)",
+      transition: ".3s ease-in-out",
+      opacity: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      "& p": {
+        lineHeight: 1.8,
+      },
+    },
   };
 
   useEffect(() => {
@@ -46,16 +75,30 @@ const TopRatedMovies = () => {
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
-            <Box sx={boxSX}>
+            <Box
+              onMouseEnter={() => {
+                setIshover(true);
+              }}
+              onMouseLeave={() => {
+                setIshover(false);
+              }}
+              sx={boxSX}
+            >
               <img
-                style={{ width: "100%" }}
+                className="img"
+                style={{
+                  width: "100%",
+                  boxShadow: "0 12px 12px gray",
+                  transition: "box-shadow .5s",
+                }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
               />
-
-              <div>{movie.vote_average}</div>
-              <div>{extractYearFromDate(movie.release_date)}</div>
-              <div>{movie.title}</div>
+              <Box className="text">
+                <div>{movie.vote_average}</div>
+                <div>{extractYearFromDate(movie.release_date)}</div>
+                <div>{movie.title}</div>
+              </Box>
             </Box>
           </SwiperSlide>
         ))}

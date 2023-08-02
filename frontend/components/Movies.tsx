@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Box } from "@mui/material";
 
 // interfaceを使い回して良いのか
 interface SeriesData {
@@ -16,6 +17,7 @@ const Movies = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
   const [dramas, setDramas] = useState<SeriesData[]>([]);
+  const [ishover, setIshover] = useState(false);
 
   const fetchDramas = async () => {
     try {
@@ -26,6 +28,42 @@ const Movies = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  };
+
+  const boxSX = {
+    maxWidth: "500px",
+    margin: "0 auto",
+    position: "relative",
+    "&:hover .text": {
+      opacity: 1,
+    },
+    "& .img": {
+      width: "100%",
+      height: "100%",
+    },
+    "& .text": {
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      top: 0,
+      left: 0,
+      textAlign: "center",
+      color: "#fff",
+      backgroundColor: "rgba(0,0,0,0.6)",
+      transition: ".3s ease-in-out",
+      opacity: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      "& p": {
+        lineHeight: 1.8,
+      },
+    },
   };
 
   useEffect(() => {
@@ -60,15 +98,31 @@ const Movies = () => {
         }}
       >
         {dramas.map((drama: SeriesData) => (
-          <img
-            src={`${URL}${drama.poster_path}`}
-            alt={drama.title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
+          <Box
+            onMouseEnter={() => {
+              setIshover(true);
             }}
-          />
+            onMouseLeave={() => {
+              setIshover(false);
+            }}
+            sx={boxSX}
+            key={drama.id}
+          >
+            <img
+              src={`${URL}${drama.poster_path}`}
+              alt={drama.title}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+            <Box className="text">
+              <div>{drama.title}</div>
+              <div>{extractYearFromDate(drama.release_date)}</div>
+              <div>{drama.vote_average}</div>
+            </Box>
+          </Box>
         ))}
       </div>
     </div>

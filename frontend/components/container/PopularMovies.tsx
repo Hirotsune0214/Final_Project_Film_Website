@@ -15,7 +15,6 @@ const PopularMovies = () => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
-  // hoverされたら発火するようにする
   const [ishover, setIshover] = useState(false);
 
   const fetchMovies = async () => {
