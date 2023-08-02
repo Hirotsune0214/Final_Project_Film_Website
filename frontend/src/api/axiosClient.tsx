@@ -21,6 +21,8 @@ axiosClient.interceptors.request.use(async (config) => {
 axiosClient.interceptors.response.use(
   (response) => {
     return response;
+    // tokenがundefinedの場合は、下記に書き換える
+    //return response.data;
   },
   (err) => {
     throw err.response;

@@ -5,8 +5,11 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import authApi from "../api/authApi";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const signup: FC = () => {
+  const router = useRouter();
+
   // エラー時の表示
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
@@ -73,6 +76,7 @@ const signup: FC = () => {
       // 成功したらtokenの名称でローカルストレージに保存する
       localStorage.setItem("token", res.token);
       console.log("新規登録");
+      router.push("/");
     } catch (err) {
       const errors = err.data.errors;
       console.log(errors);

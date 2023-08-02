@@ -9,28 +9,28 @@ interface films {
   release_date: string;
   backdrop_path: "string";
   vote_average: number;
+
 }
 
 const API_KEY = "bb46848237eacc0a36827f6639b47ee3";
-const SEARCH_KEY = process.env.SEARCH_MOVIES;
-const img = process.env.IMG;
 
 const Search = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-  const [movies, setMovies] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+
   const [ishover, setIshover] = useState(false);
 
-  const searchMovies = async () => {
+
+  const fetchSearch = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?query=${searchValue}&api_key=${API_KEY}`
+        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&api_key=${API_KEY}`
       );
 
-      if (response.data.results) {
-        setMovies(response.data.results);
-      }
+      console.log(response.data.results);
+      setSearchResults(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -73,13 +73,12 @@ const Search = () => {
   };
 
   useEffect(() => {
-    searchMovies();
+    fetchSearch();
   }, [searchValue]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
-  console.log(setSearchValue);
 
   return (
     <div>
@@ -91,9 +90,9 @@ const Search = () => {
           gap: "10px",
         }}
       >
-        <button>MOVIE</button>
-        <button>TV</button>
-        <button>PEOPLE</button>
+        <button onClick={() => setCategory("movie")}>MOVIE</button>
+        <button onClick={() => setCategory("tv")}>TV</button>
+        <button onClick={() => setCategory("person")}>PEOPLE</button>
       </Box>
       <Box
         sx={{
@@ -122,6 +121,7 @@ const Search = () => {
               cursor: "pointer",
             }}
           >
+
             {movies.map((movie: films) => (
               <Box
                 onMouseEnter={() => {
@@ -144,6 +144,10 @@ const Search = () => {
                   <div>{movie.vote_average}</div>
                 </Box>
               </Box>
+
+                  />
+                )}
+              </div>
             ))}
           </div>
         </div>

@@ -25,7 +25,8 @@ const tokenDecode = (req) => {
 exports.verifyToken = async (req, res, next) => {
   const tokenDecoded = tokenDecode(req);
   if (tokenDecoded) {
-    // そのJWTと一致するユーザーを探してくる
+    // tokenが存在すれば、そのJWTと一致するユーザーを探してくる
+    // newUserモデルからユーザーを探してくる
     const user = await newUser.findById(tokenDecoded.id);
     // ユーザーが存在しない場合の処理
     if (!user) {
@@ -35,6 +36,7 @@ exports.verifyToken = async (req, res, next) => {
     req.user = user;
     next();
   } else {
+    // JWTが存在しない場合のエラー判定
     return res.status(401).json("Not authorized");
   }
 };

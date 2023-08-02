@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
 
-// interfaceを使い回して良いのか
-interface SeriesData {
+// TODO: リファクタリンで、type.tsに移動させる
+interface MoviesData {
   id: string;
   poster_path: string;
   title: string;
@@ -16,15 +16,27 @@ interface SeriesData {
 const Movies = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
+
   const [dramas, setDramas] = useState<SeriesData[]>([]);
   const [ishover, setIshover] = useState(false);
 
-  const fetchDramas = async () => {
+  const fetchPopularMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/movie/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
-      setDramas(response.data.results);
+      setMovies(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchTopRatedMovies = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.themoviedb.org/3/movie/top_rated?api_key=bb46848237eacc0a36827f6639b47ee3"
+      );
+      setMovies(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -67,10 +79,16 @@ const Movies = () => {
   };
 
   useEffect(() => {
-    fetchDramas();
+    fetchPopularMovies();
   }, []);
 
-  console.log(dramas);
+  const handlePopularMovieButton = () => {
+    fetchPopularMovies();
+  };
+
+  const handleTopRatedMovieButton = () => {
+    fetchTopRatedMovies();
+  };
 
   return (
     <div style={{ display: "block", padding: "16px" }}>
@@ -84,8 +102,8 @@ const Movies = () => {
         <h1>Movies</h1>
 
         <div>
-          <button>POPULAR</button>
-          <button>TOP RATED</button>
+          <button onClick={handlePopularMovieButton}>POPULAR</button>
+          <button onClick={handleTopRatedMovieButton}>TOP RATED</button>
         </div>
       </div>
       <div
@@ -104,6 +122,7 @@ const Movies = () => {
             }}
             onMouseLeave={() => {
               setIshover(false);
+
             }}
             sx={boxSX}
             key={drama.id}

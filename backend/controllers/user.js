@@ -58,13 +58,12 @@ exports.login = async (req, res) => {
     // descryptedPasswordが入力されたパスワードと合っていない場合エラーになる
     if (descryptedPassword !== password) {
       return res.status(401).json({
-
-        // errorsの後に[]を付けていなかったのでエラーの可能性
-        errors: {
-          param: "password",
-          message: "Invalid password",
-        },
-
+        errors: [
+          {
+            param: "password",
+            msg: "Invalid password",
+          },
+        ],
       });
     }
 
@@ -73,6 +72,7 @@ exports.login = async (req, res) => {
       expiresIn: "24h",
     });
 
+    // リクエストが成功したら、userとtokenを返す
     return res.status(201).json({ user, token });
   } catch (err) {
     return res.status(500).json(err);
