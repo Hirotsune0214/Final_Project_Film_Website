@@ -1,4 +1,5 @@
 import Dramas from "@/components/Dramas";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MainImageDramas from "@/components/MainImageDramas";
 
@@ -10,6 +11,7 @@ const dramas = () => {
       <Header />
       <MainImageDramas />
       <Dramas />
+      <Footer />
     </div>
   );
 };
