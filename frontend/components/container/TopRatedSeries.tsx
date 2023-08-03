@@ -7,9 +7,9 @@ import { Box } from "@mui/material";
 interface films {
   id: string;
   poster_path: string;
-  title: string;
+  original_name: string;
   vote_average: number;
-  release_date: string;
+  first_air_date: string;
 }
 
 const TopRatedSeries = () => {
@@ -29,9 +29,9 @@ const TopRatedSeries = () => {
     }
   };
 
-  // const extractYearFromDate = (dateString: string): string => {
-  //   return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  // };
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  };
 
   const boxSX = {
     maxWidth: "500px",
@@ -87,16 +87,17 @@ const TopRatedSeries = () => {
                 className="img"
                 style={{
                   width: "100%",
+                  height: "70vh",
                   boxShadow: "0 12px 12px gray",
                   transition: "box-shadow .5s",
                 }}
                 src={`${URL}${movie.poster_path}`}
-                alt={movie.title}
+                alt={movie.original_name}
               />
               <Box className="text">
                 <div>{movie.vote_average}</div>
-                {/* <div>{extractYearFromDate(movie.release_date)}</div> */}
-                <div>{movie.title}</div>
+                <div>{extractYearFromDate(movie.first_air_date)}</div>
+                <div>{movie.original_name}</div>
               </Box>
             </Box>
           </SwiperSlide>

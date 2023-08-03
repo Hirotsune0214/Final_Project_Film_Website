@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 interface films {
   id: string;
@@ -20,10 +21,9 @@ const PopularMovies = () => {
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
+        "https://api.themoviedb.org/3/movie/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setMovies(response.data.results);
-      // console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -37,12 +37,20 @@ const PopularMovies = () => {
     maxWidth: "500px",
     margin: "0 auto",
     position: "relative",
+    cursor: "pointer",
+    background: "cover",
     "&:hover .text": {
       opacity: 1,
+    },
+    "&:hover .img": {
+      boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3)",
+      transform: "translate(0, -15px)",
+      opacity: "1",
     },
     "& .img": {
       width: "100%",
       height: "100%",
+      transition: "transform 0.2",
     },
     "& .text": {
       position: "absolute",
@@ -59,9 +67,6 @@ const PopularMovies = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      "& p": {
-        lineHeight: 1.8,
-      },
     },
   };
 
@@ -88,6 +93,8 @@ const PopularMovies = () => {
                 className="img"
                 style={{
                   width: "100%",
+                  // TODO: heightは、65-70vh
+                  height: "70vh",
                   boxShadow: "0 12px 12px gray",
                   transition: "box-shadow .5s",
                 }}
