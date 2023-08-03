@@ -8,9 +8,9 @@ import { Box } from "@mui/material";
 interface films {
   id: string;
   poster_path: string;
-  title: string;
+  original_name: string;
   vote_average: number;
-  release_date: string;
+  first_air_date: string;
 }
 
 const PopularMSeries = () => {
@@ -24,15 +24,16 @@ const PopularMSeries = () => {
       const response = await axios.get(
         "https://api.themoviedb.org/3/tv/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
+      console.log(response.data.results);
       setMovies(response.data.results);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const extractYearFromDate = (dateString: string): string => {
-  //   return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  // };
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  };
 
   const boxSX = {
     maxWidth: "500px",
@@ -94,12 +95,12 @@ const PopularMSeries = () => {
                   transition: "box-shadow .5s",
                 }}
                 src={`${URL}${movie.poster_path}`}
-                alt={movie.title}
+                alt={movie.original_name}
               />
               <Box className="text">
                 <div>{movie.vote_average}</div>
-                {/* <div>{extractYearFromDate(movie.release_date)}</div> */}
-                <div>{movie.title}</div>
+                <div>{extractYearFromDate(movie.first_air_date)}</div>
+                <div>{movie.original_name}</div>
               </Box>
             </Box>
           </SwiperSlide>
