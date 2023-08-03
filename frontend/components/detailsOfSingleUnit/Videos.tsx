@@ -30,22 +30,7 @@ const Videos = () => {
     fetchVideos();
   }, []);
 
-  return (
-    <div>
-      {videos.map((video: MoviesData) => (
-        <div key={video.id}>
-          <img
-            src={`https://image.tmdb.org/t/p/w500${video.poster_path}`}
-            alt={video.title}
-            style={{ width: "200px", height: "300px", objectFit: "cover" }}
-          />
-          <h2>{video.title}</h2>
-          <p>Release Date: {video.release_date}</p>
-          <p>Vote Average: {video.vote_average}</p>
-        </div>
-      ))}
-    </div>
-  );
+  return <h2>VIodes</h2>;
 };
 
 export default Videos;

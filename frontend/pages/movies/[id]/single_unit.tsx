@@ -1,7 +1,6 @@
 import BackDrops from "@/components/detailsOfSingleUnit/BackDrops";
 import Posters from "@/components/detailsOfSingleUnit/Posters";
 import Reviews from "@/components/detailsOfSingleUnit/Reviews";
-import Videos from "@/components/detailsOfSingleUnit/Videos";
 import LeftSidePicMain from "@/components/detailsOfSingleUnit/LeftSidePicMain";
 import React from "react";
 import Header from "@/components/Header";
@@ -9,6 +8,8 @@ import SingleUnitMainImage from "@/components/detailsOfSingleUnit/SingleUnitMain
 import RightSideDetailMain from "@/components/detailsOfSingleUnit/RightSideDetailMain";
 import FavoriteWatch from "@/components/detailsOfSingleUnit/FavoriteWatch";
 import CastList from "@/components/detailsOfSingleUnit/CastList";
+import Videos from "@/components/detailsOfSingleUnit/Videos";
+import Recommend from "@/components/Recommend";
 
 const single_unit = () => {
   return (
@@ -23,6 +24,7 @@ const single_unit = () => {
       <BackDrops />
       <Posters />
       <Reviews />
+      <Recommend />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const Posters = () => {
   const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
@@ -26,7 +27,7 @@ const Posters = () => {
   return (
     <div>
       <h1>POSTERS</h1>
-      {/* <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {posters.map((poster: any) => (
           <SwiperSlide key={poster.id}>
             <Box>
@@ -38,7 +39,7 @@ const Posters = () => {
             </Box>
           </SwiperSlide>
         ))}
-      </Swiper> */}
+      </Swiper>
     </div>
   );
 };
