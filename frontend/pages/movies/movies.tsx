@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MainImageMovies from "@/components/MainImageMovies";
 import Movies from "@/components/Movies";
@@ -9,6 +10,7 @@ const movies = () => {
       <Header />
       <MainImageMovies />
       <Movies />
+      <Footer />
     </div>
   );
 };
