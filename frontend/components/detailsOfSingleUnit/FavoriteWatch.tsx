@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -16,13 +16,17 @@ const FavoriteWatch = () => {
   const movieButton = {
     backgroundColor: "red",
     color: "white",
-    display: "flex",
     textAlign: "center",
     gap: "10px",
   };
 
-  const likesButton = {
+  const favoriteButton = {
     color: "red",
+  };
+
+  const favoriteContainer = {
+    display: "flex",
+    gap: "10px",
   };
 
   const handleFavorites = () => {
@@ -31,21 +35,11 @@ const FavoriteWatch = () => {
     setIsFavorited(!isfavorited);
   };
 
-  // const handleFavorites = () => {
-  //   if (!favorites) {
-  //     // お気に入りに追加する
-  //     setFavorites((prevFavorites) => [...prevFavorites, movie]);
-  //   } else {
-  //     // お気に入りから削除
-  //     prevFavorites.filter(favorite.id !== movieButton.id);
-  //   }
-  // };
-
   return (
     <>
-      <div>
+      <Box sx={favoriteContainer}>
         <FavoriteBorderOutlinedIcon
-          sx={likesButton}
+          sx={favoriteButton}
           onClick={() => handleFavorites()}
         />
         <span>{favorites}people have added to their favorites</span>
@@ -53,7 +47,7 @@ const FavoriteWatch = () => {
           <PlayArrowIcon />
           WATCH NOW
         </Button>
-      </div>
+      </Box>
     </>
   );
 };

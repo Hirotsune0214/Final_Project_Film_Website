@@ -1,18 +1,24 @@
 import BackDrops from "@/components/detailsOfSingleUnit/BackDrops";
-import LeftSidePicMain from "@/components/detailsOfSingleUnit/LeftSidePicMain";
-import LikesWatch from "@/components/detailsOfSingleUnit/FavoriteWatch";
 import Posters from "@/components/detailsOfSingleUnit/Posters";
 import Reviews from "@/components/detailsOfSingleUnit/Reviews";
-import SingleMovieDetails from "@/components/detailsOfSingleUnit/SingleMovieDetails";
 import Videos from "@/components/detailsOfSingleUnit/Videos";
+import LeftSidePicMain from "@/components/detailsOfSingleUnit/LeftSidePicMain";
 import React from "react";
+import Header from "@/components/Header";
+import SingleUnitMainImage from "@/components/detailsOfSingleUnit/SingleUnitMainImage";
+import RightSideDetailMain from "@/components/detailsOfSingleUnit/RightSideDetailMain";
+import FavoriteWatch from "@/components/detailsOfSingleUnit/FavoriteWatch";
+import CastList from "@/components/detailsOfSingleUnit/CastList";
 
 const single_unit = () => {
   return (
     <div>
+      <Header />
+      <SingleUnitMainImage />
       <LeftSidePicMain />
-      <SingleMovieDetails />
-      <LikesWatch />
+      <RightSideDetailMain />
+      <FavoriteWatch />
+      <CastList />
       <Videos />
       <BackDrops />
       <Posters />

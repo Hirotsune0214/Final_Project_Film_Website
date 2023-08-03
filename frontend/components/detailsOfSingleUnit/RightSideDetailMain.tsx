@@ -12,17 +12,17 @@ interface films {
   backdrop_path: "string";
 }
 
-const PopularMovies = () => {
+const RightSideDetailMain = () => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
-  const [movie, setMovie] = useState<films[]>([]);
+  const [movies, setMovies] = useState<films[]>([]);
 
   const fetchMovie = async () => {
     try {
       const response = await axios.get(
         "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
-      setMovie(response.data.results);
+      setMovies(response.data.results);
       console.log(response.data.results);
     } catch (error) {
       console.log(error);
@@ -33,22 +33,18 @@ const PopularMovies = () => {
     fetchMovie();
   }, []);
 
-  // 最初の映画のURLを取得
-  const firstMovieURL =
-    movie.length > 0 ? `${URL}${movie[0].backdrop_path}` : "";
-
   return (
     <div>
-      <div
-        style={{
-          backgroundImage: `url(${firstMovieURL})`,
-          backgroundSize: "cover",
-          height: "400px",
-          width: "400px",
-        }}
-      ></div>
+      {/* {movies.map((movie) => (
+        <div key={movie.id}>
+          <h2>{movie.title}</h2>
+          <p>Original Title: {movie.original_title}</p>
+          <p>Release Date: {movie.release_date}</p>
+          <p>Vote Average: {movie.vote_average}</p>
+        </div>
+      ))} */}
     </div>
   );
 };
 
-export default PopularMovies;
+export default RightSideDetailMain;

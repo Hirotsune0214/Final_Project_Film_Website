@@ -49,7 +49,6 @@ const MainImageMovies = () => {
             <div
               style={{
                 backgroundImage: `URL(${URL}${drama.backdrop_path})`,
-
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 height: "100vh",
