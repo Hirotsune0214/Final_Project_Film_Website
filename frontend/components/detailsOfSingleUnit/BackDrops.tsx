@@ -3,9 +3,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+import { Navigation } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 
 const BackDrops = () => {
-  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
+  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
 
   const [backdrops, serBackDrops] = useState([]);
 
@@ -27,13 +32,32 @@ const BackDrops = () => {
   return (
     <div>
       <h1>BACK DROPS</h1>
-      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+      <Swiper
+        slidesPerView={1}
+        grabCursor={true}
+        direction="horizontal"
+        navigation={true}
+        modules={[Navigation, Pagination]}
+        pagination={{
+          dynamicBullets: true,
+        }}
+      >
         {backdrops.map((backdrop: any) => (
           <SwiperSlide key={backdrop.id}>
-            <Box>
+            <Box
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "400px",
+              }}
+            >
               <img
-                style={{ width: "100%" }}
-                src={`${URL}${backdrop.poster_path}`}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                }}
+                src={`${URL}${backdrop.backdrop_path}`}
                 alt={backdrop.title}
               />
             </Box>
