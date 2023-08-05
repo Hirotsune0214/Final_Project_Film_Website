@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { FC, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -97,8 +98,14 @@ const signup: FC = () => {
       setLoading(false);
     }
   };
+=======
+import React from "react";
+import Signup from "@/components/Signup";
+import WithAuth from "@/components/WithAuth";
+>>>>>>> Stashed changes
 
   return (
+<<<<<<< Updated upstream
     <>
       <Box
         sx={{
@@ -189,6 +196,11 @@ const signup: FC = () => {
         </Button>
       </Box>
     </>
+=======
+    <WithAuth>
+      <Signup />
+    </WithAuth>
+>>>>>>> Stashed changes
   );
 };
 

@@ -68,6 +68,9 @@ const Search = () => {
     setSearchValue(e.target.value);
   };
 
+  const isActive = {
+    // css
+  }
   return (
     <div>
       <Box
@@ -78,9 +81,16 @@ const Search = () => {
           gap: "10px",
         }}
       >
+<<<<<<< Updated upstream
         <button onClick={fetchSearchMovies}>MOVIE</button>
         <button onClick={fetchSearchDramas}>TV</button>
         <button onClick={fetchSearchPeople}>PEOPLE</button>
+=======
+
+        <button onClick={() => setCategory("movie")}>MOVIE</button>
+        <button onClick={() => setCategory("tv")}>TV</button>
+        <button onClick={() => setCategory("person")}>PEOPLE</button>
+>>>>>>> Stashed changes
       </Box>
       <Box
         sx={{
