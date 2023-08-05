@@ -24,11 +24,6 @@ export default function Home() {
       <Header />
       <MainImage />
       <Content />
-      {/* <SingleMovieMain />
-      <Recommend />
-      <Videos />
-      <Movies /> */}
-      {/* <Search /> */}
     </>
   );
 }

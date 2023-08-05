@@ -186,7 +186,7 @@ const signup: FC = () => {
         </Box>
         {/* 位置を調整する */}
         <Button>
-          <Link href="/login/login">Already have an account? LOGIN</Link>
+          <Link href="/login">Already have an account? LOGIN</Link>
         </Button>
       </Box>
     </>
