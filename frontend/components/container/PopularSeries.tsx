@@ -39,12 +39,19 @@ const PopularMSeries = () => {
     maxWidth: "500px",
     margin: "0 auto",
     position: "relative",
+    cursor: "pointer",
+    background: "cover",
     "&:hover .text": {
       opacity: 1,
+    },
+    "&:hover .img": {
+      transform: "scale(1.1)",
+      opacity: "1",
     },
     "& .img": {
       width: "100%",
       height: "100%",
+      transition: "transform 0.2",
     },
     "& .text": {
       position: "absolute",
@@ -61,9 +68,6 @@ const PopularMSeries = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      "& p": {
-        lineHeight: 1.8,
-      },
     },
   };
 
@@ -74,7 +78,12 @@ const PopularMSeries = () => {
   return (
     <div>
       <h1>POPULAR SERIES</h1>
-      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+      <Swiper
+        slidesPerView={4}
+        grabCursor={true}
+        direction="horizontal"
+        spaceBetween={15}
+      >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <Box

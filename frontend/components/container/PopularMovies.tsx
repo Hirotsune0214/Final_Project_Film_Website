@@ -43,8 +43,7 @@ const PopularMovies = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3)",
-      transform: "translate(0, -15px)",
+      transform: "scale(1.1)",
       opacity: "1",
     },
     "& .img": {
@@ -77,7 +76,12 @@ const PopularMovies = () => {
   return (
     <div>
       <h1>POPULAR MOVIES</h1>
-      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+      <Swiper
+        slidesPerView={4}
+        grabCursor={true}
+        direction="horizontal"
+        spaceBetween={15}
+      >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <Box
@@ -95,8 +99,6 @@ const PopularMovies = () => {
                   width: "100%",
                   // TODO: heightは、65-70vh
                   height: "70vh",
-                  boxShadow: "0 12px 12px gray",
-                  transition: "box-shadow .5s",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
