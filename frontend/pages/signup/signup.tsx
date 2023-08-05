@@ -1,11 +1,12 @@
 import React from "react";
 import Signup from "@/components/Signup";
+import WithAuth from "@/components/WithAuth";
 
 const signup = () => {
   return (
-    <div>
+    <WithAuth>
       <Signup />
-    </div>
+    </WithAuth>
   );
 };
 
