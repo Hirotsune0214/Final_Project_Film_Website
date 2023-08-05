@@ -1,36 +1,45 @@
-import React from "react";
+import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Link from "next/link";
 
-const Footer: () => React.JSX.Element = () => {
+const Footer = () => {
   return (
-    <Box
-      sx={{
-        bgcolor: "#131313",
-        color: "#ffffff",
-        py: 3,
-        px: 3,
-        position: "fixed",
-        bottom: 0,
-        width: "100%",
-        height: "70px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
-      <Typography variant="h4">Title</Typography>
+    <Box>
       <Box
+        component="footer" // footer要素としてマークアップ
         sx={{
+          bgcolor: "#131313",
+          color: "#ffffff",
+          padding: "32px",
+          height: "70px",
           display: "flex",
-          gap: "15px",
-          mr: "40px",
+          alignItems: "center",
+          justifyContent: "space-between",
+          top: "auto", // topプロパティを指定しないことで、通常の流れに従って表示されるようにする
+          bottom: 0,
+          marginTop: "100px",
         }}
       >
-        <Typography>HOME</Typography>
-        <Typography>MOVIES</Typography>
-        <Typography>TV SERIES</Typography>
-        <Typography>SEARCH</Typography>
+        <Typography variant="h4">Title</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "15px",
+            mr: "40px",
+          }}
+        >
+          <Typography>
+            <Link href="/">HOME</Link>
+          </Typography>
+          <Typography>
+            <Link href="/movies/movies">MOVIES</Link>
+          </Typography>
+          <Typography>
+            <Link href="/dramas/dramas">TV SERIES</Link>
+          </Typography>
+          <Link href="/search/search">SEARCH</Link>
+        </Box>
       </Box>
     </Box>
   );

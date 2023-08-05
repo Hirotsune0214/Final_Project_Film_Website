@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function Header() {
   return (
     <Box>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Box
           sx={{
             display: "flex",

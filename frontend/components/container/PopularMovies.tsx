@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 interface films {
   id: string;
@@ -15,16 +16,14 @@ const PopularMovies = () => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [movies, setMovies] = useState([]);
-  // hoverされたら発火するようにする
   const [ishover, setIshover] = useState(false);
 
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=bb46848237eacc0a36827f6639b47ee3&language=en-US&region=US&page=1"
+        "https://api.themoviedb.org/3/movie/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setMovies(response.data.results);
-      // console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -35,15 +34,38 @@ const PopularMovies = () => {
   };
 
   const boxSX = {
-    "&:hover": {
-      transition: "all 0.3s ease 0s",
+    maxWidth: "500px",
+    margin: "0 auto",
+    position: "relative",
+    cursor: "pointer",
+    background: "cover",
+    "&:hover .text": {
+      opacity: 1,
+    },
+    "&:hover .img": {
+      transform: "scale(1.1)",
+      opacity: "1",
+    },
+    "& .img": {
       width: "100%",
       height: "100%",
+      transition: "transform 0.2",
+    },
+    "& .text": {
       position: "absolute",
-      top: "0px",
-      left: "0px",
-      backgroundImage:
-        "linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0))",
+      width: "100%",
+      height: "100%",
+      top: 0,
+      left: 0,
+      textAlign: "center",
+      color: "#fff",
+      backgroundColor: "rgba(0,0,0,0.6)",
+      transition: ".3s ease-in-out",
+      opacity: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
     },
   };
 
@@ -54,7 +76,12 @@ const PopularMovies = () => {
   return (
     <div>
       <h1>POPULAR MOVIES</h1>
-      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+      <Swiper
+        slidesPerView={4}
+        grabCursor={true}
+        direction="horizontal"
+        spaceBetween={15}
+      >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <Box
@@ -67,15 +94,16 @@ const PopularMovies = () => {
               sx={boxSX}
             >
               <img
+                className="img"
                 style={{
                   width: "100%",
-                  boxShadow: "0 12px 12px gray",
-                  transition: "box-shadow .5s",
+                  // TODO: heightは、65-70vh
+                  height: "70vh",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
               />
-              <Box>
+              <Box className="text">
                 <div>{movie.vote_average}</div>
                 <div>{extractYearFromDate(movie.release_date)}</div>
                 <div>{movie.title}</div>
