@@ -1,14 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Box } from "@mui/material";
 
 interface MoviesData {
   id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
-  vote_average: number;
-  backdrop_path: "string";
+  key: string;
+  name: string;
 }
 
 const Videos = () => {
@@ -17,7 +16,7 @@ const Videos = () => {
   const fetchVideos = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/tv/series_id/videos?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/movie/346698/videos?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setVideos(response.data.results);
       console.log(response.data.results);
@@ -30,7 +29,31 @@ const Videos = () => {
     fetchVideos();
   }, []);
 
-  return <h2>VIodes</h2>;
+  return (
+    <div>
+      <h1>VIDEOS</h1>
+      <Swiper slidesPerView={1} grabCursor={true} direction="horizontal">
+        {videos.map((video: MoviesData) => (
+          <SwiperSlide key={video.id}>
+            <Box>
+              <img
+                style={{
+                  maxWidth: "100%",
+                  height: "100vh",
+                }}
+                // TODO: youtubeは、5枚ぐらいの表示になるから現状ではおかしい
+                src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
+                alt={video.name}
+              />
+              <Box>
+                <div>{video.name}</div>
+              </Box>
+            </Box>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
 };
 
 export default Videos;

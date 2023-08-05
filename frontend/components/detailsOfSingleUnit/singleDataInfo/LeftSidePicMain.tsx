@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import RightSideDetailMain from "./RightSideDetailMain";
 
 // interfaceを使い回して良いのか
 interface films {
@@ -12,8 +13,8 @@ interface films {
   backdrop_path: "string";
 }
 
-const PopularMovies = () => {
-  const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
+const LeftSidePicMain = () => {
+  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
 
   const [movie, setMovie] = useState<films[]>([]);
 
@@ -34,8 +35,7 @@ const PopularMovies = () => {
   }, []);
 
   // 最初の映画のURLを取得
-  const firstMovieURL =
-    movie.length > 0 ? `${URL}${movie[0].backdrop_path}` : "";
+  const firstMovieURL = movie.length > 0 ? `${URL}${movie[0].poster_path}` : "";
 
   return (
     <div>
@@ -43,12 +43,12 @@ const PopularMovies = () => {
         style={{
           backgroundImage: `url(${firstMovieURL})`,
           backgroundSize: "cover",
-          height: "400px",
-          width: "400px",
+          height: "90vh",
+          width: "500px",
         }}
       ></div>
     </div>
   );
 };
 
-export default PopularMovies;
+export default LeftSidePicMain;

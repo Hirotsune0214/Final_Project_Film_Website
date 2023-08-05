@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -29,21 +30,33 @@ const RightSideDetailMain = () => {
     }
   };
 
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  };
+
+  const constBox = {
+    display: "flex",
+  };
+
   useEffect(() => {
     fetchMovie();
   }, []);
 
+  // 最初の映画情報だけを取得
+  const firstMovie = movies.length > 0 ? movies[0] : null;
+
   return (
-    <div>
-      {/* {movies.map((movie) => (
-        <div key={movie.id}>
-          <h2>{movie.title}</h2>
-          <p>Original Title: {movie.original_title}</p>
-          <p>Release Date: {movie.release_date}</p>
-          <p>Vote Average: {movie.vote_average}</p>
-        </div>
-      ))} */}
-    </div>
+    <Box sx={constBox}>
+      {firstMovie && (
+        <>
+          <h2>
+            {firstMovie.title}
+            {extractYearFromDate(firstMovie.release_date)}
+          </h2>
+          <p>{firstMovie.vote_average}</p>
+        </>
+      )}
+    </Box>
   );
 };
 
