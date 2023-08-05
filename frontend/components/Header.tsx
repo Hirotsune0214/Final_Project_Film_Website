@@ -53,7 +53,7 @@ export default function Header() {
               right: "20px",
             }}
           >
-            <Link href="/login/login">LOGIN</Link>
+            <Link href="/login">LOGIN</Link>
           </Button>
         </Box>
       </AppBar>
