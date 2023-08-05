@@ -22,7 +22,9 @@ export default function Home() {
       <Header />
       <MainImage />
       <Content />
-      <Footer />
+
+     <Footer />
+
     </>
   );
 }
