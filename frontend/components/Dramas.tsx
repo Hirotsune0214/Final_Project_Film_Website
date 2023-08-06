@@ -6,9 +6,9 @@ import { Box } from "@mui/material";
 interface SeriesData {
   id: string;
   poster_path: string;
-  title: string;
+  name: string;
   original_title: string;
-  release_date: string;
+  first_air_date: string;
   vote_average: number;
   backdrop_path: "string";
 }
@@ -41,20 +41,27 @@ const Movies = () => {
     }
   };
 
-  // const extractYearFromDate = (dateString: string): string => {
-  //   return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  // };
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  };
 
   const boxSX = {
     maxWidth: "500px",
     margin: "0 auto",
     position: "relative",
+    cursor: "pointer",
+    background: "cover",
     "&:hover .text": {
       opacity: 1,
+    },
+    "&:hover .img": {
+      transform: "scale(1.04)",
+      opacity: "1",
     },
     "& .img": {
       width: "100%",
       height: "100%",
+      transition: "transform 0.2",
     },
     "& .text": {
       position: "absolute",
@@ -71,9 +78,6 @@ const Movies = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      "& p": {
-        lineHeight: 1.8,
-      },
     },
   };
 
@@ -105,12 +109,13 @@ const Movies = () => {
           <button onClick={handleDramasTopRatedButton}>TOP RATED</button>
         </div>
       </div>
-      <div
+      <Box
         style={{
           marginTop: "20px",
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "10px",
+          gridGap: "9px",
+          rowGap: "14px",
           cursor: "pointer",
         }}
       >
@@ -126,8 +131,9 @@ const Movies = () => {
             key={drama.id}
           >
             <img
+              className="img"
               src={`${URL}${drama.poster_path}`}
-              alt={drama.title}
+              alt={drama.name}
               style={{
                 width: "100%",
                 height: "100%",
@@ -135,13 +141,13 @@ const Movies = () => {
               }}
             />
             <Box className="text">
-              <div>{drama.title}</div>
-              {/* <div>{extractYearFromDate(drama.release_date)}</div> */}
+              <div>{drama.name}</div>
+              <div>{extractYearFromDate(drama.first_air_date)}</div>
               <div>{drama.vote_average}</div>
             </Box>
           </Box>
         ))}
-      </div>
+      </Box>
     </div>
   );
 };
