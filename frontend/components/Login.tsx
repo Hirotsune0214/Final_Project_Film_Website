@@ -7,6 +7,8 @@ import authUtils from "@/utils/authUtils";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import authApi from "@/pages/api/authApi";
+import { useRecoilState } from "recoil";
+import { userState } from "@/src/state/auth";
 
 const login: FC = () => {
   const router = useRouter();
@@ -16,6 +18,7 @@ const login: FC = () => {
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useRecoilState(userState);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,6 +63,9 @@ const login: FC = () => {
         username,
         password,
       });
+      // mongoDBからデータを取得。
+      // responseでusenameを取得してrecoilに表示させるようにする
+      setUser({ username });
       setLoading(false);
       // 成功したらtokenの名称でローカルストレージに保存する
       localStorage.setItem("token", res.token);

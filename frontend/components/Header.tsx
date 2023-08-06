@@ -5,18 +5,16 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { userState } from "@/src/state/auth";
 
 export default function Header() {
-  const router = useRouter();
-
-  // router.pathname is to get current url
-  // console.log(router.pathname);
-  const currentUrl = router.pathname;
+  // 読み込み書き込み両方
+  const [user, setUser] = useRecoilState(userState);
 
   return (
     <Box>
-      <AppBar position="fixed">
+      <AppBar position="static">
         <Box
           sx={{
             display: "flex",
@@ -32,41 +30,21 @@ export default function Header() {
           <Typography
             variant="h6"
             sx={{
-              backgroundColor: currentUrl === "/" ? "red" : "transparent",
-              padding: "10px",
-              borderRadius: "10px",
+              border: "solid",
+              backgroundColor: "red",
+              borderColor: "red",
+              borderRadius: "3px",
             }}
           >
             <Link href="/">HOME</Link>
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              backgroundColor: currentUrl === "/movies" ? "red" : "transparent",
-              padding: "10px",
-              borderRadius: "10px",
-            }}
-          >
+          <Typography variant="h6">
             <Link href="/movies">MOVIES</Link>
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              backgroundColor: currentUrl === "/dramas" ? "red" : "transparent",
-              padding: "10px",
-              borderRadius: "10px",
-            }}
-          >
+          <Typography variant="h6">
             <Link href="/dramas">TV SERIES</Link>
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              backgroundColor: currentUrl === "/search" ? "red" : "transparent",
-              padding: "10px",
-              borderRadius: "10px",
-            }}
-          >
+          <Typography variant="h6">
             <Link href="/search">SEARCH</Link>
           </Typography>
           <DarkModeOutlinedIcon />
@@ -81,6 +59,7 @@ export default function Header() {
             }}
           >
             <Link href="/login">LOGIN</Link>
+            <p>{user.username}</p>
           </Button>
         </Box>
       </AppBar>
