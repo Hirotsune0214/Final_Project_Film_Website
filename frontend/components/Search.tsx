@@ -1,4 +1,3 @@
-
 import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -44,7 +43,7 @@ const Search = () => {
     <div>
       <Box
         sx={{
-          mt: "30px",
+          mt: "80px",
           display: "flex",
           justifyContent: "center",
           gap: "10px",
@@ -153,4 +152,3 @@ const Search = () => {
 };
 
 export default Search;
-
