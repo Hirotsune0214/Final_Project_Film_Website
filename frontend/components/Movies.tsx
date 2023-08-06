@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Box } from "@mui/material";
 
 // TODO: リファクタリンで、type.tsに移動させる
 interface MoviesData {
@@ -15,7 +16,9 @@ interface MoviesData {
 const Movies = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-  const [movies, setMovies] = useState<MoviesData[]>([]);
+
+  const [dramas, setDramas] = useState<SeriesData[]>([]);
+  const [ishover, setIshover] = useState(false);
 
   const fetchPopularMovies = async () => {
     try {
@@ -39,15 +42,51 @@ const Movies = () => {
     }
   };
 
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  };
+
+  const boxSX = {
+    maxWidth: "500px",
+    margin: "0 auto",
+    position: "relative",
+    "&:hover .text": {
+      opacity: 1,
+    },
+    "& .img": {
+      width: "100%",
+      height: "100%",
+    },
+    "& .text": {
+      position: "absolute",
+      width: "100%",
+      height: "100%",
+      top: 0,
+      left: 0,
+      textAlign: "center",
+      color: "#fff",
+      backgroundColor: "rgba(0,0,0,0.6)",
+      transition: ".3s ease-in-out",
+      opacity: 0,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      "& p": {
+        lineHeight: 1.8,
+      },
+    },
+  };
+
   useEffect(() => {
     fetchPopularMovies();
   }, []);
 
-  const handlePopularButton = () => {
+  const handlePopularMovieButton = () => {
     fetchPopularMovies();
   };
 
-  const handleTopRatedButton = () => {
+  const handleTopRatedMovieButton = () => {
     fetchTopRatedMovies();
   };
 
@@ -63,8 +102,8 @@ const Movies = () => {
         <h1>Movies</h1>
 
         <div>
-          <button onClick={handlePopularButton}>POPULAR</button>
-          <button onClick={handleTopRatedButton}>TOP RATED</button>
+          <button onClick={handlePopularMovieButton}>POPULAR</button>
+          <button onClick={handleTopRatedMovieButton}>TOP RATED</button>
         </div>
       </div>
       <div
@@ -76,16 +115,33 @@ const Movies = () => {
           cursor: "pointer",
         }}
       >
-        {movies.map((movie: MoviesData) => (
-          <img
-            src={`${URL}${movie.poster_path}`}
-            alt={movie.title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
+        {dramas.map((drama: SeriesData) => (
+          <Box
+            onMouseEnter={() => {
+              setIshover(true);
             }}
-          />
+            onMouseLeave={() => {
+              setIshover(false);
+
+            }}
+            sx={boxSX}
+            key={drama.id}
+          >
+            <img
+              src={`${URL}${drama.poster_path}`}
+              alt={drama.title}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+            <Box className="text">
+              <div>{drama.title}</div>
+              <div>{extractYearFromDate(drama.release_date)}</div>
+              <div>{drama.vote_average}</div>
+            </Box>
+          </Box>
         ))}
       </div>
     </div>
