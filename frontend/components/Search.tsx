@@ -33,7 +33,7 @@ const Search = () => {
 
   useEffect(() => {
     fetchSearch();
-  }, [searchValue]);
+  }, [searchValue, category]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
