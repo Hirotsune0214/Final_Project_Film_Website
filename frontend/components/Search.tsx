@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -49,9 +49,48 @@ const Search = () => {
           gap: "10px",
         }}
       >
-        <button onClick={() => setCategory("movie")}>MOVIE</button>
-        <button onClick={() => setCategory("tv")}>TV</button>
-        <button onClick={() => setCategory("person")}>PEOPLE</button>
+        <Button
+          onClick={() => setCategory("movie")}
+          sx={{
+            backgroundColor: category === "movie" ? "red" : "transparent",
+            padding: "15px",
+            color: "black",
+            ":hover": {
+              backgroundColor: "red",
+              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+            },
+          }}
+        >
+          MOVIE
+        </Button>
+        <Button
+          onClick={() => setCategory("tv")}
+          sx={{
+            backgroundColor: category === "tv" ? "red" : "transparent",
+            padding: "15px",
+            color: "black",
+            ":hover": {
+              backgroundColor: "red",
+              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+            },
+          }}
+        >
+          TV
+        </Button>
+        <Button
+          onClick={() => setCategory("person")}
+          sx={{
+            backgroundColor: category === "person" ? "red" : "transparent",
+            padding: "15px",
+            color: "black",
+            ":hover": {
+              backgroundColor: "red",
+              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+            },
+          }}
+        >
+          PEOPLE
+        </Button>
       </Box>
       <Box
         sx={{
