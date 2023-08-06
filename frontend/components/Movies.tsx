@@ -16,46 +16,38 @@ interface MoviesData {
 const Movies = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-
-  const [dramas, setDramas] = useState<SeriesData[]>([]);
+  const [movies, setMovies] = useState<MoviesData[]>([]);
+  const [movieLists, setMovieLists] = useState("popular");
   const [ishover, setIshover] = useState(false);
 
-  const fetchPopularMovies = async () => {
+  const fetchListsMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/movie/${movieLists}?api_key=bb46848237eacc0a36827f6639b47ee3`
       );
       setMovies(response.data.results);
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const fetchTopRatedMovies = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/top_rated?api_key=bb46848237eacc0a36827f6639b47ee3"
-      );
-      setMovies(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
 
   const boxSX = {
     maxWidth: "500px",
     margin: "0 auto",
     position: "relative",
+    cursor: "pointer",
+    background: "cover",
     "&:hover .text": {
       opacity: 1,
+    },
+    "&:hover .img": {
+      transform: "scale(1.04)",
+      opacity: "1",
     },
     "& .img": {
       width: "100%",
       height: "100%",
+      transition: "transform 0.2",
     },
     "& .text": {
       position: "absolute",
@@ -72,23 +64,16 @@ const Movies = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      "& p": {
-        lineHeight: 1.8,
-      },
     },
   };
 
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+  };
+
   useEffect(() => {
-    fetchPopularMovies();
-  }, []);
-
-  const handlePopularMovieButton = () => {
-    fetchPopularMovies();
-  };
-
-  const handleTopRatedMovieButton = () => {
-    fetchTopRatedMovies();
-  };
+    fetchListsMovies();
+  }, [movieLists]);
 
   return (
     <div style={{ display: "block", padding: "16px" }}>
@@ -102,34 +87,34 @@ const Movies = () => {
         <h1>Movies</h1>
 
         <div>
-          <button onClick={handlePopularMovieButton}>POPULAR</button>
-          <button onClick={handleTopRatedMovieButton}>TOP RATED</button>
+          <button onClick={() => setMovieLists("popular")}>POPULAR</button>
+          <button onClick={() => setMovieLists("top_rated")}>TOP RATED</button>
         </div>
       </div>
-      <div
-        style={{
+      <Box
+        sx={{
           marginTop: "20px",
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "10px",
+          gridGap: "9px",
+          rowGap: "14px",
           cursor: "pointer",
         }}
       >
-        {dramas.map((drama: SeriesData) => (
+        {movies.map((movie: MoviesData) => (
           <Box
             onMouseEnter={() => {
               setIshover(true);
             }}
             onMouseLeave={() => {
               setIshover(false);
-
             }}
             sx={boxSX}
-            key={drama.id}
           >
             <img
-              src={`${URL}${drama.poster_path}`}
-              alt={drama.title}
+              className="img"
+              src={`${URL}${movie.poster_path}`}
+              alt={movie.title}
               style={{
                 width: "100%",
                 height: "100%",
@@ -137,13 +122,13 @@ const Movies = () => {
               }}
             />
             <Box className="text">
-              <div>{drama.title}</div>
-              <div>{extractYearFromDate(drama.release_date)}</div>
-              <div>{drama.vote_average}</div>
+              <div>{movie.vote_average}</div>
+              <div>{extractYearFromDate(movie.release_date)}</div>
+              <div>{movie.title}</div>
             </Box>
           </Box>
         ))}
-      </div>
+      </Box>
     </div>
   );
 };
