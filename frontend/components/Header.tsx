@@ -39,29 +39,77 @@ export default function Header() {
               borderRadius: "3px",
             }}
           >
-            <Link href="/">HOME</Link>
+            <Link
+              href="/"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              HOME
+            </Link>
           </Typography>
           <Typography variant="h6">
-            <Link href="/movies">MOVIES</Link>
+            <Link
+              href="/movies"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              MOVIES
+            </Link>
           </Typography>
           <Typography variant="h6">
-            <Link href="/dramas">TV SERIES</Link>
+            <Link
+              href="/dramas"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              TV SERIES
+            </Link>
           </Typography>
           <Typography variant="h6">
-            <Link href="/search">SEARCH</Link>
+            <Link
+              href="/search"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              SEARCH
+            </Link>
           </Typography>
           <DarkModeOutlinedIcon />
           <Button
-            color="inherit"
             sx={{
               border: "solid",
               backgroundColor: "red",
               borderColor: "red",
               position: "absolute",
               right: "20px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
             }}
           >
-            <Link href="/login">LOGIN</Link>
+            <Link
+              href="/login"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              LOGIN
+            </Link>
             <Typography>{user.username}</Typography>
           </Button>
         </Box>
