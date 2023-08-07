@@ -95,7 +95,7 @@ const Movies = () => {
               color: "black",
               ":hover": {
                 backgroundColor: "red",
-                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+                opacity: 0.8,
               },
             }}
           >
@@ -110,7 +110,7 @@ const Movies = () => {
               color: "black",
               ":hover": {
                 backgroundColor: "red",
-                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+                opacity: 0.8,
               },
             }}
           >
