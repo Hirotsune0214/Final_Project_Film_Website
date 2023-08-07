@@ -5,18 +5,19 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import Link from "next/link";
-import { useRouter } from "next/router";
+
+import { userState } from "@/src/state/auth";
+import { useRecoilValue } from "recoil";
 
 export default function Header() {
-  const router = useRouter();
+  // 読み取りのみ
+  const user = useRecoilValue(userState);
 
-  // router.pathname is to get current url
-  // console.log(router.pathname);
-  const currentUrl = router.pathname;
+  console.log("Header user:", user); // ユーザー名が表示されるか確認
 
   return (
     <Box>
-      <AppBar position="fixed">
+      <AppBar position="static">
         <Box
           sx={{
             display: "flex",
@@ -32,55 +33,84 @@ export default function Header() {
           <Typography
             variant="h6"
             sx={{
-              backgroundColor: currentUrl === "/" ? "red" : "transparent",
-              padding: "10px",
-              borderRadius: "10px",
+              border: "solid",
+              backgroundColor: "red",
+              borderColor: "red",
+              borderRadius: "3px",
             }}
           >
-            <Link href="/">HOME</Link>
+            <Link
+              href="/"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              HOME
+            </Link>
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              backgroundColor: currentUrl === "/movies" ? "red" : "transparent",
-              padding: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <Link href="/movies">MOVIES</Link>
+          <Typography variant="h6">
+            <Link
+              href="/movies"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              MOVIES
+            </Link>
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              backgroundColor: currentUrl === "/dramas" ? "red" : "transparent",
-              padding: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <Link href="/dramas">TV SERIES</Link>
+          <Typography variant="h6">
+            <Link
+              href="/dramas"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              TV SERIES
+            </Link>
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              backgroundColor: currentUrl === "/search" ? "red" : "transparent",
-              padding: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <Link href="/search">SEARCH</Link>
+          <Typography variant="h6">
+            <Link
+              href="/search"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              SEARCH
+            </Link>
           </Typography>
           <DarkModeOutlinedIcon />
           <Button
-            color="inherit"
             sx={{
               border: "solid",
               backgroundColor: "red",
               borderColor: "red",
               position: "absolute",
               right: "20px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
             }}
           >
-            <Link href="/login">LOGIN</Link>
+            <Link
+              href="/login"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              LOGIN
+            </Link>
+            <Typography>{user.username}</Typography>
           </Button>
         </Box>
       </AppBar>

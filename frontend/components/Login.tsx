@@ -7,6 +7,8 @@ import authUtils from "@/utils/authUtils";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import authApi from "@/pages/api/authApi";
+import { useRecoilState } from "recoil";
+import { userState } from "@/src/state/auth";
 
 const login: FC = () => {
   const router = useRouter();
@@ -15,7 +17,10 @@ const login: FC = () => {
   // エラー時の表示
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
+
   const [loading, setLoading] = useState(false);
+
+  const [user, setUser] = useRecoilState(userState);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,6 +65,12 @@ const login: FC = () => {
         username,
         password,
       });
+
+      // mongoDBからデータを取得。
+      // responseでusenameを取得してrecoilに表示させるようにする
+
+      setUser({ username: username }); // 修正点
+
       setLoading(false);
       // 成功したらtokenの名称でローカルストレージに保存する
       localStorage.setItem("token", res.token);
@@ -83,6 +94,7 @@ const login: FC = () => {
     }
   };
 
+  /*
   useEffect(() => {
     // JWTを持っているか確認する
     const checkAuth = async () => {
@@ -96,6 +108,23 @@ const login: FC = () => {
       checkAuth();
     };
   }, [router]);
+  */
+
+  // 確認する
+  useEffect(() => {
+    // JWTを持っているか確認する
+    const checkAuth = async () => {
+      // 認証チェック
+      // userに権限があるかの確認
+      const isAuth = await authUtils.isAuthenticated();
+      // isAuthがtrueならメインページにリダイレクトするようにする
+      if (isAuth) {
+        router.push("/");
+      }
+    };
+
+    checkAuth(); // 修正点：ここでの呼び出しを残すが、依存リストを空にする
+  }, []); // 修正点：依存リストを空にする
 
   return (
     <>
