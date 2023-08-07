@@ -4,6 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Box } from "@mui/material";
 
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Navigation, Pagination } from "swiper/modules";
+
 interface MoviesData {
   id: string;
   key: string;
@@ -32,7 +36,16 @@ const Videos = () => {
   return (
     <div>
       <h1>VIDEOS</h1>
-      <Swiper slidesPerView={1} grabCursor={true} direction="horizontal">
+      <Swiper
+        slidesPerView={1}
+        grabCursor={true}
+        direction="horizontal"
+        navigation={true}
+        modules={[Navigation, Pagination]}
+        pagination={{
+          dynamicBullets: true,
+        }}
+      >
         {videos.map((video: MoviesData) => (
           <SwiperSlide key={video.id}>
             <Box>
