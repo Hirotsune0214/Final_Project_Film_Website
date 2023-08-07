@@ -71,7 +71,6 @@ export default function Header() {
           </Typography>
           <DarkModeOutlinedIcon />
           <Button
-            color="inherit"
             sx={{
               border: "solid",
               backgroundColor: "red",
