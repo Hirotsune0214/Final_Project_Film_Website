@@ -40,7 +40,10 @@ export default function Header() {
               backgroundColor: currentUrl === "/" ? "red" : "transparent",
               padding: "10px",
               borderRadius: "10px",
-              borderColor: "red",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
             }}
           >
             <Link
@@ -60,6 +63,10 @@ export default function Header() {
               backgroundColor: currentUrl === "/movies" ? "red" : "transparent",
               padding: "10px",
               borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
             }}
           >
             <Link
@@ -79,6 +86,10 @@ export default function Header() {
               backgroundColor: currentUrl === "/dramas" ? "red" : "transparent",
               padding: "10px",
               borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
             }}
           >
             <Link
@@ -98,6 +109,10 @@ export default function Header() {
               backgroundColor: currentUrl === "/search" ? "red" : "transparent",
               padding: "10px",
               borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
             }}
           >
             <Link
