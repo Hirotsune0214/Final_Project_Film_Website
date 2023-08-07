@@ -8,12 +8,16 @@ import Link from "next/link";
 
 import { userState } from "@/src/state/auth";
 import { useRecoilValue } from "recoil";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
+  const currentUrl = router.pathname;
+
   // 読み取りのみ
   const user = useRecoilValue(userState);
 
-  console.log("Header user:", user); // ユーザー名が表示されるか確認
+  // console.log("Header user:", user); // ユーザー名が表示されるか確認
 
   return (
     <Box>
@@ -33,10 +37,10 @@ export default function Header() {
           <Typography
             variant="h6"
             sx={{
-              border: "solid",
-              backgroundColor: "red",
+              backgroundColor: currentUrl === "/" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
               borderColor: "red",
-              borderRadius: "3px",
             }}
           >
             <Link
@@ -50,7 +54,14 @@ export default function Header() {
               HOME
             </Link>
           </Typography>
-          <Typography variant="h6">
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: currentUrl === "/movies" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+            }}
+          >
             <Link
               href="/movies"
               style={{
@@ -62,7 +73,14 @@ export default function Header() {
               MOVIES
             </Link>
           </Typography>
-          <Typography variant="h6">
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: currentUrl === "/dramas" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+            }}
+          >
             <Link
               href="/dramas"
               style={{
@@ -74,7 +92,14 @@ export default function Header() {
               TV SERIES
             </Link>
           </Typography>
-          <Typography variant="h6">
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: currentUrl === "/search" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+            }}
+          >
             <Link
               href="/search"
               style={{
