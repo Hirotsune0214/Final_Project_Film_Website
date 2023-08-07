@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 // TODO: リファクタリンで、type.tsに移動させる
 interface MoviesData {
@@ -86,10 +86,37 @@ const Movies = () => {
       >
         <h1>Movies</h1>
 
-        <div>
-          <button onClick={() => setMovieLists("popular")}>POPULAR</button>
-          <button onClick={() => setMovieLists("top_rated")}>TOP RATED</button>
-        </div>
+        <Box sx={{ gap: "10px" }}>
+          <Button
+            onClick={() => setMovieLists("popular")}
+            sx={{
+              backgroundColor: movieLists === "popular" ? "red" : "transparent",
+              padding: "15px",
+              color: "black",
+              ":hover": {
+                backgroundColor: "red",
+                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              },
+            }}
+          >
+            POPULAR
+          </Button>
+          <Button
+            onClick={() => setMovieLists("top_rated")}
+            sx={{
+              backgroundColor:
+                movieLists === "top_rated" ? "red" : "transparent",
+              padding: "15px",
+              color: "black",
+              ":hover": {
+                backgroundColor: "red",
+                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              },
+            }}
+          >
+            TOP RATED
+          </Button>
+        </Box>
       </div>
       <Box
         sx={{
