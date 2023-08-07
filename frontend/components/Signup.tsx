@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Box, Button, TextField, Typography } from "@mui/material";
@@ -7,6 +7,8 @@ import { LoadingButton } from "@mui/lab";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import authApi from "@/pages/api/authApi";
+import { useRecoilState } from "recoil";
+import { userState } from "@/src/state/auth";
 
 const signup: FC = () => {
   const router = useRouter();
@@ -16,6 +18,8 @@ const signup: FC = () => {
   const [passwordErrText, setPasswordErrText] = useState("");
   const [confirmErrText, setConfirmErrText] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [user, setUser] = useRecoilState(userState);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,6 +77,10 @@ const signup: FC = () => {
         password,
         confirmPassword,
       });
+
+      // signupはこれだけで表示される
+      setUser({ username: username });
+
       setLoading(false);
       // 成功したらtokenの名称でローカルストレージに保存する
       localStorage.setItem("token", res.token);

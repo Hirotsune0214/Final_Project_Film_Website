@@ -5,12 +5,15 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import Link from "next/link";
-import { useRecoilState } from "recoil";
+
 import { userState } from "@/src/state/auth";
+import { useRecoilValue } from "recoil";
 
 export default function Header() {
-  // 読み込み書き込み両方
-  const [user, setUser] = useRecoilState(userState);
+  // 読み取りのみ
+  const user = useRecoilValue(userState);
+
+  console.log("Header user:", user); // ユーザー名が表示されるか確認
 
   return (
     <Box>
@@ -59,7 +62,7 @@ export default function Header() {
             }}
           >
             <Link href="/login">LOGIN</Link>
-            <p>{user.username}</p>
+            <Typography>{user.username}</Typography>
           </Button>
         </Box>
       </AppBar>
