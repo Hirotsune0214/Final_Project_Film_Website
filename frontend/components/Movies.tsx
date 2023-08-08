@@ -13,35 +13,20 @@ interface MoviesData {
   backdrop_path: "string";
 }
 
+type MovieLists = "popular" | "top_rated";
 
-type MovieLists = "popular" | "top_rated"
-
-interface Props { 
-  movies: any[]
-  movieLists: string
-  setMovieLists: (category: string) => void
+interface Props {
+  movies: any[];
+  movieLists: string;
+  setMovies: any[];
+  setMovieLists: (category: string) => void;
 }
 
-const Movies = ({ movies, movieLists, setMovieLists}: Props) => {
+const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-
-  const [movies, setMovies] = useState<MoviesData[]>([]);
-  const [movieLists, setMovieLists] = useState("popular");
   const [currentPage, setCurrentPage] = useState(1);
-
   const [ishover, setIshover] = useState(false);
-
-  // const fetchListsMovies = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://api.themoviedb.org/3/movie/${movieLists}?api_key=bb46848237eacc0a36827f6639b47ee3`
-  //     );
-  //     setMovies(response.data.results);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const fetchNewPageMovies = async () => {
     try {
@@ -102,10 +87,6 @@ const Movies = ({ movies, movieLists, setMovieLists}: Props) => {
   const extractYearFromDate = (dateString: string): string => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
-
-  // useEffect(() => {
-  //   fetchListsMovies();
-  // }, [movieLists]);
 
   useEffect(() => {
     if (currentPage > 1) {

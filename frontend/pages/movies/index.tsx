@@ -38,8 +38,13 @@ const movies = () => {
   return (
     <div>
       <Header />
-      <MainImageMovies movies={movies}/>
-      <Movies movies={movies} movieLists={movieLists} setMovieLists={ setMovieLists} />
+      <MainImageMovies movies={movies} />
+      <Movies
+        movies={movies}
+        movieLists={movieLists}
+        setMovieLists={setMovieLists}
+        setMovies={setMovies}
+      />
       <Footer />
     </div>
   );

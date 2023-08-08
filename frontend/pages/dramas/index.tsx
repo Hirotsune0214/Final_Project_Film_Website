@@ -43,6 +43,7 @@ const dramas = () => {
         dramas={dramas}
         movieLists={movieLists}
         setMovieLists={setMovieLists}
+        setDramas={setDramas}
       />
       <Footer />
     </div>
