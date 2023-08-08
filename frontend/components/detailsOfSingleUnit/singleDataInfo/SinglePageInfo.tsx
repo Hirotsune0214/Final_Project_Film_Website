@@ -3,16 +3,17 @@ import LeftSidePicMain from "./LeftSidePicMain";
 import RightSideDetailMain from "./RightSideDetailMain";
 import FavoriteWatch from "./FavoriteWatch";
 import CastList from "./CastList";
+import { Box } from "@mui/material";
 
 const SinglePageInfo = () => {
   return (
     <div style={{ display: "flex" }}>
       <LeftSidePicMain />
-      <div style={{ flexDirection: "column" }}>
+      <Box sx={{ flexDirection: "column", width: "60%" }}>
         <RightSideDetailMain />
         <FavoriteWatch />
         <CastList />
-      </div>
+      </Box>
     </div>
   );
 };

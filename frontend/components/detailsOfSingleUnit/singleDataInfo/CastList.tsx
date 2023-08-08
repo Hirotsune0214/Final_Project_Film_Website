@@ -39,7 +39,7 @@ const CastList = () => {
             <Box>
               <img
                 style={{
-                  maxWidth: "40%",
+                  maxWidth: "%",
                   height: "40vh",
                 }}
                 src={`${URL}${cast.profile_path}`}
