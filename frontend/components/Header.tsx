@@ -1,12 +1,14 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { FC, useEffect, useState } from "react";
 
 import { userState } from "@/src/state/auth";
+
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 
@@ -15,9 +17,29 @@ export default function Header() {
   const currentUrl = router.pathname;
 
   // 読み取りのみ
-  const user = useRecoilValue(userState);
+  const router = useRouter();
 
-  // console.log("Header user:", user); // ユーザー名が表示されるか確認
+
+  const [user, setUser] = useRecoilState(userState);
+  console.log("Header user:", user); // ユーザー名が表示されるか確認
+
+
+  useEffect(() => {
+    // JWTを持っているか確認する
+    const checkAuth = async () => {
+      // 認証チェック
+      // userに権限があるかの確認
+      const isAuth = await authUtils.isAuthenticated();
+      // isAuthがtrueならメインページにリダイレクトするようにする
+      if (isAuth) {
+        // console.log("@@@@@@@@@@@@@@@@@@");
+        // console.log(isAuth);
+        setUser({ username: isAuth.username });
+        router.push("/");
+      }
+    };
+    checkAuth(); // 修正点：ここでの呼び出しを残すが、依存リストを空にする
+  }, []); // 修正点：依存リストを空にする
 
   return (
     <Box>
