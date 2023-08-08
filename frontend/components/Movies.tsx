@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 // TODO: リファクタリンで、type.tsに移動させる
 interface MoviesData {
@@ -13,22 +13,39 @@ interface MoviesData {
   backdrop_path: "string";
 }
 
-const Movies = () => {
+type MovieLists = "popular" | "top_rated";
+
+interface Props {
+  movies: any[];
+  movieLists: string;
+  setMovies: any[];
+  setMovieLists: (category: string) => void;
+}
+
+const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-  const [movies, setMovies] = useState<MoviesData[]>([]);
-  const [movieLists, setMovieLists] = useState("popular");
+  const [currentPage, setCurrentPage] = useState(1);
   const [ishover, setIshover] = useState(false);
 
-  const fetchListsMovies = async () => {
+  const fetchNewPageMovies = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${movieLists}?api_key=bb46848237eacc0a36827f6639b47ee3`
+        `https://api.themoviedb.org/3/movie/${movieLists}?page=${currentPage}&api_key=bb46848237eacc0a36827f6639b47ee3`
       );
-      setMovies(response.data.results);
+
+      setMovies((prevPageLists) => [
+        ...prevPageLists,
+        ...response.data.results,
+      ]);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleAddMoviesPages = () => {
+    // 引数のprevPageは前の値を持っている
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   const boxSX = {
@@ -72,8 +89,11 @@ const Movies = () => {
   };
 
   useEffect(() => {
-    fetchListsMovies();
-  }, [movieLists]);
+    if (currentPage > 1) {
+      // Only fetch new pages after the initial load
+      fetchNewPageMovies();
+    }
+  }, [currentPage]);
 
   return (
     <div style={{ display: "block", padding: "16px" }}>
@@ -86,10 +106,37 @@ const Movies = () => {
       >
         <h1>Movies</h1>
 
-        <div>
-          <button onClick={() => setMovieLists("popular")}>POPULAR</button>
-          <button onClick={() => setMovieLists("top_rated")}>TOP RATED</button>
-        </div>
+        <Box sx={{ gap: "10px" }}>
+          <Button
+            onClick={() => setMovieLists("popular")}
+            sx={{
+              backgroundColor: movieLists === "popular" ? "red" : "transparent",
+              padding: "15px",
+              color: "black",
+              ":hover": {
+                backgroundColor: "red",
+                opacity: 0.8,
+              },
+            }}
+          >
+            POPULAR
+          </Button>
+          <Button
+            onClick={() => setMovieLists("top_rated")}
+            sx={{
+              backgroundColor:
+                movieLists === "top_rated" ? "red" : "transparent",
+              padding: "15px",
+              color: "black",
+              ":hover": {
+                backgroundColor: "red",
+                opacity: 0.8,
+              },
+            }}
+          >
+            TOP RATED
+          </Button>
+        </Box>
       </div>
       <Box
         sx={{
@@ -128,6 +175,13 @@ const Movies = () => {
             </Box>
           </Box>
         ))}
+
+        <Button
+          sx={{ color: "#FF0000", fontSize: "15px", fontWeight: "bold" }}
+          onClick={() => handleAddMoviesPages()}
+        >
+          LOAD MORE
+        </Button>
       </Box>
     </div>
   );

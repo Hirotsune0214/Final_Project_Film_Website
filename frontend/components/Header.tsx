@@ -8,15 +8,21 @@ import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 
 import { userState } from "@/src/state/auth";
-import { useRecoilState, useRecoilValue } from "recoil";
-import authUtils from "@/utils/authUtils";
+
+import { useRecoilValue } from "recoil";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
+  const currentUrl = router.pathname;
+
   // 読み取りのみ
   const router = useRouter();
 
+
   const [user, setUser] = useRecoilState(userState);
   console.log("Header user:", user); // ユーザー名が表示されるか確認
+
 
   useEffect(() => {
     // JWTを持っているか確認する
@@ -53,10 +59,13 @@ export default function Header() {
           <Typography
             variant="h6"
             sx={{
-              border: "solid",
-              backgroundColor: "red",
-              borderColor: "red",
-              borderRadius: "3px",
+              backgroundColor: currentUrl === "/" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
             }}
           >
             <Link
@@ -70,7 +79,18 @@ export default function Header() {
               HOME
             </Link>
           </Typography>
-          <Typography variant="h6">
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: currentUrl === "/movies" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
+            }}
+          >
             <Link
               href="/movies"
               style={{
@@ -82,7 +102,18 @@ export default function Header() {
               MOVIES
             </Link>
           </Typography>
-          <Typography variant="h6">
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: currentUrl === "/dramas" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
+            }}
+          >
             <Link
               href="/dramas"
               style={{
@@ -94,7 +125,18 @@ export default function Header() {
               TV SERIES
             </Link>
           </Typography>
-          <Typography variant="h6">
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: currentUrl === "/search" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
+            }}
+          >
             <Link
               href="/search"
               style={{

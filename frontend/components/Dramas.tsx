@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 // interfaceを使い回して良いのか
 interface SeriesData {
@@ -13,29 +13,31 @@ interface SeriesData {
   backdrop_path: "string";
 }
 
-const Movies = () => {
+type DramaLists = "popular" | "top_rated";
+
+interface Props {
+  dramas: any[];
+  movieLists: string;
+  setDramas: any[];
+  setMovieLists: (category: string) => void;
+}
+
+const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-  const [dramas, setDramas] = useState<SeriesData[]>([]);
   const [ishover, setIshover] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchPopularDramas = async () => {
+  const fetchNewPageDramas = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/tv/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/tv/${movieLists}?page=${currentPage}&api_key=bb46848237eacc0a36827f6639b47ee3`
       );
-      setDramas(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  const fetchTopRatedDramas = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/tv/top_rated?api_key=bb46848237eacc0a36827f6639b47ee3"
-      );
-      setDramas(response.data.results);
+      setDramas((prevPageLists) => [
+        ...prevPageLists,
+        ...response.data.results,
+      ]);
     } catch (error) {
       console.log(error);
     }
@@ -81,17 +83,17 @@ const Movies = () => {
     },
   };
 
+  const handleAddDramasPages = () => {
+    // 引数のprevPageは前の値を持っている
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
   useEffect(() => {
-    fetchPopularDramas();
-  }, []);
-
-  const handleDramasPopularButton = () => {
-    fetchPopularDramas();
-  };
-
-  const handleDramasTopRatedButton = () => {
-    fetchTopRatedDramas();
-  };
+    if (currentPage > 1) {
+      // Only fetch new pages after the initial load
+      fetchNewPageDramas();
+    }
+  }, [currentPage]);
 
   return (
     <div style={{ display: "block", padding: "16px" }}>
@@ -104,10 +106,37 @@ const Movies = () => {
       >
         <h1>TV Series</h1>
 
-        <div>
-          <button onClick={handleDramasPopularButton}>POPULAR</button>
-          <button onClick={handleDramasTopRatedButton}>TOP RATED</button>
-        </div>
+        <Box>
+          <Button
+            onClick={() => setMovieLists("popular")}
+            sx={{
+              backgroundColor: movieLists === "popular" ? "red" : "transparent",
+              padding: "15px",
+              color: "black",
+              ":hover": {
+                backgroundColor: "red",
+                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              },
+            }}
+          >
+            POPULAR
+          </Button>
+          <Button
+            onClick={() => setMovieLists("top_rated")}
+            sx={{
+              backgroundColor:
+                movieLists === "top_rated" ? "red" : "transparent",
+              padding: "15px",
+              color: "black",
+              ":hover": {
+                backgroundColor: "red",
+                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              },
+            }}
+          >
+            TOP RATED
+          </Button>
+        </Box>
       </div>
       <Box
         style={{
@@ -147,6 +176,12 @@ const Movies = () => {
             </Box>
           </Box>
         ))}
+        <Button
+          sx={{ color: "#FF0000", fontSize: "15px", fontWeight: "bold" }}
+          onClick={() => handleAddDramasPages()}
+        >
+          LOAD MORE
+        </Button>
       </Box>
     </div>
   );

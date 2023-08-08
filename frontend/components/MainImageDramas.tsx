@@ -14,31 +14,31 @@ interface Series {
   backdrop_path: "string";
 }
 
-const MainImageDramas = () => {
+const MainImageDramas = ({ dramas }: { dramas: Series[] }) => {
   const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
 
-  const [dramas, setDramas] = useState<Series[]>([]);
+  // const [dramas, setDramas] = useState<Series[]>([]);
 
-  const fetchDramas = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/discover/tv?api_key=bb46848237eacc0a36827f6639b47ee3"
-      );
-      setDramas(response.data.results);
+  // const fetchDramas = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://api.themoviedb.org/3/discover/tv?api_key=bb46848237eacc0a36827f6639b47ee3"
+  //     );
+  //     setDramas(response.data.results);
 
-      console.log(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     console.log(response.data.results);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // const extractYearFromDate = (dateString: string): string => {
   //   return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   // };
 
-  useEffect(() => {
-    fetchDramas();
-  }, []);
+  // useEffect(() => {
+  //   fetchDramas();
+  // }, []);
 
   return (
     <div style={{}}>
