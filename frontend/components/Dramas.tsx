@@ -18,26 +18,15 @@ type DramaLists = "popular" | "top_rated";
 interface Props {
   dramas: any[];
   movieLists: string;
+  setDramas: any[];
   setMovieLists: (category: string) => void;
 }
 
-const Movies = ({ dramas, movieLists, setMovieLists }: Props) => {
+const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
   const [ishover, setIshover] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
-
-  const fetchPopularDramas = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${movieLists}?api_key=bb46848237eacc0a36827f6639b47ee3`
-      );
-      setDramas(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const fetchNewPageDramas = async () => {
     try {
@@ -94,15 +83,10 @@ const Movies = ({ dramas, movieLists, setMovieLists }: Props) => {
     },
   };
 
-
   const handleAddDramasPages = () => {
     // 引数のprevPageは前の値を持っている
     setCurrentPage((prevPage) => prevPage + 1);
   };
-
-  useEffect(() => {
-    fetchPopularDramas();
-  }, [movieLists]);
 
   useEffect(() => {
     if (currentPage > 1) {
