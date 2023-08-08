@@ -8,21 +8,15 @@ import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 
 import { userState } from "@/src/state/auth";
-
-import { useRecoilValue } from "recoil";
-import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import authUtils from "@/utils/authUtils";
 
 export default function Header() {
   const router = useRouter();
   const currentUrl = router.pathname;
 
-  // 読み取りのみ
-  const router = useRouter();
-
-
   const [user, setUser] = useRecoilState(userState);
   console.log("Header user:", user); // ユーザー名が表示されるか確認
-
 
   useEffect(() => {
     // JWTを持っているか確認する
