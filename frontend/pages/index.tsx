@@ -4,8 +4,9 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 
 import Content from "@/components/container/Content";
-import MainImage from "@/components/MainImageMovies";
+
 import Footer from "@/components/Footer";
+import HomeMainImage from "@/components/HomeMainImage";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,11 +21,10 @@ export default function Home() {
       </Head>
 
       <Header />
-      <MainImage />
+      <HomeMainImage />
       <Content />
 
-     <Footer />
-
+      <Footer />
     </>
   );
 }

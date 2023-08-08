@@ -13,13 +13,20 @@ interface SeriesData {
   backdrop_path: "string";
 }
 
-const Movies = () => {
+type DramaLists = "popular" | "top_rated";
+
+interface Props {
+  dramas: any[];
+  movieLists: string;
+  setMovieLists: (category: string) => void;
+}
+
+const Movies = ({ dramas, movieLists, setMovieLists }: Props) => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-  const [dramas, setDramas] = useState<SeriesData[]>([]);
-  const [movieLists, setMovieLists] = useState("popular");
   const [ishover, setIshover] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+
 
   const fetchPopularDramas = async () => {
     try {
@@ -86,6 +93,7 @@ const Movies = () => {
       justifyContent: "center",
     },
   };
+
 
   const handleAddDramasPages = () => {
     // 引数のprevPageは前の値を持っている

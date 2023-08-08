@@ -38,7 +38,7 @@ const PopularMovies = () => {
     margin: "0 auto",
     position: "relative",
     cursor: "pointer",
-    background: "cover",
+    // background: "cover",
     "&:hover .text": {
       opacity: 1,
     },
@@ -59,13 +59,15 @@ const PopularMovies = () => {
       left: 0,
       textAlign: "center",
       color: "#fff",
-      backgroundColor: "rgba(0,0,0,0.6)",
+      background:
+        "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
       transition: ".3s ease-in-out",
       opacity: 0,
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+      transform: "scaleX(1.1)",
     },
   };
 
@@ -80,7 +82,7 @@ const PopularMovies = () => {
         slidesPerView={4}
         grabCursor={true}
         direction="horizontal"
-        spaceBetween={15}
+        spaceBetween={10}
       >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
@@ -98,7 +100,7 @@ const PopularMovies = () => {
                 style={{
                   width: "100%",
                   // TODO: heightは、65-70vh
-                  height: "70vh",
+                  height: "60vh",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
