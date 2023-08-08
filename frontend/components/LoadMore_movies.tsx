@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const LoadMore_movies = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(2);
   const [pageLists, setPageLists] = useState([]);
   const [ishover, setIshover] = useState(false);
 
