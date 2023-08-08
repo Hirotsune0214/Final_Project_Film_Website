@@ -25,6 +25,34 @@ const Movies = ({ dramas, movieLists, setMovieLists }: Props) => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
   const [ishover, setIshover] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
+
+  const fetchPopularDramas = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${movieLists}?api_key=bb46848237eacc0a36827f6639b47ee3`
+      );
+      setDramas(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchNewPageDramas = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${movieLists}?page=${currentPage}&api_key=bb46848237eacc0a36827f6639b47ee3`
+      );
+
+      setDramas((prevPageLists) => [
+        ...prevPageLists,
+        ...response.data.results,
+      ]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const extractYearFromDate = (dateString: string): string => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
@@ -65,6 +93,23 @@ const Movies = ({ dramas, movieLists, setMovieLists }: Props) => {
       justifyContent: "center",
     },
   };
+
+
+  const handleAddDramasPages = () => {
+    // 引数のprevPageは前の値を持っている
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  useEffect(() => {
+    fetchPopularDramas();
+  }, [movieLists]);
+
+  useEffect(() => {
+    if (currentPage > 1) {
+      // Only fetch new pages after the initial load
+      fetchNewPageDramas();
+    }
+  }, [currentPage]);
 
   return (
     <div style={{ display: "block", padding: "16px" }}>
@@ -147,6 +192,12 @@ const Movies = ({ dramas, movieLists, setMovieLists }: Props) => {
             </Box>
           </Box>
         ))}
+        <Button
+          sx={{ color: "#FF0000", fontSize: "15px", fontWeight: "bold" }}
+          onClick={() => handleAddDramasPages()}
+        >
+          LOAD MORE
+        </Button>
       </Box>
     </div>
   );

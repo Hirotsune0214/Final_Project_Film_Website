@@ -25,8 +25,11 @@ interface Props {
 const Movies = ({ movies, movieLists, setMovieLists}: Props) => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
-  // const [movies, setMovies] = useState<MoviesData[]>([]);
-  // const [movieLists, setMovieLists] = useState("popular");
+
+  const [movies, setMovies] = useState<MoviesData[]>([]);
+  const [movieLists, setMovieLists] = useState("popular");
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [ishover, setIshover] = useState(false);
 
   // const fetchListsMovies = async () => {
@@ -39,6 +42,26 @@ const Movies = ({ movies, movieLists, setMovieLists}: Props) => {
   //     console.log(error);
   //   }
   // };
+
+  const fetchNewPageMovies = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieLists}?page=${currentPage}&api_key=bb46848237eacc0a36827f6639b47ee3`
+      );
+
+      setMovies((prevPageLists) => [
+        ...prevPageLists,
+        ...response.data.results,
+      ]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAddMoviesPages = () => {
+    // 引数のprevPageは前の値を持っている
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
 
   const boxSX = {
     maxWidth: "500px",
@@ -84,6 +107,13 @@ const Movies = ({ movies, movieLists, setMovieLists}: Props) => {
   //   fetchListsMovies();
   // }, [movieLists]);
 
+  useEffect(() => {
+    if (currentPage > 1) {
+      // Only fetch new pages after the initial load
+      fetchNewPageMovies();
+    }
+  }, [currentPage]);
+
   return (
     <div style={{ display: "block", padding: "16px" }}>
       <div
@@ -104,7 +134,7 @@ const Movies = ({ movies, movieLists, setMovieLists}: Props) => {
               color: "black",
               ":hover": {
                 backgroundColor: "red",
-                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+                opacity: 0.8,
               },
             }}
           >
@@ -119,7 +149,7 @@ const Movies = ({ movies, movieLists, setMovieLists}: Props) => {
               color: "black",
               ":hover": {
                 backgroundColor: "red",
-                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+                opacity: 0.8,
               },
             }}
           >
@@ -164,6 +194,13 @@ const Movies = ({ movies, movieLists, setMovieLists}: Props) => {
             </Box>
           </Box>
         ))}
+
+        <Button
+          sx={{ color: "#FF0000", fontSize: "15px", fontWeight: "bold" }}
+          onClick={() => handleAddMoviesPages()}
+        >
+          LOAD MORE
+        </Button>
       </Box>
     </div>
   );
