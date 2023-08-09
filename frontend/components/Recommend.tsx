@@ -83,7 +83,7 @@ const Recommend = () => {
   return (
     <div>
       <h1>YOU MAY ALSO LIKE</h1>
-      <Swiper slidesPerView={5} grabCursor={true} direction="horizontal">
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <Box

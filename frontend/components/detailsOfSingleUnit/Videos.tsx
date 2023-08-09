@@ -34,7 +34,7 @@ const Videos = () => {
   }, []);
 
   return (
-    <div>
+    <div id="sectionVideo">
       <h1>VIDEOS</h1>
       <Swiper
         slidesPerView={1}
@@ -48,19 +48,26 @@ const Videos = () => {
       >
         {videos.map((video: MoviesData) => (
           <SwiperSlide key={video.id}>
-            <Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "70vh",
+              }}
+            >
               <img
                 style={{
-                  maxWidth: "100%",
-                  height: "100vh",
+                  width: "70%",
+                  maxHeight: "80vh",
                 }}
-                // TODO: youtubeは、5枚ぐらいの表示になるから現状ではおかしい
-                src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
+                src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
                 alt={video.name}
               />
-              <Box>
+              {/* タイトルを画像の中に入れて修正する */}
+              {/* <Box>
                 <div>{video.name}</div>
-              </Box>
+              </Box> */}
             </Box>
           </SwiperSlide>
         ))}

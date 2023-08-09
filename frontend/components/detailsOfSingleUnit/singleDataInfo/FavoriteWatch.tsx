@@ -2,22 +2,22 @@ import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 
 const FavoriteWatch = () => {
-  // const [favorites, setFavorites] = useState([]);
-
   // TODO: 後ほど削除
   const [favorites, setFavorites] = useState(10);
   // 押されているかの判定
   const [isfavorited, setIsFavorited] = useState(false);
 
-  // TODO: ボタンの修正を行う
   const movieButton = {
-    backgroundColor: "red",
     color: "white",
-    textAlign: "center",
-    gap: "10px",
+    backgroundColor: "#FF0D01",
+    padding: "10px",
+    borderRadius: "10px",
+    "&:hover": {
+      backgroundColor: "#ac0e06",
+      opacity: "0.9",
+    },
   };
 
   const favoriteButton = {
@@ -43,10 +43,12 @@ const FavoriteWatch = () => {
           onClick={() => handleFavorites()}
         />
         <span>{favorites}people have added to their favorites</span>
-        <Button sx={movieButton}>
-          <PlayArrowIcon />
-          WATCH NOW
-        </Button>
+        <a href="#sectionVideo">
+          <Button sx={movieButton}>
+            <PlayArrowIcon />
+            WATCH NOW
+          </Button>
+        </a>
       </Box>
     </>
   );

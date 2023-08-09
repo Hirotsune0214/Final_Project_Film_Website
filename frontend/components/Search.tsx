@@ -1,4 +1,4 @@
-import { Box, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -10,47 +10,20 @@ interface films {
 }
 
 const API_KEY = "bb46848237eacc0a36827f6639b47ee3";
-const SEARCH_KEY = process.env.SEARCH_MOVIES;
-const img = process.env.IMG;
 
 const Search = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
   const [searchResults, setSearchResults] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [category, setCategory] = useState("movie");
 
-  const fetchSearchMovies = async () => {
+  const fetchSearch = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?query=${searchValue}&api_key=${API_KEY}`
+        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&api_key=${API_KEY}`
       );
 
-      console.log(response.data.results);
-      setSearchResults(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchSearchDramas = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/tv?query=${searchValue}&api_key=${API_KEY}`
-      );
-
-      setSearchResults(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchSearchPeople = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/person?query=${searchValue}&api_key=${API_KEY}`
-      );
-
-      // データの取得(+)
       console.log(response.data.results);
       setSearchResults(response.data.results);
     } catch (error) {
@@ -59,38 +32,65 @@ const Search = () => {
   };
 
   useEffect(() => {
-    fetchSearchMovies();
-    fetchSearchDramas();
-    fetchSearchPeople();
-  }, [searchValue]);
+    fetchSearch();
+  }, [searchValue, category]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
-  const isActive = {
-    // css
-  }
   return (
     <div>
       <Box
         sx={{
-          mt: "30px",
+          mt: "80px",
           display: "flex",
           justifyContent: "center",
           gap: "10px",
         }}
       >
-<<<<<<< Updated upstream
-        <button onClick={fetchSearchMovies}>MOVIE</button>
-        <button onClick={fetchSearchDramas}>TV</button>
-        <button onClick={fetchSearchPeople}>PEOPLE</button>
-=======
-
-        <button onClick={() => setCategory("movie")}>MOVIE</button>
-        <button onClick={() => setCategory("tv")}>TV</button>
-        <button onClick={() => setCategory("person")}>PEOPLE</button>
->>>>>>> Stashed changes
+        <Button
+          onClick={() => setCategory("movie")}
+          sx={{
+            backgroundColor: category === "movie" ? "red" : "transparent",
+            padding: "15px",
+            color: "black",
+            ":hover": {
+              backgroundColor: "red",
+              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+            },
+          }}
+        >
+          MOVIE
+        </Button>
+        <Button
+          onClick={() => setCategory("tv")}
+          sx={{
+            backgroundColor: category === "tv" ? "red" : "transparent",
+            padding: "15px",
+            color: "black",
+            ":hover": {
+              backgroundColor: "red",
+              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+            },
+          }}
+        >
+          TV
+        </Button>
+        <Button
+          onClick={() => setCategory("person")}
+          sx={{
+            backgroundColor: category === "person" ? "red" : "transparent",
+            padding: "15px",
+            color: "black",
+            ":hover": {
+              backgroundColor: "red",
+              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+            },
+          }}
+        >
+          PEOPLE
+        </Button>
       </Box>
       <Box
         sx={{
