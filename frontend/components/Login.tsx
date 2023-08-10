@@ -3,11 +3,12 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import authApi from "../api/authApi";
-import { useNavigate } from "react-router-dom";
 import authUtils from "@/utils/authUtils";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import authApi from "@/pages/api/authApi";
+import { useRecoilState } from "recoil";
+import { userState } from "@/src/state/auth";
 
 const login: FC = () => {
   const router = useRouter();
@@ -16,7 +17,10 @@ const login: FC = () => {
   // エラー時の表示
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
+
   const [loading, setLoading] = useState(false);
+
+  const [user, setUser] = useRecoilState(userState);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,10 +65,17 @@ const login: FC = () => {
         username,
         password,
       });
+
+      // mongoDBからデータを取得。
+      // responseでusenameを取得してrecoilに表示させるようにする
+
+      setUser({ username: username }); // 修正点
+
       setLoading(false);
       // 成功したらtokenの名称でローカルストレージに保存する
       localStorage.setItem("token", res.token);
       console.log("ログインに成功しました");
+      router.push("/");
     } catch (err) {
       const errors = err.data.errors;
       console.log(errors);
@@ -83,6 +94,7 @@ const login: FC = () => {
     }
   };
 
+  /*
   useEffect(() => {
     // JWTを持っているか確認する
     const checkAuth = async () => {
@@ -95,9 +107,27 @@ const login: FC = () => {
       }
       checkAuth();
     };
-    // ページ遷移する度に、useEffectが発火する
-    // }, [navigate]);
-  }, []);
+  }, [router]);
+  */
+
+  // 確認する
+  useEffect(() => {
+    // JWTを持っているか確認する
+    const checkAuth = async () => {
+      // 認証チェック
+      // userに権限があるかの確認
+      const isAuth = await authUtils.isAuthenticated();
+      // isAuthがtrueならメインページにリダイレクトするようにする
+      if (isAuth) {
+        // console.log("@@@@@@@@@@@@@@@@@@");
+        // console.log(isAuth);
+        setUser({ username: isAuth.username });
+        router.push("/");
+      }
+    };
+
+    checkAuth(); // 修正点：ここでの呼び出しを残すが、依存リストを空にする
+  }, []); // 修正点：依存リストを空にする
 
   return (
     <>
@@ -174,7 +204,7 @@ const login: FC = () => {
         </Box>
         {/* 位置を調整する */}
         <Button>
-          <Link href="/signup/signup">Don't have an account? Sign Up</Link>
+          <Link href="/signup">Don't have an account? Sign Up</Link>
         </Button>
       </Box>
     </>
