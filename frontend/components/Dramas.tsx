@@ -100,7 +100,9 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
   }, [currentPage]);
 
   return (
-    <div style={{ display: "block", padding: "16px" }}>
+    <div
+      style={{ display: "block", padding: "16px", backgroundColor: "#F5F5F5" }}
+    >
       <div
         style={{
           display: "flex",
@@ -180,13 +182,31 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
             </Box>
           </Box>
         ))}
+      </Box>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          textAlign: "center",
+          marginTop: "45px",
+        }}
+      >
         <Button
-          sx={{ color: "#FF0000", fontSize: "15px", fontWeight: "bold" }}
+          sx={{
+            color: "#FF0000",
+            fontSize: "20px",
+            fontWeight: "bold",
+            ":hover": {
+              color: "white",
+              backgroundColor: "red",
+              opacity: 0.8,
+            },
+          }}
           onClick={() => handleAddDramasPages()}
         >
           LOAD MORE
         </Button>
-      </Box>
+      </div>
     </div>
   );
 };

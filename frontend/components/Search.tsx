@@ -40,10 +40,10 @@ const Search = () => {
   };
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#F5F5F5" }}>
       <Box
         sx={{
-          mt: "80px",
+          mt: "20px",
           display: "flex",
           justifyContent: "center",
           gap: "10px",
