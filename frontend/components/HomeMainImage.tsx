@@ -14,41 +14,42 @@ interface Series {
   backdrop_path: "string";
 }
 
-const MainImageMovies = ({ movies }: { movies: Series[]}) => {
+const HomeMainImage = () => {
   const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
 
-  // const [dramas, setDramas] = useState<Series[]>([]);
+  const [dramas, setDramas] = useState<Series[]>([]);
 
-  // const fetchDramas = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3"
-  //     );
-  //     setDramas(response.data.results);
+  const fetchDramas = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3"
+      );
+      setDramas(response.data.results);
 
-  //     console.log(response.data.results);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+      console.log(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const extractYearFromDate = (dateString: string): string => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
 
-  // useEffect(() => {
-  //   fetchDramas();
-  // }, []);
+  useEffect(() => {
+    fetchDramas();
+  }, []);
 
   return (
     <div style={{}}>
       {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
-        {movies.map((drama: Series) => (
+        {dramas.map((drama: Series) => (
           <SwiperSlide key={drama.id}>
             <div
               style={{
                 backgroundImage: `URL(${URL}${drama.backdrop_path})`,
+
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 height: "100vh",
@@ -78,4 +79,4 @@ const MainImageMovies = ({ movies }: { movies: Series[]}) => {
   );
 };
 
-export default MainImageMovies;
+export default HomeMainImage;

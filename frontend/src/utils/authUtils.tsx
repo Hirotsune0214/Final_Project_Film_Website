@@ -1,4 +1,4 @@
-import authApi from "../api/authApi";
+import authApi from "@/pages/api/authApi";
 
 const authUtils = {
   // JWTチェック

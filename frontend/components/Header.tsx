@@ -1,12 +1,40 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { FC, useEffect, useState } from "react";
+
+import { userState } from "@/src/state/auth";
+import { useRecoilState } from "recoil";
+import authUtils from "@/utils/authUtils";
 
 export default function Header() {
+  const router = useRouter();
+  const currentUrl = router.pathname;
+
+  const [user, setUser] = useRecoilState(userState);
+  console.log("Header user:", user); // ユーザー名が表示されるか確認
+
+  useEffect(() => {
+    // JWTを持っているか確認する
+    const checkAuth = async () => {
+      // 認証チェック
+      // userに権限があるかの確認
+      const isAuth = await authUtils.isAuthenticated();
+      // isAuthがtrueならメインページにリダイレクトするようにする
+      if (isAuth) {
+        // console.log("@@@@@@@@@@@@@@@@@@");
+        // console.log(isAuth);
+        setUser({ username: isAuth.username });
+        router.push("/");
+      }
+    };
+    checkAuth(); // 修正点：ここでの呼び出しを残すが、依存リストを空にする
+  }, []); // 修正点：依存リストを空にする
+
   return (
     <Box>
       <AppBar position="static">
@@ -25,35 +53,121 @@ export default function Header() {
           <Typography
             variant="h6"
             sx={{
-              border: "solid",
-              backgroundColor: "red",
-              borderColor: "red",
-              borderRadius: "3px",
+              backgroundColor: currentUrl === "/" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
             }}
           >
-            <Link href="/">HOME</Link>
+            <Link
+              href="/"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              HOME
+            </Link>
           </Typography>
-          <Typography variant="h6">
-            <Link href="/movies/movies">MOVIES</Link>
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: currentUrl === "/movies" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                color: "black",
+                backgroundColor: "red",
+                opacity: "0.4",
+              },
+            }}
+          >
+            <Link
+              href="/movies"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              MOVIES
+            </Link>
           </Typography>
-          <Typography variant="h6">
-            <Link href="/dramas/dramas">TV SERIES</Link>
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: currentUrl === "/dramas" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
+            }}
+          >
+            <Link
+              href="/dramas"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              TV SERIES
+            </Link>
           </Typography>
-          <Typography variant="h6">
-            <Link href="/search/search">SEARCH</Link>
+          <Typography
+            variant="h6"
+            sx={{
+              backgroundColor: currentUrl === "/search" ? "red" : "transparent",
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
+            }}
+          >
+            <Link
+              href="/search"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              SEARCH
+            </Link>
           </Typography>
           <DarkModeOutlinedIcon />
           <Button
-            color="inherit"
             sx={{
               border: "solid",
               backgroundColor: "red",
               borderColor: "red",
               position: "absolute",
               right: "20px",
+              "&:hover": {
+                backgroundColor: "red",
+                opacity: "0.7",
+              },
             }}
           >
-            <Link href="/login/login">LOGIN</Link>
+            <Link
+              href="/login"
+              style={{
+                textDecoration: "none",
+                color: "white",
+                letterSpacing: "1.0px",
+              }}
+            >
+              LOGIN
+            </Link>
+            <Typography>{user.username}</Typography>
           </Button>
         </Box>
       </AppBar>

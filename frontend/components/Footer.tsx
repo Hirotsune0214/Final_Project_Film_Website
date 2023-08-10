@@ -1,36 +1,121 @@
-import React from "react";
+import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-const Footer: () => React.JSX.Element = () => {
+const Footer = () => {
+  const router = useRouter();
+
   return (
-    <Box
-      sx={{
-        bgcolor: "#131313",
-        color: "#ffffff",
-        py: 3,
-        px: 3,
-        position: "fixed",
-        bottom: 0,
-        width: "100%",
-        height: "70px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
-      <Typography variant="h4">Title</Typography>
+    <Box>
       <Box
+        component="footer" // footer要素としてマークアップ
         sx={{
+          bgcolor: "#ffffff",
+          padding: "32px",
+          height: "70px",
           display: "flex",
-          gap: "15px",
-          mr: "40px",
+          alignItems: "center",
+          justifyContent: "space-between",
+          top: "auto", // topプロパティを指定しないことで、通常の流れに従って表示されるようにする
+          bottom: 0,
+          marginTop: "0px",
         }}
       >
-        <Typography>HOME</Typography>
-        <Typography>MOVIES</Typography>
-        <Typography>TV SERIES</Typography>
-        <Typography>SEARCH</Typography>
+        <Typography variant="h4">Title</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            gap: "15px",
+            mr: "40px",
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "#ffecec",
+              },
+            }}
+          >
+            <Link
+              href="/"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                letterSpacing: "1.0px",
+              }}
+            >
+              HOME
+            </Link>
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "#ffecec",
+              },
+            }}
+          >
+            <Link
+              href="/movies"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                letterSpacing: "1.0px",
+              }}
+            >
+              MOVIES
+            </Link>
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "#ffecec",
+              },
+            }}
+          >
+            <Link
+              href="/dramas"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                letterSpacing: "1.0px",
+              }}
+            >
+              TV SERIES
+            </Link>
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              padding: "10px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "#ffecec",
+              },
+            }}
+          >
+            <Link
+              href="/search"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                letterSpacing: "1.0px",
+              }}
+            >
+              SEARCH
+            </Link>
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
