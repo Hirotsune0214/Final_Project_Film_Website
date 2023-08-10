@@ -80,8 +80,9 @@ export default function Header() {
               padding: "10px",
               borderRadius: "10px",
               "&:hover": {
+                color: "black",
                 backgroundColor: "red",
-                opacity: "0.7",
+                opacity: "0.4",
               },
             }}
           >

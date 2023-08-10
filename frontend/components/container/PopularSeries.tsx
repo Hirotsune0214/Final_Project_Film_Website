@@ -34,7 +34,6 @@ const PopularMSeries = () => {
   const extractYearFromDate = (dateString: string): string => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
-
   const boxSX = {
     maxWidth: "500px",
     margin: "0 auto",
@@ -46,7 +45,9 @@ const PopularMSeries = () => {
     },
     "&:hover .img": {
       transform: "scale(1.1)",
-      opacity: "1",
+      boxShadow: "9px -8px 25px 4px #777777",
+      transition: ".3s ease-in-out",
+      // borderRadius: "10px",
     },
     "& .img": {
       width: "100%",
@@ -56,18 +57,20 @@ const PopularMSeries = () => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "100%",
+      height: "63.6vh",
       top: 0,
       left: 0,
       textAlign: "center",
       color: "#fff",
-      backgroundColor: "rgba(0,0,0,0.6)",
+      background:
+        "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
       transition: ".3s ease-in-out",
       opacity: 0,
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+      transform: "scale(1.1)",
     },
   };
 
@@ -82,7 +85,7 @@ const PopularMSeries = () => {
         slidesPerView={4}
         grabCursor={true}
         direction="horizontal"
-        spaceBetween={15}
+        spaceBetween={10}
       >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
@@ -99,9 +102,8 @@ const PopularMSeries = () => {
                 className="img"
                 style={{
                   width: "100%",
-                  height: "70vh",
-                  boxShadow: "0 12px 12px gray",
-                  transition: "box-shadow .5s",
+                  height: "60vh",
+                  margin: "30px 0",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.original_name}

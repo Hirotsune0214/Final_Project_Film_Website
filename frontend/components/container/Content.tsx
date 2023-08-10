@@ -8,7 +8,7 @@ import TopRatedSeries from "./TopRatedSeries";
 const Content = () => {
   return (
     <>
-      <div style={{ padding: "16px" }}>
+      <div style={{ padding: "45px" }}>
         <PopularMovies />
         <PopularMSeries />
         <TopRatedMovies />

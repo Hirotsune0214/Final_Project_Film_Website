@@ -38,13 +38,15 @@ const PopularMovies = () => {
     margin: "0 auto",
     position: "relative",
     cursor: "pointer",
-    // background: "cover",
+    background: "cover",
     "&:hover .text": {
       opacity: 1,
     },
     "&:hover .img": {
       transform: "scale(1.1)",
-      opacity: "1",
+      boxShadow: "9px -8px 25px 4px #777777",
+      transition: ".3s ease-in-out",
+      // borderRadius: "10px",
     },
     "& .img": {
       width: "100%",
@@ -54,7 +56,7 @@ const PopularMovies = () => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "100%",
+      height: "63.6vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -67,7 +69,7 @@ const PopularMovies = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      transform: "scaleX(1.1)",
+      transform: "scale(1.1)",
     },
   };
 
@@ -99,8 +101,8 @@ const PopularMovies = () => {
                 className="img"
                 style={{
                   width: "100%",
-                  // TODO: heightは、65-70vh
                   height: "60vh",
+                  margin: "30px 0",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
