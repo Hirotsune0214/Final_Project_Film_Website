@@ -18,7 +18,7 @@ const Footer = () => {
           justifyContent: "space-between",
           top: "auto", // topプロパティを指定しないことで、通常の流れに従って表示されるようにする
           bottom: 0,
-          marginTop: "100px",
+          marginTop: "30px",
         }}
       >
         <Typography variant="h4">Title</Typography>

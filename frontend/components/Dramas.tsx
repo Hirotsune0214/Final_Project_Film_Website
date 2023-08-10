@@ -57,8 +57,10 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.04)",
+      transform: "scale(1.1)",
       opacity: "1",
+      boxShadow: "15px 0px 25px 15px #777777",
+      transition: ".3s ease-in-out",
     },
     "& .img": {
       width: "100%",
@@ -68,18 +70,20 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "100%",
+      height: "105%",
       top: 0,
       left: 0,
       textAlign: "center",
       color: "#fff",
-      backgroundColor: "rgba(0,0,0,0.6)",
+      background:
+        "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
       transition: ".3s ease-in-out",
       opacity: 0,
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+      transform: "scaleX(1.1)",
     },
   };
 
@@ -111,8 +115,8 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
             onClick={() => setMovieLists("popular")}
             sx={{
               backgroundColor: movieLists === "popular" ? "red" : "transparent",
+              color: movieLists === "popular" ? "#ffffff" : "#000000",
               padding: "15px",
-              color: "black",
               ":hover": {
                 backgroundColor: "red",
                 opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -126,8 +130,8 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
             sx={{
               backgroundColor:
                 movieLists === "top_rated" ? "red" : "transparent",
+              color: movieLists === "top_rated" ? "#ffffff" : "#000000",
               padding: "15px",
-              color: "black",
               ":hover": {
                 backgroundColor: "red",
                 opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -139,12 +143,12 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
         </Box>
       </div>
       <Box
-        style={{
+        sx={{
           marginTop: "20px",
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "9px",
-          rowGap: "14px",
+          gridGap: "16.5px",
+          rowGap: "48px",
           cursor: "pointer",
         }}
       >
