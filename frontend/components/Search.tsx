@@ -53,8 +53,8 @@ const Search = () => {
           onClick={() => setCategory("movie")}
           sx={{
             backgroundColor: category === "movie" ? "red" : "transparent",
+            color: category === "movie" ? "#ffffff" : "#000000",
             padding: "15px",
-            color: "black",
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -67,8 +67,8 @@ const Search = () => {
           onClick={() => setCategory("tv")}
           sx={{
             backgroundColor: category === "tv" ? "red" : "transparent",
+            color: category === "tv" ? "#ffffff" : "#000000",
             padding: "15px",
-            color: "black",
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -81,8 +81,8 @@ const Search = () => {
           onClick={() => setCategory("person")}
           sx={{
             backgroundColor: category === "person" ? "red" : "transparent",
+            color: category === "person" ? "#ffffff" : "#000000",
             padding: "15px",
-            color: "black",
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
