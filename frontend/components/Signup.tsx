@@ -1,9 +1,4 @@
-<<<<<<< HEAD:frontend/pages/signup/signup.tsx
-<<<<<<< Updated upstream
-import React, { FC, useState } from "react";
-=======
 import React, { FC, useEffect, useState } from "react";
->>>>>>> main:frontend/components/Signup.tsx
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Box, Button, TextField, Typography } from "@mui/material";
@@ -111,14 +106,8 @@ const signup: FC = () => {
       setLoading(false);
     }
   };
-=======
-import React from "react";
-import Signup from "@/components/Signup";
-import WithAuth from "@/components/WithAuth";
->>>>>>> Stashed changes
 
   return (
-<<<<<<< Updated upstream
     <>
       <Box
         sx={{
@@ -209,11 +198,6 @@ import WithAuth from "@/components/WithAuth";
         </Button>
       </Box>
     </>
-=======
-    <WithAuth>
-      <Signup />
-    </WithAuth>
->>>>>>> Stashed changes
   );
 };
 
