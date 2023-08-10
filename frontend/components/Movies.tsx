@@ -61,6 +61,8 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
       transform: "scale(1.1)",
       opacity: "1",
       boxShadow: "15px 0px 25px 15px #777777",
+      // TODO: 元々box-shadowに丸みがあるので、画像と合わせるなら下記を追加する
+      // borderRadius: "10px",
       transition: ".3s ease-in-out",
     },
     "& .img": {
@@ -100,7 +102,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
   }, [currentPage]);
 
   return (
-    <div style={{ display: "block", padding: "16px" }}>
+    <div style={{ display: "block", padding: "16px", overflow: "visible" }}>
       <div
         style={{
           display: "flex",
