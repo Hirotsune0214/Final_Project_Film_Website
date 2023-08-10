@@ -3,7 +3,7 @@ import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { Button } from "@mui/material";
 import ReviewArea from "./ReviewArea";
 import axios from "axios";
- 
+
 const Reviews = () => {
   const [inputText, setInputText] = useState<string>("");
 
@@ -72,14 +72,3 @@ const Reviews = () => {
 };
 
 export default Reviews;
-
-// TODO: ボタンの修正を行う
-// const postButton = {
-//   backgroundColor: "red",
-//   color: "white",
-//   display: "flex",
-//   textAlign: "center",
-//   gap: "10px",
-//   padding: "15px",
-//   borderRadius: "5px",
-// };

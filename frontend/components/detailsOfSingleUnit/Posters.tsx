@@ -2,38 +2,39 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
-const BackDrops = () => {
+const Posters = () => {
   const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
 
-  const [backdrops, serBackDrops] = useState([]);
+  const [posters, serPosters] = useState([]);
 
-  const fetchBackdrops = async () => {
+  const fetchPosters = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/trending/all/day?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/search/movie?api_key=bb46848237eacc0a36827f6639b47ee3&query=barbie&include_adult=false&language=en-US&page=1"
       );
-      serBackDrops(response.data.results);
+      serPosters(response.data.results);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchBackdrops();
+    fetchPosters();
   }, []);
 
   return (
     <div>
-      <h1>BACK DROPS</h1>
+      <h1>POSTERS</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
-        {backdrops.map((backdrop: any) => (
-          <SwiperSlide key={backdrop.id}>
+        {posters.map((poster: any) => (
+          <SwiperSlide key={poster.id}>
             <Box>
               <img
                 style={{ width: "100%" }}
-                src={`${URL}${backdrop.poster_path}`}
-                alt={backdrop.title}
+                src={`${URL}${poster.poster_path}`}
+                alt={poster.title}
               />
             </Box>
           </SwiperSlide>
@@ -43,4 +44,4 @@ const BackDrops = () => {
   );
 };
 
-export default BackDrops;
+export default Posters;

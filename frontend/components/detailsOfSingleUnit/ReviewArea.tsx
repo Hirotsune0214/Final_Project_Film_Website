@@ -27,7 +27,7 @@ const ReviewArea = () => {
           <span style={reviewTimestamp}>2023/07/25</span>
         </h4>
 
-        <p>メッセージ本文</p>
+        <p>Message content</p>
       </div>
     </div>
   );
