@@ -7,7 +7,9 @@ import { Box } from "@mui/material";
 
 const SinglePageInfo = () => {
   return (
-    <div style={{ display: "flex" }}>
+    <div
+      style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
+    >
       <LeftSidePicMain />
       <Box sx={{ flexDirection: "column", width: "60%" }}>
         <RightSideDetailMain />

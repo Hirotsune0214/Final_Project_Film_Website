@@ -45,6 +45,7 @@ const LeftSidePicMain = () => {
           backgroundSize: "cover",
           height: "90vh",
           width: "500px",
+          marginRight: "32px",
         }}
       ></div>
     </div>

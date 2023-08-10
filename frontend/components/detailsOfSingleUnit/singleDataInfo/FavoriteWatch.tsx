@@ -27,6 +27,7 @@ const FavoriteWatch = () => {
   const favoriteContainer = {
     display: "flex",
     gap: "10px",
+    marginTop: "40px",
   };
 
   const handleFavorites = () => {
