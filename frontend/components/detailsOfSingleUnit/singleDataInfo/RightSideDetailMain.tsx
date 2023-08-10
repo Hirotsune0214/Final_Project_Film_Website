@@ -54,6 +54,7 @@ const RightSideDetailMain = () => {
             {extractYearFromDate(firstMovie.release_date)}
           </h2>
           <p>{firstMovie.vote_average}</p>
+
         </>
       )}
     </Box>

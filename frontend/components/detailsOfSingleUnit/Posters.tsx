@@ -12,7 +12,7 @@ const Posters = () => {
   const fetchPosters = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/trending/all/day?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/search/movie?api_key=bb46848237eacc0a36827f6639b47ee3&query=barbie&include_adult=false&language=en-US&page=1"
       );
       serPosters(response.data.results);
     } catch (error) {
@@ -27,7 +27,7 @@ const Posters = () => {
   return (
     <div>
       <h1>POSTERS</h1>
-      <Swiper slidesPerView={5} grabCursor={true} direction="horizontal">
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {posters.map((poster: any) => (
           <SwiperSlide key={poster.id}>
             <Box>

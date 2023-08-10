@@ -17,7 +17,7 @@ const BackDrops = () => {
   const fetchBackdrops = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/trending/all/day?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/search/movie?api_key=bb46848237eacc0a36827f6639b47ee3&query=barbie&include_adult=false&language=en-US&page=1"
       );
       serBackDrops(response.data.results);
     } catch (error) {
