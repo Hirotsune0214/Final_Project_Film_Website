@@ -10,6 +10,8 @@ interface films {
   title: string;
   vote_average: number;
   release_date: string;
+  name: string;
+  first_air_date: string;
 }
 
 const Recommend = () => {
@@ -37,6 +39,10 @@ const Recommend = () => {
       return "Unknown"; // もしくは、適切なデフォルト値を返す
     }
   };
+
+  // const extractVoteAverage = (voteAverage: string | undefined): string => {
+  //   if(voteAverage && voteAverage.)
+  // }
 
   const boxSX = {
     maxWidth: "500px",
@@ -108,11 +114,24 @@ const Recommend = () => {
                 alt={movie.title}
               />
 
-              <Box className="text">
-                <div>{movie.vote_average}</div>
-                <div>{extractYearFromDate(movie.release_date)}</div>
-                <div>{movie.title}</div>
-              </Box>
+              {ishover && (
+                <Box className="text">
+                  {movie.title ? (
+                    <>
+                      <div>{movie.title}</div>
+                      <div>{extractYearFromDate(movie.release_date)}</div>
+
+                      <div>{movie.vote_average.toFixed(1)}</div>
+                    </>
+                  ) : (
+                    <>
+                      <div>{movie.name}</div>
+                      <div>{extractYearFromDate(movie.first_air_date)}</div>
+                      <div>{movie.vote_average.toFixed(1)}</div>
+                    </>
+                  )}
+                </Box>
+              )}
             </Box>
           </SwiperSlide>
         ))}
