@@ -119,8 +119,6 @@ const login: FC = () => {
       const isAuth = await authUtils.isAuthenticated();
       // isAuthがtrueならメインページにリダイレクトするようにする
       if (isAuth) {
-        // console.log("@@@@@@@@@@@@@@@@@@");
-        // console.log(isAuth);
         setUser({ username: isAuth.username });
         router.push("/");
       }

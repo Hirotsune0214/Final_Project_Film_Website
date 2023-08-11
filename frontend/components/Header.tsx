@@ -16,7 +16,8 @@ export default function Header() {
   const currentUrl = router.pathname;
 
   const [user, setUser] = useRecoilState(userState);
-  console.log("Header user:", user); // ユーザー名が表示されるか確認
+
+  // console.log("Header user:", user); ユーザー名が表示されるか確認
 
   useEffect(() => {
     // JWTを持っているか確認する
@@ -26,10 +27,9 @@ export default function Header() {
       const isAuth = await authUtils.isAuthenticated();
       // isAuthがtrueならメインページにリダイレクトするようにする
       if (isAuth) {
-        // console.log("@@@@@@@@@@@@@@@@@@");
-        // console.log(isAuth);
         setUser({ username: isAuth.username });
-        router.push("/");
+        // TODO: 修正の必要がある
+        // router.push("/");
       }
     };
     checkAuth(); // 修正点：ここでの呼び出しを残すが、依存リストを空にする
@@ -144,31 +144,40 @@ export default function Header() {
             </Link>
           </Typography>
           <DarkModeOutlinedIcon />
-          <Button
-            sx={{
-              border: "solid",
-              backgroundColor: "red",
-              borderColor: "red",
-              position: "absolute",
-              right: "20px",
-              "&:hover": {
+
+          {/* TODO: tokenを削除するとログイン状態だが、名前がない状態になる */}
+          {user ? (
+            <Typography
+              sx={{ position: "absolute", right: "20px", fontSize: "20px" }}
+            >
+              {user.username}
+            </Typography>
+          ) : (
+            <Button
+              sx={{
+                border: "solid",
                 backgroundColor: "red",
-                opacity: "0.7",
-              },
-            }}
-          >
-            <Link
-              href="/login"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                letterSpacing: "1.0px",
+                borderColor: "red",
+                position: "absolute",
+                right: "20px",
+                "&:hover": {
+                  backgroundColor: "red",
+                  opacity: "0.7",
+                },
               }}
             >
-              LOGIN
-            </Link>
-            <Typography>{user.username}</Typography>
-          </Button>
+              <Link
+                href="/login"
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  letterSpacing: "1.0px",
+                }}
+              >
+                LOGIN
+              </Link>
+            </Button>
+          )}
         </Box>
       </AppBar>
     </Box>
