@@ -46,6 +46,8 @@ const TopRatedSeries = () => {
       transform: "scale(1.1)",
       boxShadow: "9px -8px 25px 4px #777777",
       transition: ".3s ease-in-out",
+      position: "absolute",
+      zIndex: "2",
       // borderRadius: "10px",
     },
     "& .img": {
@@ -70,6 +72,7 @@ const TopRatedSeries = () => {
       alignItems: "center",
       justifyContent: "center",
       transform: "scale(1.1)",
+      zIndex: "2",
     },
   };
 
@@ -102,6 +105,7 @@ const TopRatedSeries = () => {
                   width: "100%",
                   height: "60vh",
                   margin: "30px 0",
+                  zIndex: "1",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.original_name}
