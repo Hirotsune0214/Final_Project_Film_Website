@@ -40,10 +40,6 @@ const Recommend = () => {
     }
   };
 
-  // const extractVoteAverage = (voteAverage: string | undefined): string => {
-  //   if(voteAverage && voteAverage.)
-  // }
-
   const boxSX = {
     maxWidth: "500px",
     margin: "0 auto",
@@ -54,9 +50,12 @@ const Recommend = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3)",
-      transform: "translate(0, -15px)",
-      opacity: "1",
+      transform: "scale(1.1)",
+      boxShadow: "9px -8px 25px 4px #777777",
+      transition: ".3s ease-in-out",
+      position: "absolute",
+      zIndex: "2",
+      // borderRadius: "10px",
     },
     "& .img": {
       width: "100%",
@@ -66,18 +65,21 @@ const Recommend = () => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "100%",
-      top: 0,
+      height: "70vh",
+      top: 1,
       left: 0,
       textAlign: "center",
       color: "#fff",
-      backgroundColor: "rgba(0,0,0,0.6)",
+      background:
+        "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
       transition: ".3s ease-in-out",
       opacity: 0,
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
+      transform: "scale(1.1)",
+      zIndex: "2",
     },
   };
 
@@ -89,7 +91,12 @@ const Recommend = () => {
   return (
     <div>
       <h1>YOU MAY ALSO LIKE</h1>
-      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+      <Swiper
+        slidesPerView={4}
+        grabCursor={true}
+        direction="horizontal"
+        spaceBetween={8}
+      >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <Box
@@ -105,10 +112,9 @@ const Recommend = () => {
                 className="img"
                 style={{
                   width: "100%",
-                  // TODO: heightは、65-70vh
-                  height: "70vh",
-                  boxShadow: "0 12px 12px gray",
-                  transition: "box-shadow .5s",
+                  height: "65vh",
+                  margin: "30px 0",
+                  zIndex: "1",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
