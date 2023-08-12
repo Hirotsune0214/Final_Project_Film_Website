@@ -1,6 +1,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { purple, red } from "@mui/material/colors";
 
 interface films {
   id: string;
@@ -14,6 +15,7 @@ const API_KEY = "bb46848237eacc0a36827f6639b47ee3";
 const Search = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
+  const primary = red[500];
   const [searchResults, setSearchResults] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [category, setCategory] = useState("movie");
@@ -137,7 +139,7 @@ const Search = () => {
       >
         <TextField
           label="Search"
-          color="secondary"
+          color="success"
           autoComplete="off"
           sx={{ width: "500px" }}
           value={searchValue}
