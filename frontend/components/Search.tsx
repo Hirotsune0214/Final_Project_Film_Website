@@ -1,6 +1,7 @@
 import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { purple, red } from "@mui/material/colors";
 
 interface films {
   id: string;
@@ -14,9 +15,11 @@ const API_KEY = "bb46848237eacc0a36827f6639b47ee3";
 const Search = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
 
+  const primary = red[500];
   const [searchResults, setSearchResults] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [category, setCategory] = useState("movie");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const fetchSearch = async () => {
     try {
@@ -31,39 +34,62 @@ const Search = () => {
     }
   };
 
+  const handleCategoryChange = (newCategory: string) => {
+    setCategory(newCategory);
+    setCurrentPage(1); // ページ番号をリセット
+  };
+
+  const fetchPage = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&page=${currentPage}&api_key=${API_KEY}`
+      );
+
+      setSearchResults((prevPageLists) => [
+        ...prevPageLists,
+        ...response.data.results,
+      ]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
   useEffect(() => {
     fetchSearch();
   }, [searchValue, category]);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+  useEffect(() => {
+    if (currentPage > 1) {
+      // Only fetch new pages after the initial load
+      fetchPage();
+    }
+  }, [currentPage]);
+
+  const handleAddPages = () => {
+    // 引数のprevPageは前の値を持っている
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   return (
     <div style={{ backgroundColor: "#F5F5F5", height: "100vh" }}>
       <Box
         sx={{
-<<<<<<< HEAD
-          mt: "80px",
-=======
           mt: "20px",
->>>>>>> main
           display: "flex",
           justifyContent: "center",
           gap: "10px",
         }}
       >
         <Button
-          onClick={() => setCategory("movie")}
+          onClick={() => handleCategoryChange("movie")}
+          // onClick={() => setCategory("movie")}
           sx={{
             backgroundColor: category === "movie" ? "red" : "transparent",
-<<<<<<< HEAD
-            padding: "15px",
-            color: "black",
-=======
             color: category === "movie" ? "#ffffff" : "#000000",
             padding: "15px",
->>>>>>> main
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -73,16 +99,12 @@ const Search = () => {
           MOVIE
         </Button>
         <Button
-          onClick={() => setCategory("tv")}
+          onClick={() => handleCategoryChange("tv")}
+          // onClick={() => setCategory("tv")}
           sx={{
             backgroundColor: category === "tv" ? "red" : "transparent",
-<<<<<<< HEAD
-            padding: "15px",
-            color: "black",
-=======
             color: category === "tv" ? "#ffffff" : "#000000",
             padding: "15px",
->>>>>>> main
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -92,16 +114,13 @@ const Search = () => {
           TV
         </Button>
         <Button
-          onClick={() => setCategory("person")}
+          onClick={() => handleCategoryChange("person")}
+          // onClick={() => setCategory("person")}
           sx={{
             backgroundColor: category === "person" ? "red" : "transparent",
-<<<<<<< HEAD
-            padding: "15px",
-            color: "black",
-=======
             color: category === "person" ? "#ffffff" : "#000000",
             padding: "15px",
->>>>>>> main
+
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -120,7 +139,7 @@ const Search = () => {
       >
         <TextField
           label="Search"
-          color="secondary"
+          color="success"
           autoComplete="off"
           sx={{ width: "500px" }}
           value={searchValue}
@@ -165,6 +184,32 @@ const Search = () => {
             ))}
           </div>
         </div>
+        {searchResults.length > 0 ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+              marginTop: "45px",
+            }}
+          >
+            <Button
+              sx={{
+                color: "#FF0000",
+                fontSize: "20px",
+                fontWeight: "bold",
+                ":hover": {
+                  color: "white",
+                  backgroundColor: "red",
+                  opacity: 0.8,
+                },
+              }}
+              onClick={() => handleAddPages()}
+            >
+              LOAD MORE
+            </Button>
+          </div>
+        ) : null}
       </Box>
     </div>
   );

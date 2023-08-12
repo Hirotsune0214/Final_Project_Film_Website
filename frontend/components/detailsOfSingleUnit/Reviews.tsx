@@ -7,6 +7,7 @@ import axios from "axios";
 const Reviews = () => {
   const [inputText, setInputText] = useState<string>("");
 
+  /*
   const sendReview = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -16,6 +17,19 @@ const Reviews = () => {
     try {
       await axios.post("/api/posts/", { text: inputText });
       console.log("レビューが正常に送信されました");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  */
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("/posts", { content: inputText });
+      console.log("aaaaa");
+      setInputText("");
     } catch (error) {
       console.error(error);
     }
@@ -43,25 +57,25 @@ const Reviews = () => {
     <>
       <div>
         <ReviewArea />
-        <ReviewArea />
-        <ReviewArea />
-        <ReviewArea />
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             style={reviewInput}
             type="text"
             placeholder="Write your review"
+            value={inputText}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setInputText(e.target.value)
             }
           />
+          {/* 
           <Button
             type="submit"
             sx={postButton}
             onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
               sendReview(e)
             }
-          >
+             */}
+          <Button type="submit" sx={postButton}>
             <SendOutlinedIcon />
             POST
           </Button>

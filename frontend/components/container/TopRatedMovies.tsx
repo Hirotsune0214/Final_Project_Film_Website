@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
 import { Box } from "@mui/material";
 
 interface films {
@@ -43,10 +42,11 @@ const TopRatedMovies = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.1)",
-      boxShadow: "9px -8px 25px 4px #777777",
+      transform: "scale(1.05)",
+      boxShadow: "8px -7px 20px -2px#777777",
       transition: ".3s ease-in-out",
-      // borderRadius: "10px",
+      position: "absolute",
+      zIndex: "2",
     },
     "& .img": {
       width: "100%",
@@ -56,7 +56,7 @@ const TopRatedMovies = () => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "63.6vh",
+      height: "63.7vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -69,7 +69,8 @@ const TopRatedMovies = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      transform: "scale(1.1)",
+      transform: "scale(1.05)",
+      zIndex: "2",
     },
   };
 
@@ -84,7 +85,7 @@ const TopRatedMovies = () => {
         slidesPerView={4}
         grabCursor={true}
         direction="horizontal"
-        spaceBetween={10}
+        spaceBetween={1}
       >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
@@ -102,7 +103,8 @@ const TopRatedMovies = () => {
                 style={{
                   width: "100%",
                   height: "60vh",
-                  margin: "30px 0",
+                  // margin: "30px 0",
+                  zIndex: "1",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}

@@ -57,10 +57,11 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.1)",
-      opacity: "1",
-      boxShadow: "15px 0px 25px 15px #777777",
+      transform: "scale(1.05)",
+      boxShadow: "8px -7px 20px -2px#777777",
       transition: ".3s ease-in-out",
+      position: "relative",
+      zIndex: "2",
     },
     "& .img": {
       width: "100%",
@@ -70,7 +71,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "105%",
+      height: "102.5%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -83,10 +84,10 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      transform: "scaleX(1.1)",
+      transform: "scaleX(1.05)",
+      zIndex: "2",
     },
   };
-
   const handleAddDramasPages = () => {
     // 引数のprevPageは前の値を持っている
     setCurrentPage((prevPage) => prevPage + 1);
@@ -149,7 +150,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
           marginTop: "20px",
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "16.5px",
+          gridGap: "5px",
           rowGap: "48px",
           cursor: "pointer",
         }}
@@ -173,6 +174,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
+                zIndex: "1",
               }}
             />
             <Box className="text">
