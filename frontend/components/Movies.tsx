@@ -59,12 +59,10 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
     },
     "&:hover .img": {
       transform: "scale(1.1)",
-      boxShadow: "15px 0px 25px 15px #777777",
+      boxShadow: "8px -7px 20px -2px#777777",
       transition: ".3s ease-in-out",
-      // position: "absolute",
+      position: "relative",
       zIndex: "2",
-      // TODO: 元々box-shadowに丸みがあるので、画像と合わせるなら下記を追加する
-      // borderRadius: "10px",
     },
     "& .img": {
       width: "100%",

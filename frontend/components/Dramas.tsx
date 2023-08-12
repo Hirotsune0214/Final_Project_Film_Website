@@ -57,10 +57,11 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.1)",
-      opacity: "1",
-      boxShadow: "15px 0px 25px 15px #777777",
+      transform: "scale(1.05)",
+      boxShadow: "8px -7px 20px -2px#777777",
       transition: ".3s ease-in-out",
+      position: "relative",
+      zIndex: "2",
     },
     "& .img": {
       width: "100%",
@@ -83,7 +84,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      transform: "scaleX(1.1)",
+      transform: "scaleX(1.05)",
     },
   };
 
@@ -173,6 +174,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
+                zIndex: "1",
               }}
             />
             <Box className="text">
