@@ -14,8 +14,6 @@ const API_KEY = "bb46848237eacc0a36827f6639b47ee3";
 
 const Search = () => {
   const URL = "https://image.tmdb.org/t/p/w500";
-
-  const primary = red[500];
   const [searchResults, setSearchResults] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [category, setCategory] = useState("movie");
@@ -63,7 +61,6 @@ const Search = () => {
 
   useEffect(() => {
     if (currentPage > 1) {
-      // Only fetch new pages after the initial load
       fetchPage();
     }
   }, [currentPage]);
