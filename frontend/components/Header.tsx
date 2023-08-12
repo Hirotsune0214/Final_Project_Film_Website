@@ -7,15 +7,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 
-import { userState } from "@/src/state/auth";
-import { useRecoilState } from "recoil";
 import authUtils from "@/utils/authUtils";
 
-export default function Header() {
+export default function Header({ user, setUser }: any) {
   const router = useRouter();
   const currentUrl = router.pathname;
 
-  const [user, setUser] = useRecoilState(userState);
   const [isAuth, setIsAuth] = useState(false);
 
   // console.log("Header user:", user); ユーザー名が表示されるか確認
