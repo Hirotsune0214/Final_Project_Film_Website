@@ -46,7 +46,7 @@ const PopularMovies = () => {
       transform: "scale(1.05)",
       boxShadow: "8px -7px 20px -2px#777777",
       transition: ".3s ease-in-out",
-      position: "absolute",
+      position: "relative",
       zIndex: "2",
     },
     "& .img": {
@@ -104,7 +104,7 @@ const PopularMovies = () => {
                   width: "100%",
                   height: "60vh",
                   zIndex: "1",
-                  // marginTop: "30px",
+                  // margin: "15px 0",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
