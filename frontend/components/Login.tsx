@@ -34,9 +34,6 @@ const login: FC = () => {
     const username = (data.get("username") as string).trim();
     const password = (data.get("password") as string).trim();
 
-    console.log(username);
-    console.log(password);
-
     let error = false;
 
     // ちゃんと入力されているかの確認
@@ -80,7 +77,6 @@ const login: FC = () => {
       const errors = err.data.errors;
       console.log(errors);
       // エラーを展開する
-      // TODO: forEachを使用して良いのか
       errors.forEach((err) => {
         if (err.param === "username") {
           setUsernameErrText(err.msg);

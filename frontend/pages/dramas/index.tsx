@@ -1,6 +1,5 @@
 import Dramas from "@/components/Dramas";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Layout from "@/components/Layout";
 import MainImageDramas from "@/components/MainImageDramas";
 import axios from "axios";
 
@@ -37,15 +36,15 @@ const dramas = () => {
 
   return (
     <div>
-      <Header />
-      <MainImageDramas dramas={dramas} />
-      <Dramas
-        dramas={dramas}
-        movieLists={movieLists}
-        setMovieLists={setMovieLists}
-        setDramas={setDramas}
-      />
-      <Footer />
+      <Layout>
+        <MainImageDramas dramas={dramas} />
+        <Dramas
+          dramas={dramas}
+          movieLists={movieLists}
+          setMovieLists={setMovieLists}
+          setDramas={setDramas}
+        />
+      </Layout>
     </div>
   );
 };
