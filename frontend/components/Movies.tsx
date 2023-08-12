@@ -58,7 +58,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.1)",
+      transform: "scale(1.05)",
       boxShadow: "8px -7px 20px -2px#777777",
       transition: ".3s ease-in-out",
       position: "relative",
@@ -72,7 +72,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "105%",
+      height: "102.5%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -85,7 +85,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      transform: "scaleX(1.1)",
+      transform: "scaleX(1.05)",
       zIndex: "2",
     },
   };
@@ -158,7 +158,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
           marginTop: "20px",
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "16.5px",
+          gridGap: "5px",
           rowGap: "48px",
           cursor: "pointer",
         }}
