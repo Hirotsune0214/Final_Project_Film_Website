@@ -14,10 +14,12 @@ const single_unit = () => {
   const { id } = router.query;
   console.log(id);
 
+  // const [user, setUser] = useRecoilState(userState);
+
   return (
     <div>
       <Header />
-      <Box sx={{ backgroundColor: "#F5F5F5" }}>
+      <Box sx={{ backgroundColor: "#F5F5F5", padding: "20px" }}>
         <SinglePageInfo />
         <Videos />
         <BackDrops />

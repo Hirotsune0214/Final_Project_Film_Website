@@ -16,6 +16,7 @@ export default function Header() {
   const currentUrl = router.pathname;
 
   const [user, setUser] = useRecoilState(userState);
+  const [isAuth, setIsAuth] = useState(false);
 
   // console.log("Header user:", user); ユーザー名が表示されるか確認
 
@@ -28,9 +29,9 @@ export default function Header() {
       // isAuthがtrueならメインページにリダイレクトするようにする
       if (isAuth) {
         setUser({ username: isAuth.username });
-        // TODO: 修正の必要がある
-        // router.push("/");
+        setIsAuth(true);
       }
+      console.log(isAuth);
     };
     checkAuth(); // 修正点：ここでの呼び出しを残すが、依存リストを空にする
   }, []); // 修正点：依存リストを空にする
@@ -145,8 +146,7 @@ export default function Header() {
           </Typography>
           <DarkModeOutlinedIcon />
 
-          {/* TODO: tokenを削除するとログイン状態だが、名前がない状態になる */}
-          {user ? (
+          {user && isAuth ? (
             <Typography
               sx={{ position: "absolute", right: "20px", fontSize: "20px" }}
             >

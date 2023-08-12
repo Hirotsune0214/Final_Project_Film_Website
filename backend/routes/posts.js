@@ -3,7 +3,7 @@ const movieController = require("../controllers/movieReview");
 
 // Create post "review, comments"
 // ログインしているかどうかの判定をミドルウェアに導入して、コメントできるできないを導入しないといけない
-router.post("/", async (req, res) => {
+router.post("/posts", async (req, res) => {
   const newPost = new Post(req.body);
   try {
     const savedPost = await newPost.save();

@@ -94,22 +94,6 @@ const login: FC = () => {
     }
   };
 
-  /*
-  useEffect(() => {
-    // JWTを持っているか確認する
-    const checkAuth = async () => {
-      // 認証チェック
-      // userに権限があるかの確認
-      const isAuth = await authUtils.isAuthenticated();
-      // isAuthがtrueならメインページにリダイレクトするようにする
-      if (isAuth) {
-        router.push("/");
-      }
-      checkAuth();
-    };
-  }, [router]);
-  */
-
   // 確認する
   useEffect(() => {
     // JWTを持っているか確認する

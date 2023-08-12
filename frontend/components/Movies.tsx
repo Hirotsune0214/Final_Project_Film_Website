@@ -59,11 +59,12 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
     },
     "&:hover .img": {
       transform: "scale(1.1)",
-      opacity: "1",
       boxShadow: "15px 0px 25px 15px #777777",
+      transition: ".3s ease-in-out",
+      // position: "absolute",
+      zIndex: "2",
       // TODO: 元々box-shadowに丸みがあるので、画像と合わせるなら下記を追加する
       // borderRadius: "10px",
-      transition: ".3s ease-in-out",
     },
     "& .img": {
       width: "100%",
@@ -87,6 +88,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
       alignItems: "center",
       justifyContent: "center",
       transform: "scaleX(1.1)",
+      zIndex: "2",
     },
   };
 
@@ -181,6 +183,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
+                zIndex: "1",
               }}
             />
             <Box className="text">

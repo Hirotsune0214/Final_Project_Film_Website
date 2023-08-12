@@ -43,8 +43,8 @@ const PopularMovies = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.1)",
-      boxShadow: "9px -8px 25px 4px #777777",
+      transform: "scale(1.05)",
+      boxShadow: "15px -10px 25px 15px #777777",
       transition: ".3s ease-in-out",
       position: "absolute",
       zIndex: "2",
@@ -58,7 +58,7 @@ const PopularMovies = () => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "63.6vh",
+      height: "60vh",
       top: 0,
       left: 0,
       textAlign: "center",
