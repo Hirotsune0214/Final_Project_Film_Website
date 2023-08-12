@@ -87,7 +87,6 @@ const Recommend = () => {
     fetchMovies();
   }, []);
 
-  console.log(URL);
   return (
     <div>
       <h1>YOU MAY ALSO LIKE</h1>

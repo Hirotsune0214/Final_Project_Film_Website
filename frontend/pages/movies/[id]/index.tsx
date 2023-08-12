@@ -8,13 +8,15 @@ import { useRouter } from "next/router";
 import SinglePageInfo from "@/components/detailsOfSingleUnit/singleDataInfo/SinglePageInfo";
 import { Box } from "@mui/material";
 import Layout from "@/components/Layout";
+import { useRecoilState } from "recoil";
+import { userState } from "@/src/state/auth";
 
 const single_unit = () => {
   const router = useRouter();
   const { id } = router.query;
   console.log(id);
 
-  // const [user, setUser] = useRecoilState(userState);
+  const [user, setUser] = useRecoilState(userState);
 
   return (
     <div>
@@ -24,7 +26,7 @@ const single_unit = () => {
           <Videos />
           <BackDrops />
           <Posters />
-          <Reviews />
+          <Reviews user={user} />
           <Recommend />
         </Box>
       </Layout>
