@@ -27,8 +27,9 @@ const Reviews = ({ user }) => {
     e.preventDefault();
 
     try {
-      await axios.post("/posts", { content: inputText });
-      console.log("aaaaa");
+      await axios.post("/api/posts", { content: inputText });
+      console.log("aaaaaa");
+
       setInputText("");
     } catch (error) {
       console.error(error);
