@@ -27,7 +27,7 @@ const Reviews = () => {
     e.preventDefault();
 
     try {
-      await axios.post("/api/posts", { content: inputText });
+      await axios.post("http://localhost:8080/api/posts", { content: inputText });
       console.log("aaaaa");
       setInputText("");
     } catch (error) {
