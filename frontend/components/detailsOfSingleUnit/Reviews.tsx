@@ -21,13 +21,14 @@ const Reviews = () => {
       console.error(error);
     }
   };
-  */
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  */ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
-      await axios.post("/posts", { content: inputText });
+
+      await axios.post("http://localhost:8080/api/posts", {
+        content: inputText,
+      });
+
       console.log("aaaaa");
       setInputText("");
     } catch (error) {
