@@ -27,7 +27,7 @@ const Reviews = () => {
     e.preventDefault();
 
     try {
-      await axios.post("/posts", { content: inputText });
+      await axios.post("/api/posts", { content: inputText });
       console.log("aaaaa");
       setInputText("");
     } catch (error) {
@@ -67,7 +67,7 @@ const Reviews = () => {
               setInputText(e.target.value)
             }
           />
-          {/* 
+          {/*
           <Button
             type="submit"
             sx={postButton}

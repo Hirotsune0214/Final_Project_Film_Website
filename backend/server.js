@@ -20,12 +20,9 @@ app.use(express.json());
 app.use("/api", require("./routes"));
 
 // DB接続
-try {
-  mongoose.connect(process.env.MONGO_URL);
-  console.log("Connect to DB");
-} catch (error) {
-  console.log(error);
-}
+mongoose.connect(process.env.MONGO_URL)
+  .then(() => console.log("DB connection success"))
+  .catch((err) => console.log(err));
 
 app.listen(PORT, () => {
   console.log(`Server is working ${PORT}`);
