@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const movieController = require("../controllers/movieReview");
+const Post = require("../models/Post");
 
 // Create post "review, comments"
 // ログインしているかどうかの判定をミドルウェアに導入して、コメントできるできないを導入しないといけない
