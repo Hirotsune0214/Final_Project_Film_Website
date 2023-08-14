@@ -3,17 +3,19 @@ import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { Button } from "@mui/material";
 import ReviewArea from "./ReviewArea";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { userState } from "@/src/state/auth";
 
 const Reviews = () => {
   const [inputText, setInputText] = useState<string>("");
-
+  const [user, setUser] = useRecoilState(userState);
   /*
   const sendReview = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
 
-    // メッセージ情報をmongoに格納する必要がある
+    // メッ0セージ情報をmongoに格納する必要がある
     try {
       await axios.post("/api/posts/", { text: inputText });
       console.log("レビューが正常に送信されました");
@@ -23,10 +25,13 @@ const Reviews = () => {
   };
   */ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
+    console.log(inputText);
+    console.log(user.username);
 
+    try {
       await axios.post("http://localhost:8080/api/posts", {
-        content: inputText,
+        userId: user.username,
+        desc: inputText,
       });
 
       console.log("aaaaa");
