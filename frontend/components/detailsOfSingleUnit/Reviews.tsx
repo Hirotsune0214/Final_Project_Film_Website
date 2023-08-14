@@ -6,7 +6,7 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userState } from "@/src/state/auth";
 
-const Reviews = ({ user }) => {
+const Reviews = () => {
   const [inputText, setInputText] = useState<string>("");
   const [user, setUser] = useRecoilState(userState);
   /*
@@ -34,7 +34,6 @@ const Reviews = ({ user }) => {
         userId: user.username,
         desc: inputText,
       });
-
 
       console.log("aaaaa");
 
@@ -78,15 +77,14 @@ const Reviews = ({ user }) => {
                 setInputText(e.target.value)
               }
             />
-     
 
-          <Button
-            type="submit"
-            sx={postButton}
-            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-              sendReview(e)
-            }
-             */}
+            <Button
+              type="submit"
+              sx={postButton}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                sendReview(e)
+              }
+            ></Button>
             <Button type="submit" sx={postButton}>
               <SendOutlinedIcon />
               POST
