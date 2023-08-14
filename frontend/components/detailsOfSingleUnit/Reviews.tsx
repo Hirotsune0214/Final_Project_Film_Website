@@ -6,24 +6,17 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userState } from "@/src/state/auth";
 
+interface Review {
+  userId: string;
+  desc: string;
+}
+
 const Reviews = () => {
   const [inputText, setInputText] = useState<string>("");
   const [user, setUser] = useRecoilState(userState);
-  /*
-  const sendReview = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
+  const [reviews, setReviews] = useState<Review[]>([]);
 
-    // メッ0セージ情報をmongoに格納する必要がある
-    try {
-      await axios.post("/api/posts/", { text: inputText });
-      console.log("レビューが正常に送信されました");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  */ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     console.log(inputText);
@@ -35,7 +28,11 @@ const Reviews = () => {
         desc: inputText,
       });
 
-      console.log("aaaaa");
+      // getする
+      await axios.get("http://localhost:8080/api/posts/reviews", {});
+
+      setReviews([...reviews]);
+      // console.log("aaaaa");
 
       setInputText("");
     } catch (error) {
@@ -64,7 +61,7 @@ const Reviews = () => {
   return (
     <>
       <div>
-        <ReviewArea />
+        <ReviewArea reviews={reviews} />
 
         {user.username ? (
           <form onSubmit={handleSubmit}>
@@ -78,12 +75,13 @@ const Reviews = () => {
               }
             />
 
+            {/* 空文字の場合にエラーを表示させる */}
             <Button
               type="submit"
               sx={postButton}
-              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-                sendReview(e)
-              }
+              // onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+              //   handleSubmit(e)
+              // }
             ></Button>
             <Button type="submit" sx={postButton}>
               <SendOutlinedIcon />
