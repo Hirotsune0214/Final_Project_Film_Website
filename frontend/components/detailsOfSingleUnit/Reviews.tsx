@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import ReviewArea from "./ReviewArea";
 import axios from "axios";
 
-const Reviews = () => {
+const Reviews = ({ user }) => {
   const [inputText, setInputText] = useState<string>("");
 
   /*
@@ -21,14 +21,12 @@ const Reviews = () => {
       console.error(error);
     }
   };
-  */
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  */ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
       await axios.post("http://localhost:8080/api/posts", { content: inputText });
       console.log("aaaaa");
+
       setInputText("");
     } catch (error) {
       console.error(error);
@@ -57,17 +55,20 @@ const Reviews = () => {
     <>
       <div>
         <ReviewArea />
-        <form onSubmit={handleSubmit}>
-          <input
-            style={reviewInput}
-            type="text"
-            placeholder="Write your review"
-            value={inputText}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setInputText(e.target.value)
-            }
-          />
-          {/*
+
+        {user.username ? (
+          <form onSubmit={handleSubmit}>
+            <input
+              style={reviewInput}
+              type="text"
+              placeholder="Write your review"
+              value={inputText}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setInputText(e.target.value)
+              }
+            />
+     
+
           <Button
             type="submit"
             sx={postButton}
@@ -75,11 +76,12 @@ const Reviews = () => {
               sendReview(e)
             }
              */}
-          <Button type="submit" sx={postButton}>
-            <SendOutlinedIcon />
-            POST
-          </Button>
-        </form>
+            <Button type="submit" sx={postButton}>
+              <SendOutlinedIcon />
+              POST
+            </Button>
+          </form>
+        ) : null}
       </div>
     </>
   );
