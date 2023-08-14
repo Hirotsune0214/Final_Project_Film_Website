@@ -1,5 +1,4 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Layout from "@/components/Layout";
 import MainImageMovies from "@/components/MainImageMovies";
 import Movies from "@/components/Movies";
 import axios from "axios";
@@ -37,15 +36,15 @@ const movies = () => {
 
   return (
     <div>
-      <Header />
-      <MainImageMovies movies={movies} />
-      <Movies
-        movies={movies}
-        movieLists={movieLists}
-        setMovieLists={setMovieLists}
-        setMovies={setMovies}
-      />
-      <Footer />
+      <Layout>
+        <MainImageMovies movies={movies} />
+        <Movies
+          movies={movies}
+          movieLists={movieLists}
+          setMovieLists={setMovieLists}
+          setMovies={setMovies}
+        />
+      </Layout>
     </div>
   );
 };

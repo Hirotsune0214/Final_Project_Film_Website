@@ -44,20 +44,20 @@ const PopularMovies = () => {
     },
     "&:hover .img": {
       transform: "scale(1.05)",
-      boxShadow: "8px -7px 20px -2px#777777",
+      boxShadow: "8px -9px 20px -2px#777777",
       transition: ".3s ease-in-out",
-      position: "absolute",
+      position: "relative",
       zIndex: "2",
     },
     "& .img": {
       width: "100%",
       height: "100%",
-      transition: "transform 0.2",
+      transition: "transform 0.2s",
     },
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "63.7vh",
+      height: "58.1vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -72,6 +72,8 @@ const PopularMovies = () => {
       justifyContent: "center",
       transform: "scale(1.05)",
       zIndex: "2",
+      marginTop: "65px",
+      borderRadius: "10px",
     },
   };
   useEffect(() => {
@@ -80,12 +82,31 @@ const PopularMovies = () => {
 
   return (
     <div>
-      <h1>POPULAR MOVIES</h1>
+      <h1
+        style={{
+          display: "inline-block",
+          position: "relative",
+        }}
+      >
+        POPULAR MOVIES
+        <span
+          style={{
+            position: "absolute",
+            bottom: "-10px",
+            left: "0",
+            width: "45%",
+            borderBottom: "7px solid red",
+            marginTop: "20px",
+            borderRadius: "20px",
+          }}
+        ></span>
+      </h1>
+
       <Swiper
         slidesPerView={4}
         grabCursor={true}
         direction="horizontal"
-        spaceBetween={1}
+        spaceBetween={2}
       >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
@@ -104,7 +125,8 @@ const PopularMovies = () => {
                   width: "100%",
                   height: "60vh",
                   zIndex: "1",
-                  // marginTop: "30px",
+                  margin: "50px 0",
+                  borderRadius: "10px",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
