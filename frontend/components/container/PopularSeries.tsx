@@ -58,7 +58,7 @@ const PopularMSeries = () => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "63.7vh",
+      height: "58.1vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -73,6 +73,8 @@ const PopularMSeries = () => {
       justifyContent: "center",
       transform: "scale(1.05)",
       zIndex: "2",
+      marginTop: "65px",
+      borderRadius: "10px",
     },
   };
 
@@ -82,12 +84,30 @@ const PopularMSeries = () => {
 
   return (
     <div>
-      <h1>POPULAR SERIES</h1>
+      <h1
+        style={{
+          display: "inline-block",
+          position: "relative",
+        }}
+      >
+        POPULAR MOVIES
+        <span
+          style={{
+            position: "absolute",
+            bottom: "-10px",
+            left: "0",
+            width: "45%",
+            borderBottom: "7px solid red",
+            marginTop: "20px",
+            borderRadius: "20px",
+          }}
+        ></span>
+      </h1>
       <Swiper
         slidesPerView={4}
         grabCursor={true}
         direction="horizontal"
-        spaceBetween={1}
+        spaceBetween={2}
       >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
@@ -105,8 +125,9 @@ const PopularMSeries = () => {
                 style={{
                   width: "100%",
                   height: "60vh",
-                  // margin: "30px 0",
                   zIndex: "1",
+                  margin: "50px 0",
+                  borderRadius: "10px",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.original_name}
