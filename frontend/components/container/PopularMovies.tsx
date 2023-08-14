@@ -44,7 +44,7 @@ const PopularMovies = () => {
     },
     "&:hover .img": {
       transform: "scale(1.05)",
-      boxShadow: "8px -7px 20px -2px#777777",
+      boxShadow: "8px -7px 20px -2px#e43333",
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
@@ -52,12 +52,12 @@ const PopularMovies = () => {
     "& .img": {
       width: "100%",
       height: "100%",
-      transition: "transform 0.2",
+      transition: "transform 0.2s",
     },
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "63.7vh",
+      height: "58.1vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -72,6 +72,7 @@ const PopularMovies = () => {
       justifyContent: "center",
       transform: "scale(1.05)",
       zIndex: "2",
+      marginTop: "120px",
     },
   };
   useEffect(() => {
@@ -81,6 +82,7 @@ const PopularMovies = () => {
   return (
     <div>
       <h1>POPULAR MOVIES</h1>
+
       <Swiper
         slidesPerView={4}
         grabCursor={true}
@@ -104,7 +106,7 @@ const PopularMovies = () => {
                   width: "100%",
                   height: "60vh",
                   zIndex: "1",
-                  // margin: "15px 0",
+                  margin: "50px 0",
                 }}
                 src={`${URL}${movie.poster_path}`}
                 alt={movie.title}
