@@ -24,9 +24,7 @@ const Reviews = ({ user }) => {
   */ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/api/posts", {
-        content: inputText,
-      });
+      await axios.post("http://localhost:8080/api/posts", { content: inputText });
       console.log("aaaaa");
 
       setInputText("");
@@ -57,6 +55,7 @@ const Reviews = ({ user }) => {
     <>
       <div>
         <ReviewArea />
+
         {user.username ? (
           <form onSubmit={handleSubmit}>
             <input
@@ -68,7 +67,8 @@ const Reviews = ({ user }) => {
                 setInputText(e.target.value)
               }
             />
-            {/* 
+     
+
           <Button
             type="submit"
             sx={postButton}
