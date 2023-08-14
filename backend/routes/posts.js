@@ -4,12 +4,17 @@ const Post = require("../models/Post");
 
 // Create post "review, comments"
 // ログインしているかどうかの判定をミドルウェアに導入して、コメントできるできないを導入しないといけない
-router.post("/posts", async (req, res) => {
-  const newPost = new Post(req.body);
+router.post("/", async (req, res) => {
+  const newPost = new Post({ userId: req.body.userId, desc: req.body.desc });
+
+  console.log(req.body.userId);
+  console.log(req.body.desc);
+
   try {
     const savedPost = await newPost.save();
     return res.status(200).json(savedPost);
   } catch (err) {
+    console.log(err);
     return res.status(500).json(err);
   }
 });
