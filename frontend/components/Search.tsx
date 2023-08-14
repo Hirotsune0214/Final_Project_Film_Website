@@ -33,6 +33,7 @@ const Search = () => {
 
       console.log(response.data.results);
       setSearchResults(response.data.results);
+      // isLoadingで切り替え
     } catch (error) {
       console.log(error);
     }
@@ -40,6 +41,7 @@ const Search = () => {
 
   const handleCategoryChange = (newCategory: string) => {
     setCategory(newCategory);
+    // isLoadingで切り替え
     setCurrentPage(1); // ページ番号をリセット
   };
 
