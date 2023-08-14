@@ -17,20 +17,41 @@ const reviewTimestamp = {
   marginLeft: "20px",
 };
 
-const ReviewArea = () => {
+const ReviewArea = ({ reviews }: any) => {
   return (
-    <div style={review}>
-      <Avatar />
-      <div style={reviewInfo}>
-        <h4>
-          Hiro
-          <span style={reviewTimestamp}>2023/07/25</span>
-        </h4>
+    <>
+      {/* 
+    {reviews.map((review : any) => (
+      <div>{review.userId}</div>
+      <div>{review.desc}</div>
 
-        <p>Message content</p>
-      </div>
-    </div>
+    ))}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    */}
+    </>
   );
 };
 
 export default ReviewArea;
+
+// <div style={review}>
+//   <Avatar />
+//   <div style={reviewInfo}>
+//     <h4>
+//       Hiro
+//       <span style={reviewTimestamp}>2023/07/25</span>
+//     </h4>
+
+//     <p>Message content</p>
+//   </div>
+// </div>

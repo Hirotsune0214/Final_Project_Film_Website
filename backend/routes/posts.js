@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const movieController = require("../controllers/movieReview");
 const Post = require("../models/Post");
+const Review = require("../models/Review"); // Import your Review model
 
 // Create post "review, comments"
 // ログインしているかどうかの判定をミドルウェアに導入して、コメントできるできないを導入しないといけない
@@ -19,7 +20,58 @@ router.post("/", async (req, res) => {
   }
 });
 
-// router.post("/", movieController.create)
+// GET reviews for a specific post by postId
+router.get("/:postId/reviews", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+
+    // Find all reviews associated with the provided postId
+    const reviews = await Review.find({ postId });
+
+    return res.status(200).json(reviews); // Return the reviews
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+// :idは作品に対するid
+// router.get("/:id", async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.id);
+//     return res.status(200).json(post);
+//   } catch (err) {
+//     return res.status(403).json(err);
+//   }
+// });
+
+// GET reviews for a specific post by postId
+router.get("/:postId/reviews", async (req, res) => {
+  try {
+    const postId = req.params.postId;
+
+    // Find all reviews associated with the provided postId
+    const reviews = await Review.find({ postId });
+
+    return res.status(200).json(reviews); // Return the reviews
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+// Get post "review"
+router.delete("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (req.body.userId === req.body.userId) {
+      await post.deleteOne();
+      return res.status(200).json("Post is deleted successfully");
+    } else {
+      return res.status(403).json("You can delete only you posted");
+    }
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
 
 // Update post "review, comments"
 router.put("/:id", async (req, res) => {
