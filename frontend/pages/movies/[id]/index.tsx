@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import SinglePageInfo from "@/components/detailsOfSingleUnit/singleDataInfo/SinglePageInfo";
 import { Box } from "@mui/material";
 import Layout from "@/components/Layout";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { userState } from "@/src/state/auth";
 import axios from "axios";
 
@@ -22,30 +22,74 @@ interface Movie {
 const single_unit = () => {
   const router = useRouter();
   const { id }: any = router.query;
-  console.log(id);
 
-  const [user, setUser] = useRecoilState(userState);
+  // 読み取りのみ
+  const user = useRecoilValue(userState);
+  const [recommends, setRecommends] = useState([]);
+  const [posters, setPosters] = useState([]);
+  const [backdrops, setBackDrops] = useState([]);
+  const [videos, setVideos] = useState([]);
 
-  // useEffect(() => {
-  //   console.log("worked");
+  const fetchVideos = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=bb46848237eacc0a36827f6639b47ee3`
+      );
+      setVideos(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  //   window.scrollTo(0, 0);
-  // }, []);
+  const fetchRecommend = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.themoviedb.org/3/trending/all/day?api_key=bb46848237eacc0a36827f6639b47ee3"
+      );
+      setRecommends(response.data.results);
+      console.log(response.data.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchMoviePics = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}/images?api_key=bb46848237eacc0a36827f6639b47ee3`
+      );
+      setPosters(response.data.posters);
+      setBackDrops(response.data.backdrops);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await Promise.all([fetchVideos(), fetchRecommend(), fetchMoviePics()]);
+
+      window.scrollTo({ top: 0 });
+    };
+
+    fetchData();
+  }, [id]);
 
   return (
-    <div>
-      <Layout>
-        <Box sx={{ backgroundColor: "#F5F5F5", padding: "20px" }}>
-          <SinglePageInfo id={id} />
-          <Videos id={id} />
-          <BackDrops id={id} />
-          <Posters id={id} />
-          {/* <Reviews user={user} /> */}
-          <Reviews />
-          <Recommend />
-        </Box>
-      </Layout>
-    </div>
+    <>
+      <div>
+        <Layout>
+          <Box sx={{ backgroundColor: "#F5F5F5", padding: "20px" }}>
+            <SinglePageInfo id={id} />
+            <Videos videos={videos} />
+            <BackDrops backdrops={backdrops} />
+            <Posters posters={posters} />
+            <Reviews id={id} />
+            <Recommend recommends={recommends} />
+          </Box>
+        </Layout>
+      </div>
+    </>
   );
 };
 

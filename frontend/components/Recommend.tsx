@@ -14,23 +14,10 @@ interface films {
   first_air_date: string;
 }
 
-const Recommend = () => {
+const Recommend = ({ recommends }: any) => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
-  const [movies, setMovies] = useState([]);
   const [ishover, setIshover] = useState(false);
-
-  const fetchMovies = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/trending/all/day?api_key=bb46848237eacc0a36827f6639b47ee3"
-      );
-      setMovies(response.data.results);
-      console.log(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const extractYearFromDate = (dateString: string | undefined): string => {
     if (dateString && dateString.length >= 4) {
@@ -83,9 +70,9 @@ const Recommend = () => {
     },
   };
 
-  useEffect(() => {
-    fetchMovies();
-  }, []);
+  // useEffect(() => {
+  //   fetchMovies();
+  // }, []);
 
   return (
     <div>
@@ -96,8 +83,8 @@ const Recommend = () => {
         direction="horizontal"
         spaceBetween={8}
       >
-        {movies.map((movie: films) => (
-          <SwiperSlide key={movie.id}>
+        {recommends.map((recommend: films) => (
+          <SwiperSlide key={recommend.id}>
             <Box
               onMouseEnter={() => {
                 setIshover(true);
@@ -115,24 +102,24 @@ const Recommend = () => {
                   margin: "30px 0",
                   zIndex: "1",
                 }}
-                src={`${URL}${movie.poster_path}`}
-                alt={movie.title}
+                src={`${URL}${recommend.poster_path}`}
+                alt={recommend.title}
               />
 
               {ishover && (
                 <Box className="text">
-                  {movie.title ? (
+                  {recommend.title ? (
                     <>
-                      <div>{movie.title}</div>
-                      <div>{extractYearFromDate(movie.release_date)}</div>
+                      <div>{recommend.title}</div>
+                      <div>{extractYearFromDate(recommend.release_date)}</div>
 
-                      <div>{movie.vote_average.toFixed(1)}</div>
+                      <div>{recommend.vote_average.toFixed(1)}</div>
                     </>
                   ) : (
                     <>
-                      <div>{movie.name}</div>
-                      <div>{extractYearFromDate(movie.first_air_date)}</div>
-                      <div>{movie.vote_average.toFixed(1)}</div>
+                      <div>{recommend.name}</div>
+                      <div>{extractYearFromDate(recommend.first_air_date)}</div>
+                      <div>{recommend.vote_average.toFixed(1)}</div>
                     </>
                   )}
                 </Box>

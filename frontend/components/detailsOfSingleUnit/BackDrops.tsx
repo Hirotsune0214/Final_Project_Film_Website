@@ -15,27 +15,8 @@ interface MoviePic {
   vote_average: number;
 }
 
-const BackDrops = ({ id }: { id: string }) => {
+const BackDrops = ({ backdrops }: { backdrops: any[] }) => {
   const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
-
-  const [backdrops, setBackDrops] = useState([]);
-
-  const fetchBackdrops = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/images?api_key=bb46848237eacc0a36827f6639b47ee3`
-      );
-
-      setBackDrops(response.data.backdrops);
-      console.log(response, "backdrops");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchBackdrops();
-  }, [id]);
 
   return (
     <div>

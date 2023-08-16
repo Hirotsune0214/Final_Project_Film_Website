@@ -9,10 +9,10 @@ import { userState } from "@/src/state/auth";
 interface Review {
   userId: string;
   desc: string;
+  movie: number;
 }
 
-
-const Reviews = () => {
+const Reviews = ({ id }: { id: string }) => {
   const [inputText, setInputText] = useState<string>("");
   const [user, setUser] = useRecoilState(userState);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -20,24 +20,26 @@ const Reviews = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(inputText);
-    console.log(user.username);
+    // console.log(inputText);
+    // console.log(user.username);
+
+    // const res = await axios.get(api)
 
     try {
       await axios.post("http://localhost:8080/api/posts", {
         userId: user.username,
         desc: inputText,
+        movie: id,
       });
 
-
-      // getする
-      await axios.get("http://localhost:8080/api/posts/reviews", {});
+      console.log({ id });
 
       setReviews([...reviews]);
-      // console.log("aaaaa");
-
 
       setInputText("");
+
+      // getする
+      // await axios.get("http://localhost:8080/api/posts/reviews", {});
     } catch (error) {
       console.error(error);
     }

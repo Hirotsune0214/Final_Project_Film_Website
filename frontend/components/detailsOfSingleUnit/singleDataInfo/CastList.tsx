@@ -10,25 +10,8 @@ interface films {
   name: string;
 }
 
-const CastList = ({ id }: { id: string }) => {
+const CastList = ({ casts }: { casts: any }) => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
-
-  const [casts, setCasts] = useState([]);
-
-  const fetchCasts = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=bb46848237eacc0a36827f6639b47ee3`
-      );
-      setCasts(response.data.cast);
-      // console.log(response.data.cast);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    fetchCasts();
-  }, [id]);
 
   return (
     <div>
