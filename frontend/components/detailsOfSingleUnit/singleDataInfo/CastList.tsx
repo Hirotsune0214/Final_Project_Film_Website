@@ -10,7 +10,7 @@ interface films {
   name: string;
 }
 
-const CastList = () => {
+const CastList = ({ id }: { id: string }) => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
   const [casts, setCasts] = useState([]);
@@ -18,7 +18,7 @@ const CastList = () => {
   const fetchCasts = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/346698/credits?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=bb46848237eacc0a36827f6639b47ee3`
       );
       setCasts(response.data.cast);
       // console.log(response.data.cast);
@@ -28,7 +28,7 @@ const CastList = () => {
   };
   useEffect(() => {
     fetchCasts();
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -39,7 +39,7 @@ const CastList = () => {
             <Box>
               <img
                 style={{
-                  maxWidth: "%",
+                  maxWidth: "70%",
                   height: "40vh",
                 }}
                 src={`${URL}${cast.profile_path}`}

@@ -3,23 +3,31 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
 import { Navigation } from "swiper/modules";
 import { Pagination } from "swiper/modules";
 
-const BackDrops = () => {
+interface MoviePic {
+  id: string;
+  poster_path: string;
+  title: string;
+  original_title: string;
+  release_date: string;
+  vote_average: number;
+}
+
+const BackDrops = ({ id }: { id: string }) => {
   const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
 
-  const [backdrops, serBackDrops] = useState([]);
+  const [backdrops, setBackDrops] = useState([]);
 
   const fetchBackdrops = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/search/movie?api_key=bb46848237eacc0a36827f6639b47ee3&query=barbie&include_adult=false&language=en-US&page=1"
+        `https://api.themoviedb.org/3/movie/${id}/images?api_key=bb46848237eacc0a36827f6639b47ee3`
       );
-      serBackDrops(response.data.results);
+
+      setBackDrops(response.data.backdrops);
+      console.log(response, "backdrops");
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +35,7 @@ const BackDrops = () => {
 
   useEffect(() => {
     fetchBackdrops();
-  }, []);
+  }, [id]);
 
   return (
     <div>
@@ -43,7 +51,7 @@ const BackDrops = () => {
         }}
       >
         {backdrops.map((backdrop: any) => (
-          <SwiperSlide key={backdrop.id}>
+          <SwiperSlide key={backdrop.file_path}>
             <Box
               style={{
                 display: "flex",
@@ -57,7 +65,7 @@ const BackDrops = () => {
                   maxWidth: "100%",
                   maxHeight: "100%",
                 }}
-                src={`${URL}${backdrop.backdrop_path}`}
+                src={`${URL}${backdrop.file_path}`}
                 alt={backdrop.title}
               />
             </Box>

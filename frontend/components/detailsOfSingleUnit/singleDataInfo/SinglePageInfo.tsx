@@ -5,16 +5,16 @@ import FavoriteWatch from "./FavoriteWatch";
 import CastList from "./CastList";
 import { Box } from "@mui/material";
 
-const SinglePageInfo = () => {
+const SinglePageInfo = ({ id }: { id: string }) => {
   return (
     <div
       style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
     >
-      <LeftSidePicMain />
+      <LeftSidePicMain id={id} />
       <Box sx={{ flexDirection: "column", width: "60%" }}>
-        <RightSideDetailMain />
+        <RightSideDetailMain id={id} />
         <FavoriteWatch />
-        <CastList />
+        <CastList id={id} />
       </Box>
     </div>
   );

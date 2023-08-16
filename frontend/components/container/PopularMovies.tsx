@@ -3,6 +3,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface films {
   id: string;
@@ -17,6 +19,9 @@ const PopularMovies = () => {
 
   const [movies, setMovies] = useState([]);
   const [ishover, setIshover] = useState(false);
+
+  const router = useRouter();
+  const { id }: any = router.query;
 
   const fetchMovies = async () => {
     try {
@@ -110,33 +115,36 @@ const PopularMovies = () => {
       >
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
-            <Box
-              onMouseEnter={() => {
-                setIshover(true);
-              }}
-              onMouseLeave={() => {
-                setIshover(false);
-              }}
-              sx={boxSX}
-            >
-              <img
-                className="img"
-                style={{
-                  width: "100%",
-                  height: "60vh",
-                  zIndex: "1",
-                  margin: "50px 0",
-                  borderRadius: "10px",
+            <Link href={`/movies/${movie.id}`} passHref>
+              <Box
+                onMouseEnter={() => {
+                  setIshover(true);
                 }}
-                src={`${URL}${movie.poster_path}`}
-                alt={movie.title}
-              />
-              <Box className="text">
-                <div>{movie.vote_average}</div>
-                <div>{extractYearFromDate(movie.release_date)}</div>
-                <div>{movie.title}</div>
+                onMouseLeave={() => {
+                  setIshover(false);
+                }}
+                sx={boxSX}
+              >
+                <img
+                  className="img"
+                  style={{
+                    width: "100%",
+                    height: "60vh",
+                    zIndex: "1",
+                    margin: "50px 0",
+                    borderRadius: "10px",
+                  }}
+                  src={`${URL}${movie.poster_path}`}
+                  alt={movie.title}
+                />
+
+                <Box className="text">
+                  <div>{movie.vote_average}</div>
+                  <div>{extractYearFromDate(movie.release_date)}</div>
+                  <div>{movie.title}</div>
+                </Box>
               </Box>
-            </Box>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
