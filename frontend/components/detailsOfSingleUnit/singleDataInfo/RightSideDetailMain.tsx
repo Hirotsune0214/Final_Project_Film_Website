@@ -1,65 +1,56 @@
-import { usersState } from "@/state/auth";
 import { Box } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-// interfaceを使い回して良いのか
-interface films {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
-  vote_average: number;
-  backdrop_path: "string";
-  overview: "string";
+interface Movie {
+  overview: string;
+  original_title: string; // 追加: 映画のタイトル
+  release_date: string; // 追加: 公開日
+  vote_average: number; // 追加: 平均評価
 }
 
-const RightSideDetailMain = () => {
-  const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
-
-  const [movies, setMovies] = useState<films[]>([]);
-  const [genre, setGenre] = useState([]);
+const RightSideDetailMain = ({ id }: { id: string }) => {
+  const [movie, setMovie] = useState<Movie | null>(null);
 
   const fetchMovie = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/movie/${id}?api_key=bb46848237eacc0a36827f6639b47ee3`
       );
-      setMovies(response.data.results);
-      console.log(response.data.results);
+
+      setMovie(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+    return dateString.substring(0, 4);
   };
 
   useEffect(() => {
     fetchMovie();
-  }, []);
+  }, [id]);
 
-  // 最初の映画情報だけを取得
-  const firstMovie = movies.length > 0 ? movies[0] : null;
+  if (!movie) {
+    return null; // ロード中やエラー時に null を返すなどの適切な表示を行う
+  }
 
   return (
     <Box>
-      {firstMovie && (
-        <>
-          <h2>
-            {firstMovie.title}
-            {extractYearFromDate(firstMovie.release_date)}
-          </h2>
-          <Box sx={{ marginTop: "40px" }}>
-            <p>{firstMovie.vote_average}</p>
-          </Box>
-          <Box sx={{ marginTop: "40px" }}>
-            <span>{firstMovie.overview}</span>
-          </Box>
-        </>
-      )}
+      <div>
+        <h2>
+          {movie.original_title}
+          {extractYearFromDate(movie.release_date)}
+        </h2>
+        <Box sx={{ marginTop: "40px" }}>
+          <div>{movie.vote_average.toFixed(1)}</div>
+        </Box>
+        <Box sx={{ marginTop: "40px" }}>
+          <span>{movie.overview}</span>
+        </Box>
+      </div>
     </Box>
   );
 };

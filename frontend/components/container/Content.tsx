@@ -4,6 +4,7 @@ import PopularMSeries from "./PopularSeries";
 import PopularMovies from "./PopularMovies";
 import TopRatedMovies from "./TopRatedMovies";
 import TopRatedSeries from "./TopRatedSeries";
+import { useRouter } from "next/router";
 
 const Content = () => {
   return (

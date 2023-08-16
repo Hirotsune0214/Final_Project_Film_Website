@@ -14,13 +14,15 @@ interface MoviesData {
   name: string;
 }
 
-const Videos = () => {
+const Videos = ({ id }: { id: string }) => {
+  console.log(id);
+
   const [videos, setVideos] = useState([]);
 
   const fetchVideos = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/346698/videos?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=bb46848237eacc0a36827f6639b47ee3`
       );
       setVideos(response.data.results);
       console.log(response.data.results);
@@ -31,7 +33,7 @@ const Videos = () => {
 
   useEffect(() => {
     fetchVideos();
-  }, []);
+  }, [id]);
 
   return (
     <div id="sectionVideo">

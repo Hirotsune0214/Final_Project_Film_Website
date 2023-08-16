@@ -44,12 +44,14 @@ const FavoriteWatch = () => {
           onClick={() => handleFavorites()}
         />
         <span>{favorites}people have added to their favorites</span>
-        <a href="#sectionVideo">
-          <Button sx={movieButton}>
-            <PlayArrowIcon />
-            WATCH NOW
-          </Button>
-        </a>
+
+        <Button
+          sx={movieButton}
+          onClick={() => window.scrollTo({ top: 790, behavior: "smooth" })}
+        >
+          <PlayArrowIcon />
+          WATCH NOW
+        </Button>
       </Box>
     </>
   );

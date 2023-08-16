@@ -4,17 +4,18 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-const Posters = () => {
+const Posters = ({ id }: { id: string }) => {
   const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
 
-  const [posters, serPosters] = useState([]);
+  const [posters, setPosters] = useState([]);
 
   const fetchPosters = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/search/movie?api_key=bb46848237eacc0a36827f6639b47ee3&query=barbie&include_adult=false&language=en-US&page=1"
+        `https://api.themoviedb.org/3/movie/${id}/images?api_key=bb46848237eacc0a36827f6639b47ee3`
       );
-      serPosters(response.data.results);
+      setPosters(response.data.posters);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -22,18 +23,18 @@ const Posters = () => {
 
   useEffect(() => {
     fetchPosters();
-  }, []);
+  }, [id]);
 
   return (
     <div>
       <h1>POSTERS</h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {posters.map((poster: any) => (
-          <SwiperSlide key={poster.id}>
+          <SwiperSlide key={poster.file_path}>
             <Box>
               <img
                 style={{ width: "100%" }}
-                src={`${URL}${poster.poster_path}`}
+                src={`${URL}${poster.file_path}`}
                 alt={poster.title}
               />
             </Box>
