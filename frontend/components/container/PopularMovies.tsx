@@ -61,7 +61,7 @@ const PopularMovies = () => {
     },
     "& .text": {
       position: "absolute",
-      width: "100%",
+      width: "95.2%",
       height: "58.1vh",
       top: 0,
       left: 0,
@@ -77,7 +77,8 @@ const PopularMovies = () => {
       justifyContent: "center",
       transform: "scale(1.05)",
       zIndex: "2",
-      marginTop: "65px",
+      marginTop: "65.1px",
+      marginLeft: "7.5px",
       borderRadius: "10px",
     },
   };
@@ -107,12 +108,7 @@ const PopularMovies = () => {
         ></span>
       </h1>
 
-      <Swiper
-        slidesPerView={4}
-        grabCursor={true}
-        direction="horizontal"
-        spaceBetween={2}
-      >
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <Link href={`/movies/${movie.id}`} passHref>
@@ -128,10 +124,10 @@ const PopularMovies = () => {
                 <img
                   className="img"
                   style={{
-                    width: "100%",
+                    width: "95%",
                     height: "60vh",
                     zIndex: "1",
-                    margin: "50px 0",
+                    margin: "50px 0 25px 8px",
                     borderRadius: "10px",
                   }}
                   src={`${URL}${movie.poster_path}`}
