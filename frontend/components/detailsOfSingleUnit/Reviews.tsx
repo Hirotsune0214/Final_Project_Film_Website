@@ -11,6 +11,7 @@ interface Review {
   desc: string;
 }
 
+
 const Reviews = () => {
   const [inputText, setInputText] = useState<string>("");
   const [user, setUser] = useRecoilState(userState);
@@ -28,11 +29,13 @@ const Reviews = () => {
         desc: inputText,
       });
 
+
       // getする
       await axios.get("http://localhost:8080/api/posts/reviews", {});
 
       setReviews([...reviews]);
       // console.log("aaaaa");
+
 
       setInputText("");
     } catch (error) {
