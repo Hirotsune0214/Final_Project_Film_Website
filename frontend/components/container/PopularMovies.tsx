@@ -127,7 +127,7 @@ const PopularMovies = () => {
                     width: "95%",
                     height: "60vh",
                     zIndex: "1",
-                    margin: "50px 0 25px 8px",
+                    margin: "50px 0 25px 6.5px",
                     borderRadius: "10px",
                   }}
                   src={`${URL}${movie.poster_path}`}
