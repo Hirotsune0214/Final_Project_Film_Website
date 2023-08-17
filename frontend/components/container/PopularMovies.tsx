@@ -48,11 +48,13 @@ const PopularMovies = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.05)",
+      transform: "scale(1.05) translateY(-20px)",
+      // transform: "scale(1.05)",
       boxShadow: "8px -9px 20px -2px#777777",
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
+      // transform: "translateY(-20px)",
     },
     "& .img": {
       width: "100%",
@@ -127,7 +129,7 @@ const PopularMovies = () => {
                     width: "95%",
                     height: "60vh",
                     zIndex: "1",
-                    margin: "50px 0 25px 6.5px",
+                    margin: "50px 0 25px 9.5px",
                     borderRadius: "10px",
                   }}
                   src={`${URL}${movie.poster_path}`}

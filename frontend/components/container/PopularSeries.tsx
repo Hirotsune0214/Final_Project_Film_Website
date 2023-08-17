@@ -44,11 +44,12 @@ const PopularMSeries = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.05)",
+      // transform: "scale(1.05)",
       boxShadow: "8px -7px 20px -2px#777777",
       transition: ".3s ease-in-out",
       position: "absolute",
       zIndex: "2",
+      transform: "translateY(-20px)",
     },
     "& .img": {
       width: "100%",

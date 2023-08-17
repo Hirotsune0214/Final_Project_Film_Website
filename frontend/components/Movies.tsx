@@ -182,6 +182,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
                 height: "100%",
                 objectFit: "cover",
                 zIndex: "1",
+                borderRadius: "10px",
               }}
             />
             <Box className="text">
