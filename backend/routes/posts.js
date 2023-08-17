@@ -2,13 +2,13 @@ const router = require("express").Router();
 const movieController = require("../controllers/movieReview");
 const Post = require("../models/Post");
 
-// Create post "review, comments"
-
+// Create post "review"
 router.post("/", async (req, res) => {
   const newPost = new Post({
     userId: req.body.userId,
     desc: req.body.desc,
     movie: req.body.movie,
+    user: req.body.user,
   });
 
   try {
@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 映画にあるレビューを取得する
+// Get reviews
 router.get("/:id", async (req, res) => {
   try {
     const postId = req.params.id;
@@ -31,10 +31,28 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// Delete post "review"
+router.delete("/:id", async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const post = await Post.find({ userId: req.body.userId });
+    // const post = await Post.findById(req.params.id);
+    if (req.body.userId === post.userId) {
+      await post.deleteOne({});
+      return res.status(200).json("Post is deleted successfully");
+    } else {
+      return res.status(403).json("You can delete only you posted");
+    }
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+/*
 router.delete("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
-    if (req.body.userId === req.body.userId) {
+    if (req.body.userId === post.userId) {
       await post.deleteOne();
       return res.status(200).json("Post is deleted successfully");
     } else {
@@ -44,6 +62,7 @@ router.delete("/:id", async (req, res) => {
     return res.status(500).json(err);
   }
 });
+*/
 
 // Update post "review, comments"
 router.put("/:id", async (req, res) => {
@@ -56,21 +75,6 @@ router.put("/:id", async (req, res) => {
       return res.status(200).json("Post is updated successfully");
     } else {
       return res.status(403).json("You can update only you posted");
-    }
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-});
-
-// Delete post "review, comments"
-router.delete("/:id", async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.id);
-    if (req.body.userId === req.body.userId) {
-      await post.deleteOne();
-      return res.status(200).json("Post is deleted successfully");
-    } else {
-      return res.status(403).json("You can delete only you posted");
     }
   } catch (err) {
     return res.status(500).json(err);

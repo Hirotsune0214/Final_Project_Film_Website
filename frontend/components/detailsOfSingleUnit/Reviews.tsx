@@ -5,6 +5,7 @@ import ReviewArea from "./ReviewArea";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userState } from "@/src/state/auth";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 interface Review {
   userId: string;
@@ -32,6 +33,10 @@ const Reviews = ({ id }: { id: string }) => {
       // 最新のデータをgetしてresponseに格納する
       const response = await axios.get(`http://localhost:8080/api/posts/${id}`);
       setReviews(response.data);
+      console.log(response.data);
+
+      // レビューが0になる
+      // window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -74,8 +79,9 @@ const Reviews = ({ id }: { id: string }) => {
   return (
     <>
       <div>
-        <ReviewArea reviews={reviews} />
+        <ReviewArea reviews={reviews} id={id} setReviews={setReviews} />
 
+        <hr />
         {user.username ? (
           <form onSubmit={handleSubmit}>
             <input

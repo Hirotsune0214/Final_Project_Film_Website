@@ -1,5 +1,8 @@
-import { Avatar } from "@mui/material";
-import React from "react";
+import { Avatar, Box } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { format } from "timeago.js";
 
 const review = {
   display: "flex",
@@ -9,7 +12,7 @@ const review = {
 };
 
 const reviewInfo = {
-  padding: "20px 20px 20px 10px",
+  padding: "5px 0px 20px 0px",
 };
 
 const reviewTimestamp = {
@@ -17,21 +20,66 @@ const reviewTimestamp = {
   marginLeft: "20px",
 };
 
-const ReviewArea = ({ reviews }: any) => {
+const ReviewArea = ({
+  id,
+  reviews,
+  setReviews,
+}: {
+  id: string;
+  reviews: any;
+  setReviews: any;
+}) => {
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:8080/api/posts/${id}`, {});
+      console.log("@@@@@@@@@@@@@@@@");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
-      {reviews.map((review: any, index: number) => (
-        <div key={index} style={review}>
-          <Avatar />
-          <div style={reviewInfo}>
-            <h4>
-              {review.userId}
-              <span style={reviewTimestamp}>{review.timestamp}</span>
-            </h4>
-            <p>{review.desc}</p>
-          </div>
-        </div>
-      ))}
+      <Box sx={{ padding: "0 30px" }}>
+        <h1
+          style={{
+            display: "inline-block",
+            position: "relative",
+          }}
+        >
+          Reviews ({reviews.length})
+          <span
+            style={{
+              position: "absolute",
+              bottom: "-10px",
+              left: "0",
+              width: "71%",
+              borderBottom: "7px solid red",
+              borderRadius: "20px",
+            }}
+          ></span>
+        </h1>
+        <Box sx={{ marginTop: "15px" }}>
+          {reviews.map((review: any, index: number) => (
+            <div key={index} style={review}>
+              <Avatar />
+              <div style={reviewInfo}>
+                <h4>
+                  {review.userId}
+                  <span style={reviewTimestamp}>
+                    {format(review.createdAt)}
+                  </span>
+                </h4>
+                <p>{review.desc}</p>
+                <DeleteOutlineIcon
+                  sx={{ color: "red", fontSize: "30px" }}
+                  onClick={handleDelete}
+                />
+              </div>
+            </div>
+          ))}
+        </Box>
+      </Box>
     </>
   );
 };
