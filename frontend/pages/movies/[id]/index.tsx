@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import SinglePageInfo from "@/components/detailsOfSingleUnit/singleDataInfo/SinglePageInfo";
 import { Box } from "@mui/material";
 import Layout from "@/components/Layout";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { userState } from "@/src/state/auth";
 import axios from "axios";
 
@@ -23,8 +23,7 @@ const single_unit = () => {
   const router = useRouter();
   const { id }: any = router.query;
 
-  // 読み取りのみ
-  const user = useRecoilValue(userState);
+  const [user, setUser] = useRecoilState(userState);
   const [recommends, setRecommends] = useState([]);
   const [posters, setPosters] = useState([]);
   const [backdrops, setBackDrops] = useState([]);

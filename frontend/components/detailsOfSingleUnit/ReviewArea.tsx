@@ -20,38 +20,20 @@ const reviewTimestamp = {
 const ReviewArea = ({ reviews }: any) => {
   return (
     <>
-      {/* 
-    {reviews.map((review : any) => (
-      <div>{review.userId}</div>
-      <div>{review.desc}</div>
-
-    ))}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    */}
+      {reviews.map((review: any, index: number) => (
+        <div key={index} style={review}>
+          <Avatar />
+          <div style={reviewInfo}>
+            <h4>
+              {review.userId}
+              <span style={reviewTimestamp}>{review.timestamp}</span>
+            </h4>
+            <p>{review.desc}</p>
+          </div>
+        </div>
+      ))}
     </>
   );
 };
 
 export default ReviewArea;
-
-// <div style={review}>
-//   <Avatar />
-//   <div style={reviewInfo}>
-//     <h4>
-//       Hiro
-//       <span style={reviewTimestamp}>2023/07/25</span>
-//     </h4>
-
-//     <p>Message content</p>
-//   </div>
-// </div>

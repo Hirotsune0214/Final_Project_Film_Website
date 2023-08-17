@@ -1,15 +1,15 @@
 const router = require("express").Router();
 const movieController = require("../controllers/movieReview");
 const Post = require("../models/Post");
-const Review = require("../models/Review"); // Import your Review model
 
 // Create post "review, comments"
-// ログインしているかどうかの判定をミドルウェアに導入して、コメントできるできないを導入しないといけない
-router.post("/", async (req, res) => {
-  const newPost = new Post({ userId: req.body.userId, desc: req.body.desc });
 
-  console.log(req.body.userId);
-  console.log(req.body.desc);
+router.post("/", async (req, res) => {
+  const newPost = new Post({
+    userId: req.body.userId,
+    desc: req.body.desc,
+    movie: req.body.movie,
+  });
 
   try {
     const savedPost = await newPost.save();
@@ -20,45 +20,17 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET reviews for a specific post by postId
-router.get("/:postId/reviews", async (req, res) => {
+// 映画にあるレビューを取得する
+router.get("/:id", async (req, res) => {
   try {
-    const postId = req.params.postId;
-
-    // Find all reviews associated with the provided postId
-    const reviews = await Review.find({ postId });
-
-    return res.status(200).json(reviews); // Return the reviews
+    const postId = req.params.id;
+    const post = await Post.find({ movie: postId });
+    return res.status(200).json(post);
   } catch (err) {
     return res.status(500).json(err);
   }
 });
 
-// :idは作品に対するid
-// router.get("/:id", async (req, res) => {
-//   try {
-//     const post = await Post.findById(req.params.id);
-//     return res.status(200).json(post);
-//   } catch (err) {
-//     return res.status(403).json(err);
-//   }
-// });
-
-// GET reviews for a specific post by postId
-router.get("/:postId/reviews", async (req, res) => {
-  try {
-    const postId = req.params.postId;
-
-    // Find all reviews associated with the provided postId
-    const reviews = await Review.find({ postId });
-
-    return res.status(200).json(reviews); // Return the reviews
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-});
-
-// Get post "review"
 router.delete("/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);

@@ -16,6 +16,18 @@ const PostSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    movie: {
+      type: Number,
+      default: null,
+    },
+    tv: {
+      type: Number,
+      default: null,
+    },
+    person: {
+      type: Number,
+      default: null,
+    },
   },
   { timestamps: true }
 );

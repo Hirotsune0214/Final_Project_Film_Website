@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import { Button } from "@mui/material";
 import ReviewArea from "./ReviewArea";
@@ -20,11 +20,6 @@ const Reviews = ({ id }: { id: string }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // console.log(inputText);
-    // console.log(user.username);
-
-    // const res = await axios.get(api)
-
     try {
       await axios.post("http://localhost:8080/api/posts", {
         userId: user.username,
@@ -32,18 +27,31 @@ const Reviews = ({ id }: { id: string }) => {
         movie: id,
       });
 
-      console.log({ id });
-
-      setReviews([...reviews]);
-
       setInputText("");
 
-      // getする
-      // await axios.get("http://localhost:8080/api/posts/reviews", {});
+      // 最新のデータをgetしてresponseに格納する
+      const response = await axios.get(`http://localhost:8080/api/posts/${id}`);
+      setReviews(response.data);
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    // ページ読み込み時にレビューを取得して表示
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/posts/${id}`
+        );
+        setReviews(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchReviews();
+  }, [id]); // id が変化したときに実行
 
   const postButton = {
     display: "none",
@@ -81,13 +89,7 @@ const Reviews = ({ id }: { id: string }) => {
             />
 
             {/* 空文字の場合にエラーを表示させる */}
-            <Button
-              type="submit"
-              sx={postButton}
-              // onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-              //   handleSubmit(e)
-              // }
-            ></Button>
+            <Button type="submit" sx={postButton}></Button>
             <Button type="submit" sx={postButton}>
               <SendOutlinedIcon />
               POST
