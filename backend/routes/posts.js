@@ -34,15 +34,12 @@ router.get("/:id", async (req, res) => {
 // Delete post "review"
 router.delete("/:id", async (req, res) => {
   try {
-    const postId = req.params.id;
-    const post = await Post.find({ userId: req.body.userId });
-    // const post = await Post.findById(req.params.id);
-    if (req.body.userId === post.userId) {
-      await post.deleteOne({});
-      return res.status(200).json("Post is deleted successfully");
-    } else {
-      return res.status(403).json("You can delete only you posted");
-    }
+    console.log(req.params.id);
+    const post = await Post.findById(req.params.id);
+    // 投稿した本人だけが削除できるようにする
+    // if (post.userId === req.body.userId) {
+    await post.deleteOne();
+    return res.status(200).json("Post is deleted successfully");
   } catch (err) {
     return res.status(500).json(err);
   }

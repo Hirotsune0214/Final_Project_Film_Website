@@ -56,7 +56,7 @@ const Reviews = ({ id }: { id: string }) => {
     };
 
     fetchReviews();
-  }, [id]); // id が変化したときに実行
+  }, [id]);
 
   const postButton = {
     display: "none",

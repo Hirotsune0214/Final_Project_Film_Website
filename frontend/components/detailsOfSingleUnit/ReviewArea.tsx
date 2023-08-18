@@ -29,10 +29,11 @@ const ReviewArea = ({
   reviews: any;
   setReviews: any;
 }) => {
-  const handleDelete = async () => {
+  const handleDelete = async (_id: string) => {
     try {
-      await axios.delete(`http://localhost:8080/api/posts/${id}`, {});
-      console.log("@@@@@@@@@@@@@@@@");
+      console.log(_id);
+      await axios.delete(`http://localhost:8080/api/posts/${_id}`);
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -73,7 +74,7 @@ const ReviewArea = ({
                 <p>{review.desc}</p>
                 <DeleteOutlineIcon
                   sx={{ color: "red", fontSize: "30px" }}
-                  onClick={handleDelete}
+                  onClick={() => handleDelete(review._id)}
                 />
               </div>
             </div>
