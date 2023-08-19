@@ -50,16 +50,20 @@ const PopularMSeries = () => {
       position: "relative",
       zIndex: "2",
       border: "3.5px solid #bcb9b8",
+      // TODO: 下記2つの色の微調整を行う
+      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.7)",
+      borderColor: "rgba(11, 64, 188, 0.775)",
     },
     "& .img": {
       width: "100%",
       height: "100%",
       transition: "transform 0.2",
+      border: "4px solid transparent",
     },
     "& .text": {
       position: "absolute",
-      width: "95.2%",
-      height: "58.1vh",
+      width: "94.5%",
+      height: "57.5vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -75,6 +79,7 @@ const PopularMSeries = () => {
       transform: "scale(1.05)",
       zIndex: "2",
       marginTop: "65.1px",
+      marginLeft: "11.5px",
       borderRadius: "10px",
     },
   };
@@ -91,7 +96,7 @@ const PopularMSeries = () => {
           position: "relative",
         }}
       >
-        POPULAR MOVIES
+        POPULAR SERIES
         <span
           style={{
             position: "absolute",
@@ -119,10 +124,12 @@ const PopularMSeries = () => {
               <img
                 className="img"
                 style={{
-                  width: "95%",
+                  // width: "100%",
+                  // スペースができるので微調整していく
+                  width: "92%",
                   height: "60vh",
                   zIndex: "1",
-                  margin: "50px 0 25px 0",
+                  margin: "50px 0 25px 10.5px",
                   borderRadius: "10px",
                 }}
                 src={`${URL}${movie.poster_path}`}

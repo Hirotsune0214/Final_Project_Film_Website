@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Box } from "@mui/material";
+import Link from "next/link";
 
 interface films {
   id: string;
@@ -42,21 +43,24 @@ const TopRatedMovies = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.05)",
-      boxShadow: "8px -9px 20px -2px#777777",
+      transform: "scale(1.05) translateY(-10px)",
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
+      // TODO: 下記2つの色の微調整を行う
+      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.7)",
+      borderColor: "rgba(11, 64, 188, 0.775)",
     },
     "& .img": {
       width: "100%",
       height: "100%",
       transition: "transform 0.2s",
+      border: "4px solid transparent",
     },
     "& .text": {
       position: "absolute",
-      width: "100%",
-      height: "58.1vh",
+      width: "94.5%",
+      height: "57.5vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -71,7 +75,8 @@ const TopRatedMovies = () => {
       justifyContent: "center",
       transform: "scale(1.05)",
       zIndex: "2",
-      marginTop: "65px",
+      marginTop: "65.1px",
+      marginLeft: "11.5px",
       borderRadius: "10px",
     },
   };
@@ -101,41 +106,40 @@ const TopRatedMovies = () => {
           }}
         ></span>
       </h1>
-      <Swiper
-        slidesPerView={4}
-        grabCursor={true}
-        direction="horizontal"
-        spaceBetween={2}
-      >
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
-            <Box
-              onMouseEnter={() => {
-                setIshover(true);
-              }}
-              onMouseLeave={() => {
-                setIshover(false);
-              }}
-              sx={boxSX}
-            >
-              <img
-                className="img"
-                style={{
-                  width: "100%",
-                  height: "60vh",
-                  zIndex: "1",
-                  margin: "50px 0",
-                  borderRadius: "10px",
+            <Link href={`/movies/${movie.id}`} passHref>
+              <Box
+                onMouseEnter={() => {
+                  setIshover(true);
                 }}
-                src={`${URL}${movie.poster_path}`}
-                alt={movie.title}
-              />
-              <Box className="text">
-                <div>{movie.vote_average}</div>
-                <div>{extractYearFromDate(movie.release_date)}</div>
-                <div>{movie.title}</div>
+                onMouseLeave={() => {
+                  setIshover(false);
+                }}
+                sx={boxSX}
+              >
+                <img
+                  className="img"
+                  style={{
+                    // width: "100%",
+                    // スペースができるので微調整していく
+                    width: "92%",
+                    height: "60vh",
+                    zIndex: "1",
+                    margin: "50px 0 25px 10.5px",
+                    borderRadius: "10px",
+                  }}
+                  src={`${URL}${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <Box className="text">
+                  <div>{movie.vote_average}</div>
+                  <div>{extractYearFromDate(movie.release_date)}</div>
+                  <div>{movie.title}</div>
+                </Box>
               </Box>
-            </Box>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
