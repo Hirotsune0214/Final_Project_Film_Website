@@ -43,16 +43,18 @@ const TopRatedSeries = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.05)",
+      transform: "scale(1.05) translateY(-10px)",
       boxShadow: "8px -9px 20px -2px#777777",
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
+      borderColor: "red",
     },
     "& .img": {
       width: "100%",
       height: "100%",
       transition: "transform 0.2s",
+      border: "5px solid transparent",
     },
     "& .text": {
       position: "absolute",
@@ -72,7 +74,8 @@ const TopRatedSeries = () => {
       justifyContent: "center",
       transform: "scale(1.05)",
       zIndex: "2",
-      marginTop: "65px",
+      marginTop: "65.1px",
+      // marginLeft: "7.5px",
       borderRadius: "10px",
     },
   };
@@ -101,12 +104,7 @@ const TopRatedSeries = () => {
           }}
         ></span>
       </h1>
-      <Swiper
-        slidesPerView={4}
-        grabCursor={true}
-        direction="horizontal"
-        spaceBetween={2}
-      >
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <Box
@@ -122,9 +120,10 @@ const TopRatedSeries = () => {
                 className="img"
                 style={{
                   width: "100%",
+                  // width: "95%", スペースができるので微調整していく
                   height: "60vh",
                   zIndex: "1",
-                  margin: "50px 0",
+                  margin: "50px 0 25px 0",
                   borderRadius: "10px",
                 }}
                 src={`${URL}${movie.poster_path}`}

@@ -34,6 +34,7 @@ const PopularMSeries = () => {
   const extractYearFromDate = (dateString: string): string => {
     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
   };
+
   const boxSX = {
     maxWidth: "500px",
     margin: "0 auto",
@@ -44,12 +45,11 @@ const PopularMSeries = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      // transform: "scale(1.05)",
-      boxShadow: "8px -7px 20px -2px#777777",
+      transform: "scale(1.05) translateY(-10px)",
       transition: ".3s ease-in-out",
-      position: "absolute",
+      position: "relative",
       zIndex: "2",
-      transform: "translateY(-20px)",
+      border: "3.5px solid #bcb9b8",
     },
     "& .img": {
       width: "100%",
@@ -58,7 +58,7 @@ const PopularMSeries = () => {
     },
     "& .text": {
       position: "absolute",
-      width: "100%",
+      width: "95.2%",
       height: "58.1vh",
       top: 0,
       left: 0,
@@ -74,7 +74,7 @@ const PopularMSeries = () => {
       justifyContent: "center",
       transform: "scale(1.05)",
       zIndex: "2",
-      marginTop: "65px",
+      marginTop: "65.1px",
       borderRadius: "10px",
     },
   };
@@ -104,12 +104,7 @@ const PopularMSeries = () => {
           }}
         ></span>
       </h1>
-      <Swiper
-        slidesPerView={4}
-        grabCursor={true}
-        direction="horizontal"
-        spaceBetween={2}
-      >
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
             <Box
@@ -124,10 +119,10 @@ const PopularMSeries = () => {
               <img
                 className="img"
                 style={{
-                  width: "100%",
+                  width: "95%",
                   height: "60vh",
                   zIndex: "1",
-                  margin: "50px 0",
+                  margin: "50px 0 25px 0",
                   borderRadius: "10px",
                 }}
                 src={`${URL}${movie.poster_path}`}
