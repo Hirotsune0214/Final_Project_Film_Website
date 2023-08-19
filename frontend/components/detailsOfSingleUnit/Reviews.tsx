@@ -5,7 +5,6 @@ import ReviewArea from "./ReviewArea";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { userState } from "@/src/state/auth";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 interface Review {
   userId: string;
@@ -29,33 +28,29 @@ const Reviews = ({ id }: { id: string }) => {
       });
 
       setInputText("");
+      await fetchReviews();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-      // 最新のデータをgetしてresponseに格納する
+  const fetchReviews = async () => {
+    try {
       const response = await axios.get(`http://localhost:8080/api/posts/${id}`);
-      setReviews(response.data);
-      console.log(response.data);
-
-      // レビューが0になる
-      // window.location.reload();
+      const sortedReviews = response.data.sort((post1, post2) => {
+        return new Date(post2.createdAt) - new Date(post1.createdAt);
+      });
+      setReviews(sortedReviews);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    // ページ読み込み時にレビューを取得して表示
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/api/posts/${id}`
-        );
-        setReviews(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchReviews();
+    (async () => {
+      await fetchReviews();
+      console.log(reviews);
+    })();
   }, [id]);
 
   const postButton = {
