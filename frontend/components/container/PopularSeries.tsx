@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Box } from "@mui/material";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 // interfaceを使い回して良いのか
 interface films {
@@ -16,16 +18,18 @@ interface films {
 const PopularMSeries = () => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
-  const [movies, setMovies] = useState([]);
+  const [dramas, setDramas] = useState([]);
   const [ishover, setIshover] = useState(false);
+
+  const router = useRouter();
+  const { id }: any = router.query;
 
   const fetchMovies = async () => {
     try {
       const response = await axios.get(
         "https://api.themoviedb.org/3/tv/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
-      console.log(response.data.results);
-      setMovies(response.data.results);
+      setDramas(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -110,37 +114,39 @@ const PopularMSeries = () => {
         ></span>
       </h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
-        {movies.map((movie: films) => (
-          <SwiperSlide key={movie.id}>
-            <Box
-              onMouseEnter={() => {
-                setIshover(true);
-              }}
-              onMouseLeave={() => {
-                setIshover(false);
-              }}
-              sx={boxSX}
-            >
-              <img
-                className="img"
-                style={{
-                  // width: "100%",
-                  // スペースができるので微調整していく
-                  width: "92%",
-                  height: "60vh",
-                  zIndex: "1",
-                  margin: "50px 0 25px 10.5px",
-                  borderRadius: "10px",
+        {dramas.map((drama: films) => (
+          <SwiperSlide key={drama.id}>
+            <Link href={`/dramas/${drama.id}`} passHref>
+              <Box
+                onMouseEnter={() => {
+                  setIshover(true);
                 }}
-                src={`${URL}${movie.poster_path}`}
-                alt={movie.original_name}
-              />
-              <Box className="text">
-                <div>{movie.vote_average}</div>
-                <div>{extractYearFromDate(movie.first_air_date)}</div>
-                <div>{movie.original_name}</div>
+                onMouseLeave={() => {
+                  setIshover(false);
+                }}
+                sx={boxSX}
+              >
+                <img
+                  className="img"
+                  style={{
+                    // width: "100%",
+                    // スペースができるので微調整していく
+                    width: "92%",
+                    height: "60vh",
+                    zIndex: "1",
+                    margin: "50px 0 25px 10.5px",
+                    borderRadius: "10px",
+                  }}
+                  src={`${URL}${drama.poster_path}`}
+                  alt={drama.original_name}
+                />
+                <Box className="text">
+                  <div>{drama.vote_average}</div>
+                  <div>{extractYearFromDate(drama.first_air_date)}</div>
+                  <div>{drama.original_name}</div>
+                </Box>
               </Box>
-            </Box>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
