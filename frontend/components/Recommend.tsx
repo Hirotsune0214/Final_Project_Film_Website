@@ -37,23 +37,25 @@ const Recommend = ({ recommends }: any) => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.1)",
-      boxShadow: "9px -8px 25px 4px #777777",
+      transform: "scale(1.05) translateY(-10px)",
       transition: ".3s ease-in-out",
-      position: "absolute",
+      position: "relative",
       zIndex: "2",
-      // borderRadius: "10px",
+      // TODO: 下記2つの色の微調整を行う
+      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.7)",
+      borderColor: "rgba(11, 64, 188, 0.775)",
     },
     "& .img": {
       width: "100%",
       height: "100%",
-      transition: "transform 0.2",
+      transition: "transform 0.2s",
+      border: "4px solid transparent",
     },
     "& .text": {
       position: "absolute",
-      width: "100%",
-      height: "70vh",
-      top: 1,
+      width: "93%",
+      height: "57.5vh",
+      top: 0,
       left: 0,
       textAlign: "center",
       color: "#fff",
@@ -65,24 +67,18 @@ const Recommend = ({ recommends }: any) => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      transform: "scale(1.1)",
+      transform: "scale(1.05)",
       zIndex: "2",
+      marginTop: "65.1px",
+      marginLeft: "11.5px",
+      borderRadius: "10px",
     },
   };
-
-  // useEffect(() => {
-  //   fetchMovies();
-  // }, []);
 
   return (
     <div>
       <h1>YOU MAY ALSO LIKE</h1>
-      <Swiper
-        slidesPerView={4}
-        grabCursor={true}
-        direction="horizontal"
-        spaceBetween={8}
-      >
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {recommends.map((recommend: films) => (
           <SwiperSlide key={recommend.id}>
             <Box
@@ -97,10 +93,11 @@ const Recommend = ({ recommends }: any) => {
               <img
                 className="img"
                 style={{
-                  width: "100%",
-                  height: "65vh",
-                  margin: "30px 0",
+                  width: "91.7%",
+                  height: "60vh",
                   zIndex: "1",
+                  margin: "50px 0 25px 10.5px",
+                  borderRadius: "10px",
                 }}
                 src={`${URL}${recommend.poster_path}`}
                 alt={recommend.title}
