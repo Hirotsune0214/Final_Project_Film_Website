@@ -57,21 +57,29 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.05)",
-      boxShadow: "8px -7px 20px -2px#777777",
+      transform: "scale(1.05) translateY(-10px)",
+      // rgbaにして、alphaを0.1にする
+      boxShadow: "8px -9px 20px -2px#777777",
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
+      // transform: "scale(1.05) translateY(-10px)",
+      // transition: ".3s ease-in-out",
+      // position: "relative",
+      // zIndex: "2",
+      // border: "3.5px solid #9c9897",
+      borderColor: "red",
     },
     "& .img": {
       width: "100%",
       height: "100%",
       transition: "transform 0.2",
+      border: "5px solid transparent",
     },
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "102.5%",
+      height: "101.5%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -86,6 +94,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
       justifyContent: "center",
       transform: "scaleX(1.05)",
       zIndex: "2",
+      marginLeft: "5px",
     },
   };
   const handleAddDramasPages = () => {
@@ -109,6 +118,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          margin: "20px 0 50px 0",
         }}
       >
         <h1>TV Series</h1>
@@ -171,10 +181,11 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
               src={`${URL}${drama.poster_path}`}
               alt={drama.name}
               style={{
-                width: "100%",
+                width: "99%",
                 height: "100%",
                 objectFit: "cover",
                 zIndex: "1",
+                borderRadius: "10px",
               }}
             />
             <Box className="text">

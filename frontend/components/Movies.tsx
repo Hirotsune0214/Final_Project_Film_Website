@@ -80,7 +80,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "102.5%",
+      height: "101.5%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -95,6 +95,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
       justifyContent: "center",
       transform: "scaleX(1.05)",
       zIndex: "2",
+      marginLeft: "5px",
     },
   };
 
@@ -186,7 +187,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
               src={`${URL}${movie.poster_path}`}
               alt={movie.title}
               style={{
-                width: "100%",
+                width: "99%",
                 height: "100%",
                 objectFit: "cover",
                 zIndex: "1",
