@@ -5,12 +5,13 @@ import React, { useEffect, useState } from "react";
 import Videos from "@/components/detailsOfSingleUnit/Videos";
 import Recommend from "@/components/Recommend";
 import { useRouter } from "next/router";
-import SinglePageInfo from "@/components/detailsOfSingleUnit/singleDataInfo/SinglePageInfo";
+
 import { Box } from "@mui/material";
 import Layout from "@/components/Layout";
 import { useRecoilState } from "recoil";
 import { userState } from "@/src/state/auth";
 import axios from "axios";
+import SinglePageInfo from "@/components/detailsOfSingleUnit/singleDataInfoMovie/SinglePageInfoMovie";
 
 interface Movie {
   overview: string;
@@ -28,6 +29,7 @@ const single_unit = () => {
   const [posters, setPosters] = useState([]);
   const [backdrops, setBackDrops] = useState([]);
   const [videos, setVideos] = useState([]);
+  const [videoDates, setVideoDates] = useState([]);
 
   const fetchVideos = async () => {
     try {
@@ -43,10 +45,9 @@ const single_unit = () => {
   const fetchRecommend = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/trending/all/day?api_key=bb46848237eacc0a36827f6639b47ee3"
+        "https://api.themoviedb.org/3/trending/movie/day?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setRecommends(response.data.results);
-      console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +67,12 @@ const single_unit = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([fetchVideos(), fetchRecommend(), fetchMoviePics()]);
+      await Promise.all([
+        fetchVideos(),
+        fetchRecommend(),
+        // fetchMovieVideos(),
+        fetchMoviePics(),
+      ]);
 
       window.scrollTo({ top: 0 });
     };
