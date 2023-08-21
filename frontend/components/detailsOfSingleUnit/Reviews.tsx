@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
-import { Button } from "@mui/material";
+import { Avatar, Box, Button, TextField } from "@mui/material";
 import ReviewArea from "./ReviewArea";
 import axios from "axios";
 import { useRecoilState } from "recoil";
@@ -16,9 +16,15 @@ const Reviews = ({ id }: { id: string }) => {
   const [inputText, setInputText] = useState<string>("");
   const [user, setUser] = useRecoilState(userState);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [error, setError] = useState<String>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (inputText.trim() === "") {
+      setError("Review text cannot be empty");
+      return;
+    }
 
     try {
       await axios.post("http://localhost:8080/api/posts", {
@@ -28,6 +34,7 @@ const Reviews = ({ id }: { id: string }) => {
       });
 
       setInputText("");
+      setError("");
       await fetchReviews();
     } catch (error) {
       console.error(error);
@@ -57,19 +64,18 @@ const Reviews = ({ id }: { id: string }) => {
     display: "none",
   };
 
-  // TODO: 修正の必要性(+)
-  const reviewInput = {
-    color: "gray",
-    margin: "20px",
-    padding: "20px",
-    background: "transparent",
-    border: "none",
-    outline: "none",
-    fontSize: "large",
-    "&:hover": {
-      border: "black",
-    },
-  };
+  // const reviewInput = {
+  //   color: "gray",
+  //   margin: "20px",
+  //   padding: "20px",
+  //   background: "transparent",
+  //   border: "none",
+  //   outline: "none",
+  //   fontSize: "large",
+  //   "&:hover": {
+  //     border: "black",
+  //   },
+  // };
 
   return (
     <>
@@ -77,25 +83,52 @@ const Reviews = ({ id }: { id: string }) => {
         <ReviewArea reviews={reviews} id={id} setReviews={setReviews} />
 
         <hr />
-        {user.username ? (
-          <form onSubmit={handleSubmit}>
-            <input
-              style={reviewInput}
-              type="text"
-              placeholder="Write your review"
-              value={inputText}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setInputText(e.target.value)
-              }
-            />
 
-            {/* 空文字の場合にエラーを表示させる */}
-            <Button type="submit" sx={postButton}></Button>
-            <Button type="submit" sx={postButton}>
-              <SendOutlinedIcon />
-              POST
-            </Button>
-          </form>
+        {user.username ? (
+          <Box>
+            <div style={{ display: "flex", gap: "20px" }}>
+              <Avatar />
+              <p>{user.username}</p>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                sx={{
+                  width: "70%",
+                  margin: "10px",
+                  padding: "10px",
+                  background: "transparent",
+                  fontSize: "50px",
+                }}
+                type="text"
+                placeholder="Write your review"
+                value={inputText}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setInputText(e.target.value);
+                  setError("");
+                }}
+                error={!!error}
+                helperText={error}
+                // エラーメッセージを編集するもの
+                FormHelperTextProps={{
+                  sx: {
+                    fontSize: "16px",
+                    marginTop: "10px",
+                  },
+                }}
+                InputProps={{
+                  sx: {
+                    fontSize: "16px",
+                    height: "15vh",
+                  },
+                }}
+              />
+              <Button type="submit" sx={postButton}></Button>
+              <Button type="submit" sx={postButton}>
+                <SendOutlinedIcon />
+                POST
+              </Button>
+            </form>
+          </Box>
         ) : null}
       </div>
     </>
