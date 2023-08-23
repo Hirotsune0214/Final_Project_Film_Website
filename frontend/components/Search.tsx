@@ -2,6 +2,7 @@ import { Box, Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { purple, red } from "@mui/material/colors";
+import Link from "next/link";
 
 interface films {
   id: string;
@@ -92,21 +93,24 @@ const Search = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.05)",
-      boxShadow: "8px -7px 20px -2px#777777",
+      transform: "scale(1.05) translateY(-10px)",
+      // rgbaにして、alphaを0.1にする
+      boxShadow: "8px -9px 20px -2px#777777",
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
+      borderColor: "rgba(11, 64, 188, 0.775)",
     },
     "& .img": {
       width: "100%",
       height: "100%",
       transition: "transform 0.2",
+      border: "5px solid transparent",
     },
     "& .text": {
       position: "absolute",
-      width: "100%",
-      height: "63.7vh",
+      width: "98%",
+      height: "100%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -119,15 +123,16 @@ const Search = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      transform: "scale(1.05)",
+      transform: "scaleX(1.05)",
       zIndex: "2",
+      marginLeft: "5px",
     },
   };
+
   return (
     <div style={{ backgroundColor: "#F5F5F5", height: "100vh" }}>
       <Box
         sx={{
-          mt: "20px",
           display: "flex",
           justifyContent: "center",
           gap: "10px",
@@ -140,6 +145,7 @@ const Search = () => {
             backgroundColor: category === "movie" ? "red" : "transparent",
             color: category === "movie" ? "#ffffff" : "#000000",
             padding: "15px",
+            marginTop: "15px",
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -155,6 +161,7 @@ const Search = () => {
             backgroundColor: category === "tv" ? "red" : "transparent",
             color: category === "tv" ? "#ffffff" : "#000000",
             padding: "15px",
+            marginTop: "15px",
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -170,7 +177,7 @@ const Search = () => {
             backgroundColor: category === "person" ? "red" : "transparent",
             color: category === "person" ? "#ffffff" : "#000000",
             padding: "15px",
-
+            marginTop: "15px",
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -201,9 +208,11 @@ const Search = () => {
         <div>
           <div
             style={{
+              // marginTop: "20px",
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
-              gridGap: "10px",
+              gridGap: "5px",
+              rowGap: "48px",
               cursor: "pointer",
             }}
           >
@@ -212,68 +221,117 @@ const Search = () => {
             {searchResults.map((searchResult: films) => (
               <div key={searchResult.id}>
                 {category === "movie" && (
-                  <Box
-                    onMouseEnter={() => {
-                      setIshover(true);
-                    }}
-                    onMouseLeave={() => {
-                      setIshover(false);
-                    }}
-                    sx={boxSX}
-                    // ボタンを押下してデータを取得してからデータを表示
-                  >
-                    <img
-                      className="img"
-                      style={{
-                        width: "100%",
-                        height: "60vh",
-                        zIndex: "1",
-                        // margin: "15px 0",
+                  <Link href={`/movies/${searchResult.id}`} passHref>
+                    <Box
+                      onMouseEnter={() => {
+                        setIshover(true);
                       }}
-                      src={`${URL}${searchResult.poster_path}`}
-                      alt={searchResult.title}
-                    />
-                    <Box className="text">
-                      <div>{searchResult.vote_average}</div>
-                      <div>
-                        {extractYearFromDate(searchResult.release_date)}
-                      </div>
-                      <div>{searchResult.title}</div>
+                      onMouseLeave={() => {
+                        setIshover(false);
+                      }}
+                      sx={boxSX}
+                      // ボタンを押下してデータを取得してからデータを表示
+                    >
+                      <img
+                        className="img"
+                        style={{
+                          width: "98%",
+                          // height: "100%",
+                          height: "65vh",
+                          objectFit: "cover",
+                          zIndex: "1",
+                          borderRadius: "10px",
+                        }}
+                        src={`${URL}${searchResult.poster_path}`}
+                        alt={searchResult.title}
+                      />
+                      <Box className="text">
+                        <div>{searchResult.vote_average}</div>
+                        <div>
+                          {searchResult.release_date &&
+                            extractYearFromDate(searchResult.release_date)}
+                        </div>
+                        <div>{searchResult.title}</div>
+                      </Box>
                     </Box>
-                  </Box>
+                  </Link>
                 )}
                 {category === "tv" && (
-                  <Box
-                    onMouseEnter={() => {
-                      setIshover(true);
-                    }}
-                    onMouseLeave={() => {
-                      setIshover(false);
-                    }}
-                    sx={boxSX}
-                  >
-                    <img
-                      className="img"
-                      style={{
-                        width: "100%",
-                        height: "60vh",
-                        // margin: "30px 0",
-                        zIndex: "1",
+                  <Link href={`/dramas/${searchResult.id}`} passHref>
+                    <Box
+                      onMouseEnter={() => {
+                        setIshover(true);
                       }}
-                      src={`${URL}${searchResult.profile_path}`}
-                      alt={searchResult.original_name}
-                    />
-                    <Box className="text">
-                      <div>{searchResult.vote_average}</div>
-                      <div>
-                        {extractYearFromDate(searchResult.first_air_date)}
-                      </div>
-                      <div>{searchResult.original_name}</div>
+                      onMouseLeave={() => {
+                        setIshover(false);
+                      }}
+                      sx={boxSX}
+                    >
+                      <img
+                        className="img"
+                        style={{
+                          width: "98%",
+
+                          height: "65vh",
+                          objectFit: "cover",
+                          zIndex: "1",
+                          borderRadius: "10px",
+                        }}
+                        src={`${URL}${searchResult.poster_path}`}
+                        alt={searchResult.original_name}
+                      />
+                      <Box className="text">
+                        <div>{searchResult.vote_average}</div>
+                        <div>
+                          {searchResult.first_air_date &&
+                            extractYearFromDate(searchResult.first_air_date)}
+                        </div>
+                        <div>{searchResult.original_name}</div>
+                      </Box>
                     </Box>
-                  </Box>
+                  </Link>
                 )}
                 {category === "person" && (
-                  <div>{searchResult.original_name}</div>
+                  <Box
+                    sx={{
+                      position: "relative",
+                      display: "inline-block",
+                    }}
+                  >
+                    {searchResult.profile_path ? (
+                      <img
+                        className="img"
+                        style={{
+                          width: "98%",
+                          height: "65vh",
+                          objectFit: "cover",
+                          zIndex: "1",
+                          borderRadius: "10px",
+                        }}
+                        src={`${URL}${searchResult.profile_path}`}
+                        alt={searchResult.original_name}
+                      />
+                    ) : (
+                      <p>No picture</p>
+                    )}
+                    {searchResult.profile_path ? (
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          width: "98%",
+                          height: "max-content",
+                          bottom: "0px",
+                          padding: "15px 0",
+                          backgroundColor: "rgba(0, 0, 0, 0.6)",
+                          color: "rgba(219, 219, 219, 0.9)",
+                          fontSize: "23px",
+                          textAlign: "center",
+                        }}
+                      >
+                        <div>{searchResult.original_name}</div>
+                      </Box>
+                    ) : null}
+                  </Box>
                 )}
               </div>
             ))}
