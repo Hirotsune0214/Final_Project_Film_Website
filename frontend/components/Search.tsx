@@ -320,12 +320,13 @@ const Search = () => {
                           position: "absolute",
                           width: "98%",
                           height: "max-content",
-                          bottom: "0px",
+                          bottom: "4px",
                           padding: "15px 0",
                           backgroundColor: "rgba(0, 0, 0, 0.6)",
                           color: "rgba(219, 219, 219, 0.9)",
                           fontSize: "23px",
                           textAlign: "center",
+                          borderRadius: "10px",
                         }}
                       >
                         <div>{searchResult.original_name}</div>
