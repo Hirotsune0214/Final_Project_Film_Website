@@ -20,7 +20,25 @@ const BackDrops = ({ backdrops }: { backdrops: any[] }) => {
 
   return (
     <div>
-      <h1>BACK DROPS</h1>
+      <h1
+        style={{
+          display: "inline-block",
+          position: "relative",
+          margin: "30px 0 40px 0",
+        }}
+      >
+        BACK DROPS
+        <span
+          style={{
+            position: "absolute",
+            bottom: "-10px",
+            left: "0",
+            width: "90%",
+            borderBottom: "7px solid red",
+            borderRadius: "20px",
+          }}
+        ></span>
+      </h1>
       <Swiper
         slidesPerView={1}
         grabCursor={true}
@@ -29,6 +47,7 @@ const BackDrops = ({ backdrops }: { backdrops: any[] }) => {
         modules={[Navigation, Pagination]}
         pagination={{
           dynamicBullets: true,
+          // clickable: true,
         }}
       >
         {backdrops.map((backdrop: any) => (
@@ -38,13 +57,13 @@ const BackDrops = ({ backdrops }: { backdrops: any[] }) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "400px",
+                height: "700px",
               }}
             >
               <img
                 style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
+                  width: "1250px",
+                  objectFit: "cover",
                 }}
                 src={`${URL}${backdrop.file_path}`}
                 alt={backdrop.title}

@@ -24,7 +24,24 @@ const Videos = ({ videos }: { videos: any }) => {
 
   return (
     <div id="sectionVideo">
-      <h1>VIDEOS</h1>
+      <h1
+        style={{
+          display: "inline-block",
+          position: "relative",
+        }}
+      >
+        VIDEOS
+        <span
+          style={{
+            position: "absolute",
+            bottom: "-10px",
+            left: "0",
+            width: "85%",
+            borderBottom: "7px solid red",
+            borderRadius: "20px",
+          }}
+        ></span>
+      </h1>
       <Swiper
         slidesPerView={1}
         grabCursor={true}
@@ -44,41 +61,27 @@ const Videos = ({ videos }: { videos: any }) => {
                 alignItems: "center",
                 flexDirection: "column",
                 height: "70vh",
+                objectFit: "cover",
+                margin: "90px 0 60px 0",
               }}
               onClick={() => handleClickVideo(index)}
             >
-              {/* {videos[currentVideoIndex] && (
-                <YouTube
-                  videoId={videos[currentVideoIndex].key}
-                  opts={{
-                    width: "1300",
-                    height: "700",
-                  }}
-                />
-              )}
-              {video.name} */}
               <div
-                style={{ position: "relative", width: "100%", height: "100%" }}
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  objectFit: "cover",
+                }}
               >
                 <YouTube
                   videoId={video.key}
                   opts={{
-                    width: "100%",
-                    height: "100%",
+                    width: "1250",
+                    height: "700",
                   }}
                 />
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: "10px",
-                    left: "10px",
-                    color: "#fff",
-                    background: "rgba(0, 0, 0, 0.6)",
-                    padding: "5px",
-                  }}
-                >
-                  {video.name}
-                </div>
               </div>
             </Box>
           </SwiperSlide>
