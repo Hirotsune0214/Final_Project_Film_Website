@@ -51,6 +51,7 @@ const Videos = ({ videos }: { videos: any }) => {
         pagination={{
           dynamicBullets: true,
         }}
+        spaceBetween={50}
       >
         {videos.map((video: MoviesData, index: number) => (
           <SwiperSlide key={video.id}>
@@ -60,9 +61,9 @@ const Videos = ({ videos }: { videos: any }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 flexDirection: "column",
-                height: "70vh",
+                height: "98vh",
                 objectFit: "cover",
-                margin: "90px 0 60px 0",
+                margin: "25px 0",
               }}
               onClick={() => handleClickVideo(index)}
             >
@@ -72,14 +73,14 @@ const Videos = ({ videos }: { videos: any }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  objectFit: "cover",
                 }}
               >
                 <YouTube
                   videoId={video.key}
                   opts={{
-                    width: "1250",
-                    height: "700",
+                    width: "1150",
+                    height: "680",
+                    objectFit: "cover",
                   }}
                 />
               </div>
