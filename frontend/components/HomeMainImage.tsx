@@ -2,17 +2,33 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Box, Button, CircularProgress } from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import Link from "next/link";
 
 // interfaceを使い回して良いのか
 interface Series {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
+  id: String;
+  poster_path: String;
+  title: String;
+  original_title: String;
+  release_date: String;
   vote_average: number;
-  backdrop_path: "string";
+  overview: String;
+  backdrop_path: String;
 }
+
+const movieButton = {
+  color: "white",
+  backgroundColor: "#FF0D01",
+  padding: "10px",
+  borderRadius: "10px",
+  marginTop: "32px",
+  "&:hover": {
+    backgroundColor: "#ac0e06",
+    opacity: "0.9",
+  },
+};
 
 const HomeMainImage = () => {
   const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
@@ -32,10 +48,6 @@ const HomeMainImage = () => {
     }
   };
 
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  };
-
   useEffect(() => {
     fetchDramas();
   }, []);
@@ -49,13 +61,12 @@ const HomeMainImage = () => {
             <div
               style={{
                 backgroundImage: `URL(${URL}${drama.backdrop_path})`,
-
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 height: "100vh",
+                position: "relative",
               }}
             >
-              {/* ここに再度divを追加して記述する理由 */}
               <div
                 style={{
                   width: "100%",
@@ -64,13 +75,49 @@ const HomeMainImage = () => {
                   top: "0px",
                   left: "0px",
                   backgroundImage:
-                    "linear-gradient(to right, rgb(0, 0, 0), rgba(0, 0, 0, 0))",
+                    "linear-gradient(to right, rgb(245, 245, 245), rgba(0, 0, 0, 0))",
                 }}
               ></div>
-
-              <div>{drama.vote_average}</div>
-              <div>{extractYearFromDate(drama.release_date)}</div>
-              <div>{drama.original_title}</div>
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "33%",
+                  left: "20%",
+                  transform: "translate(-50%, -50%)",
+                  textAlign: "center",
+                  color: "black",
+                }}
+              >
+                <div style={{ fontSize: "32px", fontWeight: "bold" }}>
+                  {drama.original_title}
+                </div>
+                <div style={{ fontSize: "20px", marginTop: "32px" }}>
+                  <CircularProgress
+                    variant="determinate"
+                    value={drama.vote_average * 10}
+                  />
+                  {drama.vote_average}
+                </div>
+                {/* <div
+                  style={{
+                    fontSize: "20px",
+                    fontWeight: "400",
+                    letterSpacing: "0.02000em",
+                    marginTop: "32px",
+                    textAlign: "justify",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {drama.overview}
+                </div> */}
+                <Link href={`/movies/${drama.id}`} passHref>
+                  <Button sx={movieButton}>
+                    <PlayArrowIcon />
+                    WATCH NOW
+                  </Button>
+                </Link>
+              </Box>
             </div>
           </SwiperSlide>
         ))}
