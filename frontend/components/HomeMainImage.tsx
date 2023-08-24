@@ -81,37 +81,64 @@ const HomeMainImage = () => {
               <Box
                 sx={{
                   position: "absolute",
-                  top: "33%",
-                  left: "20%",
+                  top: "42%",
+                  left: "30%",
                   transform: "translate(-50%, -50%)",
                   textAlign: "center",
                   color: "black",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
                 }}
               >
-                <div style={{ fontSize: "32px", fontWeight: "bold" }}>
+                <div style={{ fontSize: "35px", fontWeight: "bold" }}>
                   {drama.original_title}
                 </div>
-                <div style={{ fontSize: "20px", marginTop: "32px" }}>
+                <Box style={{ fontSize: "20px", marginTop: "32px" }}>
                   <CircularProgress
                     variant="determinate"
                     color="success"
                     value={drama.vote_average * 10}
+                    style={{ width: "50px" }}
                   />
-                  {drama.vote_average}
-                </div>
-                {/* <div
+                  <div
+                    style={{
+                      position: "fixed",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "40px",
+                      height: "40px",
+                      color: "black",
+                      fontSize: "18px",
+                      fontWeight: "700",
+                      top: "73.5px",
+                      left: "9px",
+                    }}
+                  >
+                    {drama.vote_average}
+                  </div>
+                </Box>
+                <div
                   style={{
+                    width: "450px",
                     fontSize: "20px",
                     fontWeight: "400",
                     letterSpacing: "0.02000em",
+                    // margin: "32px 0 0 50px",
                     marginTop: "32px",
-                    textAlign: "justify",
+                    whiteSpace: "normal",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3, // 最大表示行数
+                    WebkitBoxOrient: "vertical",
+                    textAlign: "left",
                   }}
                 >
                   {drama.overview}
-                </div> */}
+                </div>
                 <Link href={`/movies/${drama.id}`} passHref>
                   <Button sx={movieButton}>
                     <PlayArrowIcon />
