@@ -21,11 +21,14 @@ const RightSideDetailMain = ({ rightSideDetail }: { rightSideDetail: any }) => {
         </Box>
         <Box
           sx={{
+            width: "740px",
             marginTop: "40px",
-            fontSize: "23px",
+            fontSize: "20px",
             letterSpacing: "2",
             lineHeight: "1.3",
-            color: "#201F1D"
+            color: "#201F1D",
+            display: "flex",
+            wordBreak: "break-word",
           }}
         >
           <span>{rightSideDetail.overview}</span>
