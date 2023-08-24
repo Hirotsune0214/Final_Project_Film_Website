@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, Button } from "@mui/material";
+import Link from "next/link";
 
 // interfaceを使い回して良いのか
 interface SeriesData {
@@ -63,12 +64,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
-      // transform: "scale(1.05) translateY(-10px)",
-      // transition: ".3s ease-in-out",
-      // position: "relative",
-      // zIndex: "2",
-      // border: "3.5px solid #9c9897",
-      borderColor: "red",
+      borderColor: "rgba(11, 64, 188, 0.775)",
     },
     "& .img": {
       width: "100%",
@@ -79,7 +75,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "101.5%",
+      height: "99%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -130,6 +126,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
               backgroundColor: movieLists === "popular" ? "red" : "transparent",
               color: movieLists === "popular" ? "#ffffff" : "#000000",
               padding: "15px",
+              marginRight: "10px",
               ":hover": {
                 backgroundColor: "red",
                 opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
@@ -166,34 +163,36 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
         }}
       >
         {dramas.map((drama: SeriesData) => (
-          <Box
-            onMouseEnter={() => {
-              setIshover(true);
-            }}
-            onMouseLeave={() => {
-              setIshover(false);
-            }}
-            sx={boxSX}
-            key={drama.id}
-          >
-            <img
-              className="img"
-              src={`${URL}${drama.poster_path}`}
-              alt={drama.name}
-              style={{
-                width: "99%",
-                height: "100%",
-                objectFit: "cover",
-                zIndex: "1",
-                borderRadius: "10px",
+          <Link href={`/dramas/${drama.id}`} passHref>
+            <Box
+              onMouseEnter={() => {
+                setIshover(true);
               }}
-            />
-            <Box className="text">
-              <div>{drama.name}</div>
-              <div>{extractYearFromDate(drama.first_air_date)}</div>
-              <div>{drama.vote_average}</div>
+              onMouseLeave={() => {
+                setIshover(false);
+              }}
+              sx={boxSX}
+              key={drama.id}
+            >
+              <img
+                className="img"
+                src={`${URL}${drama.poster_path}`}
+                alt={drama.name}
+                style={{
+                  width: "99%",
+                  height: "65vh",
+                  objectFit: "cover",
+                  zIndex: "1",
+                  borderRadius: "10px",
+                }}
+              />
+              <Box className="text">
+                <div>{drama.name}</div>
+                <div>{extractYearFromDate(drama.first_air_date)}</div>
+                <div>{drama.vote_average}</div>
+              </Box>
             </Box>
-          </Box>
+          </Link>
         ))}
       </Box>
       <div

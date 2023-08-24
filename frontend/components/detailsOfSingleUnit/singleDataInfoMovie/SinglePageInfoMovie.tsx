@@ -65,7 +65,7 @@ const SinglePageInfo = ({ id }: { id: string }) => {
         <LeftSidePicMain leftPic={leftPic} />
         <Box sx={{ flexDirection: "column", width: "60%" }}>
           <RightSideDetailMain rightSideDetail={rightSideDetail} />
-          <FavoriteWatch />
+          <FavoriteWatch id={id} />
           <CastList casts={casts} />
         </Box>
       </div>

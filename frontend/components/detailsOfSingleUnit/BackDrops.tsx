@@ -24,7 +24,7 @@ const BackDrops = ({ backdrops }: { backdrops: any[] }) => {
         style={{
           display: "inline-block",
           position: "relative",
-          margin: "30px 0 40px 0",
+          margin: "20px 0",
         }}
       >
         BACK DROPS
@@ -57,13 +57,14 @@ const BackDrops = ({ backdrops }: { backdrops: any[] }) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "700px",
+                height: "750px",
               }}
             >
               <img
                 style={{
-                  width: "1250px",
+                  width: "1150px",
                   objectFit: "cover",
+                  height: "680px",
                 }}
                 src={`${URL}${backdrop.file_path}`}
                 alt={backdrop.title}

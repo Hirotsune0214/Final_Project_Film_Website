@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, Button } from "@mui/material";
+import Link from "next/link";
 
 // TODO: リファクタリンで、type.tsに移動させる
 interface MoviesData {
@@ -69,7 +70,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
       // position: "relative",
       // zIndex: "2",
       // border: "3.5px solid #9c9897",
-      borderColor: "red",
+      borderColor: "rgba(11, 64, 188, 0.775)",
     },
     "& .img": {
       width: "100%",
@@ -80,7 +81,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "101.5%",
+      height: "99%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -124,7 +125,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          margin: "20px 0 50px 0",
+          margin: "20px 5px 50px 5px",
         }}
       >
         <h1>Movies</h1>
@@ -136,6 +137,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
               backgroundColor: movieLists === "popular" ? "red" : "transparent",
               color: movieLists === "popular" ? "#ffffff" : "#000000",
               padding: "15px",
+              marginRight: "10px",
               ":hover": {
                 backgroundColor: "red",
                 opacity: 0.8,
@@ -173,33 +175,35 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
         }}
       >
         {movies.map((movie: MoviesData) => (
-          <Box
-            onMouseEnter={() => {
-              setIshover(true);
-            }}
-            onMouseLeave={() => {
-              setIshover(false);
-            }}
-            sx={boxSX}
-          >
-            <img
-              className="img"
-              src={`${URL}${movie.poster_path}`}
-              alt={movie.title}
-              style={{
-                width: "99%",
-                height: "100%",
-                objectFit: "cover",
-                zIndex: "1",
-                borderRadius: "10px",
+          <Link href={`/movies/${movie.id}`} passHref>
+            <Box
+              onMouseEnter={() => {
+                setIshover(true);
               }}
-            />
-            <Box className="text">
-              <div>{movie.vote_average}</div>
-              <div>{extractYearFromDate(movie.release_date)}</div>
-              <div>{movie.title}</div>
+              onMouseLeave={() => {
+                setIshover(false);
+              }}
+              sx={boxSX}
+            >
+              <img
+                className="img"
+                src={`${URL}${movie.poster_path}`}
+                alt={movie.title}
+                style={{
+                  width: "99%",
+                  height: "65vh",
+                  objectFit: "cover",
+                  zIndex: "1",
+                  borderRadius: "10px",
+                }}
+              />
+              <Box className="text">
+                <div>{movie.vote_average}</div>
+                <div>{extractYearFromDate(movie.release_date)}</div>
+                <div>{movie.title}</div>
+              </Box>
             </Box>
-          </Box>
+          </Link>
         ))}
       </Box>
       <div

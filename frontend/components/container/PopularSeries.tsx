@@ -66,7 +66,7 @@ const PopularMSeries = () => {
     },
     "& .text": {
       position: "absolute",
-      width: "94.5%",
+      width: "93%",
       height: "57.5vh",
       top: 0,
       left: 0,

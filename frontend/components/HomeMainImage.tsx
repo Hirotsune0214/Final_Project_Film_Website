@@ -94,6 +94,7 @@ const HomeMainImage = () => {
                 <div style={{ fontSize: "20px", marginTop: "32px" }}>
                   <CircularProgress
                     variant="determinate"
+                    color="success"
                     value={drama.vote_average * 10}
                   />
                   {drama.vote_average}

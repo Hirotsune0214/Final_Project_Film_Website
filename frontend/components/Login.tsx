@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import authApi from "@/pages/api/authApi";
 import { useRecoilState } from "recoil";
 import { userState } from "@/src/state/auth";
+import Head from "next/head";
 
 const login: FC = () => {
   const router = useRouter();
@@ -39,11 +40,11 @@ const login: FC = () => {
     // ちゃんと入力されているかの確認
     if (username === "") {
       error = true;
-      setUsernameErrText("名前を入力してください");
+      setUsernameErrText("Please enter your name");
     }
     if (password === "") {
       error = true;
-      setPasswordErrText("パスワードを入力してください");
+      setPasswordErrText("Please enter the password");
     }
 
     // errorがあった場合、そのままreturnしてその下を実行しないようにする
@@ -109,6 +110,9 @@ const login: FC = () => {
 
   return (
     <>
+      <Head>
+        <title>Login</title>
+      </Head>
       <Box
         sx={{
           marginTop: 8,
@@ -145,16 +149,6 @@ const login: FC = () => {
             error={usernameErrText !== ""}
             disabled={loading}
           />
-          {/* <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          /> */}
           <TextField
             margin="normal"
             required
@@ -168,7 +162,6 @@ const login: FC = () => {
             error={passwordErrText !== ""}
             disabled={loading}
           />
-
           <LoadingButton
             sx={{ mt: 3, mb: 2 }}
             fullWidth
@@ -180,7 +173,6 @@ const login: FC = () => {
             LOGIN
           </LoadingButton>
         </Box>
-        {/* 位置を調整する */}
         <Button>
           <Link href="/signup">Don't have an account? Sign Up</Link>
         </Button>

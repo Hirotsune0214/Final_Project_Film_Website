@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const RightSideDetailMain = ({ rightSideDetail }: { rightSideDetail: any }) => {
   const extractYearFromDate = (dateString: string): string => {
@@ -12,14 +12,22 @@ const RightSideDetailMain = ({ rightSideDetail }: { rightSideDetail: any }) => {
   return (
     <Box>
       <div>
-        <h2>
+        <h1 style={{ fontSize: "40px" }}>
           {rightSideDetail.original_title}
           {extractYearFromDate(rightSideDetail.release_date)}
-        </h2>
+        </h1>
         <Box sx={{ marginTop: "40px" }}>
           <div>{rightSideDetail.vote_average.toFixed(1)}</div>
         </Box>
-        <Box sx={{ marginTop: "40px" }}>
+        <Box
+          sx={{
+            marginTop: "40px",
+            fontSize: "23px",
+            letterSpacing: "2",
+            lineHeight: "1.3",
+            color: "#201F1D"
+          }}
+        >
           <span>{rightSideDetail.overview}</span>
         </Box>
       </div>

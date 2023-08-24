@@ -9,7 +9,25 @@ const Posters = ({ posters }: { posters: any[] }) => {
 
   return (
     <div>
-      <h1>POSTERS</h1>
+      <h1
+        style={{
+          display: "inline-block",
+          position: "relative",
+          margin: "40px 0 40px 0",
+        }}
+      >
+        POSTERS
+        <span
+          style={{
+            position: "absolute",
+            bottom: "-10px",
+            left: "0",
+            width: "88%",
+            borderBottom: "7px solid red",
+            borderRadius: "20px",
+          }}
+        ></span>
+      </h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {posters.map((poster: any) => (
           <SwiperSlide key={poster.file_path}>

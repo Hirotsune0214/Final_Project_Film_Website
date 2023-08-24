@@ -11,10 +11,14 @@ const tokenHandler = require("../middleware/tokenHandler");
 require("dotenv").config();
 
 const { body } = require("express-validator");
+const generateIdenticon = require("../utils/generateIdenticon");
+
+// const defaultIconImage = generateIdenticon(username);
 
 // Create new user
 router.post(
   "/register",
+
   // バリデーションチェック
   body("username")
     .isLength({ min: 8 })
@@ -34,13 +38,11 @@ router.post(
       }
     });
   }),
-  // 下記の書き方の意図がわからない
   validation.validate,
   userController.register
 );
 
-// ログイン用のAPI
-
+// Login API
 router.post(
   "/login",
   body("username")
@@ -53,6 +55,17 @@ router.post(
   validation.validate,
   userController.login
 );
+
+// // Logout API
+// router.get("/logout", tokenHandler.verifyToken, async (req, res) => {
+//   try {
+//     console.log("Logged out successfully");
+//     // return res.status(200).json({ message: "Logged out successfully" });
+//   } catch (err) {
+//     console.error(err);
+//     return res.status(501).json({ message: "Error during logout" });
+//   }
+// });
 
 // JWT認証API
 router.post("/verify-token", tokenHandler.verifyToken, (req, res) => {

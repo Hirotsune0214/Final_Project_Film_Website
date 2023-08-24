@@ -5,13 +5,14 @@ import Typography from "@mui/material/Typography";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import Modal from "@mui/material/Modal";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Link from "next/link";
 
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 200,
   bgcolor: "#F6F6F6",
   border: "2px solid #000",
   boxShadow: 24,
@@ -28,7 +29,10 @@ export default function UserModal({ user }: any) {
   const handleSignOut = async () => {
     try {
       localStorage.removeItem("token");
-      window.location.reload();
+
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
     } catch (error) {
       console.log(error, "error");
     }
@@ -48,12 +52,49 @@ export default function UserModal({ user }: any) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography>
-            <FavoriteBorderOutlinedIcon />
-            FAVORITES
-          </Typography>
-          <Typography onClick={handleSignOut}>
+        <Box
+          sx={{
+            ...style,
+            width: "170px",
+            position: "fixed",
+            top: "15%",
+            left: "90.5%",
+          }}
+        >
+          <Link
+            href="/favorites"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Typography
+              sx={{
+                fontSize: "20px",
+                display: "flex",
+                alignItems: "center",
+                gap: "25px",
+                "&:hover": {
+                  background: "#dfdfdf",
+                  width: "200px",
+                },
+              }}
+            >
+              <FavoriteBorderOutlinedIcon />
+              FAVORITES
+            </Typography>
+          </Link>
+          <Typography
+            onClick={handleSignOut}
+            sx={{
+              fontSize: "20px",
+              display: "flex",
+              alignItems: "center",
+              gap: "25px",
+              marginTop: "15px",
+              "&:hover": {
+                background: "#dfdfdf",
+                width: "150px",
+              },
+            }}
+          >
             <LogoutIcon />
             SIGN OUT
           </Typography>

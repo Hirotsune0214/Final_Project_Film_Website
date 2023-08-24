@@ -77,7 +77,24 @@ const Recommend = ({ recommends }: any) => {
 
   return (
     <div>
-      <h1>YOU MAY ALSO LIKE</h1>
+      <h1
+        style={{
+          display: "inline-block",
+          position: "relative",
+        }}
+      >
+        YOU MAY ALSO LIKE
+        <span
+          style={{
+            position: "absolute",
+            bottom: "-10px",
+            left: "0",
+            width: "45%",
+            borderBottom: "7px solid red",
+            borderRadius: "20px",
+          }}
+        ></span>
+      </h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {recommends.map((recommend: films) => (
           <SwiperSlide key={recommend.id}>

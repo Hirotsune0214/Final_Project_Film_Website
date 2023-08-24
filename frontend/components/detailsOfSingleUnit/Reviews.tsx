@@ -58,7 +58,6 @@ const Reviews = ({ id }: { id: string }) => {
   useEffect(() => {
     (async () => {
       await fetchReviews();
-      console.log(reviews);
     })();
   }, [id]);
 

@@ -1,13 +1,17 @@
 import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import axios from "axios";
+import { userState } from "@/src/state/auth";
+import { useRecoilState } from "recoil";
 
-const FavoriteWatch = () => {
-  // TODO: 後ほど削除
-  const [favorites, setFavorites] = useState(10);
-  // 押されているかの判定
-  const [isfavorited, setIsFavorited] = useState(false);
+const FavoriteWatch = ({ id }: { id: string }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [user, setUser] = useRecoilState(userState);
+
+  const userId = user.username;
+  console.log(userId);
 
   const movieButton = {
     color: "white",
@@ -20,31 +24,30 @@ const FavoriteWatch = () => {
     },
   };
 
-  const favoriteButton = {
-    color: "red",
-  };
-
   const favoriteContainer = {
     display: "flex",
-    gap: "10px",
+    alignItems: "center",
+    gap: "30px",
     marginTop: "40px",
   };
 
-  const handleFavorites = () => {
-    // isLikedがtrue(押されているなら)ならlikeをマイナス1して、false(押されているなら)likeをプラス1する
-    setFavorites(isfavorited ? favorites - 1 : favorites + 1);
-    setIsFavorited(!isfavorited);
+  const handleFavorites = async () => {
+    try {
+      await axios.put(`http://localhost:8080/api/favorites/movies/${id}`, {
+        userId: userId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
       <Box sx={favoriteContainer}>
-        <FavoriteBorderOutlinedIcon
-          sx={favoriteButton}
+        <FavoriteIcon
+          sx={{ fill: isFavorite ? "red" : "black" }}
           onClick={() => handleFavorites()}
         />
-        <span>{favorites}people have added to their favorites</span>
-
         <Button
           sx={movieButton}
           onClick={() => window.scrollTo({ top: 790, behavior: "smooth" })}

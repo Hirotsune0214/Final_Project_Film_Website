@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import MainImageMovies from "@/components/MainImageMovies";
 import Movies from "@/components/Movies";
 import axios from "axios";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 
 // TODO: リファクタリンで、type.tsに移動させる
@@ -35,17 +36,22 @@ const movies = () => {
   }, [movieLists]);
 
   return (
-    <div>
-      <Layout>
-        <MainImageMovies movies={movies} />
-        <Movies
-          movies={movies}
-          movieLists={movieLists}
-          setMovieLists={setMovieLists}
-          setMovies={setMovies}
-        />
-      </Layout>
-    </div>
+    <>
+      <Head>
+        <title>Movies</title>
+      </Head>
+      <div>
+        <Layout>
+          <MainImageMovies movies={movies} />
+          <Movies
+            movies={movies}
+            movieLists={movieLists}
+            setMovieLists={setMovieLists}
+            setMovies={setMovies}
+          />
+        </Layout>
+      </div>
+    </>
   );
 };
 

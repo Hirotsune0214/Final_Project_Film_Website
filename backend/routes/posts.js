@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const movieController = require("../controllers/movieReview");
 const Post = require("../models/Post");
 
 // Create post "review"
@@ -34,10 +33,7 @@ router.get("/:id", async (req, res) => {
 // Delete post "review"
 router.delete("/:id", async (req, res) => {
   try {
-    console.log(req.params.id);
     const post = await Post.findById(req.params.id);
-    // 投稿した本人だけが削除できるようにする
-    // if (post.userId === req.body.userId) {
     await post.deleteOne();
     return res.status(200).json("Post is deleted successfully");
   } catch (err) {
@@ -45,21 +41,21 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-/*
-router.delete("/:id", async (req, res) => {
-  try {
-    const post = await Post.findById(req.params.id);
-    if (req.body.userId === post.userId) {
-      await post.deleteOne();
-      return res.status(200).json("Post is deleted successfully");
-    } else {
-      return res.status(403).json("You can delete only you posted");
-    }
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-});
-*/
+// Backendのifの実装は時間があれば
+// router.delete("/:id", async (req, res) => {
+//   try {
+//     const post = await Post.findById(req.params.id);
+//     // 投稿した本人だけが削除できるようにする
+//     if (`post.userId === req.params.id`) {
+//       await post.deleteOne();
+//       return res.status(200).json("Post is deleted successfully");
+//     } else {
+//       return res.status(403).json("You can delete only you posted");
+//     }
+//   } catch (err) {
+//     return res.status(500).json(err);
+//   }
+// });
 
 // Update post "review, comments"
 router.put("/:id", async (req, res) => {
@@ -71,7 +67,7 @@ router.put("/:id", async (req, res) => {
       });
       return res.status(200).json("Post is updated successfully");
     } else {
-      return res.status(403).json("You can update only you posted");
+      return res.status(204).json("You can update only you posted");
     }
   } catch (err) {
     return res.status(500).json(err);
@@ -79,13 +75,15 @@ router.put("/:id", async (req, res) => {
 });
 
 // Likes button
-router.put("/:id/:like", async (req, res) => {
+router.put("/:id/like", async (req, res) => {
   try {
+    // req.params.id = 投稿にあるid
     const post = await Post.findById(req.params.id);
-    if (!post.likes.includes(req.body.userId)) {
+    // まだ投稿にいいねを押していなかったら
+    if (!post.likes.includes(post.userId)) {
       await post.updateOne({
         $push: {
-          likes: req.body.userId,
+          likes: post.userId,
         },
       });
       return res.status(200).json("You gave like");
@@ -94,14 +92,20 @@ router.put("/:id/:like", async (req, res) => {
       // Remove like from a user who gave like
       await post.updateOne({
         $pull: {
-          likes: req.body.userId,
+          likes: post.userId,
         },
       });
-      return res.status(403).json("Remove like");
+      return res.status(204).json("Remove like");
     }
   } catch (err) {
     return res.status(500).json(err);
   }
 });
+
+// router.get("/:id/like", async (req, res) => {
+//   try {
+//     const post = await Post.find(req.params.id);
+//   }
+// }
 
 module.exports = router;
