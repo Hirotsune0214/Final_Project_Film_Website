@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface films {
   id: string;
@@ -65,14 +66,14 @@ const PopularMovies = () => {
     "& .text": {
       position: "absolute",
       width: "93%",
-      height: "57.5vh",
+      height: "58vh",
       top: 0,
       left: 0,
       textAlign: "center",
       color: "#fff",
       background:
         "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
-      transition: ".3s ease-in-out",
+      transition: "0.3s ease-in-out",
       opacity: 0,
       display: "flex",
       flexDirection: "column",
@@ -83,6 +84,7 @@ const PopularMovies = () => {
       marginTop: "65.1px",
       marginLeft: "11.5px",
       borderRadius: "10px",
+      fontSize: "20px",
     },
   };
   useEffect(() => {
@@ -127,8 +129,6 @@ const PopularMovies = () => {
                 <img
                   className="img"
                   style={{
-                    // width: "100%",
-                    // スペースができるので微調整していく
                     width: "92%",
                     height: "60vh",
                     zIndex: "1",
@@ -140,9 +140,17 @@ const PopularMovies = () => {
                 />
 
                 <Box className="text">
-                  <div>{movie.vote_average}</div>
-                  <div>{extractYearFromDate(movie.release_date)}</div>
-                  <div>{movie.title}</div>
+                  <div>
+                    <CircularProgress
+                      variant="determinate"
+                      value={movie.vote_average * 10}
+                    />
+                    {movie.vote_average}
+                  </div>
+                  <div style={{ marginTop: "8px" }}>
+                    {extractYearFromDate(movie.release_date)}
+                  </div>
+                  <span style={{ marginTop: "8px" }}>{movie.title}</span>
                 </Box>
               </Box>
             </Link>
