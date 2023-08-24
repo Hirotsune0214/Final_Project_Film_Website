@@ -67,11 +67,13 @@ const CastList = ({ casts }: { casts: any }) => {
                     fontSize: "18px",
                     lineHeight: "1.5",
                     letterSpacing: "0.00938em",
+                    display: "flex",
+                    textAlign: "center",
                   }}
                 >
                   <div
                     style={{
-                      width: "100px",
+                      width: "150px",
                       whiteSpace: "nowrap",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
