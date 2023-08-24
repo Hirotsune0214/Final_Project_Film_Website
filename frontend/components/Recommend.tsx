@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Link from "next/link";
 
 interface films {
   id: string;
@@ -98,47 +99,58 @@ const Recommend = ({ recommends }: any) => {
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {recommends.map((recommend: films) => (
           <SwiperSlide key={recommend.id}>
-            <Box
-              onMouseEnter={() => {
-                setIshover(true);
-              }}
-              onMouseLeave={() => {
-                setIshover(false);
-              }}
-              sx={boxSX}
+            <Link
+              href={
+                recommend.title
+                  ? `/movies/${recommend.id}`
+                  : `/dramas/${recommend.id}`
+              }
+              passHref
             >
-              <img
-                className="img"
-                style={{
-                  width: "91.7%",
-                  height: "60vh",
-                  zIndex: "1",
-                  margin: "50px 0 25px 10.5px",
-                  borderRadius: "10px",
+              <Box
+                onMouseEnter={() => {
+                  setIshover(true);
                 }}
-                src={`${URL}${recommend.poster_path}`}
-                alt={recommend.title}
-              />
+                onMouseLeave={() => {
+                  setIshover(false);
+                }}
+                sx={boxSX}
+              >
+                <img
+                  className="img"
+                  style={{
+                    width: "91.7%",
+                    height: "60vh",
+                    zIndex: "1",
+                    margin: "50px 0 25px 10.5px",
+                    borderRadius: "10px",
+                  }}
+                  src={`${URL}${recommend.poster_path}`}
+                  alt={recommend.title}
+                />
 
-              {ishover && (
-                <Box className="text">
-                  {recommend.title ? (
-                    <>
-                      <div>{recommend.title}</div>
-                      <div>{extractYearFromDate(recommend.release_date)}</div>
+                {ishover && (
+                  <Box className="text">
+                    {recommend.title ? (
+                      <>
+                        <div>{recommend.title}</div>
+                        <div>{extractYearFromDate(recommend.release_date)}</div>
 
-                      <div>{recommend.vote_average.toFixed(1)}</div>
-                    </>
-                  ) : (
-                    <>
-                      <div>{recommend.name}</div>
-                      <div>{extractYearFromDate(recommend.first_air_date)}</div>
-                      <div>{recommend.vote_average.toFixed(1)}</div>
-                    </>
-                  )}
-                </Box>
-              )}
-            </Box>
+                        <div>{recommend.vote_average.toFixed(1)}</div>
+                      </>
+                    ) : (
+                      <>
+                        <div>{recommend.name}</div>
+                        <div>
+                          {extractYearFromDate(recommend.first_air_date)}
+                        </div>
+                        <div>{recommend.vote_average.toFixed(1)}</div>
+                      </>
+                    )}
+                  </Box>
+                )}
+              </Box>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
