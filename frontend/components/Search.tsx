@@ -198,7 +198,7 @@ const Search = () => {
           label="Search"
           color="success"
           autoComplete="off"
-          sx={{ width: "500px" }}
+          sx={{ width: "700px" }}
           value={searchValue}
           onChange={handleSearch}
         />
@@ -208,7 +208,6 @@ const Search = () => {
         <div>
           <div
             style={{
-              // marginTop: "20px",
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
               gridGap: "5px",
@@ -292,47 +291,49 @@ const Search = () => {
                   </Link>
                 )}
                 {category === "person" && (
-                  <Box
-                    sx={{
-                      position: "relative",
-                      display: "inline-block",
-                    }}
-                  >
-                    {searchResult.profile_path ? (
-                      <img
-                        className="img"
-                        style={{
-                          width: "98%",
-                          height: "65vh",
-                          objectFit: "cover",
-                          zIndex: "1",
-                          borderRadius: "10px",
-                        }}
-                        src={`${URL}${searchResult.profile_path}`}
-                        alt={searchResult.original_name}
-                      />
-                    ) : (
-                      <p>No picture</p>
-                    )}
-                    {searchResult.profile_path ? (
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          width: "98%",
-                          height: "max-content",
-                          bottom: "4px",
-                          padding: "15px 0",
-                          backgroundColor: "rgba(0, 0, 0, 0.6)",
-                          color: "rgba(219, 219, 219, 0.9)",
-                          fontSize: "23px",
-                          textAlign: "center",
-                          borderRadius: "10px",
-                        }}
-                      >
-                        <div>{searchResult.original_name}</div>
-                      </Box>
-                    ) : null}
-                  </Box>
+                  <Link href={`/person/${searchResult.id}`} passHref>
+                    <Box
+                      sx={{
+                        position: "relative",
+                        display: "inline-block",
+                      }}
+                    >
+                      {searchResult.profile_path ? (
+                        <img
+                          className="img"
+                          style={{
+                            width: "98%",
+                            height: "65vh",
+                            objectFit: "cover",
+                            zIndex: "1",
+                            borderRadius: "10px",
+                          }}
+                          src={`${URL}${searchResult.profile_path}`}
+                          alt={searchResult.original_name}
+                        />
+                      ) : (
+                        <p>No picture</p>
+                      )}
+                      {searchResult.profile_path ? (
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            width: "98%",
+                            height: "max-content",
+                            bottom: "4px",
+                            padding: "15px 0",
+                            backgroundColor: "rgba(0, 0, 0, 0.6)",
+                            color: "rgba(219, 219, 219, 0.9)",
+                            fontSize: "23px",
+                            textAlign: "center",
+                            borderRadius: "10px",
+                          }}
+                        >
+                          <div>{searchResult.original_name}</div>
+                        </Box>
+                      ) : null}
+                    </Box>
+                  </Link>
                 )}
               </div>
             ))}
