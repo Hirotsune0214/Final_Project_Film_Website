@@ -18,6 +18,8 @@ const Reviews = ({ id }: { id: string }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [error, setError] = useState<String>("");
 
+  const currentUser = user.username;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -80,24 +82,28 @@ const Reviews = ({ id }: { id: string }) => {
   return (
     <>
       <div>
-        <ReviewArea reviews={reviews} id={id} setReviews={setReviews} />
+        <ReviewArea
+          reviews={reviews}
+          id={id}
+          setReviews={setReviews}
+          currentUser={currentUser}
+        />
 
         <hr />
 
         {user.username ? (
           <Box>
-            <div style={{ display: "flex", gap: "20px" }}>
+            <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
               <Avatar />
-              <p>{user.username}</p>
+              <p style={{ fontSize: "25px" }}>{user.username}</p>
             </div>
             <form onSubmit={handleSubmit}>
               <TextField
                 sx={{
                   width: "70%",
-                  margin: "10px",
-                  padding: "10px",
+                  margin: "0 0 20px 54px",
+                  padding: "10px 0",
                   background: "transparent",
-                  fontSize: "50px",
                 }}
                 type="text"
                 placeholder="Write your review"
