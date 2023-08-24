@@ -2,20 +2,19 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 
 import authUtils from "@/utils/authUtils";
+import UserModal from "./UserMotal";
 
 export default function Header({ user, setUser }: any) {
   const router = useRouter();
   const currentUrl = router.pathname;
 
   const [isAuth, setIsAuth] = useState(false);
-
-  // console.log("Header user:", user); ユーザー名が表示されるか確認
 
   useEffect(() => {
     // JWTを持っているか確認する
@@ -28,7 +27,6 @@ export default function Header({ user, setUser }: any) {
         setUser({ username: isAuth.username });
         setIsAuth(true);
       }
-      console.log(isAuth);
     };
     checkAuth(); // 修正点：ここでの呼び出しを残すが、依存リストを空にする
   }, []); // 修正点：依存リストを空にする
@@ -39,21 +37,25 @@ export default function Header({ user, setUser }: any) {
         <Box
           sx={{
             display: "flex",
-            gap: "30px",
+            gap: "15px",
             alignItems: "center",
-            bgcolor: "#000101",
-            height: "50px",
+            bgcolor: "#ffffff",
+            height: "75px",
           }}
         >
-          <Typography variant="h6" sx={{ ml: "30px" }}>
-            Title
+          <Typography
+            variant="h6"
+            sx={{ ml: "30px", mr: "20px", color: "#252525", fontSize: "25px" }}
+          >
+            CineReviewHub
           </Typography>
           <Typography
             variant="h6"
             sx={{
               backgroundColor: currentUrl === "/" ? "red" : "transparent",
-              padding: "10px",
+              padding: "9px",
               borderRadius: "10px",
+              fontSize: "15px",
               "&:hover": {
                 backgroundColor: "red",
                 opacity: "0.7",
@@ -64,8 +66,8 @@ export default function Header({ user, setUser }: any) {
               href="/"
               style={{
                 textDecoration: "none",
-                color: "white",
                 letterSpacing: "1.0px",
+                color: "#252525",
               }}
             >
               HOME
@@ -75,12 +77,13 @@ export default function Header({ user, setUser }: any) {
             variant="h6"
             sx={{
               backgroundColor: currentUrl === "/movies" ? "red" : "transparent",
-              padding: "10px",
+              padding: "9px",
               borderRadius: "10px",
+              fontSize: "15px",
               "&:hover": {
                 color: "black",
                 backgroundColor: "red",
-                opacity: "0.4",
+                opacity: "0.7",
               },
             }}
           >
@@ -88,7 +91,7 @@ export default function Header({ user, setUser }: any) {
               href="/movies"
               style={{
                 textDecoration: "none",
-                color: "white",
+                color: "#252525",
                 letterSpacing: "1.0px",
               }}
             >
@@ -99,8 +102,9 @@ export default function Header({ user, setUser }: any) {
             variant="h6"
             sx={{
               backgroundColor: currentUrl === "/dramas" ? "red" : "transparent",
-              padding: "10px",
+              padding: "9px",
               borderRadius: "10px",
+              fontSize: "15px",
               "&:hover": {
                 backgroundColor: "red",
                 opacity: "0.7",
@@ -111,7 +115,7 @@ export default function Header({ user, setUser }: any) {
               href="/dramas"
               style={{
                 textDecoration: "none",
-                color: "white",
+                color: "#252525",
                 letterSpacing: "1.0px",
               }}
             >
@@ -122,8 +126,9 @@ export default function Header({ user, setUser }: any) {
             variant="h6"
             sx={{
               backgroundColor: currentUrl === "/search" ? "red" : "transparent",
-              padding: "10px",
+              padding: "9px",
               borderRadius: "10px",
+              fontSize: "15px",
               "&:hover": {
                 backgroundColor: "red",
                 opacity: "0.7",
@@ -134,20 +139,18 @@ export default function Header({ user, setUser }: any) {
               href="/search"
               style={{
                 textDecoration: "none",
-                color: "white",
+                color: "#252525",
                 letterSpacing: "1.0px",
               }}
             >
               SEARCH
             </Link>
           </Typography>
-          <DarkModeOutlinedIcon />
+          {/* <LightModeOutlinedIcon style={{ color: "black", fontSize: "30px" }} /> */}
 
           {user && isAuth ? (
-            <Typography
-              sx={{ position: "absolute", right: "20px", fontSize: "20px" }}
-            >
-              {user.username}
+            <Typography sx={{ position: "absolute", right: "20px" }}>
+              <UserModal user={user} />
             </Typography>
           ) : (
             <Button
@@ -167,8 +170,10 @@ export default function Header({ user, setUser }: any) {
                 href="/login"
                 style={{
                   textDecoration: "none",
-                  color: "white",
+                  color: "#252525",
                   letterSpacing: "1.0px",
+                  fontSize: "13px",
+                  padding: "2px",
                 }}
               >
                 LOGIN
