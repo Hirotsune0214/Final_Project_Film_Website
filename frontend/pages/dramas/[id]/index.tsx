@@ -83,7 +83,7 @@ const single_unit = () => {
             <Videos videos={videos} />
             <BackDrops backdrops={backdrops} />
             <Posters posters={posters} />
-            <Reviews id={id} />
+            <Reviews id={id} category="drama" />
             <Recommend recommends={recommends} />
           </Box>
         </Layout>

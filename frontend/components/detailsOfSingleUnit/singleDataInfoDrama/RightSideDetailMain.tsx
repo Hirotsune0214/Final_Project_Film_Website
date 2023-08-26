@@ -16,7 +16,7 @@ const RightSideDetailMain = ({ rightSideDetail }: { rightSideDetail: any }) => {
           {rightSideDetail.name}
           {extractYearFromDate(rightSideDetail.first_air_date)}
         </h2>
-        <Box sx={{ marginTop: "40px" }}>
+        <Box sx={{ marginTop: "40px", fontSize: "20px", fontWeight: "500" }}>
           <div>{rightSideDetail.vote_average.toFixed(1)}</div>
         </Box>
         <Box sx={{ marginTop: "40px" }}>

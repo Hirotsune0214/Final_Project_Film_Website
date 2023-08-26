@@ -24,12 +24,6 @@ const FavoriteWatch = () => {
     color: "red",
   };
 
-  const favoriteContainer = {
-    display: "flex",
-    gap: "10px",
-    marginTop: "40px",
-  };
-
   const handleFavorites = () => {
     // isLikedがtrue(押されているなら)ならlikeをマイナス1して、false(押されているなら)likeをプラス1する
     setFavorites(isfavorited ? favorites - 1 : favorites + 1);
@@ -38,12 +32,18 @@ const FavoriteWatch = () => {
 
   return (
     <>
-      <Box sx={favoriteContainer}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: "30px",
+          marginTop: "40px",
+        }}
+      >
         <FavoriteBorderOutlinedIcon
           sx={favoriteButton}
           onClick={() => handleFavorites()}
         />
-        <span>{favorites}people have added to their favorites</span>
 
         <Button
           sx={movieButton}

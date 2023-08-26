@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -133,18 +133,99 @@ const Recommend = ({ recommends }: any) => {
                   <Box className="text">
                     {recommend.title ? (
                       <>
-                        <div>{recommend.title}</div>
-                        <div>{extractYearFromDate(recommend.release_date)}</div>
-
-                        <div>{recommend.vote_average.toFixed(1)}</div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            position: "absolute",
+                            bottom: "25px",
+                            left: "20px",
+                            fontSize: "20px",
+                            textAlign: "left",
+                          }}
+                        >
+                          <CircularProgress
+                            variant="determinate"
+                            color="success"
+                            value={recommend.vote_average * 10}
+                            style={{ width: "40px" }}
+                          />
+                          <div
+                            style={{
+                              position: "fixed",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "40px",
+                              height: "40px",
+                              color: "white",
+                              fontSize: "18px",
+                              fontWeight: "100",
+                              left: "20px",
+                            }}
+                          >
+                            {recommend.vote_average.toFixed(1)}
+                          </div>
+                          <div style={{ marginTop: "8px" }}>
+                            {extractYearFromDate(recommend.release_date)}
+                          </div>
+                          <div style={{ marginTop: "8px" }}>
+                            {recommend.title}
+                          </div>
+                        </div>
                       </>
                     ) : (
                       <>
-                        <div>{recommend.name}</div>
-                        <div>
-                          {extractYearFromDate(recommend.first_air_date)}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            position: "absolute",
+                            bottom: "25px",
+                            left: "20px",
+                            fontSize: "20px",
+                            textAlign: "left",
+                          }}
+                        >
+                          <CircularProgress
+                            variant="determinate"
+                            color="success"
+                            value={recommend.vote_average * 10}
+                            style={{ width: "40px" }}
+                          />
+                          <div
+                            style={{
+                              position: "fixed",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "40px",
+                              height: "40px",
+                              color: "white",
+                              fontSize: "18px",
+                              fontWeight: "100",
+                              left: "20px",
+                            }}
+                          >
+                            {recommend.vote_average.toFixed(1)}
+                          </div>
+                          <div style={{ marginTop: "8px" }}>
+                            {extractYearFromDate(recommend.first_air_date)}
+                          </div>
+                          <div
+                            style={{
+                              alignSelf: "center",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              maxWidth: "250px",
+                              fontWeight: "300",
+                              marginTop: "8px",
+                            }}
+                          >
+                            {recommend.name}
+                          </div>
                         </div>
-                        <div>{recommend.vote_average.toFixed(1)}</div>
                       </>
                     )}
                   </Box>

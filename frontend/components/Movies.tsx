@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import Link from "next/link";
 
 // TODO: リファクタリンで、type.tsに移動させる
@@ -60,17 +60,11 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
     },
     "&:hover .img": {
       transform: "scale(1.05) translateY(-10px)",
-      // rgbaにして、alphaを0.1にする
-      boxShadow: "8px -9px 20px -2px#777777",
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
-      // transform: "scale(1.05) translateY(-10px)",
-      // transition: ".3s ease-in-out",
-      // position: "relative",
-      // zIndex: "2",
-      // border: "3.5px solid #9c9897",
-      borderColor: "rgba(11, 64, 188, 0.775)",
+      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
+      borderColor: "rgba(242, 30, 30, 0.8)",
     },
     "& .img": {
       width: "100%",
@@ -81,7 +75,7 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
     "& .text": {
       position: "absolute",
       width: "100%",
-      height: "99%",
+      height: "98.5%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -197,10 +191,58 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
                   borderRadius: "10px",
                 }}
               />
+
               <Box className="text">
-                <div>{movie.vote_average}</div>
-                <div>{extractYearFromDate(movie.release_date)}</div>
-                <div>{movie.title}</div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    position: "absolute",
+                    bottom: "25px",
+                    left: "20px",
+                    fontSize: "20px",
+                    textAlign: "left",
+                  }}
+                >
+                  <CircularProgress
+                    variant="determinate"
+                    color="success"
+                    value={movie.vote_average * 10}
+                    style={{ width: "40px" }}
+                  />
+                  <div
+                    style={{
+                      position: "fixed",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "40px",
+                      height: "40px",
+                      color: "white",
+                      fontSize: "18px",
+                      fontWeight: "100",
+                      left: "20px",
+                    }}
+                  >
+                    {movie.vote_average}
+                  </div>
+                  <div style={{ marginTop: "8px" }}>
+                    {extractYearFromDate(movie.release_date)}
+                  </div>
+                  <div
+                    style={{
+                      alignSelf: "center",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      maxWidth: "250px",
+                      fontWeight: "300",
+                      marginTop: "8px",
+                    }}
+                  >
+                    {movie.title}
+                  </div>
+                </div>
               </Box>
             </Box>
           </Link>

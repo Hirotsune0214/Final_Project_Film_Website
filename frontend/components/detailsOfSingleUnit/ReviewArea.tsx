@@ -23,11 +23,17 @@ interface Review {
   reviews: any;
   setReviews: any;
   currentUser: string;
+  category: string;
 }
 
-const ReviewArea = ({ id, reviews, setReviews, currentUser }: Review) => {
+const ReviewArea = ({
+  id,
+  reviews,
+  setReviews,
+  currentUser,
+  category,
+}: Review) => {
   const [displayedReviewCount, setDisplayedReviewCount] = useState(4);
-  const [likes, setLikes] = useState(0);
 
   const handleDelete = async (_id: string) => {
     try {
@@ -43,7 +49,9 @@ const ReviewArea = ({ id, reviews, setReviews, currentUser }: Review) => {
       await axios.put(`http://localhost:8080/api/posts/${_id}/like`, {
         currentUser,
       });
-      const response = await axios.get(`http://localhost:8080/api/posts/${id}`);
+      const response = await axios.get(
+        `http://localhost:8080/api/posts/${id}?category=${category}`
+      );
       const sortedReviews = response.data.sort((post1, post2) => {
         return new Date(post2.createdAt) - new Date(post1.createdAt);
       });
@@ -126,7 +134,14 @@ const ReviewArea = ({ id, reviews, setReviews, currentUser }: Review) => {
                     sx={{ color: "red", fontSize: "30px" }}
                     onClick={() => handleLike(review._id)}
                   />
-                  <div>{review.likes.length}</div>
+                  <div>{reviews.length > 0 ? reviews[0].likes.length : 0}</div>
+
+                  {/* 
+                  testUserがいいね押します
+                  testUser2がいいね押します同じのに
+                  remove like -> tesUser
+                  本来は1 -> 2 現状が 1 -> 
+                  */}
                 </Box>
               </Box>
 

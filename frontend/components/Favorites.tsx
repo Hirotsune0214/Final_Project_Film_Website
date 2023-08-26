@@ -25,8 +25,6 @@ const Favorites = ({ userId }: any) => {
 
   const fetchFavorites = async () => {
     try {
-      console.log(userId);
-
       const responseFav = await axios.get(
         `http://localhost:8080/api/favorites/user/${userId}`
       );

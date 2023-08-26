@@ -12,7 +12,8 @@ interface Review {
   movie: number;
 }
 
-const Reviews = ({ id }: { id: string }) => {
+// 346698
+const Reviews = ({ id, category }: { id: string; category: string }) => {
   const [inputText, setInputText] = useState<string>("");
   const [user, setUser] = useRecoilState(userState);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -32,8 +33,10 @@ const Reviews = ({ id }: { id: string }) => {
       await axios.post("http://localhost:8080/api/posts", {
         userId: user.username,
         desc: inputText,
-        movie: id,
+        movie: category === "movie" ? id : null,
+        drama: category === "drama" ? id : null,
       });
+      // movieかdramaを識別する
 
       setInputText("");
       setError("");
@@ -45,7 +48,9 @@ const Reviews = ({ id }: { id: string }) => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/posts/${id}`);
+      const response = await axios.get(
+        `http://localhost:8080/api/posts/${id}?category=${category}`
+      );
       const sortedReviews = response.data.sort((post1, post2) => {
         return new Date(post2.createdAt) - new Date(post1.createdAt);
       });
@@ -55,6 +60,11 @@ const Reviews = ({ id }: { id: string }) => {
     }
   };
 
+  /*
+testUser2
+like
+  array=[testUser] // 1 -> 0 
+*/
   useEffect(() => {
     (async () => {
       await fetchReviews();
@@ -86,6 +96,7 @@ const Reviews = ({ id }: { id: string }) => {
           id={id}
           setReviews={setReviews}
           currentUser={currentUser}
+          category={category}
         />
 
         <hr />

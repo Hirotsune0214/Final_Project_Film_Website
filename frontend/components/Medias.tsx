@@ -135,8 +135,9 @@
 
 // export default Medias;
 
-import { Box, Button } from "@mui/material";
+import { Box, Button, CircularProgress } from "@mui/material";
 import axios from "axios";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 interface Media {
@@ -144,6 +145,7 @@ interface Media {
   title: string;
   vote_average: number;
   release_date: string;
+  id: "number";
 }
 
 const Medias = ({ id }: { id: string }) => {
@@ -159,6 +161,7 @@ const Medias = ({ id }: { id: string }) => {
       );
 
       setPersonCasts(response.data.cast);
+      console.log(response.data.cast);
     } catch (error) {
       console.log(error);
     }
@@ -187,11 +190,7 @@ const Medias = ({ id }: { id: string }) => {
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
-      // transform: "scale(1.05) translateY(-10px)",
-      // transition: ".3s ease-in-out",
-      // position: "relative",
-      // zIndex: "2",
-      // border: "3.5px solid #9c9897",
+
       borderColor: "rgba(11, 64, 188, 0.775)",
     },
     "& .img": {
@@ -203,7 +202,7 @@ const Medias = ({ id }: { id: string }) => {
     "& .text": {
       position: "absolute",
       width: "95%",
-      height: "100%",
+      height: "98%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -254,26 +253,83 @@ const Medias = ({ id }: { id: string }) => {
         }}
       >
         {personCasts.slice(0, visibleMovies).map((personCast: Media) => (
-          <Box key={personCast.title} sx={boxSX}>
-            <img
-              className="img"
-              src={`${URL}${personCast.poster_path}`}
-              alt={personCast.title}
-              style={{
-                width: "95%",
-                height: "95%",
-                objectFit: "cover",
-                zIndex: "1",
-                borderRadius: "10px",
-                marginTop: "20px",
-              }}
-            />
-            <Box className="text">
-              <div>{personCast.vote_average}</div>
-              <div>{extractYearFromDate(personCast.release_date)}</div>
-              <div>{personCast.title}</div>
+          // 識別させるにはmovieとdramaで違うのを比較対象に入れないといけない
+          <Link
+            href={
+              personCast.title
+                ? `/movies/${personCast.id}`
+                : `/dramas/${personCast.id}`
+            }
+            passHref
+          >
+            <Box key={personCast.title} sx={boxSX}>
+              <img
+                className="img"
+                src={`${URL}${personCast.poster_path}`}
+                alt={personCast.title}
+                style={{
+                  width: "95%",
+                  height: "57vh",
+                  objectFit: "cover",
+                  zIndex: "1",
+                  borderRadius: "10px",
+                  marginTop: "20px",
+                }}
+              />
+              <Box className="text">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    position: "absolute",
+                    bottom: "25px",
+                    left: "20px",
+                    fontSize: "20px",
+                    textAlign: "left",
+                  }}
+                >
+                  <CircularProgress
+                    variant="determinate"
+                    color="success"
+                    value={personCast.vote_average * 10}
+                    style={{ width: "40px" }}
+                  />
+                  <div
+                    style={{
+                      position: "fixed",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "40px",
+                      height: "40px",
+                      color: "white",
+                      fontSize: "18px",
+                      fontWeight: "100",
+                      left: "20px",
+                    }}
+                  >
+                    {personCast.vote_average.toFixed(1)}
+                  </div>
+                  <div style={{ marginTop: "8px" }}>
+                    {extractYearFromDate(personCast.release_date)}
+                  </div>
+                  <div
+                    style={{
+                      alignSelf: "center",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      maxWidth: "250px",
+                      fontWeight: "300",
+                      marginTop: "8px",
+                    }}
+                  >
+                    {personCast.title}
+                  </div>
+                </div>
+              </Box>
             </Box>
-          </Box>
+          </Link>
         ))}
       </Box>
       {visibleMovies < personCasts.length && (

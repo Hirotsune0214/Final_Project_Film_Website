@@ -53,7 +53,7 @@ const HomeMainImage = () => {
   }, []);
 
   return (
-    <div style={{}}>
+    <div>
       {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
         {dramas.map((drama: Series) => (

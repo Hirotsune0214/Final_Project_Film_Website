@@ -94,12 +94,11 @@ const Search = () => {
     },
     "&:hover .img": {
       transform: "scale(1.05) translateY(-10px)",
-      // rgbaにして、alphaを0.1にする
-      boxShadow: "8px -9px 20px -2px#777777",
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
-      borderColor: "rgba(11, 64, 188, 0.775)",
+      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
+      borderColor: "rgba(242, 30, 30, 0.8)",
     },
     "& .img": {
       width: "100%",
@@ -110,7 +109,7 @@ const Search = () => {
     "& .text": {
       position: "absolute",
       width: "98%",
-      height: "100%",
+      height: "98.5%",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -130,7 +129,13 @@ const Search = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#F5F5F5", height: "100vh" }}>
+    <div
+      style={{
+        backgroundColor: "#F5F5F5",
+        height: "100%",
+        minHeight: "700px",
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -229,21 +234,20 @@ const Search = () => {
                         setIshover(false);
                       }}
                       sx={boxSX}
-                      // ボタンを押下してデータを取得してからデータを表示
                     >
                       <img
                         className="img"
                         style={{
                           width: "98%",
-                          // height: "100%",
                           height: "65vh",
                           objectFit: "cover",
                           zIndex: "1",
                           borderRadius: "10px",
                         }}
                         src={`${URL}${searchResult.poster_path}`}
-                        alt={searchResult.title}
+                        alt={searchResult.original_name}
                       />
+
                       <Box className="text">
                         <div>{searchResult.vote_average}</div>
                         <div>
@@ -266,19 +270,31 @@ const Search = () => {
                       }}
                       sx={boxSX}
                     >
-                      <img
-                        className="img"
-                        style={{
-                          width: "98%",
-
-                          height: "65vh",
-                          objectFit: "cover",
-                          zIndex: "1",
-                          borderRadius: "10px",
-                        }}
-                        src={`${URL}${searchResult.poster_path}`}
-                        alt={searchResult.original_name}
-                      />
+                      {searchResult.poster_path ? (
+                        <img
+                          className="img"
+                          style={{
+                            width: "98%",
+                            height: "65vh",
+                            objectFit: "cover",
+                            zIndex: "1",
+                            borderRadius: "10px",
+                          }}
+                          src={`${URL}${searchResult.poster_path}`}
+                          alt={searchResult.original_name}
+                        />
+                      ) : (
+                        <div
+                          className="img"
+                          style={{
+                            width: "298px",
+                            height: "468px",
+                            zIndex: "1",
+                            borderRadius: "10px",
+                            backgroundColor: "darkgrey",
+                          }}
+                        ></div>
+                      )}
                       <Box className="text">
                         <div>{searchResult.vote_average}</div>
                         <div>
@@ -312,9 +328,18 @@ const Search = () => {
                           alt={searchResult.original_name}
                         />
                       ) : (
-                        <p>No picture</p>
+                        <div
+                          className="img"
+                          style={{
+                            width: "298px",
+                            height: "468px",
+                            zIndex: "1",
+                            borderRadius: "10px",
+                            backgroundColor: "darkgrey",
+                          }}
+                        ></div>
                       )}
-                      {searchResult.profile_path ? (
+                      {/* {searchResult.profile_path ? (
                         <Box
                           sx={{
                             position: "absolute",
@@ -331,7 +356,23 @@ const Search = () => {
                         >
                           <div>{searchResult.original_name}</div>
                         </Box>
-                      ) : null}
+                      ) : null} */}
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          width: "98%",
+                          height: "max-content",
+                          bottom: "4px",
+                          padding: "15px 0",
+                          backgroundColor: "rgba(0, 0, 0, 0.6)",
+                          color: "rgba(219, 219, 219, 0.9)",
+                          fontSize: "23px",
+                          textAlign: "center",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        <div>{searchResult.original_name}</div>
+                      </Box>
                     </Box>
                   </Link>
                 )}

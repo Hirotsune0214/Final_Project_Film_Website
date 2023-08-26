@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -53,10 +53,8 @@ const PopularMSeries = () => {
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
-      border: "3.5px solid #bcb9b8",
-      // TODO: 下記2つの色の微調整を行う
-      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.7)",
-      borderColor: "rgba(11, 64, 188, 0.775)",
+      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
+      borderColor: "rgba(242, 30, 30, 0.8)",
     },
     "& .img": {
       width: "100%",
@@ -67,7 +65,7 @@ const PopularMSeries = () => {
     "& .text": {
       position: "absolute",
       width: "93%",
-      height: "57.5vh",
+      height: "57vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -129,8 +127,6 @@ const PopularMSeries = () => {
                 <img
                   className="img"
                   style={{
-                    // width: "100%",
-                    // スペースができるので微調整していく
                     width: "92%",
                     height: "60vh",
                     zIndex: "1",
@@ -141,9 +137,54 @@ const PopularMSeries = () => {
                   alt={drama.original_name}
                 />
                 <Box className="text">
-                  <div>{drama.vote_average}</div>
-                  <div>{extractYearFromDate(drama.first_air_date)}</div>
-                  <div>{drama.original_name}</div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      position: "absolute",
+                      bottom: "25px",
+                      left: "20px",
+                      fontSize: "20px",
+                      textAlign: "left",
+                    }}
+                  >
+                    <CircularProgress
+                      variant="determinate"
+                      color="success"
+                      value={drama.vote_average * 10}
+                      style={{ width: "40px" }}
+                    />
+                    <div
+                      style={{
+                        position: "fixed",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "40px",
+                        height: "40px",
+                        color: "white",
+                        fontSize: "18px",
+                        fontWeight: "100",
+                        left: "20px",
+                      }}
+                    >
+                      {drama.vote_average}
+                    </div>
+                    <div>{extractYearFromDate(drama.first_air_date)}</div>
+                    <div
+                      style={{
+                        alignSelf: "center",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        maxWidth: "250px",
+                        fontWeight: "500",
+                        marginTop: "8px",
+                      }}
+                    >
+                      {drama.original_name}
+                    </div>
+                  </div>
                 </Box>
               </Box>
             </Link>

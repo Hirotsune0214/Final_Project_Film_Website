@@ -20,7 +20,7 @@ const PostSchema = new mongoose.Schema(
       type: Number,
       default: null,
     },
-    tv: {
+    drama: {
       type: Number,
       default: null,
     },

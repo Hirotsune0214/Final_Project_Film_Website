@@ -53,9 +53,8 @@ const PopularMovies = () => {
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
-      // TODO: 下記2つの色の微調整を行う
-      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.7)",
-      borderColor: "rgba(11, 64, 188, 0.775)",
+      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
+      borderColor: "rgba(242, 30, 30, 0.8)",
     },
     "& .img": {
       width: "100%",
@@ -66,7 +65,7 @@ const PopularMovies = () => {
     "& .text": {
       position: "absolute",
       width: "93%",
-      height: "58vh",
+      height: "57vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -125,6 +124,7 @@ const PopularMovies = () => {
                   setIshover(false);
                 }}
                 sx={boxSX}
+                position={"relative"}
               >
                 <img
                   className="img"
@@ -140,17 +140,56 @@ const PopularMovies = () => {
                 />
 
                 <Box className="text">
-                  <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      position: "absolute",
+                      bottom: "25px",
+                      left: "20px",
+                      fontSize: "20px",
+                      textAlign: "left",
+                    }}
+                  >
                     <CircularProgress
                       variant="determinate"
+                      color="success"
                       value={movie.vote_average * 10}
+                      style={{ width: "40px" }}
                     />
-                    {movie.vote_average}
+                    <div
+                      style={{
+                        position: "fixed",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "40px",
+                        height: "40px",
+                        color: "white",
+                        fontSize: "18px",
+                        fontWeight: "100",
+                        left: "20px",
+                      }}
+                    >
+                      {movie.vote_average}
+                    </div>
+                    <div style={{ marginTop: "8px" }}>
+                      {extractYearFromDate(movie.release_date)}
+                    </div>
+                    <div
+                      style={{
+                        alignSelf: "center",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        maxWidth: "250px",
+                        fontWeight: "300",
+                        marginTop: "8px",
+                      }}
+                    >
+                      {movie.title}
+                    </div>
                   </div>
-                  <div style={{ marginTop: "8px" }}>
-                    {extractYearFromDate(movie.release_date)}
-                  </div>
-                  <span style={{ marginTop: "8px" }}>{movie.title}</span>
                 </Box>
               </Box>
             </Link>
@@ -162,3 +201,41 @@ const PopularMovies = () => {
 };
 
 export default PopularMovies;
+
+//  <div
+//                     style={{
+//                       display: "flex",
+//                       flexDirection: "column",
+//                       justifyContent: "center",
+//                       alignItems: "flex-start",
+//                       padding: "16px, 32px",
+//                     }}
+//                   >
+//                     <div>
+//                       <CircularProgress
+//                         variant="determinate"
+//                         color="success"
+//                         value={movie.vote_average * 10}
+//                         style={{ width: "40px" }}
+//                       />
+//                       {movie.vote_average}
+//                     </div>
+//                     <div style={{ paddingTop: "16px" }}>
+//                       {extractYearFromDate(movie.release_date)}
+//                     </div>
+//                     <div
+//                       style={{
+//                         paddingTop: "16px",
+//                         whiteSpace: "nowrap",
+//                         overflow: "hidden",
+//                         textOverflow: "ellipsis",
+//                         display: "inline-block",
+//                         maxWidth: "280px",
+//                         textAlign: "left",
+//                         fontSize: "20px",
+//                         fontWeight: "500",
+//                       }}
+//                     >
+//                       {movie.title}
+//                     </div>
+//                   </div>
