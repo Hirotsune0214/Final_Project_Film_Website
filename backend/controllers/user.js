@@ -46,6 +46,18 @@ exports.login = async (req, res) => {
       });
     }
 
+    exports.logout = async (req, res) => {
+      try {
+        const userId = req.user.id;
+        console.log(userId);
+        await clearUserToken(userId);
+
+        return res.status(200).json({ message: "Logged out successfully" });
+      } catch (err) {
+        return res.status(500).json({ message: "Error during logout" });
+      }
+    };
+
     // パスワードが合っているか照合する
     // 暗号化されたパスワードを複合化する必要がある
     const descryptedPassword = CryptoJS.AES.decrypt(

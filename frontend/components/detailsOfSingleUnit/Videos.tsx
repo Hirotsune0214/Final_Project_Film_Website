@@ -1,5 +1,3 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Box } from "@mui/material";
@@ -7,6 +5,9 @@ import { Box } from "@mui/material";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
+import { useState } from "react";
+
+import YouTube from "react-youtube";
 
 interface MoviesData {
   id: string;
@@ -14,30 +15,33 @@ interface MoviesData {
   name: string;
 }
 
-const Videos = ({ id }: { id: string }) => {
-  console.log(id);
+const Videos = ({ videos }: { videos: any }) => {
+  const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
 
-  const [videos, setVideos] = useState([]);
-
-  const fetchVideos = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=bb46848237eacc0a36827f6639b47ee3`
-      );
-      setVideos(response.data.results);
-      console.log(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleClickVideo = (index: number) => {
+    setCurrentVideoIndex(index);
   };
-
-  useEffect(() => {
-    fetchVideos();
-  }, [id]);
 
   return (
     <div id="sectionVideo">
-      <h1>VIDEOS</h1>
+      <h1
+        style={{
+          display: "inline-block",
+          position: "relative",
+        }}
+      >
+        VIDEOS
+        <span
+          style={{
+            position: "absolute",
+            bottom: "-10px",
+            left: "0",
+            width: "85%",
+            borderBottom: "7px solid red",
+            borderRadius: "20px",
+          }}
+        ></span>
+      </h1>
       <Swiper
         slidesPerView={1}
         grabCursor={true}
@@ -47,29 +51,39 @@ const Videos = ({ id }: { id: string }) => {
         pagination={{
           dynamicBullets: true,
         }}
+        spaceBetween={50}
       >
-        {videos.map((video: MoviesData) => (
+        {videos.map((video: MoviesData, index: number) => (
           <SwiperSlide key={video.id}>
             <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "70vh",
+                flexDirection: "column",
+                height: "98vh",
+                objectFit: "cover",
+                margin: "25px 0",
               }}
+              onClick={() => handleClickVideo(index)}
             >
-              <img
+              <div
                 style={{
-                  width: "70%",
-                  maxHeight: "80vh",
+                  position: "relative",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-                src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}
-                alt={video.name}
-              />
-              {/* タイトルを画像の中に入れて修正する */}
-              {/* <Box>
-                <div>{video.name}</div>
-              </Box> */}
+              >
+                <YouTube
+                  videoId={video.key}
+                  opts={{
+                    width: "1150",
+                    height: "680",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
             </Box>
           </SwiperSlide>
         ))}

@@ -2,6 +2,7 @@ import Dramas from "@/components/Dramas";
 import Layout from "@/components/Layout";
 import MainImageDramas from "@/components/MainImageDramas";
 import axios from "axios";
+import Head from "next/head";
 
 import React, { useEffect, useState } from "react";
 
@@ -35,17 +36,22 @@ const dramas = () => {
   }, [movieLists]);
 
   return (
-    <div>
-      <Layout>
-        <MainImageDramas dramas={dramas} />
-        <Dramas
-          dramas={dramas}
-          movieLists={movieLists}
-          setMovieLists={setMovieLists}
-          setDramas={setDramas}
-        />
-      </Layout>
-    </div>
+    <>
+      <Head>
+        <title>TV series</title>
+      </Head>
+      <div>
+        <Layout>
+          <MainImageDramas dramas={dramas} />
+          <Dramas
+            dramas={dramas}
+            movieLists={movieLists}
+            setMovieLists={setMovieLists}
+            setDramas={setDramas}
+          />
+        </Layout>
+      </div>
+    </>
   );
 };
 

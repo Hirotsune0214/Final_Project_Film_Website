@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import authApi from "@/pages/api/authApi";
 import { useRecoilState } from "recoil";
 import { userState } from "@/src/state/auth";
+import Head from "next/head";
 
 const signup: FC = () => {
   const router = useRouter();
@@ -44,20 +45,22 @@ const signup: FC = () => {
     // ちゃんと入力されているかの確認するコード
     if (username === "") {
       error = true;
-      setUsernameErrText("名前を入力してください");
+      setUsernameErrText("Please enter your name");
     }
     if (password === "") {
       error = true;
-      setPasswordErrText("パスワードを入力してください");
+      setPasswordErrText("Please enter the password");
     }
     if (confirmPassword === "") {
       error = true;
-      setConfirmErrText("確認用パスワードを入力してください");
+      setConfirmErrText("Please enter the confirm password");
     }
     // パスワードと確認用パスワードの確認
     if (password !== confirmPassword) {
       error = true;
-      setConfirmErrText("パスワードと確認用パスワードが異なります。");
+      setConfirmErrText(
+        "The password and confirmation password are different."
+      );
     }
 
     // errorがあった場合、そのままreturnしてその下を実行しないようにする
@@ -109,6 +112,9 @@ const signup: FC = () => {
 
   return (
     <>
+      <Head>
+        <title>Sign up</title>
+      </Head>
       <Box
         sx={{
           marginTop: 8,
@@ -192,7 +198,6 @@ const signup: FC = () => {
             SIGN UP
           </LoadingButton>
         </Box>
-        {/* 位置を調整する */}
         <Button>
           <Link href="/login">Already have an account? LOGIN</Link>
         </Button>

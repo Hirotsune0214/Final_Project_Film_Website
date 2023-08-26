@@ -1,4 +1,4 @@
-const Post = require("../models/Movie");
+const Post = require("../models/Favorites");
 
 exports.create = async (req, res) => {
   try {

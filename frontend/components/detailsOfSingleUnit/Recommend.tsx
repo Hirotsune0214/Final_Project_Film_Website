@@ -24,6 +24,7 @@ const Recommend = () => {
     try {
       const response = await axios.get(
         "https://api.themoviedb.org/3/trending/all/day?api_key=bb46848237eacc0a36827f6639b47ee3"
+        // "https://api.themoviedb.org/3/trending/{category}/day?api_key=bb46848237eacc0a36827f6639b47ee3"
       );
       setMovies(response.data.results);
       console.log(response.data.results);
@@ -36,7 +37,7 @@ const Recommend = () => {
     if (dateString && dateString.length >= 4) {
       return dateString.substring(0, 4);
     } else {
-      return "Unknown"; // もしくは、適切なデフォルト値を返す
+      return "Unknown";
     }
   };
 

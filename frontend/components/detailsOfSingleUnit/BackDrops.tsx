@@ -15,31 +15,30 @@ interface MoviePic {
   vote_average: number;
 }
 
-const BackDrops = ({ id }: { id: string }) => {
+const BackDrops = ({ backdrops }: { backdrops: any[] }) => {
   const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
-
-  const [backdrops, setBackDrops] = useState([]);
-
-  const fetchBackdrops = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/images?api_key=bb46848237eacc0a36827f6639b47ee3`
-      );
-
-      setBackDrops(response.data.backdrops);
-      console.log(response, "backdrops");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchBackdrops();
-  }, [id]);
 
   return (
     <div>
-      <h1>BACK DROPS</h1>
+      <h1
+        style={{
+          display: "inline-block",
+          position: "relative",
+          margin: "20px 0",
+        }}
+      >
+        BACK DROPS
+        <span
+          style={{
+            position: "absolute",
+            bottom: "-10px",
+            left: "0",
+            width: "90%",
+            borderBottom: "7px solid red",
+            borderRadius: "20px",
+          }}
+        ></span>
+      </h1>
       <Swiper
         slidesPerView={1}
         grabCursor={true}
@@ -48,6 +47,7 @@ const BackDrops = ({ id }: { id: string }) => {
         modules={[Navigation, Pagination]}
         pagination={{
           dynamicBullets: true,
+          // clickable: true,
         }}
       >
         {backdrops.map((backdrop: any) => (
@@ -57,13 +57,14 @@ const BackDrops = ({ id }: { id: string }) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                height: "400px",
+                height: "750px",
               }}
             >
               <img
                 style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
+                  width: "1150px",
+                  objectFit: "cover",
+                  height: "680px",
                 }}
                 src={`${URL}${backdrop.file_path}`}
                 alt={backdrop.title}

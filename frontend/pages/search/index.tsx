@@ -1,14 +1,20 @@
 import Layout from "@/components/Layout";
 import Search from "@/components/Search";
+import Head from "next/head";
 import React from "react";
 
 const search = () => {
   return (
-    <div>
-      <Layout>
-        <Search />
-      </Layout>
-    </div>
+    <>
+      <Head>
+        <title>Search</title>
+      </Head>
+      <div>
+        <Layout>
+          <Search />
+        </Layout>
+      </div>
+    </>
   );
 };
 

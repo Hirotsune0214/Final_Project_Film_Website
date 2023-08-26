@@ -1,8 +1,9 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import Link from "next/link";
 
 interface films {
   id: string;
@@ -14,23 +15,10 @@ interface films {
   first_air_date: string;
 }
 
-const Recommend = () => {
+const Recommend = ({ recommends }: any) => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
 
-  const [movies, setMovies] = useState([]);
   const [ishover, setIshover] = useState(false);
-
-  const fetchMovies = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/trending/all/day?api_key=bb46848237eacc0a36827f6639b47ee3"
-      );
-      setMovies(response.data.results);
-      console.log(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const extractYearFromDate = (dateString: string | undefined): string => {
     if (dateString && dateString.length >= 4) {
@@ -50,23 +38,25 @@ const Recommend = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.1)",
-      boxShadow: "9px -8px 25px 4px #777777",
+      transform: "scale(1.05) translateY(-10px)",
       transition: ".3s ease-in-out",
-      position: "absolute",
+      position: "relative",
       zIndex: "2",
-      // borderRadius: "10px",
+      // TODO: 下記2つの色の微調整を行う
+      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.7)",
+      borderColor: "rgba(11, 64, 188, 0.775)",
     },
     "& .img": {
       width: "100%",
       height: "100%",
-      transition: "transform 0.2",
+      transition: "transform 0.2s",
+      border: "4px solid transparent",
     },
     "& .text": {
       position: "absolute",
-      width: "100%",
-      height: "70vh",
-      top: 1,
+      width: "93%",
+      height: "57.5vh",
+      top: 0,
       left: 0,
       textAlign: "center",
       color: "#fff",
@@ -78,66 +68,170 @@ const Recommend = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      transform: "scale(1.1)",
+      transform: "scale(1.05)",
       zIndex: "2",
+      marginTop: "65.1px",
+      marginLeft: "11.5px",
+      borderRadius: "10px",
     },
   };
 
-  useEffect(() => {
-    fetchMovies();
-  }, []);
-
   return (
     <div>
-      <h1>YOU MAY ALSO LIKE</h1>
-      <Swiper
-        slidesPerView={4}
-        grabCursor={true}
-        direction="horizontal"
-        spaceBetween={8}
+      <h1
+        style={{
+          display: "inline-block",
+          position: "relative",
+        }}
       >
-        {movies.map((movie: films) => (
-          <SwiperSlide key={movie.id}>
-            <Box
-              onMouseEnter={() => {
-                setIshover(true);
-              }}
-              onMouseLeave={() => {
-                setIshover(false);
-              }}
-              sx={boxSX}
+        YOU MAY ALSO LIKE
+        <span
+          style={{
+            position: "absolute",
+            bottom: "-10px",
+            left: "0",
+            width: "45%",
+            borderBottom: "7px solid red",
+            borderRadius: "20px",
+          }}
+        ></span>
+      </h1>
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
+        {recommends.map((recommend: films) => (
+          <SwiperSlide key={recommend.id}>
+            <Link
+              href={
+                recommend.title
+                  ? `/movies/${recommend.id}`
+                  : `/dramas/${recommend.id}`
+              }
+              passHref
             >
-              <img
-                className="img"
-                style={{
-                  width: "100%",
-                  height: "65vh",
-                  margin: "30px 0",
-                  zIndex: "1",
+              <Box
+                onMouseEnter={() => {
+                  setIshover(true);
                 }}
-                src={`${URL}${movie.poster_path}`}
-                alt={movie.title}
-              />
+                onMouseLeave={() => {
+                  setIshover(false);
+                }}
+                sx={boxSX}
+              >
+                <img
+                  className="img"
+                  style={{
+                    width: "91.7%",
+                    height: "60vh",
+                    zIndex: "1",
+                    margin: "50px 0 25px 10.5px",
+                    borderRadius: "10px",
+                  }}
+                  src={`${URL}${recommend.poster_path}`}
+                  alt={recommend.title}
+                />
 
-              {ishover && (
-                <Box className="text">
-                  {movie.title ? (
-                    <>
-                      <div>{movie.title}</div>
-                      <div>{extractYearFromDate(movie.release_date)}</div>
-
-                      <div>{movie.vote_average.toFixed(1)}</div>
-                    </>
-                  ) : (
-                    <>
-                      <div>{movie.name}</div>
-                      <div>{extractYearFromDate(movie.first_air_date)}</div>
-                      <div>{movie.vote_average.toFixed(1)}</div>
-                    </>
-                  )}
-                </Box>
-              )}
-            </Box>
+                {ishover && (
+                  <Box className="text">
+                    {recommend.title ? (
+                      <>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            position: "absolute",
+                            bottom: "25px",
+                            left: "20px",
+                            fontSize: "20px",
+                            textAlign: "left",
+                          }}
+                        >
+                          <CircularProgress
+                            variant="determinate"
+                            color="success"
+                            value={recommend.vote_average * 10}
+                            style={{ width: "40px" }}
+                          />
+                          <div
+                            style={{
+                              position: "fixed",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "40px",
+                              height: "40px",
+                              color: "white",
+                              fontSize: "18px",
+                              fontWeight: "100",
+                              left: "20px",
+                            }}
+                          >
+                            {recommend.vote_average.toFixed(1)}
+                          </div>
+                          <div style={{ marginTop: "8px" }}>
+                            {extractYearFromDate(recommend.release_date)}
+                          </div>
+                          <div style={{ marginTop: "8px" }}>
+                            {recommend.title}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            position: "absolute",
+                            bottom: "25px",
+                            left: "20px",
+                            fontSize: "20px",
+                            textAlign: "left",
+                          }}
+                        >
+                          <CircularProgress
+                            variant="determinate"
+                            color="success"
+                            value={recommend.vote_average * 10}
+                            style={{ width: "40px" }}
+                          />
+                          <div
+                            style={{
+                              position: "fixed",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "40px",
+                              height: "40px",
+                              color: "white",
+                              fontSize: "18px",
+                              fontWeight: "100",
+                              left: "20px",
+                            }}
+                          >
+                            {recommend.vote_average.toFixed(1)}
+                          </div>
+                          <div style={{ marginTop: "8px" }}>
+                            {extractYearFromDate(recommend.first_air_date)}
+                          </div>
+                          <div
+                            style={{
+                              alignSelf: "center",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              maxWidth: "250px",
+                              fontWeight: "300",
+                              marginTop: "8px",
+                            }}
+                          >
+                            {recommend.name}
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </Box>
+                )}
+              </Box>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>

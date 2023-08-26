@@ -4,6 +4,7 @@ const newUserSchema = new mongoose.Schema({
   username: {
     type: String,
     require: true,
+    // uniqueで他のユーザーと重複してはいけない
     unique: true,
   },
   password: {

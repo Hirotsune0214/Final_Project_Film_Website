@@ -10,11 +10,23 @@ const PostSchema = new mongoose.Schema(
     },
     desc: {
       type: String,
-      max: 50,
+      max: 200,
     },
     likes: {
       type: Array,
       default: [],
+    },
+    movie: {
+      type: Number,
+      default: null,
+    },
+    drama: {
+      type: Number,
+      default: null,
+    },
+    person: {
+      type: Number,
+      default: null,
     },
   },
   { timestamps: true }

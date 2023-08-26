@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
+import Link from "next/link";
 
 interface films {
   id: string;
@@ -42,21 +43,23 @@ const TopRatedMovies = () => {
       opacity: 1,
     },
     "&:hover .img": {
-      transform: "scale(1.05)",
-      boxShadow: "8px -9px 20px -2px#777777",
+      transform: "scale(1.05) translateY(-10px)",
       transition: ".3s ease-in-out",
       position: "relative",
       zIndex: "2",
+      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
+      borderColor: "rgba(242, 30, 30, 0.8)",
     },
     "& .img": {
       width: "100%",
       height: "100%",
       transition: "transform 0.2s",
+      border: "4px solid transparent",
     },
     "& .text": {
       position: "absolute",
-      width: "100%",
-      height: "58.1vh",
+      width: "93%",
+      height: "57vh",
       top: 0,
       left: 0,
       textAlign: "center",
@@ -71,7 +74,8 @@ const TopRatedMovies = () => {
       justifyContent: "center",
       transform: "scale(1.05)",
       zIndex: "2",
-      marginTop: "65px",
+      marginTop: "65.1px",
+      marginLeft: "11.5px",
       borderRadius: "10px",
     },
   };
@@ -101,41 +105,87 @@ const TopRatedMovies = () => {
           }}
         ></span>
       </h1>
-      <Swiper
-        slidesPerView={4}
-        grabCursor={true}
-        direction="horizontal"
-        spaceBetween={2}
-      >
+      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
         {movies.map((movie: films) => (
           <SwiperSlide key={movie.id}>
-            <Box
-              onMouseEnter={() => {
-                setIshover(true);
-              }}
-              onMouseLeave={() => {
-                setIshover(false);
-              }}
-              sx={boxSX}
-            >
-              <img
-                className="img"
-                style={{
-                  width: "100%",
-                  height: "60vh",
-                  zIndex: "1",
-                  margin: "50px 0",
-                  borderRadius: "10px",
+            <Link href={`/movies/${movie.id}`} passHref>
+              <Box
+                onMouseEnter={() => {
+                  setIshover(true);
                 }}
-                src={`${URL}${movie.poster_path}`}
-                alt={movie.title}
-              />
-              <Box className="text">
-                <div>{movie.vote_average}</div>
-                <div>{extractYearFromDate(movie.release_date)}</div>
-                <div>{movie.title}</div>
+                onMouseLeave={() => {
+                  setIshover(false);
+                }}
+                sx={boxSX}
+              >
+                <img
+                  className="img"
+                  style={{
+                    // width: "100%",
+                    // スペースができるので微調整していく
+                    width: "92%",
+                    height: "60vh",
+                    zIndex: "1",
+                    margin: "50px 0 25px 10.5px",
+                    borderRadius: "10px",
+                  }}
+                  src={`${URL}${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <Box className="text">
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      position: "absolute",
+                      bottom: "25px",
+                      left: "20px",
+                      fontSize: "20px",
+                      textAlign: "left",
+                    }}
+                  >
+                    <CircularProgress
+                      variant="determinate"
+                      color="success"
+                      value={movie.vote_average * 10}
+                      style={{ width: "40px" }}
+                    />
+                    <div
+                      style={{
+                        position: "fixed",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "40px",
+                        height: "40px",
+                        color: "white",
+                        fontSize: "18px",
+                        fontWeight: "100",
+                        left: "20px",
+                      }}
+                    >
+                      {movie.vote_average}
+                    </div>
+                    <div style={{ marginTop: "8px" }}>
+                      {extractYearFromDate(movie.release_date)}
+                    </div>
+                    <div
+                      style={{
+                        alignSelf: "center",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        maxWidth: "250px",
+                        fontWeight: "300",
+                        marginTop: "8px",
+                      }}
+                    >
+                      {movie.title}
+                    </div>
+                  </div>
+                </Box>
               </Box>
-            </Box>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
