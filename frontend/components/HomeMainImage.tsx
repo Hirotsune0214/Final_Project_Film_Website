@@ -5,18 +5,7 @@ import "swiper/css";
 import { Box, Button, CircularProgress } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Link from "next/link";
-
-// interfaceを使い回して良いのか
-interface Series {
-  id: String;
-  poster_path: String;
-  title: String;
-  original_title: String;
-  release_date: String;
-  vote_average: number;
-  overview: String;
-  backdrop_path: String;
-}
+import HomeMainImage from "@/src/state/homeMainImage";
 
 const movieButton = {
   color: "white",
@@ -33,7 +22,7 @@ const movieButton = {
 const HomeMainImage = () => {
   const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
 
-  const [dramas, setDramas] = useState<Series[]>([]);
+  const [dramas, setDramas] = useState<HomeMainImage[]>([]);
 
   const fetchDramas = async () => {
     try {
@@ -56,8 +45,8 @@ const HomeMainImage = () => {
     <div>
       {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
-        {dramas.map((drama: Series) => (
-          <SwiperSlide key={drama.id}>
+        {dramas.map((drama: HomeMainImage) => (
+          <SwiperSlide>
             <div
               style={{
                 backgroundImage: `URL(${URL}${drama.backdrop_path})`,
@@ -92,15 +81,24 @@ const HomeMainImage = () => {
                   alignItems: "flex-start",
                 }}
               >
-                <div style={{ fontSize: "35px", fontWeight: "bold" }}>
-                  {drama.original_title}
+                <div
+                  style={{
+                    width: "500px",
+                    fontSize: "35px",
+                    fontWeight: "bold",
+                    overflow: "hidden",
+                    textAlign: "left",
+                  }}
+                >
+                  {drama.title}
                 </div>
-                <Box style={{ fontSize: "20px", marginTop: "32px" }}>
+
+                <Box style={{ fontSize: "20px" }}>
                   <CircularProgress
                     variant="determinate"
                     color="success"
                     value={drama.vote_average * 10}
-                    style={{ width: "50px" }}
+                    style={{ width: "50px", marginTop: "32px" }}
                   />
                   <div
                     style={{
@@ -113,7 +111,7 @@ const HomeMainImage = () => {
                       color: "black",
                       fontSize: "18px",
                       fontWeight: "700",
-                      top: "73.5px",
+                      top: "73px",
                       left: "9px",
                     }}
                   >
