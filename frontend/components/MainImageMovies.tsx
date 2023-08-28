@@ -5,44 +5,10 @@ import "swiper/css";
 import { Box, Button, CircularProgress } from "@mui/material";
 import Link from "next/link";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import HomeMainImage from "@/src/state/main/homeMainImage";
 
-// interfaceを使い回して良いのか
-interface Series {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
-  vote_average: number;
-  backdrop_path: string;
-  overview: string;
-}
-
-const MainImageMovies = ({ movies }: { movies: Series[] }) => {
+const MainImageMovies = ({ movies }: { movies: HomeMainImage[] }) => {
   const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
-
-  // const [dramas, setDramas] = useState<Series[]>([]);
-
-  // const fetchDramas = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3"
-  //     );
-  //     setDramas(response.data.results);
-
-  //     console.log(response.data.results);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  };
-
-  // useEffect(() => {
-  //   fetchDramas();
-  // }, []);
 
   const movieButton = {
     color: "white",
@@ -58,13 +24,12 @@ const MainImageMovies = ({ movies }: { movies: Series[] }) => {
 
   return (
     <div style={{}}>
-      {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
-        {movies.map((drama: Series) => (
-          <SwiperSlide key={drama.id}>
+        {movies.map((movie: HomeMainImage) => (
+          <SwiperSlide key={movie.id}>
             <div
               style={{
-                backgroundImage: `URL(${URL}${drama.backdrop_path})`,
+                backgroundImage: `URL(${URL}${movie.backdrop_path})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 height: "100vh",
@@ -95,14 +60,22 @@ const MainImageMovies = ({ movies }: { movies: Series[] }) => {
                   alignItems: "flex-start",
                 }}
               >
-                <div style={{ fontSize: "35px", fontWeight: "bold" }}>
-                  {drama.original_title}
+                <div
+                  style={{
+                    fontSize: "35px",
+                    fontWeight: "bold",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {movie.title}
                 </div>
                 <Box style={{ fontSize: "20px", marginTop: "32px" }}>
                   <CircularProgress
                     variant="determinate"
                     color="success"
-                    value={drama.vote_average * 10}
+                    value={movie.vote_average * 10}
                     style={{ width: "50px" }}
                   />
                   <div
@@ -120,7 +93,7 @@ const MainImageMovies = ({ movies }: { movies: Series[] }) => {
                       left: "9px",
                     }}
                   >
-                    {drama.vote_average}
+                    {movie.vote_average}
                   </div>
                 </Box>
                 <div
@@ -140,9 +113,9 @@ const MainImageMovies = ({ movies }: { movies: Series[] }) => {
                     textAlign: "left",
                   }}
                 >
-                  {drama.overview}
+                  {movie.overview}
                 </div>
-                <Link href={`/movies/${drama.id}`} passHref>
+                <Link href={`/movies/${movie.id}`} passHref>
                   <Button sx={movieButton}>
                     <PlayArrowIcon />
                     WATCH NOW

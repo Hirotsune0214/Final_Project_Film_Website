@@ -93,7 +93,13 @@ const HomeMainImage = () => {
                   {drama.title}
                 </div>
 
-                <Box style={{ fontSize: "20px" }}>
+                <Box
+                  style={{
+                    fontSize: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
                   <CircularProgress
                     variant="determinate"
                     color="success"
@@ -101,19 +107,19 @@ const HomeMainImage = () => {
                     style={{ width: "50px", marginTop: "32px" }}
                   />
                   <div
-                    style={{
-                      position: "fixed",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: "40px",
-                      height: "40px",
-                      color: "black",
-                      fontSize: "18px",
-                      fontWeight: "700",
-                      top: "73px",
-                      left: "9px",
-                    }}
+                  // style={{
+                  //   position: "fixed",
+                  //   display: "flex",
+                  //   alignItems: "center",
+                  //   justifyContent: "center",
+                  //   width: "40px",
+                  //   height: "40px",
+                  //   color: "black",
+                  //   fontSize: "18px",
+                  //   fontWeight: "700",
+                  //   top: "73px",
+                  //   left: "9px",
+                  // }}
                   >
                     {drama.vote_average}
                   </div>

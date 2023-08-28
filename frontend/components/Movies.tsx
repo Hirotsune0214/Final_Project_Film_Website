@@ -2,26 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, Button, CircularProgress } from "@mui/material";
 import Link from "next/link";
-
-// TODO: リファクタリンで、type.tsに移動させる
-interface MoviesData {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
-  vote_average: number;
-  backdrop_path: "string";
-}
+import Movies from "@/src/state/main/movies";
 
 type MovieLists = "popular" | "top_rated";
 
-interface Props {
-  movies: any[];
+type Props = {
+  movies: Movies[];
   movieLists: string;
-  setMovies: any[];
+  setMovies: React.Dispatch<React.SetStateAction<Movies[]>>;
   setMovieLists: (category: string) => void;
-}
+};
 
 const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
   const URL = "https://image.tmdb.org/t/p/w500";
@@ -95,12 +85,11 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
   };
 
   const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+    return dateString.substring(0, 4);
   };
 
   useEffect(() => {
     if (currentPage > 1) {
-      // Only fetch new pages after the initial load
       fetchNewPageMovies();
     }
   }, [currentPage]);
@@ -168,8 +157,8 @@ const Movies = ({ movies, movieLists, setMovieLists, setMovies }: Props) => {
           cursor: "pointer",
         }}
       >
-        {movies.map((movie: MoviesData) => (
-          <Link href={`/movies/${movie.id}`} passHref>
+        {movies.map((movie: Movies) => (
+          <Link key={movie.id} href={`/movies/${movie.id}`} passHref>
             <Box
               onMouseEnter={() => {
                 setIshover(true);

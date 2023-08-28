@@ -9,11 +9,14 @@ import { Box, CircularProgress } from "@mui/material";
 import Link from "next/link";
 
 import Movies from "@/src/state/main/movies";
+import { hoverCss } from "./Content";
 
 /******************************************************************************************/
 
-const PopularMovies = (sx: any) => {
+const PopularMovies = ({ extractYearFromDate }: number) => {
   const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
+  const apikey = process.env.NEXT_PUBLIC_API_KEY;
+  console.log(apikey);
 
   const [movies, setMovies] = useState([]);
   const [ishover, setIshover] = useState(false);
@@ -21,7 +24,7 @@ const PopularMovies = (sx: any) => {
   const fetchPopularMovies = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/movie/popular?api_key=${apikey}`
       );
       setMovies(response.data.results);
     } catch (error) {
@@ -32,12 +35,6 @@ const PopularMovies = (sx: any) => {
   useEffect(() => {
     fetchPopularMovies();
   }, []);
-
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4);
-  };
-
-  const { sx: boxSX } = sx;
 
   return (
     <div>
@@ -72,7 +69,7 @@ const PopularMovies = (sx: any) => {
                 onMouseLeave={() => {
                   setIshover(false);
                 }}
-                sx={boxSX}
+                sx={hoverCss}
                 position={"relative"}
               >
                 <img

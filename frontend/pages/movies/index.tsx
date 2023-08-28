@@ -1,23 +1,13 @@
 import Layout from "@/components/Layout";
 import MainImageMovies from "@/components/MainImageMovies";
 import Movies from "@/components/Movies";
+import HomeMainImage from "@/src/state/main/homeMainImage";
 import axios from "axios";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 
-// TODO: リファクタリンで、type.tsに移動させる
-interface MoviesData {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
-  vote_average: number;
-  backdrop_path: "string";
-}
-
 const movies = () => {
-  const [movies, setMovies] = useState<MoviesData[]>([]);
+  const [movies, setMovies] = useState<HomeMainImage[]>([]);
   const [movieLists, setMovieLists] = useState("popular");
 
   const fetchListsMovies = async () => {
