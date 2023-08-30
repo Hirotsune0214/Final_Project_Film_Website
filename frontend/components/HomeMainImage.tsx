@@ -1,11 +1,17 @@
 import axios from "axios";
+
 import React, { useEffect, useState } from "react";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+
 import { Box, Button, CircularProgress } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+
 import Link from "next/link";
+
 import { Category } from "@/src/state/category";
+/******************************************************************************************/
 
 const movieButton = {
   color: "white",
