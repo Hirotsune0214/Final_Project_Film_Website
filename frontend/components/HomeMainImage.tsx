@@ -26,7 +26,7 @@ const movieButton = {
 };
 
 const HomeMainImage = () => {
-  const URL = process.env.NEXT_PUBLIC_IMAGE;
+  const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
   const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
   const [mainImages, setMainImages] = useState<Category[]>([]);
@@ -50,7 +50,7 @@ const HomeMainImage = () => {
     <div>
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
         {mainImages.map((mainImage: Category) => (
-          <SwiperSlide>
+          <SwiperSlide key={mainImage.id}>
             <div
               style={{
                 backgroundImage: `URL(${URL}${mainImage.backdrop_path})`,

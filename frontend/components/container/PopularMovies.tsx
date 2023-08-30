@@ -8,15 +8,19 @@ import { Box, CircularProgress } from "@mui/material";
 
 import Link from "next/link";
 
-import Movies from "@/src/state/main/movies";
+import { Category, Movie } from "@/src/state/category";
 import { hoverCss } from "./Content";
 
 /******************************************************************************************/
 
-const PopularMovies = ({ extractYearFromDate }: number) => {
-  const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
+const PopularMovies = ({
+  // TODO: 下記の型の付け方が不明
+  extractYearFromDate,
+}: {
+  extractYearFromDate: (date: string) => string;
+}) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
   const apikey = process.env.NEXT_PUBLIC_API_KEY;
-  console.log(apikey);
 
   const [movies, setMovies] = useState([]);
   const [ishover, setIshover] = useState(false);
@@ -59,7 +63,7 @@ const PopularMovies = ({ extractYearFromDate }: number) => {
       </h1>
 
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
-        {movies.map((movie: Movies) => (
+        {movies.map((movie: Movie) => (
           <SwiperSlide key={movie.id}>
             <Link href={`/movies/${movie.id}`} passHref>
               <Box
