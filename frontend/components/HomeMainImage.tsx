@@ -5,7 +5,7 @@ import "swiper/css";
 import { Box, Button, CircularProgress } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Link from "next/link";
-import HomeMainImage from "@/src/state/homeMainImage";
+import { Category } from "@/src/state/category";
 
 const movieButton = {
   color: "white",
@@ -20,36 +20,34 @@ const movieButton = {
 };
 
 const HomeMainImage = () => {
-  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
+  const URL = process.env.NEXT_PUBLIC_IMAGE;
+  const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
-  const [dramas, setDramas] = useState<HomeMainImage[]>([]);
+  const [mainImages, setMainImages] = useState<Category[]>([]);
 
-  const fetchDramas = async () => {
+  const fetchMainImage = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/movie/upcoming?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${apikey}`
       );
-      setDramas(response.data.results);
-
-      console.log(response.data.results);
+      setMainImages(response.data.results);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    fetchDramas();
+    fetchMainImage();
   }, []);
 
   return (
     <div>
-      {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
-        {dramas.map((drama: HomeMainImage) => (
+        {mainImages.map((mainImage: Category) => (
           <SwiperSlide>
             <div
               style={{
-                backgroundImage: `URL(${URL}${drama.backdrop_path})`,
+                backgroundImage: `URL(${URL}${mainImage.backdrop_path})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 height: "100vh",
@@ -90,7 +88,7 @@ const HomeMainImage = () => {
                     textAlign: "left",
                   }}
                 >
-                  {drama.title}
+                  {mainImage.title}
                 </div>
 
                 <Box
@@ -103,7 +101,7 @@ const HomeMainImage = () => {
                   <CircularProgress
                     variant="determinate"
                     color="success"
-                    value={drama.vote_average * 10}
+                    value={mainImage.vote_average * 10}
                     style={{ width: "50px", marginTop: "32px" }}
                   />
                   <div
@@ -121,7 +119,7 @@ const HomeMainImage = () => {
                   //   left: "9px",
                   // }}
                   >
-                    {drama.vote_average}
+                    {mainImage.vote_average}
                   </div>
                 </Box>
                 <div
@@ -130,20 +128,19 @@ const HomeMainImage = () => {
                     fontSize: "20px",
                     fontWeight: "400",
                     letterSpacing: "0.02000em",
-                    // margin: "32px 0 0 50px",
                     marginTop: "32px",
                     whiteSpace: "normal",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     display: "-webkit-box",
-                    WebkitLineClamp: 3, // 最大表示行数
+                    WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
                     textAlign: "left",
                   }}
                 >
-                  {drama.overview}
+                  {mainImage.overview}
                 </div>
-                <Link href={`/movies/${drama.id}`} passHref>
+                <Link href={`/movies/${mainImage.id}`} passHref>
                   <Button sx={movieButton}>
                     <PlayArrowIcon />
                     WATCH NOW
