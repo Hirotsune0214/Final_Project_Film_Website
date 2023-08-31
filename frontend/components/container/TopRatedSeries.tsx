@@ -1,20 +1,32 @@
 import axios from "axios";
+
 import React, { useEffect, useState } from "react";
+
 import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+
 import { Box, CircularProgress } from "@mui/material";
+
 import Link from "next/link";
-import Dramas from "@/src/state/main/dramas";
 
-const TopRatedSeries = (sx: any) => {
-  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
+import { Drama } from "@/src/state/category";
+import { hoverCss } from "./Content";
 
+const TopRatedSeries = ({
+  // TODO: 下記の型の付け方が不明
+  extractYearFromDate,
+}: {
+  extractYearFromDate: (date: string) => string;
+}) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
+  const apikey = process.env.NEXT_PUBLIC_API_KEY;
   const [dramas, setDramas] = useState([]);
   const [ishover, setIshover] = useState(false);
 
-  const fetchMovies = async () => {
+  const fetchTopRatedSeries = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/tv/top_rated?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/tv/top_rated?api_key=${apikey}`
       );
       setDramas(response.data.results);
     } catch (error) {
@@ -22,15 +34,10 @@ const TopRatedSeries = (sx: any) => {
     }
   };
 
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4);
-  };
-
   useEffect(() => {
-    fetchMovies();
+    fetchTopRatedSeries();
   }, []);
 
-  const { sx: boxSX } = sx;
   return (
     <div>
       <h1
@@ -53,7 +60,7 @@ const TopRatedSeries = (sx: any) => {
         ></span>
       </h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
-        {dramas.map((drama: Dramas) => (
+        {dramas.map((drama: Drama) => (
           <SwiperSlide key={drama.id}>
             <Link href={`/dramas/${drama.id}`} passHref>
               <Box
@@ -63,7 +70,7 @@ const TopRatedSeries = (sx: any) => {
                 onMouseLeave={() => {
                   setIshover(false);
                 }}
-                sx={boxSX}
+                sx={hoverCss}
               >
                 <img
                   className="img"

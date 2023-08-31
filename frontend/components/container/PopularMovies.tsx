@@ -8,7 +8,9 @@ import { Box, CircularProgress } from "@mui/material";
 
 import Link from "next/link";
 
-import { Category, Movie } from "@/src/state/category";
+import { Movie } from "@/src/state/category";
+// TODO: Movieにcategoryが含まれているから記載の必要はない？
+// import { Category, Movie } from "@/src/state/category";
 import { hoverCss } from "./Content";
 
 /******************************************************************************************/

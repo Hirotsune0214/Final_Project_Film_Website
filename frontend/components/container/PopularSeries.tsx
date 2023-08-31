@@ -1,30 +1,34 @@
 import axios from "axios";
+
 import React, { useEffect, useState } from "react";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+
 import { Box, CircularProgress } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
-// interfaceを使い回して良いのか
-interface films {
-  id: string;
-  poster_path: string;
-  original_name: string;
-  vote_average: number;
-  first_air_date: string;
-}
+import { Drama } from "@/src/state/category";
+import { hoverCss } from "./Content";
 
-const PopularMSeries = (sx: any) => {
-  const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
+/******************************************************************************************/
+
+const PopularMSeries = ({
+  // TODO: 下記の型の付け方が不明
+  extractYearFromDate,
+}: {
+  extractYearFromDate: (date: string) => string;
+}) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
+  const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
   const [dramas, setDramas] = useState([]);
   const [ishover, setIshover] = useState(false);
 
-  const fetchMovies = async () => {
+  const fetchPopularSeries = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/tv/popular?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/tv/popular?api_key=${apikey}`
       );
       setDramas(response.data.results);
     } catch (error) {
@@ -32,15 +36,9 @@ const PopularMSeries = (sx: any) => {
     }
   };
 
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  };
-
   useEffect(() => {
-    fetchMovies();
+    fetchPopularSeries();
   }, []);
-
-  const { sx: boxSX } = sx;
 
   return (
     <div>
@@ -64,7 +62,7 @@ const PopularMSeries = (sx: any) => {
         ></span>
       </h1>
       <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
-        {dramas.map((drama: films) => (
+        {dramas.map((drama: Drama) => (
           <SwiperSlide key={drama.id}>
             <Link href={`/dramas/${drama.id}`} passHref>
               <Box
@@ -74,7 +72,7 @@ const PopularMSeries = (sx: any) => {
                 onMouseLeave={() => {
                   setIshover(false);
                 }}
-                sx={boxSX}
+                sx={hoverCss}
               >
                 <img
                   className="img"
@@ -86,7 +84,7 @@ const PopularMSeries = (sx: any) => {
                     borderRadius: "10px",
                   }}
                   src={`${URL}${drama.poster_path}`}
-                  alt={drama.original_name}
+                  alt={drama.original_title}
                 />
                 <Box className="text">
                   <div
@@ -136,7 +134,7 @@ const PopularMSeries = (sx: any) => {
                         marginTop: "8px",
                       }}
                     >
-                      {drama.original_name}
+                      {drama.original_title}
                     </div>
                   </div>
                 </Box>
