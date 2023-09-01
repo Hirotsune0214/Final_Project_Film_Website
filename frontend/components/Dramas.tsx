@@ -1,108 +1,64 @@
 import React, { useEffect, useState } from "react";
+
 import axios from "axios";
+
 import { Box, Button, CircularProgress } from "@mui/material";
+
 import Link from "next/link";
 
-// interfaceを使い回して良いのか
-interface SeriesData {
-  id: string;
-  poster_path: string;
-  name: string;
-  original_title: string;
-  first_air_date: string;
-  vote_average: number;
-  backdrop_path: "string";
-}
+import { Drama } from "@/src/state/category";
 
-type DramaLists = "popular" | "top_rated";
+import { MovieDramaCss } from "@/pages/dramas";
+
+/******************************************************************************************/
+
+// type DramaLists = "popular" | "top_rated";
 
 interface Props {
-  dramas: any[];
-  movieLists: string;
-  setDramas: any[];
-  setMovieLists: (category: string) => void;
+  dramas: Drama[];
+  dramaLists: string;
+  setDramaLists: (category: string) => void;
+  extractYearFromDate: (dateString: string) => string;
+  handleAddDramasPages: () => void;
 }
 
-const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
-  const URL = "https://image.tmdb.org/t/p/w500";
+const Dramas = ({
+  dramas,
+  dramaLists,
+  setDramaLists,
+  extractYearFromDate,
+  handleAddDramasPages,
+}: Props) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
 
   const [ishover, setIshover] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const fetchNewPageDramas = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${movieLists}?page=${currentPage}&api_key=bb46848237eacc0a36827f6639b47ee3`
-      );
+  // const fetchNewPageDramas = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://api.themoviedb.org/3/tv/${movieLists}?page=${currentPage}&api_key=bb46848237eacc0a36827f6639b47ee3`
+  //     );
 
-      setDramas((prevPageLists) => [
-        ...prevPageLists,
-        ...response.data.results,
-      ]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setDramas((prevPageLists) => [
+  //       ...prevPageLists,
+  //       ...response.data.results,
+  //     ]);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  };
+  // const handleAddDramasPages = () => {
+  //   // 引数のprevPageは前の値を持っている
+  //   setCurrentPage((prevPage) => prevPage + 1);
+  // };
 
-  const boxSX = {
-    maxWidth: "500px",
-    margin: "0 auto",
-    position: "relative",
-    cursor: "pointer",
-    background: "cover",
-    "&:hover .text": {
-      opacity: 1,
-    },
-    "&:hover .img": {
-      transform: "scale(1.05) translateY(-10px)",
-      transition: ".3s ease-in-out",
-      position: "relative",
-      zIndex: "2",
-      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
-      borderColor: "rgba(242, 30, 30, 0.8)",
-    },
-    "& .img": {
-      width: "100%",
-      height: "100%",
-      transition: "transform 0.2",
-      border: "5px solid transparent",
-    },
-    "& .text": {
-      position: "absolute",
-      width: "100%",
-      height: "98.5%",
-      top: 0,
-      left: 0,
-      textAlign: "center",
-      color: "#fff",
-      background:
-        "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
-      transition: ".3s ease-in-out",
-      opacity: 0,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      transform: "scaleX(1.05)",
-      zIndex: "2",
-      marginLeft: "5px",
-    },
-  };
-  const handleAddDramasPages = () => {
-    // 引数のprevPageは前の値を持っている
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
-  useEffect(() => {
-    if (currentPage > 1) {
-      // Only fetch new pages after the initial load
-      fetchNewPageDramas();
-    }
-  }, [currentPage]);
+  // useEffect(() => {
+  //   if (currentPage > 1) {
+  //     // Only fetch new pages after the initial load
+  //     fetchNewPageDramas();
+  //   }
+  // }, [currentPage]);
 
   return (
     <div
@@ -120,30 +76,30 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
 
         <Box>
           <Button
-            onClick={() => setMovieLists("popular")}
+            onClick={() => setDramaLists("popular")}
             sx={{
-              backgroundColor: movieLists === "popular" ? "red" : "transparent",
-              color: movieLists === "popular" ? "#ffffff" : "#000000",
+              backgroundColor: dramaLists === "popular" ? "red" : "transparent",
+              color: dramaLists === "popular" ? "#ffffff" : "#000000",
               padding: "15px",
               marginRight: "10px",
               ":hover": {
                 backgroundColor: "red",
-                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+                opacity: 0.8,
               },
             }}
           >
             POPULAR
           </Button>
           <Button
-            onClick={() => setMovieLists("top_rated")}
+            onClick={() => setDramaLists("top_rated")}
             sx={{
               backgroundColor:
-                movieLists === "top_rated" ? "red" : "transparent",
-              color: movieLists === "top_rated" ? "#ffffff" : "#000000",
+                dramaLists === "top_rated" ? "red" : "transparent",
+              color: dramaLists === "top_rated" ? "#ffffff" : "#000000",
               padding: "15px",
               ":hover": {
                 backgroundColor: "red",
-                opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+                opacity: 0.8,
               },
             }}
           >
@@ -161,7 +117,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
           cursor: "pointer",
         }}
       >
-        {dramas.map((drama: SeriesData) => (
+        {dramas.map((drama: Drama) => (
           <Link href={`/dramas/${drama.id}`} passHref>
             <Box
               onMouseEnter={() => {
@@ -170,7 +126,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
               onMouseLeave={() => {
                 setIshover(false);
               }}
-              sx={boxSX}
+              sx={MovieDramaCss}
               key={drama.id}
             >
               <img
@@ -231,7 +187,7 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
                       marginTop: "8px",
                     }}
                   >
-                    {drama.original_name}
+                    {drama.name}
                   </div>
                 </div>
               </Box>
@@ -267,4 +223,4 @@ const Movies = ({ dramas, movieLists, setMovieLists, setDramas }: Props) => {
   );
 };
 
-export default Movies;
+export default Dramas;

@@ -1,28 +1,22 @@
 import axios from "axios";
+
 import React, { useEffect, useState } from "react";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+
 import Link from "next/link";
+
+import { Drama } from "@/src/state/category";
+
 import { Box, Button, CircularProgress } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+/******************************************************************************************/
 
-// interfaceを使い回して良いのか
-interface Series {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_name: string;
-  release_date: string;
-  vote_average: number;
-  backdrop_path: string;
-  overview: string;
-}
+const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
 
-const MainImageDramas = () => {
-  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
-  const [dramas, setDramas] = useState<Series[]>([]);
-
-  const movieButton = {
+  const dramaButton = {
     color: "white",
     backgroundColor: "#FF0D01",
     padding: "10px",
@@ -34,32 +28,10 @@ const MainImageDramas = () => {
     },
   };
 
-  const fetchDramas = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/discover/tv?api_key=bb46848237eacc0a36827f6639b47ee3"
-      );
-      setDramas(response.data.results);
-
-      console.log(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // const extractYearFromDate = (dateString: string): string => {
-  //   return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  // };
-
-  useEffect(() => {
-    fetchDramas();
-  }, []);
-
   return (
     <div>
-      {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
-        {dramas.map((drama: Series) => (
+        {dramas.map((drama: Drama) => (
           <SwiperSlide key={drama.id}>
             <div
               style={{
@@ -96,7 +68,7 @@ const MainImageDramas = () => {
                 }}
               >
                 <div style={{ fontSize: "35px", fontWeight: "bold" }}>
-                  {drama.original_name}
+                  {drama.name}
                 </div>
                 <Box style={{ fontSize: "20px", marginTop: "32px" }}>
                   <CircularProgress
@@ -135,7 +107,7 @@ const MainImageDramas = () => {
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     display: "-webkit-box",
-                    WebkitLineClamp: 3, // 最大表示行数
+                    WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
                     textAlign: "left",
                   }}
@@ -143,7 +115,7 @@ const MainImageDramas = () => {
                   {drama.overview}
                 </div>
                 <Link href={`/dramas/${drama.id}`} passHref>
-                  <Button sx={movieButton}>
+                  <Button sx={dramaButton}>
                     <PlayArrowIcon />
                     WATCH NOW
                   </Button>
