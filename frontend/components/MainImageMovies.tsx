@@ -1,14 +1,16 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Box, Button, CircularProgress } from "@mui/material";
-import Link from "next/link";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import HomeMainImage from "@/src/state/main/homeMainImage";
 
-const MainImageMovies = ({ movies }: { movies: HomeMainImage[] }) => {
-  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
+import { Box, Button, CircularProgress } from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+
+import Link from "next/link";
+
+import { Movie } from "@/src/state/category";
+/******************************************************************************************/
+
+const MainImageMovies = ({ movies }: { movies: Movie[] }) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
 
   const movieButton = {
     color: "white",
@@ -23,9 +25,9 @@ const MainImageMovies = ({ movies }: { movies: HomeMainImage[] }) => {
   };
 
   return (
-    <div style={{}}>
+    <div>
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
-        {movies.map((movie: HomeMainImage) => (
+        {movies.map((movie: Movie) => (
           <SwiperSlide key={movie.id}>
             <div
               style={{
@@ -108,7 +110,7 @@ const MainImageMovies = ({ movies }: { movies: HomeMainImage[] }) => {
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     display: "-webkit-box",
-                    WebkitLineClamp: 3, // 最大表示行数
+                    WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
                     textAlign: "left",
                   }}
