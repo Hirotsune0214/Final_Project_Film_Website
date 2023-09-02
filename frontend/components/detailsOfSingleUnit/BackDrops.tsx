@@ -6,17 +6,10 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 import { Pagination } from "swiper/modules";
 
-interface MoviePic {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
-  vote_average: number;
-}
+import { Movie } from "@/src/state/category";
 
-const BackDrops = ({ backdrops }: { backdrops: any[] }) => {
-  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
+const BackDrops = ({ backdrops }: { backdrops: never[] }) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
 
   return (
     <div>
@@ -50,7 +43,7 @@ const BackDrops = ({ backdrops }: { backdrops: any[] }) => {
           // clickable: true,
         }}
       >
-        {backdrops.map((backdrop: any) => (
+        {backdrops.map((backdrop: Movie) => (
           <SwiperSlide key={backdrop.file_path}>
             <Box
               style={{

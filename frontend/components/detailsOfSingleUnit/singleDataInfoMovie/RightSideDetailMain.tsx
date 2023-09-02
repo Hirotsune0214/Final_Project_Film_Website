@@ -1,20 +1,28 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
-const RightSideDetailMain = ({ rightSideDetail }: { rightSideDetail: any }) => {
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4);
-  };
+import { Movie } from "@/src/state/category";
 
+type Props = {
+  rightSideDetail: Movie | null;
+  extractYearFromDate: (dateString: string) => string;
+};
+
+const RightSideDetailMain = ({
+  rightSideDetail,
+  extractYearFromDate,
+}: Props) => {
   if (!rightSideDetail) {
-    return null; // ロード中やエラー時に null を返すなどの適切な表示を行う
+    return null;
   }
 
   return (
     <Box>
       <div>
-        <h1 style={{ fontSize: "40px" }}>
+        <h1 style={{ fontSize: "40px", display: "flex" }}>
           {rightSideDetail.original_title}
-          {extractYearFromDate(rightSideDetail.release_date)}
+          <div style={{ marginLeft: "20px" }}>
+            {extractYearFromDate(rightSideDetail.release_date)}
+          </div>
         </h1>
         <Box sx={{ marginTop: "40px", fontSize: "20px", fontWeight: "500" }}>
           <div>{rightSideDetail.vote_average.toFixed(1)}</div>

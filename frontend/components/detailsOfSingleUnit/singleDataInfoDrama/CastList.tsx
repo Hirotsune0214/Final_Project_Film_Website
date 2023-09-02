@@ -1,18 +1,13 @@
 import { Box } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Link from "next/link";
 
-interface films {
-  id: string;
-  profile_path: string;
-  name: string;
-}
+import { Drama } from "@/src/state/category";
 
-const CastList = ({ casts }: { casts: any }) => {
-  const URL = "https://image.tmdb.org/t/p/w780"; // ポスター画像のベースURL
+const CastList = ({ casts }: { casts: never[] }) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
 
   return (
     <div style={{ marginTop: "40px" }}>
@@ -41,7 +36,7 @@ const CastList = ({ casts }: { casts: any }) => {
         direction="horizontal"
         spaceBetween={1}
       >
-        {casts.map((cast: films) => (
+        {casts.map((cast: Drama) => (
           <SwiperSlide key={cast.id}>
             <Link href={`/person/${cast.id}`} passHref>
               <Box>

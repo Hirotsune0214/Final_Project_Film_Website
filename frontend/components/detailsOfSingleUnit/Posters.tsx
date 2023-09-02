@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-const Posters = ({ posters }: { posters: any[] }) => {
-  const URL = "https://image.tmdb.org/t/p/w500"; // ポスター画像のベースURL
+import { Movie } from "@/src/state/category";
+
+const Posters = ({ posters }: { posters: Movie[] }) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
 
   return (
     <div>

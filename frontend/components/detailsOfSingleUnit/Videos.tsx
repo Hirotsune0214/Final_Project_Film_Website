@@ -9,18 +9,17 @@ import { useState } from "react";
 
 import YouTube from "react-youtube";
 
-interface MoviesData {
-  id: string;
-  key: string;
-  name: string;
-}
+import { Category } from "@/src/state/category";
 
-const Videos = ({ videos }: { videos: any }) => {
+const Videos = ({ videos }: { videos: never[] }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
 
   const handleClickVideo = (index: number) => {
     setCurrentVideoIndex(index);
   };
+
+  // 5つのみ動画を取得する
+  const firstFiveVideos = videos.slice(0, 5);
 
   return (
     <div id="sectionVideo">
@@ -53,7 +52,7 @@ const Videos = ({ videos }: { videos: any }) => {
         }}
         spaceBetween={50}
       >
-        {videos.map((video: MoviesData, index: number) => (
+        {firstFiveVideos.map((video: Category, index: number) => (
           <SwiperSlide key={video.id}>
             <Box
               sx={{
