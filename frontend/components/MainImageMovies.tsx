@@ -10,7 +10,7 @@ import { Movie } from "@/src/state/category";
 /******************************************************************************************/
 
 const MainImageMovies = ({ movies }: { movies: Movie[] }) => {
-  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
+  const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
 
   const movieButton = {
     color: "white",

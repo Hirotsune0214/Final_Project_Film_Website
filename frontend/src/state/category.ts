@@ -13,5 +13,14 @@ export type Movie = Category & {
 
 export type Drama = Category & {
   name: string;
+  original_title: string;
   first_air_date: string;
+};
+
+export type Searching = Category & {
+  title: string;
+  release_date: string;
+  first_air_date: string;
+  original_name: string;
+  profile_path: string;
 };

@@ -9,6 +9,7 @@ import { Movie } from "@/src/state/category";
 import Head from "next/head";
 
 import React, { useEffect, useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 
 export const MovieDramaCss = {
   maxWidth: "500px",
@@ -98,6 +99,7 @@ const movies = () => {
 
   const fetchNewPageMovies = async () => {
     try {
+      toast.loading("Fetching new page");
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/${movieLists}?page=${currentPage}&api_key=bb46848237eacc0a36827f6639b47ee3`
       );
@@ -106,6 +108,10 @@ const movies = () => {
         ...prevPageLists,
         ...response.data.results,
       ]);
+      toast.dismiss();
+      toast.success("New page fetched successfully", {
+        duration: 2000, // 2秒間表示後に自動的に非表示にする
+      });
     } catch (error) {
       console.log(error);
     }
@@ -130,6 +136,7 @@ const movies = () => {
       <Head>
         <title>Movies</title>
       </Head>
+      <Toaster />
       <div>
         <Layout>
           <MainImageMovies movies={movies} />
