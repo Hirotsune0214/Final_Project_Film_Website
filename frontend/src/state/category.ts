@@ -33,3 +33,8 @@ export type Recommend = Category & {
   first_air_date: string;
   release_date: string;
 };
+
+export type PersonDetail = Category & {
+  biography: string;
+  birthday: string;
+};

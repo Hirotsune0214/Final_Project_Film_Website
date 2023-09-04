@@ -1,36 +1,12 @@
 import { Box } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 
-interface PersonPic {
-  id: string;
-  name: string;
-  biography: string;
-  birthday: string;
-}
+import { PersonDetail } from "@/src/state/category";
 
-const PersonProfileDetail = ({ id }: { id: string }) => {
-  const URL = "https://image.tmdb.org/t/p/original";
-  const [personDetail, setPersonDetail] = useState<PersonPic | null>(null);
-
-  const fetchPersonInfo = async () => {
-    console.log(id);
-
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/person/${id}?api_key=bb46848237eacc0a36827f6639b47ee3`
-      );
-      setPersonDetail(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPersonInfo();
-  }, [id]);
-
+const PersonProfileDetail = ({
+  personDetail,
+}: {
+  personDetail: PersonDetail | null;
+}) => {
   return (
     <Box sx={{ padding: "16px 32px" }}>
       {personDetail && (
