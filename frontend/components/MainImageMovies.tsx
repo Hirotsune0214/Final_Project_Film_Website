@@ -53,6 +53,7 @@ const MainImageMovies = ({ movies }: { movies: Movie[] }) => {
                   position: "absolute",
                   top: "42%",
                   left: "30%",
+                  width: "450px",
                   transform: "translate(-50%, -50%)",
                   textAlign: "center",
                   color: "black",
@@ -64,35 +65,39 @@ const MainImageMovies = ({ movies }: { movies: Movie[] }) => {
               >
                 <div
                   style={{
+                    width: "450px",
                     fontSize: "35px",
                     fontWeight: "bold",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
+                    textAlign: "left",
                   }}
                 >
                   {movie.title}
                 </div>
-                <Box style={{ fontSize: "20px", marginTop: "32px" }}>
+                <Box
+                  style={{
+                    fontSize: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    position: "relative",
+                  }}
+                >
                   <CircularProgress
                     variant="determinate"
                     color="success"
                     value={movie.vote_average * 10}
-                    style={{ width: "50px" }}
+                    style={{ width: "50px", marginTop: "32px" }}
                   />
                   <div
                     style={{
-                      position: "fixed",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: "40px",
-                      height: "40px",
+                      position: "absolute",
+                      top: "73%",
+                      left: "60%",
+                      // TODO: x軸とy軸に移動させる
+                      transform: "translate(-50%, -50%)", // 中央に寄せる
                       color: "black",
                       fontSize: "18px",
                       fontWeight: "700",
-                      top: "73.5px",
-                      left: "9px",
                     }}
                   >
                     {movie.vote_average}

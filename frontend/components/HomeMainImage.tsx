@@ -77,6 +77,7 @@ const HomeMainImage = () => {
                   position: "absolute",
                   top: "42%",
                   left: "30%",
+                  width: "450px",
                   transform: "translate(-50%, -50%)",
                   textAlign: "center",
                   color: "black",
@@ -88,10 +89,10 @@ const HomeMainImage = () => {
               >
                 <div
                   style={{
-                    width: "500px",
+                    // TODO: 折り返しているからこれでOK??
+                    width: "450px",
                     fontSize: "35px",
                     fontWeight: "bold",
-                    overflow: "hidden",
                     textAlign: "left",
                   }}
                 >
@@ -99,10 +100,13 @@ const HomeMainImage = () => {
                 </div>
 
                 <Box
+                  // TODO: 2つの要素を縦並びにする
                   style={{
                     fontSize: "20px",
                     display: "flex",
-                    justifyContent: "center",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    position: "relative",
                   }}
                 >
                   <CircularProgress
@@ -112,19 +116,16 @@ const HomeMainImage = () => {
                     style={{ width: "50px", marginTop: "32px" }}
                   />
                   <div
-                  // style={{
-                  //   position: "fixed",
-                  //   display: "flex",
-                  //   alignItems: "center",
-                  //   justifyContent: "center",
-                  //   width: "40px",
-                  //   height: "40px",
-                  //   color: "black",
-                  //   fontSize: "18px",
-                  //   fontWeight: "700",
-                  //   top: "73px",
-                  //   left: "9px",
-                  // }}
+                    style={{
+                      position: "absolute",
+                      top: "73%",
+                      left: "60%",
+                      // TODO: x軸とy軸に移動させる
+                      transform: "translate(-50%, -50%)", // 中央に寄せる
+                      color: "black",
+                      fontSize: "18px",
+                      fontWeight: "700",
+                    }}
                   >
                     {mainImage.vote_average}
                   </div>
