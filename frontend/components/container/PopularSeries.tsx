@@ -134,7 +134,7 @@ const PopularMSeries = ({
                         marginTop: "8px",
                       }}
                     >
-                      {drama.original_title}
+                      {drama.name}
                     </div>
                   </div>
                 </Box>
