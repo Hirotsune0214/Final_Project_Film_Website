@@ -70,7 +70,6 @@ const dramas = () => {
         `https://api.themoviedb.org/3/tv/${dramaLists}?api_key=${apikey}`
       );
       setDramas(response.data.results);
-      console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -81,13 +80,13 @@ const dramas = () => {
   }, [dramaLists]);
 
   const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+    return dateString.substring(0, 4);
   };
 
   const fetchNewPageDramas = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${dramaLists}?page=${currentPage}&api_key=bb46848237eacc0a36827f6639b47ee3`
+        `https://api.themoviedb.org/3/tv/${dramaLists}?page=${currentPage}&api_key=${apikey}`
       );
 
       setDramas((prevPageLists) => [
