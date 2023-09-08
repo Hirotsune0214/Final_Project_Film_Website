@@ -24,7 +24,7 @@ export const SearchCss = {
     transition: ".3s ease-in-out",
     position: "relative",
     zIndex: "2",
-    boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
+    boxShadow: "10px -9px 20px -2px rgba(119,119,119,0.6)",
     borderColor: "rgba(242, 30, 30, 0.8)",
   },
   "& .img": {
@@ -36,7 +36,7 @@ export const SearchCss = {
   "& .text": {
     position: "absolute",
     width: "98%",
-    height: "98.5%",
+    height: "99.4%",
     top: 0,
     left: 0,
     textAlign: "center",
