@@ -4,6 +4,7 @@ import React, { useState } from "react";
 
 import { Recommend } from "../src/state/category";
 import { personCss } from "@/pages/person/[id]";
+import { Toaster, toast } from "react-hot-toast";
 
 type Props = {
   personCasts: Recommend[];
@@ -16,8 +17,19 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
   const [visibleMovies, setVisibleMovies] = useState(8);
   const moviesToShow = 8;
 
+  const handleLoadMore = () => {
+    toast.loading("Fetching new page");
+    setVisibleMovies((prevVisibleMovies) => prevVisibleMovies + moviesToShow);
+
+    toast.dismiss();
+    toast.success("New page fetched successfully", {
+      duration: 1500, // 1.5秒間表示後に自動的に非表示にする
+    });
+  };
+
   return (
     <>
+      <Toaster />
       <h1
         style={{
           display: "inline-block",
@@ -146,7 +158,8 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                 opacity: 0.8,
               },
             }}
-            onClick={() => setVisibleMovies(visibleMovies + moviesToShow)}
+            // onClick={() => setVisibleMovies(visibleMovies + moviesToShow)}
+            onClick={handleLoadMore}
           >
             LOAD MORE
           </Button>
