@@ -12,7 +12,10 @@ const PersonProfileDetail = ({
       {personDetail && (
         <div>
           <h1 style={{ fontSize: "32px", gap: "10" }}>
-            {personDetail.name} ({personDetail.birthday.slice(0, 4)})
+            {personDetail.name}
+            {personDetail.birthday
+              ? `(${personDetail.birthday.slice(0, 4)})`
+              : "(No data)"}
           </h1>
 
           <Box
@@ -23,7 +26,23 @@ const PersonProfileDetail = ({
               lineHeight: "1.3",
             }}
           >
-            <span>{personDetail.biography}</span>
+            <span>
+              {personDetail.biography ? (
+                `${personDetail.biography}`
+              ) : (
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "40px",
+                    marginTop: "-70px",
+                    width: "220px",
+                    height: "40vh",
+                    borderRadius: "4px",
+                    backgroundColor: "darkgrey",
+                  }}
+                ></div>
+              )}
+            </span>
           </Box>
         </div>
       )}

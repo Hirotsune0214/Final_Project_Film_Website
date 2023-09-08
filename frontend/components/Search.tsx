@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 
 import React, { useState } from "react";
 
@@ -50,7 +50,6 @@ const Search = ({
       >
         <Button
           onClick={() => handleCategoryChange("movie")}
-          // onClick={() => setCategory("movie")}
           sx={{
             backgroundColor: category === "movie" ? "red" : "transparent",
             color: category === "movie" ? "#ffffff" : "#000000",
@@ -58,7 +57,7 @@ const Search = ({
             marginTop: "15px",
             ":hover": {
               backgroundColor: "red",
-              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              opacity: 0.8,
             },
           }}
         >
@@ -66,7 +65,6 @@ const Search = ({
         </Button>
         <Button
           onClick={() => handleCategoryChange("tv")}
-          // onClick={() => setCategory("tv")}
           sx={{
             backgroundColor: category === "tv" ? "red" : "transparent",
             color: category === "tv" ? "#ffffff" : "#000000",
@@ -74,7 +72,7 @@ const Search = ({
             marginTop: "15px",
             ":hover": {
               backgroundColor: "red",
-              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              opacity: 0.8,
             },
           }}
         >
@@ -82,7 +80,6 @@ const Search = ({
         </Button>
         <Button
           onClick={() => handleCategoryChange("person")}
-          // onClick={() => setCategory("person")}
           sx={{
             backgroundColor: category === "person" ? "red" : "transparent",
             color: category === "person" ? "#ffffff" : "#000000",
@@ -90,7 +87,7 @@ const Search = ({
             marginTop: "15px",
             ":hover": {
               backgroundColor: "red",
-              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              opacity: 0.8,
             },
           }}
         >
@@ -140,26 +137,87 @@ const Search = ({
                       }}
                       sx={SearchCss}
                     >
-                      <img
-                        className="img"
-                        style={{
-                          width: "98%",
-                          height: "65vh",
-                          objectFit: "cover",
-                          zIndex: "1",
-                          borderRadius: "10px",
-                        }}
-                        src={`${URL}${searchResult.poster_path}`}
-                        alt={searchResult.original_name}
-                      />
+                      {searchResult.poster_path ? (
+                        <img
+                          className="img"
+                          style={{
+                            width: "98%",
+                            height: "65vh",
+                            objectFit: "cover",
+                            zIndex: "1",
+                            borderRadius: "10px",
+                          }}
+                          src={`${URL}${searchResult.poster_path}`}
+                          alt={searchResult.original_name}
+                        />
+                      ) : (
+                        <div
+                          className="img"
+                          style={{
+                            width: "96.5%",
+                            height: "63.8vh",
+                            zIndex: "1",
+                            borderRadius: "4px",
+                            backgroundColor: "darkgrey",
+                            marginTop: "6px",
+                          }}
+                        ></div>
+                      )}
 
                       <Box className="text">
-                        <div>{searchResult.vote_average}</div>
-                        <div>
-                          {searchResult.release_date &&
-                            extractYearFromDate(searchResult.release_date)}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            position: "absolute",
+                            bottom: "25px",
+                            left: "20px",
+                            fontSize: "20px",
+                            textAlign: "left",
+                          }}
+                        >
+                          <CircularProgress
+                            variant="determinate"
+                            color="success"
+                            value={searchResult.vote_average * 10}
+                            style={{ width: "40px" }}
+                          />
+                          <div
+                            style={{
+                              position: "fixed",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "40px",
+                              height: "40px",
+                              color: "white",
+                              fontSize: "18px",
+                              fontWeight: "100",
+                              left: "20px",
+                            }}
+                          >
+                            {searchResult.vote_average
+                              ? searchResult.vote_average.toFixed(1)
+                              : searchResult.vote_average}
+                          </div>
+                          <div style={{ marginTop: "8px" }}>
+                            {searchResult.release_date &&
+                              extractYearFromDate(searchResult.release_date)}
+                          </div>
+                          <div
+                            style={{
+                              alignSelf: "center",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              maxWidth: "250px",
+                              fontWeight: "300",
+                              marginTop: "8px",
+                            }}
+                          >
+                            {searchResult.title}
+                          </div>
                         </div>
-                        <div>{searchResult.title}</div>
                       </Box>
                     </Box>
                   </Link>
@@ -192,21 +250,72 @@ const Search = ({
                         <div
                           className="img"
                           style={{
-                            width: "298px",
-                            height: "468px",
+                            width: "96.5%",
+                            height: "63.8vh",
                             zIndex: "1",
-                            borderRadius: "10px",
+                            borderRadius: "4px",
                             backgroundColor: "darkgrey",
+                            marginTop: "6px",
                           }}
                         ></div>
                       )}
                       <Box className="text">
-                        <div>{searchResult.vote_average}</div>
-                        <div>
-                          {searchResult.first_air_date &&
-                            extractYearFromDate(searchResult.first_air_date)}
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            position: "absolute",
+                            bottom: "25px",
+                            left: "20px",
+                            fontSize: "20px",
+                            textAlign: "left",
+                          }}
+                        >
+                          <CircularProgress
+                            variant="determinate"
+                            color="success"
+                            value={searchResult.vote_average * 10}
+                            style={{ width: "40px" }}
+                          />
+                          <div
+                            style={{
+                              position: "fixed",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "40px",
+                              height: "40px",
+                              color: "white",
+                              fontSize: "18px",
+                              fontWeight: "100",
+                              left: "20px",
+                            }}
+                          >
+                            {/* TODO: 三項演算子を使用しない場合は、peopleからtv、movieに遷移するとエラーになる
+                                peopleにvote_averageが存在しないため？か値が0のが存在するため
+                            */}
+                            {searchResult.vote_average
+                              ? searchResult.vote_average.toFixed(1)
+                              : searchResult.vote_average}
+                          </div>
+                          <div style={{ marginTop: "8px" }}>
+                            {searchResult.first_air_date &&
+                              extractYearFromDate(searchResult.first_air_date)}
+                          </div>
+                          <div
+                            style={{
+                              alignSelf: "center",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              maxWidth: "250px",
+                              fontWeight: "300",
+                              marginTop: "8px",
+                            }}
+                          >
+                            {searchResult.name}
+                          </div>
                         </div>
-                        <div>{searchResult.original_name}</div>
                       </Box>
                     </Box>
                   </Link>
@@ -236,10 +345,11 @@ const Search = ({
                         <div
                           className="img"
                           style={{
-                            width: "298px",
-                            height: "468px",
+                            width: "331px",
+                            height: "64.8vh",
                             zIndex: "1",
-                            borderRadius: "10px",
+                            borderRadius: "8px",
+                            marginTop: "2px",
                             backgroundColor: "darkgrey",
                           }}
                         ></div>
@@ -247,7 +357,7 @@ const Search = ({
                       <Box
                         sx={{
                           position: "absolute",
-                          width: "98%",
+                          width: "98.3%",
                           height: "max-content",
                           bottom: "4px",
                           padding: "15px 0",

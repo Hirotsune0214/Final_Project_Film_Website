@@ -6,6 +6,7 @@ import axios from "axios";
 import Head from "next/head";
 
 import React, { useEffect, useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 
 /******************************************************************************************/
 
@@ -55,7 +56,7 @@ export const SearchCss = {
 };
 
 const search = () => {
-  const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+  const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [category, setCategory] = useState("movie");
@@ -65,11 +66,10 @@ const search = () => {
   const fetchSearch = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&api_key=${API_KEY}`
+        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&api_key=${apikey}`
       );
-
-      console.log(response.data.results);
       setSearchResults(response.data.results);
+
       // isLoadingで切り替え
     } catch (error) {
       console.log(error);
@@ -82,8 +82,9 @@ const search = () => {
 
   const fetchPage = async () => {
     try {
+      toast.loading("Fetching new page");
       const response = await axios.get(
-        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&page=${currentPage}&api_key=${API_KEY}`
+        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&page=${currentPage}&api_key=${apikey}`
       );
 
       // TODO: 型定義について
@@ -91,6 +92,10 @@ const search = () => {
         ...prevPageLists,
         ...response.data.results,
       ]);
+      toast.dismiss();
+      toast.success("New page fetched successfully", {
+        duration: 1500, // 1.5秒間表示後に自動的に非表示にする
+      });
     } catch (error) {
       console.log(error);
     }
@@ -118,7 +123,7 @@ const search = () => {
   };
 
   const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
+    return dateString.substring(0, 4);
   };
 
   return (
@@ -126,6 +131,7 @@ const search = () => {
       <Head>
         <title>Search</title>
       </Head>
+      <Toaster />
       <div>
         <Layout>
           <Search

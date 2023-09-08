@@ -16,6 +16,7 @@ import PersonProfileDetail from "@/components/PersonProfileDetail";
 import Medias from "@/components/Medias";
 import { Category, PersonDetail } from "@/src/state/category";
 import Head from "next/head";
+import { Toaster } from "react-hot-toast";
 
 export const personCss = {
   maxWidth: "500px",
@@ -93,6 +94,7 @@ const single_unit = () => {
       );
       setPersonPic(response.data);
       setPersonDetail(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -115,7 +117,7 @@ const single_unit = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <Toaster />
       <div>
         <Layout>
           <Box sx={{ padding: "16px", display: "flex" }}>
