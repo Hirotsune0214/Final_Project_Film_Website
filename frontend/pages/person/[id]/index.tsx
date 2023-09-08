@@ -34,19 +34,18 @@ export const personCss = {
     transition: ".3s ease-in-out",
     position: "relative",
     zIndex: "2",
-
     borderColor: "rgba(11, 64, 188, 0.775)",
   },
   "& .img": {
     width: "100%",
     height: "100%",
     transition: "transform 0.2",
-    border: "5px solid transparent",
+    border: "6px solid transparent",
   },
   "& .text": {
     position: "absolute",
-    width: "95%",
-    height: "98%",
+    width: "98%",
+    height: "99.5%",
     top: 0,
     left: 0,
     textAlign: "center",
@@ -81,6 +80,7 @@ const single_unit = () => {
         `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${apikey}`
       );
 
+      // 映画を取得している
       setPersonCasts(response.data.cast);
     } catch (error) {
       console.log(error);
@@ -94,7 +94,6 @@ const single_unit = () => {
       );
       setPersonPic(response.data);
       setPersonDetail(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }

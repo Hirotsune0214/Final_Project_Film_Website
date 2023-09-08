@@ -38,3 +38,9 @@ export type PersonDetail = Category & {
   biography: string;
   birthday: string;
 };
+
+export type Favorite = Category & {
+  date: string;
+  picture: string;
+  title: string;
+};

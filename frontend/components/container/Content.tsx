@@ -26,13 +26,12 @@ export const hoverCss = {
     width: "100%",
     height: "100%",
     transition: "transform 0.2s",
-    border: "4px solid transparent",
+    border: "5px solid transparent",
   },
   "& .text": {
     position: "absolute",
-    width: "93%",
-    height: "57vh", // main
-    // height: "58vh", // movie and drama
+    width: "93.5%",
+    height: "57.8vh",
     top: 0,
     left: 0,
     textAlign: "center",

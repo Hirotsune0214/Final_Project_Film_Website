@@ -23,7 +23,7 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
 
     toast.dismiss();
     toast.success("New page fetched successfully", {
-      duration: 1500, // 1.5秒間表示後に自動的に非表示にする
+      duration: 1500,
     });
   };
 
@@ -69,19 +69,33 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
             passHref
           >
             <Box key={personCast.title} sx={personCss}>
-              <img
-                className="img"
-                src={`${URL}${personCast.poster_path}`}
-                alt={personCast.title}
-                style={{
-                  width: "95%",
-                  height: "57vh",
-                  objectFit: "cover",
-                  zIndex: "1",
-                  borderRadius: "10px",
-                  marginTop: "20px",
-                }}
-              />
+              {personCast.poster_path ? (
+                <img
+                  className="img"
+                  src={`${URL}${personCast.poster_path}`}
+                  alt={personCast.title}
+                  style={{
+                    width: "97.5%",
+                    height: "65vh",
+                    objectFit: "cover",
+                    zIndex: "1",
+                    borderRadius: "10px",
+                    marginTop: "20px",
+                  }}
+                />
+              ) : (
+                <div
+                  className="img"
+                  style={{
+                    width: "98%",
+                    height: "65vh",
+                    zIndex: "1",
+                    borderRadius: "4px",
+                    backgroundColor: "darkgrey",
+                    marginTop: "15px",
+                  }}
+                ></div>
+              )}
               <Box className="text">
                 <div
                   style={{

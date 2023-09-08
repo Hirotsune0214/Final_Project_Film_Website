@@ -40,16 +40,28 @@ const CastList = ({ casts }: { casts: never[] }) => {
           <SwiperSlide key={cast.id}>
             <Link href={`/person/${cast.id}`} passHref>
               <Box>
-                <img
-                  style={{
-                    width: "175px",
-                    height: "35vh",
-                    objectFit: "cover",
-                    marginTop: "20px",
-                  }}
-                  src={`${URL}${cast.profile_path}`}
-                  alt={cast.name}
-                />
+                {cast.profile_path ? (
+                  <img
+                    style={{
+                      width: "175px",
+                      height: "35vh",
+                      objectFit: "cover",
+                      marginTop: "20px",
+                    }}
+                    src={`${URL}${cast.profile_path}`}
+                    alt={cast.name}
+                  />
+                ) : (
+                  <div
+                    className="img"
+                    style={{
+                      width: "175px",
+                      height: "277px",
+                      marginTop: "20px",
+                      backgroundColor: "darkgrey",
+                    }}
+                  ></div>
+                )}
                 <Box
                   sx={{
                     position: "absolute",

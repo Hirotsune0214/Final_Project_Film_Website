@@ -105,7 +105,7 @@ const Search = ({
           label="Search"
           color="success"
           autoComplete="off"
-          sx={{ width: "700px" }}
+          sx={{ width: "1000px" }}
           value={searchValue}
           onChange={handleSearch}
         />
@@ -154,7 +154,7 @@ const Search = ({
                         <div
                           className="img"
                           style={{
-                            width: "96.5%",
+                            width: "98%",
                             height: "63.8vh",
                             zIndex: "1",
                             borderRadius: "4px",
@@ -237,7 +237,7 @@ const Search = ({
                         <img
                           className="img"
                           style={{
-                            width: "98%",
+                            width: "9%",
                             height: "65vh",
                             objectFit: "cover",
                             zIndex: "1",
@@ -250,7 +250,7 @@ const Search = ({
                         <div
                           className="img"
                           style={{
-                            width: "96.5%",
+                            width: "97%",
                             height: "63.8vh",
                             zIndex: "1",
                             borderRadius: "4px",
@@ -345,7 +345,7 @@ const Search = ({
                         <div
                           className="img"
                           style={{
-                            width: "331px",
+                            width: "330px",
                             height: "64.8vh",
                             zIndex: "1",
                             borderRadius: "8px",

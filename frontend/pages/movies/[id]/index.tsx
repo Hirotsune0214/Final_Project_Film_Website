@@ -28,7 +28,7 @@ export const RecommendCss = {
     position: "relative",
     zIndex: "2",
     // TODO: 下記2つの色の微調整を行う
-    boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.7)",
+    boxShadow: "10px -9px 20px -2px rgba(119,119,119,0.7)",
     borderColor: "rgba(11, 64, 188, 0.775)",
   },
   "& .img": {

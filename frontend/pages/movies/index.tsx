@@ -36,8 +36,8 @@ export const MovieDramaCss = {
   },
   "& .text": {
     position: "absolute",
-    width: "100%",
-    height: "98.5%",
+    width: "99%",
+    height: "98.8%",
     top: 0,
     left: 0,
     textAlign: "center",
@@ -110,7 +110,7 @@ const movies = () => {
       ]);
       toast.dismiss();
       toast.success("New page fetched successfully", {
-        duration: 2000, // 2秒間表示後に自動的に非表示にする
+        duration: 1500, // 1.5秒間表示後に自動的に非表示にする
       });
     } catch (error) {
       console.log(error);

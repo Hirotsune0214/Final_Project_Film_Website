@@ -89,7 +89,6 @@ const HomeMainImage = () => {
               >
                 <div
                   style={{
-                    // TODO: 折り返しているからこれでOK??
                     width: "450px",
                     fontSize: "35px",
                     fontWeight: "bold",

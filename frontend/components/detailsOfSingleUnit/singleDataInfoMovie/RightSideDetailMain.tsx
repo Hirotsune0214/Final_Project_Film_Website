@@ -18,7 +18,7 @@ const RightSideDetailMain = ({
   return (
     <Box>
       <div>
-        <h1 style={{ fontSize: "40px", display: "flex" }}>
+        <h1 style={{ fontSize: "40px", display: "flex", width: "465px" }}>
           {rightSideDetail.original_title}
           <div style={{ marginLeft: "20px" }}>
             {extractYearFromDate(rightSideDetail.release_date)}

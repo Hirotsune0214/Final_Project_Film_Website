@@ -5,7 +5,6 @@ const Favorite = require("../models/Favorite");
 // 特定の映画をfavoriteに格納する
 router.put("/movies/:id", async (req, res) => {
   try {
-    console.log(Number(req.params.id));
     // req.params.idは、指定した映画のidになる
     const favorite = await Favorite.findOne({
       movieId: Number(req.params.id),
@@ -102,6 +101,24 @@ router.get("/user/:userId", async (req, res) => {
       });
     }
     return res.status(200).json({ result });
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+// router.delete("/:id", async (req, res) => {
+//   try {
+//     await Favorite.deleteOne();
+//     return res.status(200).json();
+//   } catch (err) {
+//     return res.status(403).json(err);
+//   }
+// });
+router.delete("/user/:userId", async (req, res) => {
+  try {
+    const favorite = await Favorite.findById(req.params.id);
+    await favorite.deleteOne();
+    return res.status(200);
   } catch (err) {
     return res.status(500).json(err);
   }
