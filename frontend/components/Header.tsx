@@ -2,7 +2,6 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
@@ -45,7 +44,15 @@ export default function Header({ user, setUser }: any) {
         >
           <Typography
             variant="h6"
-            sx={{ ml: "30px", mr: "20px", color: "#252525", fontSize: "25px" }}
+            sx={{
+              ml: "30px",
+              mr: "20px",
+              color: "#252525",
+              fontSize: {
+                lg: "25px",
+                xl: "30px",
+              },
+            }}
           >
             CineReviewHub
           </Typography>
@@ -55,7 +62,10 @@ export default function Header({ user, setUser }: any) {
               backgroundColor: currentUrl === "/" ? "red" : "transparent",
               padding: "9px",
               borderRadius: "10px",
-              fontSize: "15px",
+              fontSize: {
+                lg: "15px",
+                xl: "18px",
+              },
               "&:hover": {
                 backgroundColor: "red",
                 opacity: "0.7",
@@ -79,7 +89,10 @@ export default function Header({ user, setUser }: any) {
               backgroundColor: currentUrl === "/movies" ? "red" : "transparent",
               padding: "9px",
               borderRadius: "10px",
-              fontSize: "15px",
+              fontSize: {
+                lg: "15px",
+                xl: "18px",
+              },
               "&:hover": {
                 color: "black",
                 backgroundColor: "red",
@@ -104,7 +117,10 @@ export default function Header({ user, setUser }: any) {
               backgroundColor: currentUrl === "/dramas" ? "red" : "transparent",
               padding: "9px",
               borderRadius: "10px",
-              fontSize: "15px",
+              fontSize: {
+                lg: "15px",
+                xl: "18px",
+              },
               "&:hover": {
                 backgroundColor: "red",
                 opacity: "0.7",
@@ -128,7 +144,10 @@ export default function Header({ user, setUser }: any) {
               backgroundColor: currentUrl === "/search" ? "red" : "transparent",
               padding: "9px",
               borderRadius: "10px",
-              fontSize: "15px",
+              fontSize: {
+                lg: "15px",
+                xl: "18px",
+              },
               "&:hover": {
                 backgroundColor: "red",
                 opacity: "0.7",
@@ -164,20 +183,20 @@ export default function Header({ user, setUser }: any) {
                   backgroundColor: "red",
                   opacity: "0.7",
                 },
-              }}
-            >
-              <Link
-                href="/login"
-                style={{
+                // TODO: 書き方について
+                "& a": {
                   textDecoration: "none",
                   color: "#252525",
                   letterSpacing: "1.0px",
-                  fontSize: "13px",
+                  fontSize: {
+                    lg: "13px",
+                    xl: "15px",
+                  },
                   padding: "2px",
-                }}
-              >
-                LOGIN
-              </Link>
+                },
+              }}
+            >
+              <Link href="/login">LOGIN</Link>
             </Button>
           )}
         </Box>
