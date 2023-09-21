@@ -17,6 +17,7 @@ type Props = {
   searchValue: string;
   searchResults: never[];
   extractYearFromDate: (dateString: string) => string;
+  // canLoadMore: boolean;
 };
 
 const Search = ({
@@ -27,6 +28,7 @@ const Search = ({
   searchValue,
   searchResults,
   extractYearFromDate,
+  // canLoadMore,
 }: Props) => {
   const URL = process.env.NEXT_PUBLIC_IMAGE_780;
 
@@ -162,9 +164,9 @@ const Search = ({
         }}
       >
         <TextField
-          label="Search"
-          color="success"
-          autoComplete="off"
+          label='Search'
+          color='success'
+          autoComplete='off'
           sx={{
             width: { xs: "360px", md: "800px", lg: "1000px", xl: "1290px" },
             marginBottom: {
@@ -238,8 +240,8 @@ const Search = ({
                     >
                       {searchResult.poster_path ? (
                         <Box
-                          component="img"
-                          className="image"
+                          component='img'
+                          className='image'
                           sx={{
                             width: {
                               xs: "100%",
@@ -262,8 +264,8 @@ const Search = ({
                         ></Box>
                       ) : (
                         <Box
-                          component="img"
-                          className="image"
+                          component='img'
+                          className='image'
                           sx={{
                             width: {
                               md: "97%",
@@ -283,7 +285,7 @@ const Search = ({
                         ></Box>
                       )}
 
-                      <Box className="text">
+                      <Box className='text'>
                         <Box
                           sx={{
                             display: "flex",
@@ -296,8 +298,8 @@ const Search = ({
                           }}
                         >
                           <CircularProgress
-                            variant="determinate"
-                            color="success"
+                            variant='determinate'
+                            color='success'
                             value={searchResult.vote_average * 10}
                             style={{ width: "40px" }}
                           />
@@ -382,8 +384,8 @@ const Search = ({
                     >
                       {searchResult.poster_path ? (
                         <Box
-                          component="img"
-                          className="image"
+                          component='img'
+                          className='image'
                           sx={{
                             width: {
                               md: "100%",
@@ -404,8 +406,8 @@ const Search = ({
                         ></Box>
                       ) : (
                         <Box
-                          component="img"
-                          className="image"
+                          component='img'
+                          className='image'
                           sx={{
                             width: {
                               md: "97%",
@@ -424,7 +426,7 @@ const Search = ({
                           }}
                         ></Box>
                       )}
-                      <Box className="text">
+                      <Box className='text'>
                         <Box
                           sx={{
                             display: "flex",
@@ -437,8 +439,8 @@ const Search = ({
                           }}
                         >
                           <CircularProgress
-                            variant="determinate"
-                            color="success"
+                            variant='determinate'
+                            color='success'
                             value={searchResult.vote_average * 10}
                             style={{ width: "40px" }}
                           />
@@ -523,8 +525,8 @@ const Search = ({
                     >
                       {searchResult.profile_path ? (
                         <Box
-                          component="img"
-                          className="image"
+                          component='img'
+                          className='image'
                           sx={{
                             width: "100%",
                             height: {
@@ -541,8 +543,8 @@ const Search = ({
                         ></Box>
                       ) : (
                         <Box
-                          component="img"
-                          className="image"
+                          component='img'
+                          className='image'
                           sx={{
                             width: {
                               md: "255px",
@@ -593,6 +595,7 @@ const Search = ({
             ))}
           </Box>
         </Box>
+        {/* {searchResults.length > 0 && canLoadMore ? ( */}
         {searchResults.length > 0 ? (
           <Box
             sx={{

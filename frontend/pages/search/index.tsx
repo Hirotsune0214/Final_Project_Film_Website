@@ -68,6 +68,7 @@ const search = () => {
   const [category, setCategory] = useState("movie");
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [canLoadMore, setCanLoadMore] = useState(true);
 
   const fetchSearch = async () => {
     try {
@@ -76,6 +77,13 @@ const search = () => {
       );
       setSearchResults(response.data.results);
 
+      // if (response.data.total_pages === currentPage) {
+      //   setCanLoadMore(false);
+      //   toast.dismiss();
+      //   toast.success("All data is loaded", {
+      //     duration: 1500, // 1.5秒間表示後に自動的に非表示にする
+      //   });
+      // }
       // isLoadingで切り替え
     } catch (error) {
       console.log(error);
@@ -92,6 +100,25 @@ const search = () => {
       const response = await axios.get(
         `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&page=${currentPage}&api_key=${apikey}`
       );
+
+      // pattern1 APIにデータをとりに行って結果が0件かどうかで判別する方法
+      // if (!response.data.results.length) {
+      //   setCanLoadMore(false);
+      //   toast.dismiss();
+      //   toast.success("All data is loaded", {
+      //     duration: 1500, // 1.5秒間表示後に自動的に非表示にする
+      //   });
+      //   return;
+      // }
+
+      // pattern2 APIで取得したデータに含まれる total_page を使う方法
+      // if (response.data.total_pages >= currentPage) {
+      //   setCanLoadMore(false);
+      //   toast.dismiss();
+      //   toast.success("All data is loaded", {
+      //     duration: 1500, // 1.5秒間表示後に自動的に非表示にする
+      //   });
+      // }
 
       // TODO: 型定義について
       setSearchResults((prevPageLists) => [
@@ -148,6 +175,7 @@ const search = () => {
             searchValue={searchValue}
             searchResults={searchResults}
             extractYearFromDate={extractYearFromDate}
+            // canLoadMore={canLoadMore}
           />
         </Layout>
       </div>
