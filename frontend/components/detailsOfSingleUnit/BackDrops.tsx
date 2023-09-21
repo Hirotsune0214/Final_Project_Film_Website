@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,61 +12,88 @@ const BackDrops = ({ backdrops }: { backdrops: never[] }) => {
   const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
 
   return (
-    <div>
-      <h1
-        style={{
-          display: "inline-block",
-          position: "relative",
-          margin: "20px 0",
-        }}
-      >
-        BACK DROPS
-        <span
-          style={{
-            position: "absolute",
-            bottom: "-10px",
-            left: "0",
-            width: "90%",
-            borderBottom: "7px solid red",
-            borderRadius: "20px",
+    <Box
+      sx={{
+        position: "relative",
+        top: {
+          md: "15rem",
+          lg: "10rem",
+          xl: "15rem",
+        },
+        left: {
+          xl: "7%",
+        },
+      }}
+    >
+      <Box sx={{ display: "inline-block" }}>
+        <Typography
+          sx={{
+            fontSize: {
+              md: "22px",
+              lg: "24px",
+              xl: "25px",
+            },
+            fontWeight: {
+              md: "bold",
+              lg: "bold",
+              xl: "bold",
+            },
+            letterSpacing: "0.5px",
           }}
-        ></span>
-      </h1>
-      <Swiper
-        slidesPerView={1}
-        grabCursor={true}
-        direction="horizontal"
-        navigation={true}
-        modules={[Navigation, Pagination]}
-        pagination={{
-          dynamicBullets: true,
-          // clickable: true,
-        }}
-      >
-        {backdrops.map((backdrop: Movie) => (
-          <SwiperSlide key={backdrop.file_path}>
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "750px",
-              }}
-            >
-              <img
-                style={{
-                  width: "1150px",
-                  objectFit: "cover",
-                  height: "680px",
+        >
+          BACK DROPS
+          <span
+            style={{
+              position: "absolute",
+              top: "2rem",
+              left: "0",
+              width: "9%",
+              borderBottom: "7px solid red",
+              borderRadius: "20px",
+            }}
+          ></span>
+        </Typography>
+      </Box>
+      <Box sx={{ width: "1300px" }}>
+        <Swiper
+          slidesPerView={1}
+          grabCursor={true}
+          direction="horizontal"
+          navigation={true}
+          modules={[Navigation, Pagination]}
+          pagination={{
+            dynamicBullets: true,
+          }}
+        >
+          {backdrops.map((backdrop: Movie) => (
+            <SwiperSlide key={backdrop.file_path}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: {
+                    md: "600px",
+                    lg: "630px",
+                    xl: "77vh",
+                  },
                 }}
-                src={`${URL}${backdrop.file_path}`}
-                alt={backdrop.title}
-              />
-            </Box>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+              >
+                <img
+                  style={{
+                    width: "1000px",
+                    height: "530px",
+                    objectFit: "contain",
+                  }}
+                  src={`${URL}${backdrop.file_path}`}
+                  alt={backdrop.title}
+                />
+              </Box>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+    </Box>
   );
 };
 

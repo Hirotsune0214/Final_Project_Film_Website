@@ -34,11 +34,23 @@ const Search = ({
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div
-      style={{
-        backgroundColor: "#F5F5F5",
+    <Box
+      sx={{
+        // width: "100%",
+        padding: {
+          xs: "16px",
+          md: "16px",
+          lg: "17px",
+          xl: "20px",
+        },
+        backgroundColor: "#ebebeb",
         height: "100%",
-        minHeight: "700px",
+        minHeight: {
+          xs: "600px",
+          md: "540px",
+          lg: "700px",
+          xl: "800px",
+        },
       }}
     >
       <Box
@@ -46,6 +58,12 @@ const Search = ({
           display: "flex",
           justifyContent: "center",
           gap: "10px",
+          position: "relative",
+          top: {
+            xs: "4.5rem",
+            md: "4rem",
+            lg: "4rem",
+          },
         }}
       >
         <Button
@@ -53,8 +71,22 @@ const Search = ({
           sx={{
             backgroundColor: category === "movie" ? "red" : "transparent",
             color: category === "movie" ? "#ffffff" : "#000000",
-            padding: "15px",
-            marginTop: "15px",
+            padding: {
+              xs: "12px 22px",
+              lg: "0px 15px",
+              xl: "5px",
+            },
+            // marginTop: "15px",
+            fontSize: {
+              xs: "13px",
+              lg: "14px",
+              xl: "15px",
+            },
+            letterSpacing: {
+              xs: "1.5px",
+              lg: "0.8x",
+              xl: "1px",
+            },
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8,
@@ -68,8 +100,22 @@ const Search = ({
           sx={{
             backgroundColor: category === "tv" ? "red" : "transparent",
             color: category === "tv" ? "#ffffff" : "#000000",
-            padding: "15px",
-            marginTop: "15px",
+            padding: {
+              xs: "12px 22px",
+              lg: "15px",
+              xl: "15px",
+            },
+            // marginTop: "15px",
+            fontSize: {
+              xs: "13px",
+              lg: "14px",
+              xl: "15px",
+            },
+            letterSpacing: {
+              xs: "0.8px",
+              lg: "0.8x",
+              xl: "1px",
+            },
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8,
@@ -83,8 +129,22 @@ const Search = ({
           sx={{
             backgroundColor: category === "person" ? "red" : "transparent",
             color: category === "person" ? "#ffffff" : "#000000",
-            padding: "15px",
-            marginTop: "15px",
+            padding: {
+              xs: "12px 22px",
+              lg: "15px",
+              xl: "15px",
+            },
+            // marginTop: "15px",
+            fontSize: {
+              xs: "13px",
+              lg: "14px",
+              xl: "15px",
+            },
+            letterSpacing: {
+              xs: "0.8px",
+              lg: "0.8x",
+              xl: "1px",
+            },
             ":hover": {
               backgroundColor: "red",
               opacity: 0.8,
@@ -105,21 +165,60 @@ const Search = ({
           label="Search"
           color="success"
           autoComplete="off"
-          sx={{ width: "1000px" }}
+          sx={{
+            width: { xs: "360px", md: "800px", lg: "1000px", xl: "1290px" },
+            marginBottom: {
+              xl: "10px",
+            },
+            position: "relative",
+            top: {
+              xs: "4rem",
+              md: "3.5rem",
+              lg: "3rem",
+            },
+          }}
           value={searchValue}
           onChange={handleSearch}
         />
       </Box>
 
-      <Box sx={{ mt: "30px", padding: "16px" }}>
-        <div>
-          <div
-            style={{
+      <Box
+        sx={{
+          mt: {
+            lg: "35px",
+          },
+          padding: {
+            lg: "16px 30px",
+            xl: "16px 30px",
+          },
+        }}
+      >
+        <Box>
+          <Box
+            sx={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gridGap: "5px",
-              rowGap: "48px",
+              gridTemplateColumns: {
+                xs: "repeat(2, 1fr)",
+                md: "repeat(3, 1fr)",
+                lg: "repeat(4, 1fr)",
+                xl: "repeat(4, 1fr)",
+              },
+              gridGap: {
+                md: "10px",
+                lg: "5px",
+                xl: "10px",
+              },
+              rowGap: {
+                xs: "5px",
+                md: "5px",
+                lg: "30px",
+                xl: "45px",
+              },
               cursor: "pointer",
+              marginTop: {
+                md: "75px",
+                lg: "50px",
+              },
             }}
           >
             {/* isLoadingのステートが変わったら表示するようにする */}
@@ -138,35 +237,55 @@ const Search = ({
                       sx={SearchCss}
                     >
                       {searchResult.poster_path ? (
-                        <img
-                          className="img"
-                          style={{
-                            width: "98%",
-                            height: "65vh",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              xs: "100%",
+                              md: "100%",
+                              lg: "100%",
+                              xl: "100%",
+                            },
+                            height: {
+                              xs: "70vh",
+                              md: "75vh",
+                              lg: "65vh",
+                              xl: "70vh",
+                            },
                             objectFit: "cover",
                             zIndex: "1",
                             borderRadius: "10px",
                           }}
                           src={`${URL}${searchResult.poster_path}`}
                           alt={searchResult.original_name}
-                        />
+                        ></Box>
                       ) : (
-                        <div
-                          className="img"
-                          style={{
-                            width: "98%",
-                            height: "63.8vh",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              md: "97%",
+                              lg: "96%",
+                              xl: "99%",
+                            },
+                            height: {
+                              md: "73.5vh",
+                              lg: "63.6vh",
+                              xl: "68.8vh",
+                            },
                             zIndex: "1",
                             borderRadius: "4px",
                             backgroundColor: "darkgrey",
-                            marginTop: "6px",
+                            margin: "5px 0 0 5px",
                           }}
-                        ></div>
+                        ></Box>
                       )}
 
                       <Box className="text">
-                        <div
-                          style={{
+                        <Box
+                          sx={{
                             display: "flex",
                             flexDirection: "column",
                             position: "absolute",
@@ -182,8 +301,8 @@ const Search = ({
                             value={searchResult.vote_average * 10}
                             style={{ width: "40px" }}
                           />
-                          <div
-                            style={{
+                          <Box
+                            sx={{
                               position: "fixed",
                               display: "flex",
                               alignItems: "center",
@@ -191,7 +310,11 @@ const Search = ({
                               width: "40px",
                               height: "40px",
                               color: "white",
-                              fontSize: "18px",
+                              fontSize: {
+                                md: "15px",
+                                lg: "14px",
+                                xl: "15px",
+                              },
                               fontWeight: "100",
                               left: "20px",
                             }}
@@ -199,25 +322,49 @@ const Search = ({
                             {searchResult.vote_average
                               ? searchResult.vote_average.toFixed(1)
                               : searchResult.vote_average}
-                          </div>
-                          <div style={{ marginTop: "8px" }}>
+                          </Box>
+                          <Box
+                            sx={{
+                              marginTop: {
+                                lg: "12px",
+                                xl: "13px",
+                              },
+                              fontSize: {
+                                md: "17px",
+                                lg: "15px",
+                                xl: "17px",
+                              },
+                            }}
+                          >
                             {searchResult.release_date &&
                               extractYearFromDate(searchResult.release_date)}
-                          </div>
-                          <div
-                            style={{
+                          </Box>
+                          <Box
+                            sx={{
                               alignSelf: "center",
                               whiteSpace: "nowrap",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
-                              maxWidth: "250px",
+                              maxWidth: {
+                                md: "220px",
+                                lg: "200px",
+                                xl: "250px",
+                              },
                               fontWeight: "300",
-                              marginTop: "8px",
+                              marginTop: {
+                                lg: "12px",
+                                xl: "13px",
+                              },
+                              fontSize: {
+                                md: "17px",
+                                lg: "16px",
+                                xl: "17px",
+                              },
                             }}
                           >
                             {searchResult.title}
-                          </div>
-                        </div>
+                          </Box>
+                        </Box>
                       </Box>
                     </Box>
                   </Link>
@@ -234,34 +381,52 @@ const Search = ({
                       sx={SearchCss}
                     >
                       {searchResult.poster_path ? (
-                        <img
-                          className="img"
-                          style={{
-                            width: "9%",
-                            height: "65vh",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              md: "100%",
+                              lg: "100%",
+                              xl: "100%",
+                            },
+                            height: {
+                              md: "75vh",
+                              lg: "65vh",
+                              xl: "70vh",
+                            },
                             objectFit: "cover",
                             zIndex: "1",
                             borderRadius: "10px",
                           }}
                           src={`${URL}${searchResult.poster_path}`}
                           alt={searchResult.original_name}
-                        />
+                        ></Box>
                       ) : (
-                        <div
-                          className="img"
-                          style={{
-                            width: "97%",
-                            height: "63.8vh",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              md: "97%",
+                              lg: "96%",
+                              xl: "99%",
+                            },
+                            height: {
+                              md: "73.5vh",
+                              lg: "63.6vh",
+                              xl: "68.8vh",
+                            },
                             zIndex: "1",
                             borderRadius: "4px",
                             backgroundColor: "darkgrey",
-                            marginTop: "6px",
+                            margin: "5px 0 0 5px",
                           }}
-                        ></div>
+                        ></Box>
                       )}
                       <Box className="text">
-                        <div
-                          style={{
+                        <Box
+                          sx={{
                             display: "flex",
                             flexDirection: "column",
                             position: "absolute",
@@ -277,8 +442,8 @@ const Search = ({
                             value={searchResult.vote_average * 10}
                             style={{ width: "40px" }}
                           />
-                          <div
-                            style={{
+                          <Box
+                            sx={{
                               position: "fixed",
                               display: "flex",
                               alignItems: "center",
@@ -286,7 +451,11 @@ const Search = ({
                               width: "40px",
                               height: "40px",
                               color: "white",
-                              fontSize: "18px",
+                              fontSize: {
+                                md: "15px",
+                                lg: "14px",
+                                xl: "15px",
+                              },
                               fontWeight: "100",
                               left: "20px",
                             }}
@@ -297,25 +466,49 @@ const Search = ({
                             {searchResult.vote_average
                               ? searchResult.vote_average.toFixed(1)
                               : searchResult.vote_average}
-                          </div>
-                          <div style={{ marginTop: "8px" }}>
+                          </Box>
+                          <Box
+                            sx={{
+                              marginTop: {
+                                lg: "12px",
+                                xl: "13px",
+                              },
+                              fontSize: {
+                                md: "17px",
+                                lg: "16px",
+                                xl: "17px",
+                              },
+                            }}
+                          >
                             {searchResult.first_air_date &&
                               extractYearFromDate(searchResult.first_air_date)}
-                          </div>
-                          <div
-                            style={{
+                          </Box>
+                          <Box
+                            sx={{
                               alignSelf: "center",
                               whiteSpace: "nowrap",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
-                              maxWidth: "250px",
+                              maxWidth: {
+                                md: "220px",
+                                lg: "235px",
+                                xl: "250px",
+                              },
                               fontWeight: "300",
-                              marginTop: "8px",
+                              marginTop: {
+                                lg: "12px",
+                                xl: "13px",
+                              },
+                              fontSize: {
+                                md: "17px",
+                                lg: "16px",
+                                xl: "17px",
+                              },
                             }}
                           >
                             {searchResult.name}
-                          </div>
-                        </div>
+                          </Box>
+                        </Box>
                       </Box>
                     </Box>
                   </Link>
@@ -329,43 +522,66 @@ const Search = ({
                       }}
                     >
                       {searchResult.profile_path ? (
-                        <img
-                          className="img"
-                          style={{
-                            width: "98%",
-                            height: "65vh",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: "100%",
+                            height: {
+                              md: "69.5vh",
+                              lg: "65vh",
+                              xl: "63vh",
+                            },
                             objectFit: "cover",
                             zIndex: "1",
                             borderRadius: "10px",
                           }}
                           src={`${URL}${searchResult.profile_path}`}
                           alt={searchResult.original_name}
-                        />
+                        ></Box>
                       ) : (
-                        <div
-                          className="img"
-                          style={{
-                            width: "330px",
-                            height: "64.8vh",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              md: "255px",
+                              lg: "255px",
+                              xl: "330px",
+                            },
+                            height: {
+                              md: "69.5vh",
+                              lg: "65vh",
+                              xl: "63vh",
+                            },
                             zIndex: "1",
-                            borderRadius: "8px",
-                            marginTop: "2px",
+                            borderRadius: "10px",
                             backgroundColor: "darkgrey",
+                            margin: "0 0 0 5px",
                           }}
-                        ></div>
+                        ></Box>
                       )}
+
                       <Box
                         sx={{
                           position: "absolute",
-                          width: "98.3%",
+                          left: 2,
+                          width: "99%",
                           height: "max-content",
                           bottom: "4px",
                           padding: "15px 0",
                           backgroundColor: "rgba(0, 0, 0, 0.6)",
                           color: "rgba(219, 219, 219, 0.9)",
-                          fontSize: "23px",
+                          fontSize: {
+                            xs: "19px",
+                            lg: "23px",
+                            xl: "23px",
+                          },
                           textAlign: "center",
                           borderRadius: "10px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
                         }}
                       >
                         <div>{searchResult.original_name}</div>
@@ -375,21 +591,29 @@ const Search = ({
                 )}
               </div>
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
         {searchResults.length > 0 ? (
-          <div
-            style={{
+          <Box
+            sx={{
               display: "flex",
               justifyContent: "center",
               textAlign: "center",
-              marginTop: "45px",
+              marginTop: {
+                xs: "15px",
+                lg: "45px",
+                xl: "45px",
+              },
             }}
           >
             <Button
               sx={{
                 color: "#FF0000",
-                fontSize: "20px",
+                fontSize: {
+                  xs: "14px",
+                  lg: "16px",
+                  xl: "15px",
+                },
                 fontWeight: "bold",
                 ":hover": {
                   color: "white",
@@ -401,10 +625,10 @@ const Search = ({
             >
               LOAD MORE
             </Button>
-          </div>
+          </Box>
         ) : null}
       </Box>
-    </div>
+    </Box>
   );
 };
 

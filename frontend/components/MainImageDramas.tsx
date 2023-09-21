@@ -17,6 +17,20 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
   const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
 
   const dramaButton = {
+    width: {
+      xs: "250px",
+      md: "170px",
+      lg: "170px",
+      xl: "180px",
+    },
+    height: {
+      lg: "45px",
+      xl: "55px",
+    },
+    fontSize: {
+      md: "15px",
+      xl: "17px",
+    },
     color: "white",
     backgroundColor: "#FF0D01",
     padding: "10px",
@@ -33,17 +47,26 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
         {dramas.map((drama: Drama) => (
           <SwiperSlide key={drama.id}>
-            <div
-              style={{
+            <Box
+              sx={{
                 backgroundImage: `URL(${URL}${drama.backdrop_path})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
-                height: "100vh",
+                width: "100%",
+                height: {
+                  xs: "50vh",
+                  md: "100vh",
+                  lg: "100vh",
+                  xl: "100vh",
+                },
                 position: "relative",
+                top: {
+                  md: "4rem",
+                },
               }}
             >
-              <div
-                style={{
+              <Box
+                sx={{
                   width: "100%",
                   height: "100%",
                   position: "absolute",
@@ -52,7 +75,7 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                   backgroundImage:
                     "linear-gradient(to right, rgb(245, 245, 245), rgba(0, 0, 0, 0))",
                 }}
-              ></div>
+              ></Box>
               <Box
                 sx={{
                   position: "absolute",
@@ -68,16 +91,26 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                   alignItems: "flex-start",
                 }}
               >
-                <div
-                  style={{
-                    width: "450px",
-                    fontSize: "35px",
+                <Box
+                  sx={{
+                    fontSize: {
+                      xs: "100px",
+                      md: "35px", // tablet
+                      lg: "40px", // laptop
+                      xl: "70px", // monitor
+                    },
+                    width: {
+                      md: "900px",
+                      lg: "550px",
+                      xl: "740px",
+                    },
+
                     fontWeight: "bold",
                     textAlign: "left",
                   }}
                 >
                   {drama.name}
-                </div>
+                </Box>
                 <Box
                   style={{
                     fontSize: "20px",
@@ -93,26 +126,46 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                     value={drama.vote_average * 10}
                     style={{ width: "50px", marginTop: "32px" }}
                   />
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       position: "absolute",
                       top: "73%",
                       left: "60%",
-                      // TODO: x軸とy軸に移動させる
-                      transform: "translate(-50%, -50%)", // 中央に寄せる
+                      transform: "translate(-50%, -50%)",
                       color: "black",
-                      fontSize: "18px",
+                      fontSize: {
+                        md: "15px",
+                        lg: "16px",
+                        xl: "15px",
+                      },
                       fontWeight: "700",
                     }}
                   >
                     {drama.vote_average}
-                  </div>
+                  </Box>
                 </Box>
-                <div
-                  style={{
-                    width: "450px",
-                    fontSize: "20px",
-                    fontWeight: "400",
+                <Box
+                  sx={{
+                    fontSize: {
+                      md: "16px",
+                      lg: "19px",
+                      xl: "21px",
+                    },
+                    width: {
+                      md: "800px",
+                      lg: "450px",
+                      xl: "700px",
+                    },
+                    lineHeight: {
+                      md: "30px",
+                      lg: "25px",
+                      xl: "35px",
+                    },
+                    fontWeight: {
+                      md: "lighter",
+                      lg: "400",
+                      xl: "530",
+                    },
                     letterSpacing: "0.02000em",
                     // margin: "32px 0 0 50px",
                     marginTop: "32px",
@@ -126,7 +179,7 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                   }}
                 >
                   {drama.overview}
-                </div>
+                </Box>
                 <Link href={`/dramas/${drama.id}`} passHref>
                   <Button sx={dramaButton}>
                     <PlayArrowIcon />
@@ -134,7 +187,7 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                   </Button>
                 </Link>
               </Box>
-            </div>
+            </Box>
           </SwiperSlide>
         ))}
       </Swiper>

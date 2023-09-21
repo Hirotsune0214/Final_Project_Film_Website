@@ -90,7 +90,19 @@ like
 
   return (
     <>
-      <div>
+      <Box
+        sx={{
+          position: "relative",
+          top: {
+            md: "15rem",
+            lg: "12rem",
+            xl: "15rem",
+          },
+          left: {
+            xl: "7%",
+          },
+        }}
+      >
         <ReviewArea
           reviews={reviews}
           id={id}
@@ -146,7 +158,7 @@ like
             </form>
           </Box>
         ) : null}
-      </div>
+      </Box>
     </>
   );
 };

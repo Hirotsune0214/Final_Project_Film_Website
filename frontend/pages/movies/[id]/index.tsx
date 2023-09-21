@@ -22,7 +22,7 @@ export const RecommendCss = {
   "&:hover .text": {
     opacity: 1,
   },
-  "&:hover .img": {
+  "&:hover .image": {
     transform: "scale(1.05) translateY(-10px)",
     transition: ".3s ease-in-out",
     position: "relative",
@@ -31,9 +31,7 @@ export const RecommendCss = {
     boxShadow: "10px -9px 20px -2px rgba(119,119,119,0.7)",
     borderColor: "rgba(11, 64, 188, 0.775)",
   },
-  "& .img": {
-    width: "100%",
-    height: "100%",
+  "& .image": {
     transition: "transform 0.2s",
     border: "4px solid transparent",
   },
@@ -130,7 +128,13 @@ const single_unit = () => {
       <div>
         <Toaster />
         <Layout>
-          <Box sx={{ backgroundColor: "#F5F5F5", padding: "20px" }}>
+          <Box
+            sx={{
+              backgroundColor: "#dc6969",
+              padding: "20px",
+              height: "100%",
+            }}
+          >
             <SinglePageInfo id={id} />
             <Videos videos={videos} />
             <BackDrops backdrops={backdrops} />

@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 import Link from "next/link";
 
-import Movies from "@/src/state/main/movies";
+import { Movie } from "@/src/state/category";
 import { hoverCss } from "./Content";
 
 /******************************************************************************************/
@@ -42,17 +42,29 @@ const TopRatedMovies = ({
 
   return (
     <div>
-      <h1
-        style={{
+      <Typography
+        component="h1"
+        sx={{
           display: "inline-block",
           position: "relative",
+          fontSize: {
+            xs: "22px",
+            md: "22px",
+          },
+          margin: {
+            xs: "30px 0 0 35px",
+          },
+          fontWeight: {
+            xs: 550,
+            md: "bold",
+          },
         }}
       >
         TOP RATED MOVIES
         <span
           style={{
             position: "absolute",
-            bottom: "-10px",
+            bottom: "-5px",
             left: "0",
             width: "45%",
             borderBottom: "7px solid red",
@@ -60,9 +72,29 @@ const TopRatedMovies = ({
             borderRadius: "20px",
           }}
         ></span>
-      </h1>
-      <Swiper slidesPerView={4} grabCursor={true} direction="horizontal">
-        {movies.map((movie: Movies) => (
+      </Typography>
+      <Swiper
+        slidesPerView={4}
+        breakpoints={{
+          375: {
+            slidesPerView: 2,
+          },
+          520: {
+            slidesPerView: 3,
+          },
+          // 960px以上(laptop)になると3になる
+          960: {
+            slidesPerView: 4,
+          },
+          // 1200px(monitor)以上になると5になる
+          1200: {
+            slidesPerView: 5,
+          },
+        }}
+        grabCursor={true}
+        direction="horizontal"
+      >
+        {movies.map((movie: Movie) => (
           <SwiperSlide key={movie.id}>
             <Link href={`/movies/${movie.id}`} passHref>
               <Box
@@ -74,25 +106,42 @@ const TopRatedMovies = ({
                 }}
                 sx={hoverCss}
               >
-                <img
-                  className="img"
-                  style={{
-                    width: "92%",
-                    height: "60vh",
+                <Box
+                  component="img"
+                  className="image"
+                  sx={{
+                    width: {
+                      xs: "97%",
+                      md: "100%",
+                      lg: "92%",
+                      xl: "91.5%",
+                    },
+                    height: {
+                      xs: "41vh",
+                      md: "73vh",
+                      lg: "58vh",
+                      xl: "50vh",
+                    },
                     zIndex: "1",
-                    margin: "50px 0 25px 10.5px",
+                    margin: {
+                      xs: "30px  0",
+                      md: "30px 0 10px 0px",
+                      lg: "50px 0 20px 5.5px",
+                    },
                     borderRadius: "10px",
                   }}
                   src={`${URL}${movie.poster_path}`}
                   alt={movie.title}
-                />
+                ></Box>
                 <Box className="text">
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       display: "flex",
                       flexDirection: "column",
                       position: "absolute",
-                      bottom: "25px",
+                      bottom: {
+                        lg: "20px",
+                      },
                       left: "20px",
                       fontSize: "20px",
                       textAlign: "left",
@@ -104,8 +153,8 @@ const TopRatedMovies = ({
                       value={movie.vote_average * 10}
                       style={{ width: "40px" }}
                     />
-                    <div
-                      style={{
+                    <Box
+                      sx={{
                         position: "fixed",
                         display: "flex",
                         alignItems: "center",
@@ -113,30 +162,67 @@ const TopRatedMovies = ({
                         width: "40px",
                         height: "40px",
                         color: "white",
-                        fontSize: "18px",
-                        fontWeight: "100",
+                        fontSize: {
+                          lg: "15px",
+                          xl: "14px",
+                        },
+                        fontWeight: {
+                          lg: "300",
+                          xl: "300",
+                        },
                         left: "20px",
                       }}
                     >
                       {movie.vote_average}
-                    </div>
-                    <div style={{ marginTop: "8px" }}>
+                    </Box>
+                    <Box
+                      sx={{
+                        marginTop: {
+                          lg: "12px",
+                          xl: "15px",
+                        },
+                        fontSize: {
+                          lg: "15px",
+                          xl: "16px",
+                        },
+                        fontWeight: {
+                          lg: "300",
+                          xl: "300",
+                        },
+                      }}
+                    >
                       {extractYearFromDate(movie.release_date)}
-                    </div>
-                    <div
-                      style={{
-                        alignSelf: "center",
+                    </Box>
+                    <Box
+                      sx={{
+                        alignSelf: {
+                          md: "start",
+                          lg: "start",
+                          xl: "start",
+                        },
+                        fontSize: {
+                          lg: "15px",
+                          xl: "16px",
+                        },
                         whiteSpace: "nowrap",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
-                        maxWidth: "250px",
-                        fontWeight: "300",
-                        marginTop: "8px",
+                        maxWidth: {
+                          lg: "200px",
+                          xl: "220px",
+                        },
+                        fontWeight: {
+                          lg: "300",
+                        },
+                        marginTop: {
+                          lg: "12px",
+                          xl: "15px",
+                        },
                       }}
                     >
                       {movie.title}
-                    </div>
-                  </div>
+                    </Box>
+                  </Box>
                 </Box>
               </Box>
             </Link>

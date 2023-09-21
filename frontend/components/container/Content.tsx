@@ -4,6 +4,7 @@ import PopularMSeries from "./PopularSeries";
 import PopularMovies from "./PopularMovies";
 import TopRatedMovies from "./TopRatedMovies";
 import TopRatedSeries from "./TopRatedSeries";
+import { Box } from "@mui/material";
 
 export const hoverCss = {
   maxWidth: "500px",
@@ -14,7 +15,7 @@ export const hoverCss = {
   "&:hover .text": {
     opacity: 1,
   },
-  "&:hover .img": {
+  "&:hover .image": {
     transform: "scale(1.05) translateY(-10px)",
     transition: ".3s ease-in-out",
     position: "relative",
@@ -22,18 +23,22 @@ export const hoverCss = {
     boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
     borderColor: "rgba(242, 30, 30, 0.8)",
   },
-  "& .img": {
-    width: "100%",
-    height: "100%",
+  "& .image": {
     transition: "transform 0.2s",
     border: "5px solid transparent",
   },
   "& .text": {
     position: "absolute",
-    width: "93.5%",
-    height: "57.8vh",
+    width: {
+      lg: "94%",
+      xl: "92%",
+    },
+    height: {
+      lg: "55.1vh",
+      xl: "47.8vh",
+    },
     top: 0,
-    left: 0,
+    left: -1,
     textAlign: "center",
     color: "#fff",
     background:
@@ -60,12 +65,22 @@ const Content = () => {
 
   return (
     <>
-      <div style={{ padding: "45px", backgroundColor: "#F5F5F5" }}>
+      <Box
+        sx={{
+          padding: {
+            xs: "16px",
+            md: "20px",
+            lg: "20px",
+            xl: "45px",
+          },
+          backgroundColor: "#ebebeb",
+        }}
+      >
         <PopularMovies extractYearFromDate={extractYearFromDate} />
         <PopularMSeries extractYearFromDate={extractYearFromDate} />
         <TopRatedMovies extractYearFromDate={extractYearFromDate} />
         <TopRatedSeries extractYearFromDate={extractYearFromDate} />
-      </div>
+      </Box>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -22,72 +22,109 @@ const Videos = ({ videos }: { videos: never[] }) => {
   const firstFiveVideos = videos.slice(0, 5);
 
   return (
-    <div id="sectionVideo">
-      <h1
-        style={{
+    <Box
+      id="sectionVideo"
+      sx={{
+        position: "relative",
+        top: {
+          md: "12rem",
+          lg: "8rem",
+          xl: "10rem",
+        },
+        left: {
+          xl: "7%",
+        },
+      }}
+    >
+      <Box
+        sx={{
           display: "inline-block",
-          position: "relative",
         }}
       >
-        VIDEOS
-        <span
-          style={{
-            position: "absolute",
-            bottom: "-10px",
-            left: "0",
-            width: "85%",
-            borderBottom: "7px solid red",
-            borderRadius: "20px",
+        <Typography
+          sx={{
+            fontSize: {
+              md: "22px",
+              lg: "24px",
+              xl: "25px",
+            },
+            fontWeight: {
+              md: "bold",
+              lg: "bold",
+              xl: "bold",
+            },
+            letterSpacing: "0.5px",
+            marginBottom: {
+              md: "20px",
+            },
           }}
-        ></span>
-      </h1>
-      <Swiper
-        slidesPerView={1}
-        grabCursor={true}
-        direction="horizontal"
-        navigation={true}
-        modules={[Navigation, Pagination]}
-        pagination={{
-          dynamicBullets: true,
-        }}
-        spaceBetween={50}
-      >
-        {firstFiveVideos.map((video: Category, index: number) => (
-          <SwiperSlide key={video.id}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-                height: "98vh",
-                objectFit: "cover",
-                margin: "25px 0",
-              }}
-              onClick={() => handleClickVideo(index)}
-            >
-              <div
-                style={{
-                  position: "relative",
+        >
+          VIDEOS
+          <span
+            style={{
+              position: "absolute",
+              top: "2rem",
+              left: "0",
+              width: "6%",
+              borderBottom: "7px solid red",
+              borderRadius: "20px",
+            }}
+          ></span>
+        </Typography>
+      </Box>
+      <Box sx={{ width: "1300px" }}>
+        <Swiper
+          slidesPerView={1}
+          grabCursor={true}
+          direction="horizontal"
+          navigation={true}
+          modules={[Navigation, Pagination]}
+          pagination={{
+            dynamicBullets: true,
+          }}
+          // spaceBetween={30}
+          // centeredSlides={true}
+        >
+          {firstFiveVideos.map((video: Category, index: number) => (
+            <SwiperSlide key={video.id}>
+              <Box
+                sx={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  flexDirection: "column",
+                  height: {
+                    md: "105vh",
+                    lg: "100vh",
+                    xl: "77vh",
+                  },
+                  objectFit: "contain",
                 }}
+                onClick={() => handleClickVideo(index)}
               >
-                <YouTube
-                  videoId={video.key}
-                  opts={{
-                    width: "1150",
-                    height: "680",
-                    objectFit: "cover",
+                <Box
+                  sx={{
+                    position: "relative",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
-                />
-              </div>
-            </Box>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+                >
+                  <YouTube
+                    videoId={video.key}
+                    opts={{
+                      width: "1000",
+                      height: "550",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Box>
+              </Box>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+    </Box>
   );
 };
 

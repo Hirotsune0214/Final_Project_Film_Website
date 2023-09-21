@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Movie } from "@/src/state/category";
+import { Box } from "@mui/material";
 
 const LeftSidePicMain = ({ leftPic }: { leftPic: Movie | null }) => {
   const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
@@ -10,19 +11,27 @@ const LeftSidePicMain = ({ leftPic }: { leftPic: Movie | null }) => {
   }
 
   return (
-    <div>
-      <div
-        style={{
+    <Box>
+      <Box
+        sx={{
           backgroundImage: `url(${URL}${leftPic.poster_path})`,
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           height: "90vh",
-          width: "500px",
-          marginRight: "32px",
+          width: {
+            lg: "470px",
+            xl: "600px",
+          },
+          marginBottom: {
+            md: "25px",
+          },
+          fontWeight: {
+            md: "bold",
+          },
         }}
-      ></div>
-    </div>
+      ></Box>
+    </Box>
   );
 };
 

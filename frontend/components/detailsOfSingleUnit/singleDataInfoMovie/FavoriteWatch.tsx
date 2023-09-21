@@ -18,7 +18,11 @@ const FavoriteWatch = ({ id }: { id: string }) => {
   const movieButton = {
     color: "white",
     backgroundColor: "#FF0D01",
-    padding: "10px",
+    padding: {
+      md: "10px 25px",
+      lg: "10px",
+      xl: "13px 20px",
+    },
     borderRadius: "10px",
     "&:hover": {
       backgroundColor: "#ac0e06",
@@ -32,7 +36,7 @@ const FavoriteWatch = ({ id }: { id: string }) => {
         userId: userId,
       });
 
-      setIsFavorite(!isFavorite);
+      // setIsFavorite(!isFavorite);
       // favorites()
       // movieId === id
       // 4 -> 5
@@ -64,12 +68,25 @@ const FavoriteWatch = ({ id }: { id: string }) => {
         sx={{
           display: "flex",
           alignItems: "center",
-          gap: "30px",
-          marginTop: "40px",
+          gap: {
+            md: "20px",
+            lg: "30px",
+            xl: "40px",
+          },
+          marginTop: {
+            md: "30px",
+            lg: "40px",
+            xl: "50px",
+          },
         }}
       >
         {isFavorite ? (
-          <FavoriteIcon sx={{ fill: "red" }} onClick={handleFavorites} />
+          <FavoriteIcon
+            sx={{
+              fill: "red",
+            }}
+            onClick={handleFavorites}
+          />
         ) : (
           <FavoriteBorderOutlinedIcon
             sx={{ fill: "red" }}
@@ -79,7 +96,7 @@ const FavoriteWatch = ({ id }: { id: string }) => {
 
         <Button
           sx={movieButton}
-          onClick={() => window.scrollTo({ top: 790, behavior: "smooth" })}
+          onClick={() => window.scrollTo({ top: 750, behavior: "smooth" })}
         >
           <PlayArrowIcon />
           WATCH NOW

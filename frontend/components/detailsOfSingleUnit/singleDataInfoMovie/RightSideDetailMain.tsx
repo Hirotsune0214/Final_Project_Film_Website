@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import { Movie } from "@/src/state/category";
 
@@ -18,20 +18,62 @@ const RightSideDetailMain = ({
   return (
     <Box>
       <div>
-        <h1 style={{ fontSize: "40px", display: "flex", width: "465px" }}>
+        <Typography
+          sx={{
+            fontSize: {
+              md: "30px",
+              lg: "35px",
+              xl: "60px",
+            },
+            fontWeight: {
+              lg: "bold",
+              xl: "550",
+            },
+            display: "flex",
+            width: "465px",
+          }}
+        >
           {rightSideDetail.original_title}
-          <div style={{ marginLeft: "20px" }}>
+          <Box
+            sx={{
+              marginLeft: {
+                lg: "10px",
+              },
+            }}
+          >
             {extractYearFromDate(rightSideDetail.release_date)}
-          </div>
-        </h1>
-        <Box sx={{ marginTop: "40px", fontSize: "20px", fontWeight: "500" }}>
+          </Box>
+        </Typography>
+        <Box
+          sx={{
+            marginTop: "40px",
+            fontSize: {
+              md: "17px",
+              lg: "20px",
+              xl: "20px",
+            },
+            fontWeight: "500",
+          }}
+        >
           <div>{rightSideDetail.vote_average.toFixed(1)}</div>
         </Box>
         <Box
           sx={{
-            width: "740px",
-            marginTop: "40px",
-            fontSize: "20px",
+            maxWidth: {
+              md: "800px",
+              lg: "700px",
+              xl: "1000px",
+            },
+            marginTop: {
+              md: "30px",
+              lg: "40px",
+              xl: "40px",
+            },
+            fontSize: {
+              md: "16px",
+              lg: "17px",
+              xl: "19px",
+            },
             letterSpacing: "2",
             lineHeight: "1.3",
             color: "#201F1D",

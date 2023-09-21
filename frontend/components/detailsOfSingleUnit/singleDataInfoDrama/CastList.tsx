@@ -10,7 +10,13 @@ const CastList = ({ casts }: { casts: never[] }) => {
   const URL = process.env.NEXT_PUBLIC_IMAGE_780;
 
   return (
-    <div style={{ marginTop: "40px" }}>
+    <Box
+      sx={{
+        marginTop: {
+          lg: "25px",
+        },
+      }}
+    >
       <h1
         style={{
           display: "inline-block",
@@ -74,7 +80,7 @@ const CastList = ({ casts }: { casts: never[] }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </Box>
   );
 };
 

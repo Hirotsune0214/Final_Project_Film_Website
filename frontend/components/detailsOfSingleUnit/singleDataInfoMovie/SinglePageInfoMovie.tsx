@@ -56,11 +56,31 @@ const SinglePageInfo = ({ id }: { id: string }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
+      <Box
+        sx={{
+          display: {
+            md: "block",
+            lg: "flex",
+            xl: "flex",
+          },
+          justifyContent: {
+            lg: "center",
+            xl: "center",
+          },
+          position: "relative",
+          top: "6rem",
+        }}
       >
         <LeftSidePicMain leftPic={leftPic} />
-        <Box sx={{ flexDirection: "column", width: "60%" }}>
+        <Box
+          sx={{
+            flexDirection: "column",
+            width: "60%",
+            marginRight: {
+              lg: "40px",
+            },
+          }}
+        >
           <RightSideDetailMain
             rightSideDetail={rightSideDetail}
             extractYearFromDate={extractYearFromDate}
@@ -68,7 +88,7 @@ const SinglePageInfo = ({ id }: { id: string }) => {
           <FavoriteWatch id={id} />
           <CastList casts={casts} />
         </Box>
-      </div>
+      </Box>
     </>
   );
 };

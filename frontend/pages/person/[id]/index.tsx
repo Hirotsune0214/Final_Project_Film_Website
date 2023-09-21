@@ -27,7 +27,7 @@ export const personCss = {
   "&:hover .text": {
     opacity: 1,
   },
-  "&:hover .img": {
+  "&:hover .image": {
     transform: "scale(1.05) translateY(-10px)",
     // rgbaにして、alphaを0.1にする
     boxShadow: "8px -9px 20px -2px#777777",
@@ -36,16 +36,20 @@ export const personCss = {
     zIndex: "2",
     borderColor: "rgba(11, 64, 188, 0.775)",
   },
-  "& .img": {
-    width: "100%",
-    height: "100%",
+  "& .image": {
     transition: "transform 0.2",
     border: "6px solid transparent",
   },
   "& .text": {
     position: "absolute",
-    width: "98%",
-    height: "99.5%",
+    width: {
+      lg: "100.5%",
+    },
+    height: {
+      md: "65vh",
+      lg: "98%",
+      xl: "99.5%",
+    },
     top: 0,
     left: 0,
     textAlign: "center",
@@ -119,11 +123,31 @@ const single_unit = () => {
       <Toaster />
       <div>
         <Layout>
-          <Box sx={{ padding: "16px", display: "flex" }}>
-            <PersonProfilePic personPic={personPic} />
-            <PersonProfileDetail personDetail={personDetail} />
-          </Box>
-          <Box sx={{ padding: "16px" }}>
+          <Box
+            sx={{
+              backgroundColor: "#F5F5F5",
+              padding: { md: "15px", lg: "20px", xl: "30px 100px" },
+              marginTop: {
+                lg: "60px",
+              },
+              position: "relative",
+              top: {
+                lg: "0rem",
+              },
+            }}
+          >
+            <Box
+              sx={{
+                display: {
+                  md: "block",
+                  lg: "flex",
+                  xl: "flex",
+                },
+              }}
+            >
+              <PersonProfilePic personPic={personPic} />
+              <PersonProfileDetail personDetail={personDetail} />
+            </Box>
             <Medias
               personCasts={personCasts}
               extractYearFromDate={extractYearFromDate}

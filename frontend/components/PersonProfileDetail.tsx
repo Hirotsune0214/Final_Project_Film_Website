@@ -10,28 +10,49 @@ const PersonProfileDetail = ({
   return (
     <Box sx={{ padding: "16px 32px" }}>
       {personDetail && (
-        <div>
-          <h1 style={{ fontSize: "32px", gap: "10" }}>
+        <Box>
+          <Box
+            component="h1"
+            sx={{
+              fontSize: {
+                md: "26px",
+                lg: "32px",
+                xl: "27px",
+              },
+            }}
+          >
             {personDetail.name}
             {personDetail.birthday
-              ? `(${personDetail.birthday.slice(0, 4)})`
+              ? ` (${personDetail.birthday.slice(0, 4)}) `
               : "(No data)"}
-          </h1>
+          </Box>
 
           <Box
             sx={{
-              marginTop: "40px",
-              fontSize: "20px",
-              letterSpacing: "2",
-              lineHeight: "1.3",
+              marginTop: {
+                lg: "40px",
+                xl: "30px",
+              },
+              fontSize: { md: "16px", lg: "18px", xl: "20px" },
+              letterSpacing: "1.1px",
+              fontWeight: {
+                md: "lighter",
+                lg: "lighter",
+                xl: "lighter",
+              },
+              lineHeight: {
+                md: "1.5",
+                lg: "1.4",
+                xl: "1.3",
+              },
             }}
           >
             <span>
               {personDetail.biography ? (
                 `${personDetail.biography}`
               ) : (
-                <div
-                  style={{
+                <Box
+                  sx={{
                     position: "absolute",
                     left: "40px",
                     marginTop: "-70px",
@@ -40,11 +61,11 @@ const PersonProfileDetail = ({
                     borderRadius: "4px",
                     backgroundColor: "darkgrey",
                   }}
-                ></div>
+                ></Box>
               )}
             </span>
           </Box>
-        </div>
+        </Box>
       )}
     </Box>
   );

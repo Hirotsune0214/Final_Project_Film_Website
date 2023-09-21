@@ -20,7 +20,7 @@ export const MovieDramaCss = {
   "&:hover .text": {
     opacity: 1,
   },
-  "&:hover .img": {
+  "&:hover .image": {
     transform: "scale(1.05) translateY(-10px)",
     transition: ".3s ease-in-out",
     position: "relative",
@@ -28,16 +28,18 @@ export const MovieDramaCss = {
     boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
     borderColor: "rgba(242, 30, 30, 0.8)",
   },
-  "& .img": {
-    width: "100%",
-    height: "100%",
+  "& .image": {
     transition: "transform 0.2",
     border: "5px solid transparent",
   },
   "& .text": {
     position: "absolute",
     width: "99%",
-    height: "98.8%",
+    height: {
+      md: "98.5%",
+      lg: "98%",
+      xl: "99.2%",
+    },
     top: 0,
     left: 0,
     textAlign: "center",

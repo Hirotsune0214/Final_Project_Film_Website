@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { useState } from "react";
 
@@ -30,10 +30,23 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
   return (
     <>
       <Toaster />
-      <h1
-        style={{
+      <Typography
+        component="h1"
+        sx={{
+          fontSize: {
+            md: "23px",
+            lg: "25px",
+          },
+          fontWeight: {
+            md: "bold",
+            lg: "550",
+          },
           display: "inline-block",
           position: "relative",
+          marginTop: "50px",
+          marginLeft: {
+            md: "30px",
+          },
         }}
       >
         MEDIAS
@@ -42,20 +55,22 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
             position: "absolute",
             bottom: "-10px",
             left: "0",
-            width: "45%",
+            width: "55%",
             borderBottom: "7px solid red",
             marginTop: "20px",
             borderRadius: "20px",
           }}
         ></span>
-      </h1>
+      </Typography>
       <Box
         sx={{
           marginTop: "20px",
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",
           gridGap: "5px",
-          rowGap: "48px",
+          rowGap: {
+            lg: "15px",
+          },
           cursor: "pointer",
         }}
       >
@@ -70,39 +85,55 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
           >
             <Box key={personCast.title} sx={personCss}>
               {personCast.poster_path ? (
-                <img
-                  className="img"
+                <Box
+                  component="img"
+                  className="image"
                   src={`${URL}${personCast.poster_path}`}
                   alt={personCast.title}
-                  style={{
-                    width: "97.5%",
-                    height: "65vh",
+                  sx={{
+                    width: "100%",
+                    height: { lg: "65vh" },
                     objectFit: "cover",
                     zIndex: "1",
                     borderRadius: "10px",
-                    marginTop: "20px",
+                    marginTop: {
+                      lg: "35px",
+                    },
                   }}
-                />
+                ></Box>
               ) : (
-                <div
-                  className="img"
-                  style={{
-                    width: "98%",
-                    height: "65vh",
+                <Box
+                  component="img"
+                  className="image"
+                  sx={{
+                    width: {
+                      md: "93%",
+                      lg: "95%",
+                    },
+                    height: {
+                      md: "52.1vh",
+                      lg: "63.3vh",
+                    },
                     zIndex: "1",
                     borderRadius: "4px",
                     backgroundColor: "darkgrey",
-                    marginTop: "15px",
+                    marginTop: {
+                      md: "5px",
+                      lg: "40px",
+                    },
+                    marginLeft: "7px",
                   }}
-                ></div>
+                ></Box>
               )}
               <Box className="text">
-                <div
-                  style={{
+                <Box
+                  sx={{
                     display: "flex",
                     flexDirection: "column",
                     position: "absolute",
-                    bottom: "25px",
+                    bottom: {
+                      lg: "20px",
+                    },
                     left: "20px",
                     fontSize: "20px",
                     textAlign: "left",
@@ -114,8 +145,8 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                     value={personCast.vote_average * 10}
                     style={{ width: "40px" }}
                   />
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       position: "fixed",
                       display: "flex",
                       alignItems: "center",
@@ -123,30 +154,47 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                       width: "40px",
                       height: "40px",
                       color: "white",
-                      fontSize: "18px",
-                      fontWeight: "100",
+                      fontSize: { lg: "14px" },
+                      fontWeight: {
+                        lg: "300",
+                      },
                       left: "20px",
                     }}
                   >
                     {personCast.vote_average.toFixed(1)}
-                  </div>
-                  <div style={{ marginTop: "8px" }}>
+                  </Box>
+                  <Box
+                    sx={{
+                      marginTop: "12px",
+                      fontSize: {
+                        lg: "15px",
+                      },
+                      fontWeight: {
+                        lg: "300",
+                      },
+                    }}
+                  >
                     {extractYearFromDate(personCast.release_date)}
-                  </div>
-                  <div
-                    style={{
+                  </Box>
+                  <Box
+                    sx={{
                       alignSelf: "center",
                       whiteSpace: "nowrap",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
-                      maxWidth: "250px",
+                      maxWidth: {
+                        lg: "230px",
+                      },
                       fontWeight: "300",
                       marginTop: "8px",
+                      fontSize: {
+                        lg: "15px",
+                      },
                     }}
                   >
                     {personCast.title}
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               </Box>
             </Box>
           </Link>
@@ -163,7 +211,10 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
           <Button
             sx={{
               color: "#FF0000",
-              fontSize: "20px",
+              fontSize: {
+                md: "13px",
+                lg: "16px",
+              },
               fontWeight: "bold",
               marginTop: "20px",
               ":hover": {

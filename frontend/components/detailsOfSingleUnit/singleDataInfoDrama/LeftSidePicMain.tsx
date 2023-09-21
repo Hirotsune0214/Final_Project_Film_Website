@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Drama } from "@/src/state/category";
+import { Box } from "@mui/material";
 
 const LeftSidePicMain = ({ leftPic }: { leftPic: Drama | null }) => {
   const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
@@ -10,19 +11,21 @@ const LeftSidePicMain = ({ leftPic }: { leftPic: Drama | null }) => {
   }
 
   return (
-    <div>
-      <div
-        style={{
+    <Box>
+      <Box
+        sx={{
           backgroundImage: `url(${URL}${leftPic.poster_path})`,
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           height: "90vh",
           width: "500px",
-          marginRight: "32px",
+          marginRight: {
+            lg: "10px",
+          },
         }}
-      ></div>
-    </div>
+      ></Box>
+    </Box>
   );
 };
 

@@ -18,7 +18,7 @@ const RightSideDetailMain = ({
   return (
     <Box>
       <div>
-        <h1 style={{ fontSize: "40px", display: "flex", width: "520px" }}>
+        <h1 style={{ fontSize: "40px", display: "flex", width: "465px" }}>
           {rightSideDetail.name}
           <div style={{ marginLeft: "20px" }}>
             {extractYearFromDate(rightSideDetail.first_air_date)}
@@ -29,9 +29,13 @@ const RightSideDetailMain = ({
         </Box>
         <Box
           sx={{
-            width: "740px",
+            maxWidth: {
+              lg: "700px",
+            },
             marginTop: "40px",
-            fontSize: "20px",
+            fontSize: {
+              lg: "20px",
+            },
             letterSpacing: "2",
             lineHeight: "1.3",
             color: "#201F1D",

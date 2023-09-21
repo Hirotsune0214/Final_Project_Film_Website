@@ -15,6 +15,22 @@ import { Movie } from "@/src/state/category";
 /******************************************************************************************/
 
 const movieButton = {
+  width: {
+    xs: "170px",
+    md: "170px",
+    lg: "170px",
+    xl: "180px",
+  },
+  height: {
+    xs: "40px",
+    lg: "45px",
+    xl: "55px",
+  },
+  fontSize: {
+    xs: "14px",
+    md: "15px",
+    xl: "17px",
+  },
   color: "white",
   backgroundColor: "#FF0D01",
   padding: "10px",
@@ -52,17 +68,40 @@ const HomeMainImage = () => {
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
         {mainImages.map((mainImage: Movie) => (
           <SwiperSlide key={mainImage.id}>
-            <div
-              style={{
+            <Box
+              sx={{
                 backgroundImage: `URL(${URL}${mainImage.backdrop_path})`,
-                backgroundSize: "cover",
+                backgroundSize: {
+                  xs: "cover",
+                  md: "cover",
+                  lg: "cover",
+                  xl: "cover",
+                },
                 backgroundRepeat: "no-repeat",
-                height: "100vh",
+                width: {
+                  xs: "100%",
+                  md: "100%",
+                  lg: "100%",
+                },
+                height: {
+                  xs: "67vh",
+                  md: "85vh",
+                  lg: "100vh",
+                  xl: "100vh",
+                },
                 position: "relative",
+                alignItems: "center",
+                marginTop: {
+                  xs: "13px",
+                },
+                padding: "10px 0",
+                backgroundPosition: {
+                  xs: "center",
+                },
               }}
             >
-              <div
-                style={{
+              <Box
+                sx={{
                   width: "100%",
                   height: "100%",
                   position: "absolute",
@@ -71,13 +110,27 @@ const HomeMainImage = () => {
                   backgroundImage:
                     "linear-gradient(to right, rgb(245, 245, 245), rgba(0, 0, 0, 0))",
                 }}
-              ></div>
+              ></Box>
               <Box
                 sx={{
                   position: "absolute",
-                  top: "42%",
-                  left: "30%",
-                  width: "450px",
+                  top: {
+                    xs: "55%",
+                    md: "42%",
+                    lg: "42%",
+                    xl: "42%",
+                  },
+                  left: {
+                    xs: "42%",
+                    md: "30%",
+                    lg: "30%",
+                    xl: "30%",
+                  },
+                  width: {
+                    xs: "250px",
+                    md: "450px",
+                    lg: "450px",
+                  },
                   transform: "translate(-50%, -50%)",
                   textAlign: "center",
                   color: "black",
@@ -87,19 +140,34 @@ const HomeMainImage = () => {
                   alignItems: "flex-start",
                 }}
               >
-                <div
-                  style={{
-                    width: "450px",
-                    fontSize: "35px",
+                <Box
+                  sx={{
+                    fontSize: {
+                      xs: "35px", // mobile
+                      md: "40px", // tablet
+                      lg: "40px", // laptop
+                      xl: "70px", // monitor
+                    },
+                    width: {
+                      xs: "335px",
+                      md: "900px",
+                      lg: "550px",
+                      xl: "740px",
+                    },
                     fontWeight: "bold",
                     textAlign: "left",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2, // 2行に制限
+                    WebkitBoxOrient: "vertical",
+                    whiteSpace: "normal",
                   }}
                 >
                   {mainImage.title}
-                </div>
+                </Box>
 
                 <Box
-                  // TODO: 2つの要素を縦並びにする
                   style={{
                     fontSize: "20px",
                     display: "flex",
@@ -114,30 +182,55 @@ const HomeMainImage = () => {
                     value={mainImage.vote_average * 10}
                     style={{ width: "50px", marginTop: "32px" }}
                   />
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       position: "absolute",
                       top: "73%",
                       left: "60%",
-                      // TODO: x軸とy軸に移動させる
-                      transform: "translate(-50%, -50%)", // 中央に寄せる
+                      transform: "translate(-50%, -50%)",
                       color: "black",
-                      fontSize: "18px",
+                      fontSize: {
+                        xs: "15px",
+                        lg: "16px",
+                        xl: "15px",
+                      },
                       fontWeight: "700",
                     }}
                   >
                     {mainImage.vote_average}
-                  </div>
+                  </Box>
                 </Box>
-                <div
-                  style={{
-                    width: "450px",
-                    fontSize: "20px",
-                    fontWeight: "400",
+                <Box
+                  sx={{
+                    fontSize: {
+                      xs: "20px",
+                      lg: "19px",
+                      xl: "20px",
+                    },
+                    width: {
+                      xs: "340px",
+                      md: "900px",
+                      lg: "450px",
+                      xl: "700px",
+                    },
+                    lineHeight: {
+                      xs: "27px",
+                      md: "35px",
+                      lg: "25px",
+                      xl: "35px",
+                    },
+                    fontWeight: {
+                      md: "500",
+                      lg: "400",
+                      xl: "530",
+                    },
+                    overflow: "hidden",
+                    marginBottom: {
+                      md: "10px",
+                    },
                     letterSpacing: "0.02000em",
                     marginTop: "32px",
                     whiteSpace: "normal",
-                    overflow: "hidden",
                     textOverflow: "ellipsis",
                     display: "-webkit-box",
                     WebkitLineClamp: 3,
@@ -146,15 +239,31 @@ const HomeMainImage = () => {
                   }}
                 >
                   {mainImage.overview}
-                </div>
-                <Link href={`/movies/${mainImage.id}`} passHref>
-                  <Button sx={movieButton}>
-                    <PlayArrowIcon />
-                    WATCH NOW
-                  </Button>
-                </Link>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <Link href={`/movies/${mainImage.id}`} passHref>
+                    <Button sx={movieButton}>
+                      <PlayArrowIcon
+                        sx={{
+                          marginRight: {
+                            lg: "5px",
+                            xl: "5px",
+                          },
+                        }}
+                      />
+                      WATCH NOW
+                    </Button>
+                  </Link>
+                </Box>
               </Box>
-            </div>
+            </Box>
           </SwiperSlide>
         ))}
       </Swiper>

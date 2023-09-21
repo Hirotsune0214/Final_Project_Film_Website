@@ -61,7 +61,15 @@ const SinglePageInfo = ({ id }: { id: string }) => {
       >
         {/* このページでidを取得しているからidを下の階層に渡さなくても良い？ */}
         <LeftSidePicMain leftPic={leftPic} />
-        <Box sx={{ flexDirection: "column", width: "60%" }}>
+        <Box
+          sx={{
+            flexDirection: "column",
+            width: "60%",
+            marginRight: {
+              lg: "40px",
+            },
+          }}
+        >
           <RightSideDetailMain
             rightSideDetail={rightSideDetail}
             extractYearFromDate={extractYearFromDate}

@@ -10,6 +10,7 @@ import Head from "next/head";
 
 import React, { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
+import { Box } from "@mui/material";
 
 export const MovieDramaCss = {
   maxWidth: "500px",
@@ -20,7 +21,7 @@ export const MovieDramaCss = {
   "&:hover .text": {
     opacity: 1,
   },
-  "&:hover .img": {
+  "&:hover .image": {
     transform: "scale(1.05) translateY(-10px)",
     transition: ".3s ease-in-out",
     position: "relative",
@@ -28,16 +29,22 @@ export const MovieDramaCss = {
     boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
     borderColor: "rgba(242, 30, 30, 0.8)",
   },
-  "& .img": {
-    width: "100%",
-    height: "100%",
+  "& .image": {
     transition: "transform 0.2",
     border: "5px solid transparent",
   },
   "& .text": {
     position: "absolute",
-    width: "99%",
-    height: "98.8%",
+    width: {
+      md: "98.5%",
+      lg: "100%",
+      xl: "99.5%",
+    },
+    height: {
+      md: "98.5%",
+      lg: "98%",
+      xl: "99%",
+    },
     top: 0,
     left: 0,
     textAlign: "center",
@@ -137,18 +144,18 @@ const movies = () => {
         <title>Movies</title>
       </Head>
       <Toaster />
-      <div>
-        <Layout>
-          <MainImageMovies movies={movies} />
-          <Movies
-            movies={movies}
-            movieLists={movieLists}
-            setMovieLists={setMovieLists}
-            handleAddMoviesPages={handleAddMoviesPages}
-            extractYearFromDate={extractYearFromDate}
-          />
-        </Layout>
-      </div>
+      <Box>
+        {/* <Layout> */}
+        <MainImageMovies movies={movies} />
+        <Movies
+          movies={movies}
+          movieLists={movieLists}
+          setMovieLists={setMovieLists}
+          handleAddMoviesPages={handleAddMoviesPages}
+          extractYearFromDate={extractYearFromDate}
+        />
+        {/* </Layout> */}
+      </Box>
     </>
   );
 };
