@@ -14,18 +14,21 @@ const BackDrops = ({ backdrops }: { backdrops: never[] }) => {
   return (
     <Box
       sx={{
-        position: "relative",
-        top: {
-          md: "15rem",
-          lg: "10rem",
-          xl: "15rem",
-        },
-        left: {
-          xl: "7%",
+        marginTop: {
+          lg: "50px",
         },
       }}
     >
-      <Box sx={{ display: "inline-block" }}>
+      <Box
+        sx={{
+          display: "inline-block",
+          position: "relative",
+          margin: "30px 0 50px 0",
+          left: {
+            xl: "9em",
+          },
+        }}
+      >
         <Typography
           sx={{
             fontSize: {
@@ -47,14 +50,21 @@ const BackDrops = ({ backdrops }: { backdrops: never[] }) => {
               position: "absolute",
               top: "2rem",
               left: "0",
-              width: "9%",
+              width: "95%",
               borderBottom: "7px solid red",
               borderRadius: "20px",
             }}
           ></span>
         </Typography>
       </Box>
-      <Box sx={{ width: "1300px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+          
+        }}
+      >
         <Swiper
           slidesPerView={1}
           grabCursor={true}
@@ -71,11 +81,11 @@ const BackDrops = ({ backdrops }: { backdrops: never[] }) => {
                 sx={{
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
+                  alignContent: "center",
                   height: {
                     md: "600px",
                     lg: "630px",
-                    xl: "77vh",
+                    xl: "73vh",
                   },
                 }}
               >

@@ -92,7 +92,7 @@ like
     <>
       <Box
         sx={{
-          position: "relative",
+          // position: "relative",
           top: {
             md: "15rem",
             lg: "12rem",

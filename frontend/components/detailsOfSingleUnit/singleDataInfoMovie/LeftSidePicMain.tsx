@@ -21,10 +21,7 @@ const LeftSidePicMain = ({ leftPic }: { leftPic: Movie | null }) => {
           height: "90vh",
           width: {
             lg: "470px",
-            xl: "600px",
-          },
-          marginBottom: {
-            md: "25px",
+            xl: "650px",
           },
           fontWeight: {
             md: "bold",

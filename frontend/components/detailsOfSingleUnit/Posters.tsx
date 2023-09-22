@@ -9,19 +9,7 @@ const Posters = ({ posters }: { posters: Movie[] }) => {
   const URL = process.env.NEXT_PUBLIC_IMAGE_780;
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        top: {
-          md: "15rem",
-          lg: "12rem",
-          xl: "15rem",
-        },
-        left: {
-          xl: "7%",
-        },
-      }}
-    >
+    <Box>
       <Typography
         sx={{
           fontSize: {
@@ -35,6 +23,12 @@ const Posters = ({ posters }: { posters: Movie[] }) => {
             xl: "bold",
           },
           letterSpacing: "0.5px",
+          display: "inline-block",
+          position: "relative",
+          left: {
+            xl: "3.7em",
+          },
+          margin: "30px 0 20px 0",
         }}
       >
         POSTERS
@@ -43,13 +37,21 @@ const Posters = ({ posters }: { posters: Movie[] }) => {
             position: "absolute",
             top: "2.3rem",
             left: "0",
-            width: "8%",
+            width: "90%",
             borderBottom: "7px solid red",
             borderRadius: "20px",
           }}
         ></span>
       </Typography>
-      <Box sx={{ width: "1250px" }}>
+      <Box
+        sx={{
+          width: {
+            lg: "1000px",
+            xl: "1300px",
+          },
+          margin: "0 auto",
+        }}
+      >
         <Swiper
           slidesPerView={4}
           breakpoints={{
@@ -63,7 +65,7 @@ const Posters = ({ posters }: { posters: Movie[] }) => {
             // 960px以上(laptop)になると3になる
             960: {
               slidesPerView: 4,
-              spaceBetween: 10,
+              // s
             },
             // 1200px(monitor)以上になると5になる
             1200: {
@@ -80,17 +82,17 @@ const Posters = ({ posters }: { posters: Movie[] }) => {
                 sx={{
                   width: {
                     md: "260px",
-                    lg: "175px",
+                    lg: "75px",
                     xl: "265px",
                   },
                   height: {
                     md: "70vh",
-                    lg: "35vh",
+                    lg: "60vh",
                     xl: "50vh",
                   },
                   objectFit: {
                     md: "contain",
-                    lg: "cover",
+                    lg: "contain",
                     xl: "cover",
                   },
                   marginTop: {

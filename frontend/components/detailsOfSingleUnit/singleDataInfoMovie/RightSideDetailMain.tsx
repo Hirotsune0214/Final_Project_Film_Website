@@ -17,7 +17,7 @@ const RightSideDetailMain = ({
 
   return (
     <Box>
-      <div>
+      <Box>
         <Typography
           sx={{
             fontSize: {
@@ -83,7 +83,7 @@ const RightSideDetailMain = ({
         >
           <span>{rightSideDetail.overview}</span>
         </Box>
-      </div>
+      </Box>
     </Box>
   );
 };

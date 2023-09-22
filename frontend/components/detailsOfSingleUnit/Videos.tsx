@@ -25,20 +25,21 @@ const Videos = ({ videos }: { videos: never[] }) => {
     <Box
       id="sectionVideo"
       sx={{
-        position: "relative",
-        top: {
-          md: "12rem",
-          lg: "8rem",
-          xl: "10rem",
-        },
-        left: {
-          xl: "7%",
+        marginTop: {
+          xl: "35px",
         },
       }}
     >
       <Box
         sx={{
           display: "inline-block",
+          position: "relative",
+          left: {
+            xl: "11%",
+          },
+          margin: {
+            xl: "30px 0 0 0",
+          },
         }}
       >
         <Typography
@@ -57,6 +58,7 @@ const Videos = ({ videos }: { videos: never[] }) => {
             marginBottom: {
               md: "20px",
             },
+            left: "6.5%",
           }}
         >
           VIDEOS
@@ -64,15 +66,24 @@ const Videos = ({ videos }: { videos: never[] }) => {
             style={{
               position: "absolute",
               top: "2rem",
-              left: "0",
-              width: "6%",
+              left: "3%",
+              width: "90%",
               borderBottom: "7px solid red",
               borderRadius: "20px",
             }}
           ></span>
         </Typography>
       </Box>
-      <Box sx={{ width: "1300px" }}>
+      <Box
+        sx={{
+          marginTop: {
+            xl: "15px",
+          },
+          display: "flex",
+          justifyContent: "center",
+          position: "relative",
+        }}
+      >
         <Swiper
           slidesPerView={1}
           grabCursor={true}
@@ -82,8 +93,6 @@ const Videos = ({ videos }: { videos: never[] }) => {
           pagination={{
             dynamicBullets: true,
           }}
-          // spaceBetween={30}
-          // centeredSlides={true}
         >
           {firstFiveVideos.map((video: Category, index: number) => (
             <SwiperSlide key={video.id}>
@@ -92,7 +101,6 @@ const Videos = ({ videos }: { videos: never[] }) => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  flexDirection: "column",
                   height: {
                     md: "105vh",
                     lg: "100vh",
@@ -102,14 +110,7 @@ const Videos = ({ videos }: { videos: never[] }) => {
                 }}
                 onClick={() => handleClickVideo(index)}
               >
-                <Box
-                  sx={{
-                    position: "relative",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                <Box>
                   <YouTube
                     videoId={video.key}
                     opts={{

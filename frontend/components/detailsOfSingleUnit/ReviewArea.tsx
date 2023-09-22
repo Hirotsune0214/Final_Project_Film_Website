@@ -75,26 +75,32 @@ const ReviewArea = ({
 
   return (
     <>
-      <Box sx={{ padding: "0 10px" }}>
-        <h1
-          style={{
-            display: "inline-block",
-            position: "relative",
-            margin: "30px 0 20px 0",
-          }}
+      <Box
+        sx={{
+          padding: "0 10px",
+        }}
+      >
+        <Box
+          sx={{ display: "inline-block", position: "relative", left: "4.5em" }}
         >
-          Reviews ({reviews.length})
-          <span
+          <h1
             style={{
-              position: "absolute",
-              bottom: "-10px",
-              left: "0",
-              width: "71%",
-              borderBottom: "7px solid red",
-              borderRadius: "20px",
+              margin: "30px 0 20px 0",
             }}
-          ></span>
-        </h1>
+          >
+            Reviews ({reviews.length})
+            <span
+              style={{
+                position: "absolute",
+                bottom: "8px",
+                left: "0",
+                width: "86%",
+                borderBottom: "7px solid red",
+                borderRadius: "20px",
+              }}
+            ></span>
+          </h1>
+        </Box>
 
         <Box sx={{ marginTop: "15px" }}>
           {visibleReviews.map((review: any, index: number) => (
@@ -134,7 +140,7 @@ const ReviewArea = ({
                     sx={{ color: "red", fontSize: "30px" }}
                     onClick={() => handleLike(review._id)}
                   />
-                  <div>{reviews.length > 0 ? reviews[0].likes.length : 0}</div>
+                  <div>{review.likes.length > 0 ? review.likes.length : 0}</div>
 
                   {/* 
                   testUserがいいね押します
