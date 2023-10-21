@@ -1,232 +1,71 @@
-// import { Box } from "@mui/material";
-// import axios from "axios";
-// import React, { useEffect, useState } from "react";
-
-// interface Medias {
-//   poster_path: string;
-//   title: string;
-//   vote_average: number;
-//   release_date: string;
-// }
-
-// const Medias = ({ id }: { id: string }) => {
-//   const URL = "https://image.tmdb.org/t/p/w780";
-//   const [personCasts, setPersonCasts] = useState([]);
-//   const [ishover, setIshover] = useState(false);
-
-//   const fetchMovieCredits = async () => {
-//     try {
-//       const response = await axios.get(
-//         `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=bb46848237eacc0a36827f6639b47ee3`
-//       );
-
-//       setPersonCasts(response.data.cast);
-//       console.log(response.data.cast);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-//   const boxSX = {
-//     maxWidth: "500px",
-//     margin: "0 auto",
-//     position: "relative",
-//     cursor: "pointer",
-//     background: "cover",
-//     "&:hover .text": {
-//       opacity: 1,
-//     },
-//     "&:hover .img": {
-//       transform: "scale(1.05) translateY(-10px)",
-//       // rgbaにして、alphaを0.1にする
-//       boxShadow: "8px -9px 20px -2px#777777",
-//       transition: ".3s ease-in-out",
-//       position: "relative",
-//       zIndex: "2",
-//       // transform: "scale(1.05) translateY(-10px)",
-//       // transition: ".3s ease-in-out",
-//       // position: "relative",
-//       // zIndex: "2",
-//       // border: "3.5px solid #9c9897",
-//       borderColor: "rgba(11, 64, 188, 0.775)",
-//     },
-//     "& .img": {
-//       width: "100%",
-//       height: "100%",
-//       transition: "transform 0.2",
-//       border: "5px solid transparent",
-//     },
-//     "& .text": {
-//       position: "absolute",
-//       width: "95%",
-//       height: "100%",
-//       top: 0,
-//       left: 0,
-//       textAlign: "center",
-//       color: "#fff",
-//       background:
-//         "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
-//       transition: ".3s ease-in-out",
-//       opacity: 0,
-//       display: "flex",
-//       flexDirection: "column",
-//       alignItems: "center",
-//       justifyContent: "center",
-//       transform: "scaleX(1.05)",
-//       zIndex: "2",
-//       marginLeft: "5px",
-//     },
-//   };
-
-//   useEffect(() => {
-//     fetchMovieCredits();
-//   }, [id]);
-
-//   const extractYearFromDate = (dateString: string): string => {
-//     return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-//   };
-
-//   return (
-//     <>
-//       <Box
-//         sx={{
-//           marginTop: "20px",
-//           display: "grid",
-//           gridTemplateColumns: "repeat(4, 1fr)",
-//           gridGap: "5px",
-//           rowGap: "48px",
-//           cursor: "pointer",
-//         }}
-//       >
-//         {personCasts.map((personCast: Medias) => (
-//           <Box
-//             key={personCast.title}
-//             onMouseEnter={() => {
-//               setIshover(true);
-//             }}
-//             onMouseLeave={() => {
-//               setIshover(false);
-//             }}
-//             sx={boxSX}
-//           >
-//             <img
-//               className="img"
-//               src={`${URL}${personCast.poster_path}`}
-//               alt={personCast.title}
-//               style={{
-//                 width: "95%",
-//                 height: "95%",
-//                 objectFit: "cover",
-//                 zIndex: "1",
-//                 borderRadius: "10px",
-//                 marginTop: "20px",
-//               }}
-//             />
-//             <Box className="text">
-//               <div>{personCast.vote_average}</div>
-//               <div>{extractYearFromDate(personCast.release_date)}</div>
-//               <div>{personCast.title}</div>
-//             </Box>
-//           </Box>
-//         ))}
-//       </Box>
-//     </>
-//   );
-// };
-
-// export default Medias;
-
-import { Box, Button, CircularProgress } from "@mui/material";
-import axios from "axios";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-interface Media {
-  poster_path: string;
-  title: string;
-  vote_average: number;
-  release_date: string;
-  id: "number";
-}
+import { Recommend } from "../src/state/category";
+import { personLaptopMonitorCss } from "@/pages/person/[id]";
+import { personMobileTabletCss } from "@/pages/person/[id]";
+import { Toaster, toast } from "react-hot-toast";
+import theme from "@/src/theme/theme";
 
-const Medias = ({ id }: { id: string }) => {
-  const URL = "https://image.tmdb.org/t/p/w780";
-  const [personCasts, setPersonCasts] = useState<Media[]>([]);
+type Props = {
+  personCasts: Recommend[];
+  extractYearFromDate: (dateString: string) => string;
+};
+
+const Medias = ({ extractYearFromDate, personCasts }: Props) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
+
   const [visibleMovies, setVisibleMovies] = useState(8);
   const moviesToShow = 8;
 
-  const fetchMovieCredits = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=bb46848237eacc0a36827f6639b47ee3`
-      );
+  const handleLoadMore = () => {
+    toast.loading("Fetching new page");
+    setVisibleMovies((prevVisibleMovies) => prevVisibleMovies + moviesToShow);
 
-      setPersonCasts(response.data.cast);
-      console.log(response.data.cast);
-    } catch (error) {
-      console.log(error);
-    }
+    toast.dismiss();
+    toast.success("New page fetched successfully", {
+      duration: 1500,
+    });
   };
 
-  useEffect(() => {
-    fetchMovieCredits();
-  }, [id]);
-
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4);
-  };
-  const boxSX = {
-    maxWidth: "500px",
-    margin: "0 auto",
-    position: "relative",
-    cursor: "pointer",
-    background: "cover",
-    "&:hover .text": {
-      opacity: 1,
-    },
-    "&:hover .img": {
-      transform: "scale(1.05) translateY(-10px)",
-      // rgbaにして、alphaを0.1にする
-      boxShadow: "8px -9px 20px -2px#777777",
-      transition: ".3s ease-in-out",
-      position: "relative",
-      zIndex: "2",
-
-      borderColor: "rgba(11, 64, 188, 0.775)",
-    },
-    "& .img": {
-      width: "100%",
-      height: "100%",
-      transition: "transform 0.2",
-      border: "5px solid transparent",
-    },
-    "& .text": {
-      position: "absolute",
-      width: "95%",
-      height: "98%",
-      top: 0,
-      left: 0,
-      textAlign: "center",
-      color: "#fff",
-      background:
-        "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
-      transition: ".3s ease-in-out",
-      opacity: 0,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      transform: "scaleX(1.05)",
-      zIndex: "2",
-      marginLeft: "5px",
-    },
-  };
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
     <>
-      <h1
-        style={{
+      <Toaster />
+      <Typography
+        component="h1"
+        sx={{
+          fontSize: {
+            md: "23px",
+            lg: "25px",
+          },
+          fontWeight: {
+            md: "bold",
+            lg: "550",
+          },
           display: "inline-block",
           position: "relative",
+          marginTop: {
+            xs: "20px",
+            md: "50px",
+            lg: "50px",
+            xl: "50px",
+          },
+          marginLeft: {
+            xs: "20px",
+            md: "30px",
+          },
+          marginBottom: {
+            md: "10px",
+          },
         }}
       >
         MEDIAS
@@ -235,25 +74,36 @@ const Medias = ({ id }: { id: string }) => {
             position: "absolute",
             bottom: "-10px",
             left: "0",
-            width: "45%",
+            width: "55%",
             borderBottom: "7px solid red",
             marginTop: "20px",
+            // marginBottom: {
+            //   md: "20px",
+            // },
             borderRadius: "20px",
           }}
         ></span>
-      </h1>
+      </Typography>
       <Box
         sx={{
           marginTop: "20px",
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "5px",
-          rowGap: "48px",
+          gridTemplateColumns: {
+            xs: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+            xl: "repeat(4, 1fr)",
+          },
+          gridGap: {
+            xs: "3px",
+            lg: "5px",
+            xl: "5px",
+          },
+          rowGap: { xs: "3px", lg: "15px" },
           cursor: "pointer",
         }}
       >
-        {personCasts.slice(0, visibleMovies).map((personCast: Media) => (
-          // 識別させるにはmovieとdramaで違うのを比較対象に入れないといけない
+        {personCasts.slice(0, visibleMovies).map((personCast: Recommend) => (
           <Link
             href={
               personCast.title
@@ -262,27 +112,75 @@ const Medias = ({ id }: { id: string }) => {
             }
             passHref
           >
-            <Box key={personCast.title} sx={boxSX}>
-              <img
-                className="img"
-                src={`${URL}${personCast.poster_path}`}
-                alt={personCast.title}
-                style={{
-                  width: "95%",
-                  height: "57vh",
-                  objectFit: "cover",
-                  zIndex: "1",
-                  borderRadius: "10px",
-                  marginTop: "20px",
-                }}
-              />
+            <Box
+              key={personCast.title}
+              sx={isMobileMode ? personMobileTabletCss : personLaptopMonitorCss}
+            >
+              {personCast.poster_path ? (
+                <Box
+                  component="img"
+                  className="image"
+                  src={`${URL}${personCast.poster_path}`}
+                  alt={personCast.title}
+                  sx={{
+                    width: {
+                      xs: "100%",
+                      md: "100%",
+                      lg: "100%",
+                      xl: "100%",
+                    },
+                    height: { xs: "27vh", md: "35vh", lg: "65vh" },
+                    objectFit: {
+                      xs: "cover",
+                      md: "contain",
+                      lg: "cover",
+                      xl: "cover",
+                    },
+                    zIndex: "1",
+                    borderRadius: "10px",
+                    marginTop: {
+                      lg: "35px",
+                    },
+                  }}
+                ></Box>
+              ) : (
+                <Box
+                  component="img"
+                  className="image"
+                  sx={{
+                    width: {
+                      xs: "93%",
+                      md: "93%",
+                      lg: "95%",
+                    },
+                    height: {
+                      xs: "26.3vh",
+                      md: "35vh",
+                      lg: "63.3vh",
+                      xl: "63.6vh",
+                    },
+                    zIndex: "1",
+                    borderRadius: "4px",
+                    backgroundColor: "darkgrey",
+                    marginTop: {
+                      xs: "3px",
+                      md: "5px",
+                      lg: "40px",
+                    },
+                    marginLeft: "7px",
+                  }}
+                ></Box>
+              )}
               <Box className="text">
-                <div
-                  style={{
+                <Box
+                  sx={{
                     display: "flex",
                     flexDirection: "column",
                     position: "absolute",
-                    bottom: "25px",
+                    bottom: {
+                      xs: "15px",
+                      lg: "20px",
+                    },
                     left: "20px",
                     fontSize: "20px",
                     textAlign: "left",
@@ -294,8 +192,8 @@ const Medias = ({ id }: { id: string }) => {
                     value={personCast.vote_average * 10}
                     style={{ width: "40px" }}
                   />
-                  <div
-                    style={{
+                  <Box
+                    sx={{
                       position: "fixed",
                       display: "flex",
                       alignItems: "center",
@@ -303,30 +201,52 @@ const Medias = ({ id }: { id: string }) => {
                       width: "40px",
                       height: "40px",
                       color: "white",
-                      fontSize: "18px",
-                      fontWeight: "100",
+                      fontSize: { xs: "18px", lg: "14px" },
+                      fontWeight: {
+                        xs: "300",
+                        lg: "300",
+                      },
                       left: "20px",
                     }}
                   >
                     {personCast.vote_average.toFixed(1)}
-                  </div>
-                  <div style={{ marginTop: "8px" }}>
+                  </Box>
+                  <Box
+                    sx={{
+                      marginTop: "12px",
+                      fontSize: {
+                        xs: "17px",
+                        lg: "15px",
+                      },
+                      fontWeight: {
+                        xs: "300",
+                        lg: "300",
+                      },
+                    }}
+                  >
                     {extractYearFromDate(personCast.release_date)}
-                  </div>
-                  <div
-                    style={{
+                  </Box>
+                  <Box
+                    sx={{
                       alignSelf: "center",
                       whiteSpace: "nowrap",
                       overflow: "hidden",
                       textOverflow: "ellipsis",
-                      maxWidth: "250px",
+                      maxWidth: {
+                        xs: "130px",
+                        lg: "230px",
+                      },
                       fontWeight: "300",
                       marginTop: "8px",
+                      fontSize: {
+                        xs: "18px",
+                        lg: "15px",
+                      },
                     }}
                   >
                     {personCast.title}
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               </Box>
             </Box>
           </Link>
@@ -343,7 +263,10 @@ const Medias = ({ id }: { id: string }) => {
           <Button
             sx={{
               color: "#FF0000",
-              fontSize: "20px",
+              fontSize: {
+                md: "13px",
+                lg: "16px",
+              },
               fontWeight: "bold",
               marginTop: "20px",
               ":hover": {
@@ -352,7 +275,8 @@ const Medias = ({ id }: { id: string }) => {
                 opacity: 0.8,
               },
             }}
-            onClick={() => setVisibleMovies(visibleMovies + moviesToShow)}
+            // onClick={() => setVisibleMovies(visibleMovies + moviesToShow)}
+            onClick={handleLoadMore}
           >
             LOAD MORE
           </Button>

@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const postCategory = req.query.category; // = drama
-    console.log(postCategory);
+
     const postId = req.params.id;
     // const post = await Post.find({ drama: postId });
 

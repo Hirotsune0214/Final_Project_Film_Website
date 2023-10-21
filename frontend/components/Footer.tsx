@@ -10,40 +10,94 @@ const Footer = () => {
         component="footer"
         sx={{
           bgcolor: "#ffffff",
-          padding: "15px",
-          height: "70px",
-          display: "flex",
+          padding: {
+            xs: "35px",
+            md: "15px",
+            lg: "20px",
+            xl: "15px",
+          },
+          height: {
+            md: "65px",
+            lg: "70px",
+            xl: "75px",
+          },
+          // height: "70px",
+          display: {
+            xs: "block",
+            lg: "flex",
+            xl: "flex",
+          },
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: {
+            xs: "none",
+            lg: "space-between",
+            xl: "space-between",
+          },
           top: "auto",
           bottom: 0,
-          marginTop: "0px",
         }}
       >
-        <Typography variant="h4">CineReviewHub</Typography>
+        <Typography
+          variant="h4"
+          sx={{
+            marginBottom: {
+              xs: "10px",
+            },
+            display: {
+              xs: "flex",
+            },
+            justifyContent: {
+              xs: "center",
+            },
+            fontSize: {
+              xs: "23px",
+            },
+          }}
+        >
+          CineReviewHub
+        </Typography>
         <Box
           sx={{
-            display: "flex",
-            justifyItems: "center",
-            gap: "15px",
-            mr: "40px",
+            display: {
+              xs: "flex",
+              md: "flex",
+              lg: "flex",
+              xl: "flex",
+            },
+            justifyContent: "center",
+            // justifyItems: "center",
+            gap: {
+              xs: "5px",
+              lg: "15px",
+              xl: "15px",
+            },
+            mr: {
+              xs: "10px",
+              lg: "45px",
+              xl: "45px",
+            },
           }}
         >
           <Typography
             variant="h6"
             sx={{
-              fontSize: "17px",
-              padding: "10px",
+              fontSize: "14px",
+              padding: {
+                xs: "5px",
+                lg: "10px",
+                xl: "10px",
+              },
               borderRadius: "10px",
               "&:hover": {
-                backgroundColor: "#ffecec",
+                backgroundColor: "#dcdcdc",
               },
             }}
           >
             <Link
               href="/"
               style={{
-                fontSize: "17px",
+                // fontSize: "17px",
+                fontSize: "14px",
                 textDecoration: "none",
                 color: "black",
                 letterSpacing: "1.0px",
@@ -55,11 +109,16 @@ const Footer = () => {
           <Typography
             variant="h6"
             sx={{
-              fontSize: "17px",
-              padding: "10px",
+              // fontSize: "17px",
+              fontSize: "14px",
+              padding: {
+                xs: "5px",
+                lg: "10px",
+                xl: "10px",
+              },
               borderRadius: "10px",
               "&:hover": {
-                backgroundColor: "#ffecec",
+                backgroundColor: "#dcdcdc",
               },
             }}
           >
@@ -77,11 +136,17 @@ const Footer = () => {
           <Typography
             variant="h6"
             sx={{
-              fontSize: "17px",
-              padding: "10px",
+              whiteSpace: "nowrap",
+              // fontSize: "17px",
+              fontSize: "14px",
+              padding: {
+                xs: "5px",
+                lg: "10px",
+                xl: "10px",
+              },
               borderRadius: "10px",
               "&:hover": {
-                backgroundColor: "#ffecec",
+                backgroundColor: "#dcdcdc",
               },
             }}
           >
@@ -99,11 +164,16 @@ const Footer = () => {
           <Typography
             variant="h6"
             sx={{
-              fontSize: "17px",
-              padding: "10px",
+              // fontSize: "17px",
+              fontSize: "14px",
+              padding: {
+                xs: "5px",
+                lg: "10px",
+                xl: "10px",
+              },
               borderRadius: "10px",
               "&:hover": {
-                backgroundColor: "#ffecec",
+                backgroundColor: "#dcdcdc",
               },
             }}
           >

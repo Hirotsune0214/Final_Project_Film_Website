@@ -1,139 +1,71 @@
-import { Box, Button, TextField } from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { purple, red } from "@mui/material/colors";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
+
+import React, { useState } from "react";
+
 import Link from "next/link";
 
-interface films {
-  id: string;
-  poster_path: string;
-  title: string;
-  profile_path: string;
-  vote_average: string;
-  release_date: string;
-  first_air_date: string;
-  original_name: string;
-}
+import { Searching } from "@/src/state/category";
 
-const API_KEY = "bb46848237eacc0a36827f6639b47ee3";
+import { SearchLaptopMonitorCss } from "@/pages/search";
+import { SearchMobileTabletCss } from "@/pages/search";
+import theme from "@/src/theme/theme";
+/******************************************************************************************/
 
-const Search = () => {
-  const URL = "https://image.tmdb.org/t/p/w500";
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
-  const [category, setCategory] = useState("movie");
-  const [currentPage, setCurrentPage] = useState(1);
+type Props = {
+  handleAddPages: () => void;
+  category: string;
+  handleCategoryChange: (newCategory: string) => void;
+  handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  searchValue: string;
+  searchResults: never[];
+  extractYearFromDate: (dateString: string) => string;
+};
+
+const Search = ({
+  handleAddPages,
+  category,
+  handleCategoryChange,
+  handleSearch,
+  searchValue,
+  searchResults,
+  extractYearFromDate,
+}: Props) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_780;
+
   const [ishover, setIshover] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchSearch = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&api_key=${API_KEY}`
-      );
-
-      console.log(response.data.results);
-      setSearchResults(response.data.results);
-      // isLoadingで切り替え
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleCategoryChange = (newCategory: string) => {
-    setCategory(newCategory);
-    // isLoadingで切り替え
-    setCurrentPage(1); // ページ番号をリセット
-  };
-
-  const fetchPage = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/search/${category}?query=${searchValue}&page=${currentPage}&api_key=${API_KEY}`
-      );
-
-      setSearchResults((prevPageLists) => [
-        ...prevPageLists,
-        ...response.data.results,
-      ]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
-
-  useEffect(() => {
-    fetchSearch();
-  }, [searchValue, category]);
-
-  useEffect(() => {
-    if (currentPage > 1) {
-      fetchPage();
-    }
-  }, [currentPage]);
-
-  const handleAddPages = () => {
-    // 引数のprevPageは前の値を持っている
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
-  const extractYearFromDate = (dateString: string): string => {
-    return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  };
-
-  const boxSX = {
-    maxWidth: "500px",
-    margin: "0 auto",
-    position: "relative",
-    cursor: "pointer",
-    background: "cover",
-    "&:hover .text": {
-      opacity: 1,
-    },
-    "&:hover .img": {
-      transform: "scale(1.05) translateY(-10px)",
-      transition: ".3s ease-in-out",
-      position: "relative",
-      zIndex: "2",
-      boxShadow: "8px -9px 20px -2px rgba(119,119,119,0.6)",
-      borderColor: "rgba(242, 30, 30, 0.8)",
-    },
-    "& .img": {
-      width: "100%",
-      height: "100%",
-      transition: "transform 0.2",
-      border: "5px solid transparent",
-    },
-    "& .text": {
-      position: "absolute",
-      width: "98%",
-      height: "98.5%",
-      top: 0,
-      left: 0,
-      textAlign: "center",
-      color: "#fff",
-      background:
-        "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
-      transition: ".3s ease-in-out",
-      opacity: 0,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      transform: "scaleX(1.05)",
-      zIndex: "2",
-      marginLeft: "5px",
-    },
-  };
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
-    <div
-      style={{
-        backgroundColor: "#F5F5F5",
+    <Box
+      sx={{
+        width: {
+          xs: "auto",
+          md: "auto",
+          lg: "100%",
+          xl: "100%",
+        },
+        padding: {
+          xs: "16px",
+          md: "16px",
+          lg: "17px",
+          xl: "20px",
+        },
+        backgroundColor: "#ebebeb",
         height: "100%",
-        minHeight: "700px",
+        minHeight: {
+          xs: "800px",
+          md: "750px",
+          lg: "700px",
+          xl: "800px",
+        },
       }}
     >
       <Box
@@ -141,19 +73,38 @@ const Search = () => {
           display: "flex",
           justifyContent: "center",
           gap: "10px",
+          position: "relative",
+          top: {
+            xs: "3rem",
+            md: "4rem",
+            lg: "4rem",
+          },
         }}
       >
         <Button
           onClick={() => handleCategoryChange("movie")}
-          // onClick={() => setCategory("movie")}
           sx={{
             backgroundColor: category === "movie" ? "red" : "transparent",
             color: category === "movie" ? "#ffffff" : "#000000",
-            padding: "15px",
-            marginTop: "15px",
+            padding: {
+              xs: "12px 22px",
+              lg: "0px 15px",
+              xl: "5px",
+            },
+            // marginTop: "15px",
+            fontSize: {
+              xs: "13px",
+              lg: "14px",
+              xl: "15px",
+            },
+            letterSpacing: {
+              xs: "1.5px",
+              lg: "0.8x",
+              xl: "1px",
+            },
             ":hover": {
               backgroundColor: "red",
-              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              opacity: 0.8,
             },
           }}
         >
@@ -161,15 +112,28 @@ const Search = () => {
         </Button>
         <Button
           onClick={() => handleCategoryChange("tv")}
-          // onClick={() => setCategory("tv")}
           sx={{
             backgroundColor: category === "tv" ? "red" : "transparent",
             color: category === "tv" ? "#ffffff" : "#000000",
-            padding: "15px",
-            marginTop: "15px",
+            padding: {
+              xs: "12px 22px",
+              lg: "15px",
+              xl: "15px",
+            },
+            // marginTop: "15px",
+            fontSize: {
+              xs: "13px",
+              lg: "14px",
+              xl: "15px",
+            },
+            letterSpacing: {
+              xs: "0.8px",
+              lg: "0.8x",
+              xl: "1px",
+            },
             ":hover": {
               backgroundColor: "red",
-              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              opacity: 0.8,
             },
           }}
         >
@@ -177,15 +141,28 @@ const Search = () => {
         </Button>
         <Button
           onClick={() => handleCategoryChange("person")}
-          // onClick={() => setCategory("person")}
           sx={{
             backgroundColor: category === "person" ? "red" : "transparent",
             color: category === "person" ? "#ffffff" : "#000000",
-            padding: "15px",
-            marginTop: "15px",
+            padding: {
+              xs: "12px 22px",
+              lg: "15px",
+              xl: "15px",
+            },
+            // marginTop: "15px",
+            fontSize: {
+              xs: "13px",
+              lg: "14px",
+              xl: "15px",
+            },
+            letterSpacing: {
+              xs: "0.8px",
+              lg: "0.8x",
+              xl: "1px",
+            },
             ":hover": {
               backgroundColor: "red",
-              opacity: 0.8, // ボタンがホバーされた時の背景色の透明度を設定
+              opacity: 0.8,
             },
           }}
         >
@@ -203,26 +180,67 @@ const Search = () => {
           label="Search"
           color="success"
           autoComplete="off"
-          sx={{ width: "700px" }}
+          sx={{
+            width: { xs: "360px", md: "800px", lg: "1000px", xl: "1290px" },
+            marginBottom: {
+              xl: "10px",
+            },
+            position: "relative",
+            top: {
+              xs: "3rem",
+              md: "3.5rem",
+              lg: "3rem",
+            },
+          }}
           value={searchValue}
           onChange={handleSearch}
         />
       </Box>
 
-      <Box sx={{ mt: "30px", padding: "16px" }}>
-        <div>
-          <div
-            style={{
+      <Box
+        sx={{
+          mt: {
+            lg: "35px",
+          },
+          padding: {
+            lg: "16px 30px",
+            xl: "16px 30px",
+          },
+        }}
+      >
+        <Box>
+          <Box
+            sx={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gridGap: "5px",
-              rowGap: "48px",
+              gridTemplateColumns: {
+                xs: "repeat(2, 1fr)",
+                md: "repeat(3, 1fr)",
+                lg: "repeat(4, 1fr)",
+                xl: "repeat(4, 1fr)",
+              },
+              gridGap: {
+                xs: "10px",
+                md: "10px",
+                lg: "5px",
+                xl: "10px",
+              },
+              rowGap: {
+                xs: "5px",
+                md: "5px",
+                lg: "30px",
+                xl: "45px",
+              },
               cursor: "pointer",
+              marginTop: {
+                xs: "80px",
+                md: "75px",
+                lg: "50px",
+              },
             }}
           >
             {/* isLoadingのステートが変わったら表示するようにする */}
             {/* isLoading */}
-            {searchResults.map((searchResult: films) => (
+            {searchResults.map((searchResult: Searching) => (
               <div key={searchResult.id}>
                 {category === "movie" && (
                   <Link href={`/movies/${searchResult.id}`} passHref>
@@ -233,28 +251,165 @@ const Search = () => {
                       onMouseLeave={() => {
                         setIshover(false);
                       }}
-                      sx={boxSX}
+                      sx={
+                        isMobileMode
+                          ? SearchMobileTabletCss
+                          : SearchLaptopMonitorCss
+                      }
                     >
-                      <img
-                        className="img"
-                        style={{
-                          width: "98%",
-                          height: "65vh",
-                          objectFit: "cover",
-                          zIndex: "1",
-                          borderRadius: "10px",
-                        }}
-                        src={`${URL}${searchResult.poster_path}`}
-                        alt={searchResult.original_name}
-                      />
+                      {searchResult.poster_path ? (
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              xs: "100%",
+                              md: "100%",
+                              lg: "100%",
+                              xl: "100%",
+                            },
+                            height: {
+                              xs: "27vh",
+                              md: "35vh",
+                              lg: "65vh",
+                              xl: "70vh",
+                            },
+                            objectFit: {
+                              xs: "contain",
+                              md: "cover",
+                              lg: "cover",
+                              xl: "cover",
+                            },
+                            zIndex: "1",
+                            borderRadius: "10px",
+                          }}
+                          src={`${URL}${searchResult.poster_path}`}
+                          alt={searchResult.original_name}
+                        ></Box>
+                      ) : (
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              xs: "95%",
+                              md: "97%",
+                              lg: "96%",
+                              xl: "99%",
+                            },
+                            height: {
+                              xs: "23.5vh",
+                              md: "66vh",
+                              lg: "63vh",
+                              xl: "68.8vh",
+                            },
+
+                            zIndex: "1",
+                            borderRadius: "4px",
+                            backgroundColor: "darkgrey",
+                            margin: {
+                              xs: "10px 0 0 5px",
+                              md: "5px 0 0 5px",
+                              lg: "5px 0 0 5px",
+                              xl: "5px 0 0 5px",
+                            },
+                          }}
+                        ></Box>
+                      )}
 
                       <Box className="text">
-                        <div>{searchResult.vote_average}</div>
-                        <div>
-                          {searchResult.release_date &&
-                            extractYearFromDate(searchResult.release_date)}
-                        </div>
-                        <div>{searchResult.title}</div>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            position: "absolute",
+                            bottom: {
+                              xs: "10px",
+                              lg: "25px",
+                            },
+                            left: "20px",
+                            fontSize: "20px",
+                            textAlign: "left",
+                          }}
+                        >
+                          <CircularProgress
+                            variant="determinate"
+                            color="success"
+                            value={searchResult.vote_average * 10}
+                            style={{ width: "40px" }}
+                          />
+                          <Box
+                            sx={{
+                              position: "fixed",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "40px",
+                              height: "40px",
+                              color: "white",
+                              fontSize: {
+                                xs: "15px",
+                                md: "15px",
+                                lg: "14px",
+                                xl: "15px",
+                              },
+                              fontWeight: {
+                                xs: "300",
+                              },
+                              left: "20px",
+                            }}
+                          >
+                            {searchResult.vote_average
+                              ? searchResult.vote_average.toFixed(1)
+                              : searchResult.vote_average}
+                          </Box>
+                          <Box
+                            sx={{
+                              marginTop: {
+                                xs: "13px",
+                                lg: "12px",
+                                xl: "13px",
+                              },
+                              fontSize: {
+                                xs: "18px",
+                                md: "17px",
+                                lg: "15px",
+                                xl: "17px",
+                              },
+                            }}
+                          >
+                            {searchResult.release_date &&
+                              extractYearFromDate(searchResult.release_date)}
+                          </Box>
+                          <Box
+                            sx={{
+                              alignSelf: "center",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              maxWidth: {
+                                xs: "130px",
+                                md: "220px",
+                                lg: "200px",
+                                xl: "250px",
+                              },
+                              fontWeight: "300",
+                              marginTop: {
+                                xs: "13px",
+                                lg: "12px",
+                                xl: "13px",
+                              },
+                              fontSize: {
+                                xs: "18px",
+                                md: "17px",
+                                lg: "16px",
+                                xl: "17px",
+                              },
+                            }}
+                          >
+                            {searchResult.title}
+                          </Box>
+                        </Box>
                       </Box>
                     </Box>
                   </Link>
@@ -268,40 +423,163 @@ const Search = () => {
                       onMouseLeave={() => {
                         setIshover(false);
                       }}
-                      sx={boxSX}
+                      sx={
+                        isMobileMode
+                          ? SearchMobileTabletCss
+                          : SearchLaptopMonitorCss
+                      }
                     >
                       {searchResult.poster_path ? (
-                        <img
-                          className="img"
-                          style={{
-                            width: "98%",
-                            height: "65vh",
-                            objectFit: "cover",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              xs: "100%",
+                              md: "100%",
+                              lg: "100%",
+                              xl: "100%",
+                            },
+                            height: {
+                              xs: "27vh",
+                              md: "35vh",
+                              lg: "65vh",
+                              xl: "70vh",
+                            },
+                            objectFit: {
+                              xs: "contain",
+                              md: "cover",
+                              lg: "cover",
+                              xl: "cover",
+                            },
                             zIndex: "1",
                             borderRadius: "10px",
                           }}
                           src={`${URL}${searchResult.poster_path}`}
                           alt={searchResult.original_name}
-                        />
+                        ></Box>
                       ) : (
-                        <div
-                          className="img"
-                          style={{
-                            width: "298px",
-                            height: "468px",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              xs: "97.3%",
+                              md: "96%",
+                              lg: "96%",
+                              xl: "99%",
+                            },
+                            height: {
+                              xs: "26.3vh",
+                              md: "35vh",
+                              lg: "63.6vh",
+                              xl: "68.8vh",
+                            },
                             zIndex: "1",
-                            borderRadius: "10px",
+                            borderRadius: "6px",
                             backgroundColor: "darkgrey",
+                            margin: {
+                              xs: "5px 0 0 2px",
+                              md: "5px 0 0 5px",
+                              lg: "5px 0 0 5px",
+                              xl: "5px 0 0 5px",
+                            },
                           }}
-                        ></div>
+                        ></Box>
                       )}
                       <Box className="text">
-                        <div>{searchResult.vote_average}</div>
-                        <div>
-                          {searchResult.first_air_date &&
-                            extractYearFromDate(searchResult.first_air_date)}
-                        </div>
-                        <div>{searchResult.original_name}</div>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            position: "absolute",
+                            bottom: "25px",
+                            left: "20px",
+                            fontSize: "20px",
+                            textAlign: "left",
+                          }}
+                        >
+                          <CircularProgress
+                            variant="determinate"
+                            color="success"
+                            value={searchResult.vote_average * 10}
+                            style={{ width: "40px" }}
+                          />
+                          <Box
+                            sx={{
+                              position: "fixed",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "40px",
+                              height: "40px",
+                              color: "white",
+                              fontSize: {
+                                xs: "15px",
+                                md: "15px",
+                                lg: "14px",
+                                xl: "15px",
+                              },
+                              fontWeight: {
+                                xs: "300",
+                              },
+                              left: "20px",
+                            }}
+                          >
+                            {/* TODO: 三項演算子を使用しない場合は、peopleからtv、movieに遷移するとエラーになる
+                                peopleにvote_averageが存在しないため？か値が0のが存在するため
+                            */}
+                            {searchResult.vote_average
+                              ? searchResult.vote_average.toFixed(1)
+                              : searchResult.vote_average}
+                          </Box>
+                          <Box
+                            sx={{
+                              marginTop: {
+                                xs: "13px",
+                                lg: "12px",
+                                xl: "13px",
+                              },
+                              fontSize: {
+                                xs: "18px",
+                                md: "17px",
+                                lg: "16px",
+                                xl: "17px",
+                              },
+                            }}
+                          >
+                            {searchResult.first_air_date &&
+                              extractYearFromDate(searchResult.first_air_date)}
+                          </Box>
+                          <Box
+                            sx={{
+                              alignSelf: "center",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              maxWidth: {
+                                xs: "130px",
+                                md: "220px",
+                                lg: "235px",
+                                xl: "250px",
+                              },
+                              fontWeight: "300",
+                              marginTop: {
+                                xs: "13px",
+                                lg: "12px",
+                                xl: "13px",
+                              },
+                              fontSize: {
+                                xs: "18px",
+                                md: "17px",
+                                lg: "16px",
+                                xl: "17px",
+                              },
+                            }}
+                          >
+                            {searchResult.name}
+                          </Box>
+                        </Box>
                       </Box>
                     </Box>
                   </Link>
@@ -315,60 +593,94 @@ const Search = () => {
                       }}
                     >
                       {searchResult.profile_path ? (
-                        <img
-                          className="img"
-                          style={{
-                            width: "98%",
-                            height: "65vh",
-                            objectFit: "cover",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              xs: "100%",
+                              md: "100%",
+                              lg: "100%",
+                              xl: "100%",
+                            },
+                            height: {
+                              xs: "27vh",
+                              md: "35vh",
+                              lg: "65vh",
+                              xl: "70vh",
+                            },
+                            objectFit: {
+                              xs: "cover",
+                              md: "cover",
+                              lg: "cover",
+                              xl: "cover",
+                            },
                             zIndex: "1",
                             borderRadius: "10px",
+                            marginTop: {
+                              xs: "10px",
+                              // md: "75px",
+                              // lg: "50px",
+                            },
                           }}
                           src={`${URL}${searchResult.profile_path}`}
                           alt={searchResult.original_name}
-                        />
+                        ></Box>
                       ) : (
-                        <div
-                          className="img"
-                          style={{
-                            width: "298px",
-                            height: "468px",
+                        <Box
+                          component="img"
+                          className="image"
+                          sx={{
+                            width: {
+                              xs: "152px",
+                              md: "265px",
+                              lg: "255px",
+                              xl: "360px",
+                            },
+                            height: {
+                              xs: "27vh",
+                              md: "35vh",
+                              lg: "65vh",
+                              xl: "70vh",
+                            },
+
                             zIndex: "1",
                             borderRadius: "10px",
                             backgroundColor: "darkgrey",
+                            margin: {
+                              xs: "0 0 0 5px",
+                              md: "10px 0 0 5px",
+                              lg: "10px 0 0 5px",
+                              xl: "13px 0 0 5px",
+                            },
                           }}
-                        ></div>
+                        ></Box>
                       )}
-                      {/* {searchResult.profile_path ? (
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            width: "98%",
-                            height: "max-content",
-                            bottom: "4px",
-                            padding: "15px 0",
-                            backgroundColor: "rgba(0, 0, 0, 0.6)",
-                            color: "rgba(219, 219, 219, 0.9)",
-                            fontSize: "23px",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                          }}
-                        >
-                          <div>{searchResult.original_name}</div>
-                        </Box>
-                      ) : null} */}
+
                       <Box
                         sx={{
                           position: "absolute",
-                          width: "98%",
+                          left: 2,
+                          width: {
+                            xs: "99%",
+                            lg: "99%",
+                            xl: "99%",
+                          },
                           height: "max-content",
                           bottom: "4px",
                           padding: "15px 0",
                           backgroundColor: "rgba(0, 0, 0, 0.6)",
                           color: "rgba(219, 219, 219, 0.9)",
-                          fontSize: "23px",
+                          fontSize: {
+                            xs: "19px",
+                            lg: "23px",
+                            xl: "23px",
+                          },
                           textAlign: "center",
                           borderRadius: "10px",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
                         }}
                       >
                         <div>{searchResult.original_name}</div>
@@ -378,21 +690,29 @@ const Search = () => {
                 )}
               </div>
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
         {searchResults.length > 0 ? (
-          <div
-            style={{
+          <Box
+            sx={{
               display: "flex",
               justifyContent: "center",
               textAlign: "center",
-              marginTop: "45px",
+              marginTop: {
+                xs: "15px",
+                lg: "45px",
+                xl: "45px",
+              },
             }}
           >
             <Button
               sx={{
                 color: "#FF0000",
-                fontSize: "20px",
+                fontSize: {
+                  xs: "14px",
+                  lg: "16px",
+                  xl: "15px",
+                },
                 fontWeight: "bold",
                 ":hover": {
                   color: "white",
@@ -404,10 +724,10 @@ const Search = () => {
             >
               LOAD MORE
             </Button>
-          </div>
+          </Box>
         ) : null}
       </Box>
-    </div>
+    </Box>
   );
 };
 

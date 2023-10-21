@@ -5,7 +5,6 @@ const Favorite = require("../models/Favorite");
 // 特定の映画をfavoriteに格納する
 router.put("/movies/:id", async (req, res) => {
   try {
-    console.log(Number(req.params.id));
     // req.params.idは、指定した映画のidになる
     const favorite = await Favorite.findOne({
       movieId: Number(req.params.id),
@@ -102,6 +101,43 @@ router.get("/user/:userId", async (req, res) => {
       });
     }
     return res.status(200).json({ result });
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+// router.delete("/:id", async (req, res) => {
+//   try {
+//     await Favorite.deleteOne();
+//     return res.status(200).json();
+//   } catch (err) {
+//     return res.status(403).json(err);
+//   }
+// });
+router.delete("/user/:id", async (req, res) => {
+  try {
+    const favoriteCategory = req.query.category; // = drama
+
+    const favoriteId = Number(req.params.id);
+
+    const favorite = await Favorite.findOne(
+      favoriteCategory === "movie"
+        ? { movieId: favoriteId, userId: req.body.userId } // 976573
+        : { dramaId: favoriteId, userId: req.body.userId } // 976573
+    );
+
+    // const favorite = await Favorite.findOne({
+    //   movieId: Number(req.params.id), //14069
+    //   dramaId: Number(req.params.id), // 14069
+    //   userId: req.body.userId,
+    // });
+    // console.log(req.body.userId);
+    // console.log(favorite);
+
+    // console.log(Number(req.params.id));
+    // const favorite = await Favorite.findById(Number(req.params.id));
+    await favorite.deleteOne();
+    return res.status(200);
   } catch (err) {
     return res.status(500).json(err);
   }

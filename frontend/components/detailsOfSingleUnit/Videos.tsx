@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Box } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -9,86 +9,146 @@ import { useState } from "react";
 
 import YouTube from "react-youtube";
 
-interface MoviesData {
-  id: string;
-  key: string;
-  name: string;
-}
+import { Category } from "@/src/state/category";
+import theme from "@/src/theme/theme";
 
-const Videos = ({ videos }: { videos: any }) => {
+const Videos = ({ videos }: { videos: never[] }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
+
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("lg"));
 
   const handleClickVideo = (index: number) => {
     setCurrentVideoIndex(index);
   };
 
+  // 5つのみ動画を取得する
+  const firstFiveVideos = videos.slice(0, 5);
+
   return (
-    <div id="sectionVideo">
-      <h1
-        style={{
+    <Box
+      id="sectionVideo"
+      sx={{
+        marginTop: {
+          xl: "35px",
+        },
+      }}
+    >
+      <Box
+        sx={{
           display: "inline-block",
+          position: "relative",
+          left: {
+            lg: "3em",
+            xl: "11%",
+          },
+          margin: {
+            xs: "40px 0 0 0",
+            md: "10px 0 0 0",
+            xl: "30px 0 0 0",
+          },
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: {
+              xs: "18px",
+              md: "22px",
+              lg: "24px",
+              xl: "25px",
+            },
+            fontWeight: {
+              xs: "bold",
+              md: "bold",
+              lg: "bold",
+              xl: "bold",
+            },
+            letterSpacing: "0.5px",
+            marginBottom: {
+              md: "20px",
+            },
+            left: "6.5%",
+          }}
+        >
+          VIDEOS
+          <span
+            style={{
+              position: "absolute",
+              top: "2rem",
+              left: "3%",
+              width: "90%",
+              borderBottom: "7px solid red",
+              borderRadius: "20px",
+            }}
+          ></span>
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          marginTop: {
+            xs: "40px",
+            xl: "15px",
+          },
+          display: "flex",
+          justifyContent: "center",
           position: "relative",
         }}
       >
-        VIDEOS
-        <span
-          style={{
-            position: "absolute",
-            bottom: "-10px",
-            left: "0",
-            width: "85%",
-            borderBottom: "7px solid red",
-            borderRadius: "20px",
+        <Swiper
+          slidesPerView={1}
+          grabCursor={true}
+          direction="horizontal"
+          navigation={true}
+          modules={[Navigation, Pagination]}
+          pagination={{
+            dynamicBullets: true,
           }}
-        ></span>
-      </h1>
-      <Swiper
-        slidesPerView={1}
-        grabCursor={true}
-        direction="horizontal"
-        navigation={true}
-        modules={[Navigation, Pagination]}
-        pagination={{
-          dynamicBullets: true,
-        }}
-        spaceBetween={50}
-      >
-        {videos.map((video: MoviesData, index: number) => (
-          <SwiperSlide key={video.id}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column",
-                height: "98vh",
-                objectFit: "cover",
-                margin: "25px 0",
-              }}
-              onClick={() => handleClickVideo(index)}
-            >
-              <div
-                style={{
-                  position: "relative",
+        >
+          {firstFiveVideos.map((video: Category, index: number) => (
+            <SwiperSlide key={video.id}>
+              <Box
+                sx={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  height: {
+                    xs: "35vh",
+                    md: "35vh",
+                    lg: "85vh",
+                    xl: "77vh",
+                  },
+                  objectFit: "contain",
                 }}
+                onClick={() => handleClickVideo(index)}
               >
-                <YouTube
-                  videoId={video.key}
-                  opts={{
-                    width: "1150",
-                    height: "680",
-                    objectFit: "cover",
-                  }}
-                />
-              </div>
-            </Box>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+                {isMobileMode ? (
+                  <Box>
+                    <YouTube
+                      videoId={video.key}
+                      opts={{
+                        width: "auto",
+                        height: "350",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  <Box>
+                    <YouTube
+                      videoId={video.key}
+                      opts={{
+                        width: "1000",
+                        height: "500",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                )}
+              </Box>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+    </Box>
   );
 };
 

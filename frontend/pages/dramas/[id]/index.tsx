@@ -12,16 +12,10 @@ import { userState } from "@/src/state/auth";
 import axios from "axios";
 import SinglePageInfo from "@/components/detailsOfSingleUnit/singleDataInfoDrama/SinglePageInfoDrama";
 
-interface Movie {
-  overview: string;
-  original_title: string; // 追加: 映画のタイトル
-  release_date: string; // 追加: 公開日
-  vote_average: number; // 追加: 平均評価
-}
-
 const single_unit = () => {
   const router = useRouter();
   const { id }: any = router.query;
+  const apikey = process.env.NEXT_PUBLIC_API_KEY;
 
   const [user, setUser] = useRecoilState(userState);
   const [recommends, setRecommends] = useState([]);
@@ -32,7 +26,7 @@ const single_unit = () => {
   const fetchVideos = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${id}/videos?api_key=bb46848237eacc0a36827f6639b47ee3`
+        `https://api.themoviedb.org/3/tv/${id}/videos?api_key=${apikey}`
       );
       setVideos(response.data.results);
     } catch (error) {
@@ -43,10 +37,9 @@ const single_unit = () => {
   const fetchRecommend = async () => {
     try {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/trending/tv/day?api_key=bb46848237eacc0a36827f6639b47ee3"
+        `https://api.themoviedb.org/3/trending/tv/day?api_key=${apikey}`
       );
       setRecommends(response.data.results);
-      console.log(response.data.results);
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +48,7 @@ const single_unit = () => {
   const fetchMoviePics = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${id}/images?api_key=bb46848237eacc0a36827f6639b47ee3`
+        `https://api.themoviedb.org/3/tv/${id}/images?api_key=${apikey}`
       );
       setPosters(response.data.posters);
       setBackDrops(response.data.backdrops);
@@ -74,6 +67,14 @@ const single_unit = () => {
     fetchData();
   }, [id]);
 
+  const extractYearFromDate = (dateString: string | undefined): string => {
+    if (dateString && dateString.length >= 4) {
+      return dateString.substring(0, 4);
+    } else {
+      return "Unknown";
+    }
+  };
+
   return (
     <>
       <div>
@@ -84,7 +85,10 @@ const single_unit = () => {
             <BackDrops backdrops={backdrops} />
             <Posters posters={posters} />
             <Reviews id={id} category="drama" />
-            <Recommend recommends={recommends} />
+            <Recommend
+              recommends={recommends}
+              extractYearFromDate={extractYearFromDate}
+            />
           </Box>
         </Layout>
       </div>

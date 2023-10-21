@@ -7,25 +7,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Head from "next/head";
 
-interface MoviePic {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
-  vote_average: number;
-  name: string;
-}
+import { Movie } from "@/src/state/category";
 
 const SinglePageInfo = ({ id }: { id: string }) => {
-  const [leftPic, setLeftPic] = useState<MoviePic | null>(null);
-  const [rightSideDetail, setRightSideDetail] = useState<MoviePic | null>(null);
+  const apikey = process.env.NEXT_PUBLIC_API_KEY;
+
+  const [leftPic, setLeftPic] = useState<Movie | null>(null);
+  const [rightSideDetail, setRightSideDetail] = useState<Movie | null>(null);
   const [casts, setCasts] = useState([]);
 
   const fetchMovieInfo = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=bb46848237eacc0a36827f6639b47ee3`
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${apikey}`
       );
       setLeftPic(response.data);
       setRightSideDetail(response.data);
@@ -37,7 +31,7 @@ const SinglePageInfo = ({ id }: { id: string }) => {
   const fetchCasts = async () => {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=bb46848237eacc0a36827f6639b47ee3`
+        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apikey}`
       );
       setCasts(response.data.cast);
     } catch (error) {
@@ -49,6 +43,10 @@ const SinglePageInfo = ({ id }: { id: string }) => {
     fetchMovieInfo();
     fetchCasts();
   }, [id]);
+
+  const extractYearFromDate = (dateString: string): string => {
+    return dateString.substring(0, 4);
+  };
   return (
     <>
       <Head>
@@ -58,17 +56,43 @@ const SinglePageInfo = ({ id }: { id: string }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
+      <Box
+        sx={{
+          display: {
+            md: "block",
+            lg: "flex",
+            xl: "flex",
+          },
+          justifyContent: {
+            lg: "center",
+            xl: "center",
+          },
+          alignItems: "center",
+        }}
       >
-        {/* このページでidを取得しているからidを下の階層に渡さなくても良い？ */}
         <LeftSidePicMain leftPic={leftPic} />
-        <Box sx={{ flexDirection: "column", width: "60%" }}>
-          <RightSideDetailMain rightSideDetail={rightSideDetail} />
+        <Box
+          sx={{
+            flexDirection: "column",
+            width: "60%",
+            marginRight: {
+              lg: "40px",
+            },
+            marginTop: {
+              md: "40px",
+              lg: "90px",
+              xl: "90px",
+            },
+          }}
+        >
+          <RightSideDetailMain
+            rightSideDetail={rightSideDetail}
+            extractYearFromDate={extractYearFromDate}
+          />
           <FavoriteWatch id={id} />
           <CastList casts={casts} />
         </Box>
-      </div>
+      </Box>
     </>
   );
 };

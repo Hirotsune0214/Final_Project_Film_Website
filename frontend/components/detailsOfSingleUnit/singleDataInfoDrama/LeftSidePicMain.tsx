@@ -1,37 +1,31 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-// interfaceを使い回して良いのか
-interface MoviePic {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
-  vote_average: number;
-}
+import { Drama } from "@/src/state/category";
+import { Box } from "@mui/material";
 
-const LeftSidePicMain = ({ leftPic }: { leftPic: any }) => {
-  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
+const LeftSidePicMain = ({ leftPic }: { leftPic: Drama | null }) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
 
   if (!leftPic) {
-    return null; // ロード中やエラー時に null を返すなどの適切な表示を行う
+    return null;
   }
 
   return (
-    <div>
-      <div
-        style={{
+    <Box>
+      <Box
+        sx={{
           backgroundImage: `url(${URL}${leftPic.poster_path})`,
-          backgroundSize: "contain", // 画像をコンテナー内にフィット
-          backgroundRepeat: "no-repeat", // 画像のリピートを無効に
-          backgroundPosition: "center", // 画像を中央に配置
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
           height: "90vh",
           width: "500px",
-          marginRight: "32px",
+          marginRight: {
+            lg: "10px",
+          },
         }}
-      ></div>
-    </div>
+      ></Box>
+    </Box>
   );
 };
 

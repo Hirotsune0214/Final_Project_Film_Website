@@ -1,28 +1,38 @@
 import axios from "axios";
+
 import React, { useEffect, useState } from "react";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+
 import Link from "next/link";
+
+import { Drama } from "@/src/state/category";
+
 import { Box, Button, CircularProgress } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+/******************************************************************************************/
 
-// interfaceを使い回して良いのか
-interface Series {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_name: string;
-  release_date: string;
-  vote_average: number;
-  backdrop_path: string;
-  overview: string;
-}
+const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
+  const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
 
-const MainImageDramas = () => {
-  const URL = "https://image.tmdb.org/t/p/original"; // ポスター画像のベースURL
-  const [dramas, setDramas] = useState<Series[]>([]);
-
-  const movieButton = {
+  const dramaButton = {
+    width: {
+      xs: "170px",
+      md: "170px",
+      lg: "170px",
+      xl: "180px",
+    },
+    height: {
+      xs: "40px",
+      lg: "45px",
+      xl: "55px",
+    },
+    fontSize: {
+      xs: "14px",
+      md: "15px",
+      xl: "17px",
+    },
     color: "white",
     backgroundColor: "#FF0D01",
     padding: "10px",
@@ -34,44 +44,47 @@ const MainImageDramas = () => {
     },
   };
 
-  const fetchDramas = async () => {
-    try {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/discover/tv?api_key=bb46848237eacc0a36827f6639b47ee3"
-      );
-      setDramas(response.data.results);
-
-      console.log(response.data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // const extractYearFromDate = (dateString: string): string => {
-  //   return dateString.substring(0, 4); // Extract the first 4 characters (the year)
-  // };
-
-  useEffect(() => {
-    fetchDramas();
-  }, []);
-
   return (
     <div>
-      {/* Swiperコンポーネント */}
       <Swiper slidesPerView="auto" grabCursor={true} direction="horizontal">
-        {dramas.map((drama: Series) => (
+        {dramas.map((drama: Drama) => (
           <SwiperSlide key={drama.id}>
-            <div
-              style={{
+            <Box
+              sx={{
                 backgroundImage: `URL(${URL}${drama.backdrop_path})`,
-                backgroundSize: "cover",
+                backgroundSize: {
+                  xs: "cover",
+                  md: "cover",
+                  lg: "cover",
+                  xl: "cover",
+                },
                 backgroundRepeat: "no-repeat",
-                height: "100vh",
+                width: {
+                  xs: "100%",
+                  md: "100%",
+                  lg: "100%",
+                },
+                height: {
+                  xs: "45vh",
+                  md: "50vh",
+                  lg: "100vh",
+                  xl: "100vh",
+                },
                 position: "relative",
+                alignItems: "center",
+                marginTop: {
+                  xs: "13px",
+                  md: "20px",
+                },
+                backgroundPosition: {
+                  xs: "center",
+                  md: "center",
+                },
+                padding: "10px 0",
               }}
             >
-              <div
-                style={{
+              <Box
+                sx={{
                   width: "100%",
                   height: "100%",
                   position: "absolute",
@@ -80,12 +93,27 @@ const MainImageDramas = () => {
                   backgroundImage:
                     "linear-gradient(to right, rgb(245, 245, 245), rgba(0, 0, 0, 0))",
                 }}
-              ></div>
+              ></Box>
               <Box
                 sx={{
                   position: "absolute",
-                  top: "42%",
-                  left: "30%",
+                  top: {
+                    xs: "55%",
+                    md: "55%",
+                    lg: "42%",
+                    xl: "42%",
+                  },
+                  left: {
+                    xs: "42%",
+                    md: "35%",
+                    lg: "30%",
+                    xl: "30%",
+                  },
+                  width: {
+                    xs: "250px",
+                    md: "450px",
+                    lg: "450px",
+                  },
                   transform: "translate(-50%, -50%)",
                   textAlign: "center",
                   color: "black",
@@ -95,61 +123,119 @@ const MainImageDramas = () => {
                   alignItems: "flex-start",
                 }}
               >
-                <div style={{ fontSize: "35px", fontWeight: "bold" }}>
-                  {drama.original_name}
-                </div>
-                <Box style={{ fontSize: "20px", marginTop: "32px" }}>
+                <Box
+                  sx={{
+                    fontSize: {
+                      xs: "35px",
+                      md: "35px", // tablet
+                      lg: "40px", // laptop
+                      xl: "70px", // monitor
+                    },
+                    width: {
+                      xs: "335px",
+                      md: "600px",
+                      lg: "550px",
+                      xl: "740px",
+                    },
+                    fontWeight: "bold",
+                    textAlign: "left",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2, // 2行に制限
+                    WebkitBoxOrient: "vertical",
+                    whiteSpace: "normal",
+                  }}
+                >
+                  {drama.name}
+                </Box>
+                <Box
+                  style={{
+                    fontSize: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    position: "relative",
+                  }}
+                >
                   <CircularProgress
                     variant="determinate"
                     color="success"
                     value={drama.vote_average * 10}
-                    style={{ width: "50px" }}
+                    style={{ width: "50px", marginTop: "32px" }}
                   />
-                  <div
-                    style={{
-                      position: "fixed",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: "40px",
-                      height: "40px",
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: "73%",
+                      left: "60%",
+                      transform: "translate(-50%, -50%)",
                       color: "black",
-                      fontSize: "18px",
+                      fontSize: {
+                        md: "15px",
+                        lg: "16px",
+                        xl: "15px",
+                      },
                       fontWeight: "700",
-                      top: "73.5px",
-                      left: "9px",
                     }}
                   >
                     {drama.vote_average}
-                  </div>
+                  </Box>
                 </Box>
-                <div
-                  style={{
-                    width: "450px",
-                    fontSize: "20px",
-                    fontWeight: "400",
+                <Box
+                  sx={{
+                    fontSize: {
+                      md: "20px",
+                      lg: "19px",
+                      xl: "21px",
+                    },
+                    width: {
+                      xs: "340px",
+                      md: "700px",
+                      lg: "450px",
+                      xl: "700px",
+                    },
+                    lineHeight: {
+                      xs: "27px",
+                      md: "30px",
+                      lg: "25px",
+                      xl: "35px",
+                    },
+                    fontWeight: {
+                      md: "lighter",
+                      lg: "400",
+                      xl: "530",
+                    },
                     letterSpacing: "0.02000em",
-                    // margin: "32px 0 0 50px",
                     marginTop: "32px",
                     whiteSpace: "normal",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     display: "-webkit-box",
-                    WebkitLineClamp: 3, // 最大表示行数
+                    WebkitLineClamp: 3,
                     WebkitBoxOrient: "vertical",
                     textAlign: "left",
                   }}
                 >
                   {drama.overview}
-                </div>
-                <Link href={`/dramas/${drama.id}`} passHref>
-                  <Button sx={movieButton}>
-                    <PlayArrowIcon />
-                    WATCH NOW
-                  </Button>
-                </Link>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <Link href={`/dramas/${drama.id}`} passHref>
+                    <Button sx={dramaButton}>
+                      <PlayArrowIcon />
+                      WATCH NOW
+                    </Button>
+                  </Link>
+                </Box>
               </Box>
-            </div>
+            </Box>
           </SwiperSlide>
         ))}
       </Swiper>

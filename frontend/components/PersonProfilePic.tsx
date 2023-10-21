@@ -1,54 +1,42 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { Category } from "@/src/state/category";
+import { Box } from "@mui/material";
 
-interface PersonPic {
-  id: string;
-  poster_path: string;
-  title: string;
-  original_title: string;
-  release_date: string;
-  vote_average: number;
-  profile_path: string;
-}
-
-const PersonProfile = ({ id }: { id: string }) => {
-  const URL = "https://image.tmdb.org/t/p/original";
-  const [personPic, setPersonPic] = useState<PersonPic | null>(null);
-
-  const fetchPersonInfo = async () => {
-    console.log(id);
-
-    try {
-      const response = await axios.get(
-        // `https://api.themoviedb.org/3/search/person?id=${id}&api_key=bb46848237eacc0a36827f6639b47ee3&include_adult=false&language=en-US&page=1`
-        `https://api.themoviedb.org/3/person/${id}?api_key=bb46848237eacc0a36827f6639b47ee3`
-      );
-      setPersonPic(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPersonInfo();
-  }, [id]);
+const PersonProfile = ({ personPic }: { personPic: Category | null }) => {
+  console.log(personPic);
+  const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: {
+          md: "flex",
+        },
+        justifyContent: {
+          md: "center",
+        },
+        alignItems: {
+          md: "center",
+        },
+      }}
+    >
       {personPic && (
-        <div
-          style={{
+        <Box
+          sx={{
             backgroundImage: `url(${URL}${personPic.profile_path})`,
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
-            height: "55vh",
-            width: "230px",
+            height: { xs: "50vh", md: "50vh", lg: "60vh", xl: "55vh" },
+            width: { xs: "350px", md: "360px", lg: "280px", xl: "250px" },
+            marginTop: {
+              xs: "35px",
+              md: "10px",
+              lg: "15px",
+            },
           }}
-        ></div>
+        ></Box>
       )}
-    </div>
+    </Box>
   );
 };
 
