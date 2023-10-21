@@ -61,8 +61,8 @@ const MainImageMovies = ({ movies }: { movies: Movie[] }) => {
                   lg: "100%",
                 },
                 height: {
-                  xs: "67vh",
-                  md: "85vh",
+                  xs: "45vh",
+                  md: "50vh",
                   lg: "100vh",
                   xl: "100vh",
                 },
@@ -70,6 +70,7 @@ const MainImageMovies = ({ movies }: { movies: Movie[] }) => {
                 alignItems: "center",
                 marginTop: {
                   xs: "13px",
+                  md: "20px",
                 },
                 padding: "10px 0",
                 backgroundPosition: {
@@ -93,13 +94,13 @@ const MainImageMovies = ({ movies }: { movies: Movie[] }) => {
                   position: "absolute",
                   top: {
                     xs: "55%",
-                    md: "42%",
+                    md: "55%",
                     lg: "42%",
                     xl: "42%",
                   },
                   left: {
                     xs: "42%",
-                    md: "30%",
+                    md: "35%",
                     lg: "30%",
                     xl: "30%",
                   },
@@ -185,7 +186,7 @@ const MainImageMovies = ({ movies }: { movies: Movie[] }) => {
                     },
                     width: {
                       xs: "340px",
-                      md: "900px",
+                      md: "500px",
                       lg: "450px",
                       xl: "700px",
                     },

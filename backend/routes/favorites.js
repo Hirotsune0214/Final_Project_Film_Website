@@ -114,9 +114,28 @@ router.get("/user/:userId", async (req, res) => {
 //     return res.status(403).json(err);
 //   }
 // });
-router.delete("/user/:userId", async (req, res) => {
+router.delete("/user/:id", async (req, res) => {
   try {
-    const favorite = await Favorite.findById(req.params.id);
+    const favoriteCategory = req.query.category; // = drama
+
+    const favoriteId = Number(req.params.id);
+
+    const favorite = await Favorite.findOne(
+      favoriteCategory === "movie"
+        ? { movieId: favoriteId, userId: req.body.userId } // 976573
+        : { dramaId: favoriteId, userId: req.body.userId } // 976573
+    );
+
+    // const favorite = await Favorite.findOne({
+    //   movieId: Number(req.params.id), //14069
+    //   dramaId: Number(req.params.id), // 14069
+    //   userId: req.body.userId,
+    // });
+    // console.log(req.body.userId);
+    // console.log(favorite);
+
+    // console.log(Number(req.params.id));
+    // const favorite = await Favorite.findById(Number(req.params.id));
     await favorite.deleteOne();
     return res.status(200);
   } catch (err) {

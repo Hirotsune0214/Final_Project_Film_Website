@@ -2,13 +2,15 @@ import axios from "axios";
 
 import React, { useState } from "react";
 
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress, useMediaQuery } from "@mui/material";
 
 import Link from "next/link";
 
 import { Movie } from "@/src/state/category";
 
-import { MovieDramaCss } from "@/pages/movies";
+import { MovieDramaLaptopMonitorCss } from "@/pages/movies";
+import { MovieDramaMobileTabletCss } from "@/pages/movies";
+import theme from "@/src/theme/theme";
 
 /******************************************************************************************/
 
@@ -34,11 +36,14 @@ const Movies = ({
 
   const [ishover, setIshover] = useState(false);
 
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <Box
       sx={{
         width: {
-          xs: "92%",
+          xs: "auto",
+          md: "auto",
           lg: "auto",
         },
         display: "block",
@@ -196,21 +201,55 @@ const Movies = ({
               onMouseLeave={() => {
                 setIshover(false);
               }}
-              sx={MovieDramaCss}
+              sx={
+                isMobileMode
+                  ? MovieDramaMobileTabletCss
+                  : MovieDramaLaptopMonitorCss
+              }
             >
-              <Box
-                component="img"
-                className="image"
-                src={`${URL}${movie.poster_path}`}
-                alt={movie.title}
-                sx={{
-                  width: { xs: "100%", md: "95%", lg: "99%", xl: "99%" },
-                  height: { xs: "41vh", md: "67vh", lg: "64vh", xl: "61.5vh" },
-                  objectFit: "cover",
-                  zIndex: "1",
-                  borderRadius: "10px",
-                }}
-              />
+              {movie.poster_path ? (
+                <Box
+                  component="img"
+                  className="image"
+                  src={`${URL}${movie.poster_path}`}
+                  alt={movie.title}
+                  sx={{
+                    width: { xs: "100%", md: "100%", lg: "99%", xl: "99%" },
+                    height: {
+                      xs: "27vh",
+                      md: "35vh",
+                      lg: "64vh",
+                      xl: "61.5vh",
+                    },
+                    objectFit: "cover",
+                    zIndex: "1",
+                    borderRadius: "10px",
+                  }}
+                />
+              ) : (
+                <Box
+                  component="img"
+                  className="image"
+                  sx={{
+                    width: {
+                      xs: "97%",
+                      md: "97%",
+                      lg: "96%",
+                      xl: "99%",
+                    },
+                    height: {
+                      xs: "26.1vh",
+                      md: "61.5vh",
+                      lg: "63.6vh",
+                      xl: "60.5vh",
+                    },
+                    zIndex: "1",
+                    borderRadius: "10px",
+                    backgroundColor: "darkgrey",
+                    margin: "5px 0 0 5px",
+                  }}
+                ></Box>
+              )}
               <Box className="text">
                 <Box
                   sx={{
@@ -218,6 +257,7 @@ const Movies = ({
                     flexDirection: "column",
                     position: "absolute",
                     bottom: {
+                      xs: "10px",
                       lg: "20px",
                     },
                     left: "20px",
@@ -240,9 +280,11 @@ const Movies = ({
                       width: "40px",
                       height: "40px",
                       color: "white",
-                      fontSize: { lg: "15px", xl: "15px" },
+                      fontSize: { xs: "18px", lg: "15px", xl: "15px" },
                       fontWeight: {
+                        xs: "300",
                         lg: "300",
+                        xl: "300",
                       },
                       left: "20px",
                     }}
@@ -252,15 +294,19 @@ const Movies = ({
                   <Box
                     sx={{
                       marginTop: {
+                        xs: "10px",
                         lg: "12px",
                         xl: "15px",
                       },
                       fontSize: {
+                        xs: "17px",
                         lg: "16px",
                         xl: "15px",
                       },
                       fontWeight: {
+                        xs: "300",
                         lg: "300",
+                        xl: "300",
                       },
                     }}
                   >
@@ -273,16 +319,20 @@ const Movies = ({
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       maxWidth: {
+                        xs: "130px",
                         lg: "230px",
                       },
                       fontWeight: {
+                        xs: "300",
                         lg: "300",
                       },
                       marginTop: {
+                        xs: "15px",
                         lg: "12px",
                         xl: "15px",
                       },
                       fontSize: {
+                        xs: "18px",
                         lg: "16px",
                         xl: "17px",
                       },

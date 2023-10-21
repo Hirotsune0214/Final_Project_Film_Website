@@ -6,7 +6,7 @@ import TopRatedMovies from "./TopRatedMovies";
 import TopRatedSeries from "./TopRatedSeries";
 import { Box } from "@mui/material";
 
-export const hoverCss = {
+export const hoverLaptopMonitorCss = {
   maxWidth: "500px",
   margin: "0 auto",
   position: "relative",
@@ -25,20 +25,24 @@ export const hoverCss = {
   },
   "& .image": {
     transition: "transform 0.2s",
-    border: "5px solid transparent",
+    border: {
+      md: "none",
+      lg: "5px solid transparent",
+      xl: "5px solid transparent",
+    },
   },
   "& .text": {
     position: "absolute",
     width: {
-      lg: "94%",
+      lg: "93%",
       xl: "92%",
     },
     height: {
-      lg: "55.1vh",
-      xl: "47.8vh",
+      lg: "55.5vh",
+      xl: "48.3vh",
     },
     top: 0,
-    left: -1,
+    left: -2,
     textAlign: "center",
     color: "#fff",
     background:
@@ -54,6 +58,51 @@ export const hoverCss = {
     marginTop: "65.1px",
     marginLeft: "11.5px",
     borderRadius: "10px",
+    fontSize: "20px",
+  },
+};
+
+export const hoverMobileTabletCss = {
+  maxWidth: "500px",
+  margin: "0 auto",
+  position: "relative",
+  cursor: "pointer",
+  "& .image": {
+    transition: "transform 0.2s",
+    border: {
+      md: "none",
+      lg: "5px solid transparent",
+      xl: "5px solid transparent",
+    },
+  },
+  "& .text": {
+    position: "absolute",
+    width: {
+      xs: "92.5%",
+      md: "95.5%",
+      lg: "93%",
+      xl: "92%",
+    },
+    height: {
+      xs: "22vh",
+      md: "28.8vh",
+      lg: "57.5vh",
+      xl: "48.3vh",
+    },
+    top: "30px",
+    left: -7.5,
+    textAlign: "center",
+    color: "#fff",
+    background:
+      "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    transform: "scale(1.05)",
+    zIndex: "2",
+    marginTop: "65.1px",
+    marginLeft: "11.5px",
     fontSize: "20px",
   },
 };

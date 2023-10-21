@@ -23,8 +23,14 @@ const BackDrops = ({ backdrops }: { backdrops: never[] }) => {
         sx={{
           display: "inline-block",
           position: "relative",
-          margin: "30px 0 50px 0",
+          margin: {
+            xs: "50px 0 20px 0",
+            md: "50px 0",
+            lg: "30px 0 50px 0",
+            xl: "30px 0 50px 0",
+          },
           left: {
+            lg: "5em",
             xl: "9em",
           },
         }}
@@ -32,11 +38,13 @@ const BackDrops = ({ backdrops }: { backdrops: never[] }) => {
         <Typography
           sx={{
             fontSize: {
+              xs: "18px",
               md: "22px",
               lg: "24px",
               xl: "25px",
             },
             fontWeight: {
+              xs: "bold",
               md: "bold",
               lg: "bold",
               xl: "bold",
@@ -62,7 +70,6 @@ const BackDrops = ({ backdrops }: { backdrops: never[] }) => {
           display: "flex",
           justifyContent: "center",
           alignContent: "center",
-          
         }}
       >
         <Swiper
@@ -83,21 +90,33 @@ const BackDrops = ({ backdrops }: { backdrops: never[] }) => {
                   justifyContent: "center",
                   alignContent: "center",
                   height: {
-                    md: "600px",
-                    lg: "630px",
+                    xs: "27vh",
+                    md: "45vh",
+                    lg: "90vh",
                     xl: "73vh",
                   },
                 }}
               >
-                <img
-                  style={{
-                    width: "1000px",
-                    height: "530px",
+                <Box
+                  component="img"
+                  sx={{
+                    width: {
+                      xs: "330px",
+                      md: "750px",
+                      lg: "1000px",
+                      xl: "1000px",
+                    },
+                    height: {
+                      xs: "25vh",
+                      md: "45vh",
+                      lg: "530px",
+                      xl: "530px",
+                    },
                     objectFit: "contain",
                   }}
                   src={`${URL}${backdrop.file_path}`}
                   alt={backdrop.title}
-                />
+                ></Box>
               </Box>
             </SwiperSlide>
           ))}

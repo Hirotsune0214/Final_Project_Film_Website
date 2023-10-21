@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -10,9 +10,12 @@ import { useState } from "react";
 import YouTube from "react-youtube";
 
 import { Category } from "@/src/state/category";
+import theme from "@/src/theme/theme";
 
 const Videos = ({ videos }: { videos: never[] }) => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
+
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("lg"));
 
   const handleClickVideo = (index: number) => {
     setCurrentVideoIndex(index);
@@ -35,9 +38,12 @@ const Videos = ({ videos }: { videos: never[] }) => {
           display: "inline-block",
           position: "relative",
           left: {
+            lg: "3em",
             xl: "11%",
           },
           margin: {
+            xs: "40px 0 0 0",
+            md: "10px 0 0 0",
             xl: "30px 0 0 0",
           },
         }}
@@ -45,11 +51,13 @@ const Videos = ({ videos }: { videos: never[] }) => {
         <Typography
           sx={{
             fontSize: {
+              xs: "18px",
               md: "22px",
               lg: "24px",
               xl: "25px",
             },
             fontWeight: {
+              xs: "bold",
               md: "bold",
               lg: "bold",
               xl: "bold",
@@ -77,6 +85,7 @@ const Videos = ({ videos }: { videos: never[] }) => {
       <Box
         sx={{
           marginTop: {
+            xs: "40px",
             xl: "15px",
           },
           display: "flex",
@@ -102,24 +111,38 @@ const Videos = ({ videos }: { videos: never[] }) => {
                   justifyContent: "center",
                   alignItems: "center",
                   height: {
-                    md: "105vh",
-                    lg: "100vh",
+                    xs: "35vh",
+                    md: "35vh",
+                    lg: "85vh",
                     xl: "77vh",
                   },
                   objectFit: "contain",
                 }}
                 onClick={() => handleClickVideo(index)}
               >
-                <Box>
-                  <YouTube
-                    videoId={video.key}
-                    opts={{
-                      width: "1000",
-                      height: "550",
-                      objectFit: "cover",
-                    }}
-                  />
-                </Box>
+                {isMobileMode ? (
+                  <Box>
+                    <YouTube
+                      videoId={video.key}
+                      opts={{
+                        width: "auto",
+                        height: "350",
+                        objectFit: "contain",
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  <Box>
+                    <YouTube
+                      videoId={video.key}
+                      opts={{
+                        width: "1000",
+                        height: "500",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                )}
               </Box>
             </SwiperSlide>
           ))}

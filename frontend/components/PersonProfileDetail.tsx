@@ -8,16 +8,40 @@ const PersonProfileDetail = ({
   personDetail: PersonDetail | null;
 }) => {
   return (
-    <Box sx={{ padding: "16px 32px" }}>
+    <Box
+      sx={{
+        padding: "16px 32px",
+      }}
+    >
       {personDetail && (
-        <Box>
+        <Box
+        // sx={{
+        //   display: {
+        //     md: "flex",
+        //   },
+        //   justifyContent: {
+        //     md: "center",
+        //   },
+        //   alignItems: {
+        //     md: "center",
+        //   },
+        // }}
+        >
           <Box
             component="h1"
             sx={{
-              fontSize: {
-                md: "26px",
-                lg: "32px",
-                xl: "27px",
+              fontSize: { xs: "30px", md: "26px", lg: "32px", xl: "27px" },
+              display: {
+                xs: "flex",
+                md: "flex",
+              },
+              justifyContent: {
+                xs: "center",
+                md: "center",
+              },
+              alignItems: {
+                xs: "center",
+                md: "center",
               },
             }}
           >
@@ -33,14 +57,16 @@ const PersonProfileDetail = ({
                 lg: "40px",
                 xl: "30px",
               },
-              fontSize: { md: "16px", lg: "18px", xl: "20px" },
+              fontSize: { xs: "16px", md: "16px", lg: "18px", xl: "20px" },
               letterSpacing: "1.1px",
               fontWeight: {
+                xs: "lighter",
                 md: "lighter",
                 lg: "lighter",
                 xl: "lighter",
               },
               lineHeight: {
+                xs: "1.25",
                 md: "1.5",
                 lg: "1.4",
                 xl: "1.3",

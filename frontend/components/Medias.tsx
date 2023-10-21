@@ -1,10 +1,18 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import Link from "next/link";
 import React, { useState } from "react";
 
 import { Recommend } from "../src/state/category";
-import { personCss } from "@/pages/person/[id]";
+import { personLaptopMonitorCss } from "@/pages/person/[id]";
+import { personMobileTabletCss } from "@/pages/person/[id]";
 import { Toaster, toast } from "react-hot-toast";
+import theme from "@/src/theme/theme";
 
 type Props = {
   personCasts: Recommend[];
@@ -27,6 +35,8 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
     });
   };
 
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <>
       <Toaster />
@@ -43,9 +53,18 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
           },
           display: "inline-block",
           position: "relative",
-          marginTop: "50px",
+          marginTop: {
+            xs: "20px",
+            md: "50px",
+            lg: "50px",
+            xl: "50px",
+          },
           marginLeft: {
+            xs: "20px",
             md: "30px",
+          },
+          marginBottom: {
+            md: "10px",
           },
         }}
       >
@@ -58,6 +77,9 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
             width: "55%",
             borderBottom: "7px solid red",
             marginTop: "20px",
+            // marginBottom: {
+            //   md: "20px",
+            // },
             borderRadius: "20px",
           }}
         ></span>
@@ -66,11 +88,18 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
         sx={{
           marginTop: "20px",
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gridGap: "5px",
-          rowGap: {
-            lg: "15px",
+          gridTemplateColumns: {
+            xs: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
+            xl: "repeat(4, 1fr)",
           },
+          gridGap: {
+            xs: "3px",
+            lg: "5px",
+            xl: "5px",
+          },
+          rowGap: { xs: "3px", lg: "15px" },
           cursor: "pointer",
         }}
       >
@@ -83,7 +112,10 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
             }
             passHref
           >
-            <Box key={personCast.title} sx={personCss}>
+            <Box
+              key={personCast.title}
+              sx={isMobileMode ? personMobileTabletCss : personLaptopMonitorCss}
+            >
               {personCast.poster_path ? (
                 <Box
                   component="img"
@@ -91,9 +123,19 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                   src={`${URL}${personCast.poster_path}`}
                   alt={personCast.title}
                   sx={{
-                    width: "100%",
-                    height: { lg: "65vh" },
-                    objectFit: "cover",
+                    width: {
+                      xs: "100%",
+                      md: "100%",
+                      lg: "100%",
+                      xl: "100%",
+                    },
+                    height: { xs: "27vh", md: "35vh", lg: "65vh" },
+                    objectFit: {
+                      xs: "cover",
+                      md: "contain",
+                      lg: "cover",
+                      xl: "cover",
+                    },
                     zIndex: "1",
                     borderRadius: "10px",
                     marginTop: {
@@ -107,17 +149,21 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                   className="image"
                   sx={{
                     width: {
+                      xs: "93%",
                       md: "93%",
                       lg: "95%",
                     },
                     height: {
-                      md: "52.1vh",
+                      xs: "26.3vh",
+                      md: "35vh",
                       lg: "63.3vh",
+                      xl: "63.6vh",
                     },
                     zIndex: "1",
                     borderRadius: "4px",
                     backgroundColor: "darkgrey",
                     marginTop: {
+                      xs: "3px",
                       md: "5px",
                       lg: "40px",
                     },
@@ -132,6 +178,7 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                     flexDirection: "column",
                     position: "absolute",
                     bottom: {
+                      xs: "15px",
                       lg: "20px",
                     },
                     left: "20px",
@@ -154,8 +201,9 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                       width: "40px",
                       height: "40px",
                       color: "white",
-                      fontSize: { lg: "14px" },
+                      fontSize: { xs: "18px", lg: "14px" },
                       fontWeight: {
+                        xs: "300",
                         lg: "300",
                       },
                       left: "20px",
@@ -167,9 +215,11 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                     sx={{
                       marginTop: "12px",
                       fontSize: {
+                        xs: "17px",
                         lg: "15px",
                       },
                       fontWeight: {
+                        xs: "300",
                         lg: "300",
                       },
                     }}
@@ -183,11 +233,13 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       maxWidth: {
+                        xs: "130px",
                         lg: "230px",
                       },
                       fontWeight: "300",
                       marginTop: "8px",
                       fontSize: {
+                        xs: "18px",
                         lg: "15px",
                       },
                     }}

@@ -4,12 +4,19 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-import { Box, CircularProgress, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 
 import Link from "next/link";
 
 import { Movie } from "@/src/state/category";
-import { hoverCss } from "./Content";
+import { hoverLaptopMonitorCss } from "./Content";
+import { hoverMobileTabletCss } from "./Content";
+import theme from "@/src/theme/theme";
 
 /******************************************************************************************/
 
@@ -36,6 +43,8 @@ const TopRatedMovies = ({
     }
   };
 
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("lg"));
+
   useEffect(() => {
     fetchTopRatedMovies();
   }, []);
@@ -52,11 +61,14 @@ const TopRatedMovies = ({
             md: "22px",
           },
           margin: {
-            xs: "30px 0 0 35px",
+            xs: "10px 0 0 20px",
           },
           fontWeight: {
             xs: 550,
             md: "bold",
+          },
+          right: {
+            md: "15px",
           },
         }}
       >
@@ -104,7 +116,7 @@ const TopRatedMovies = ({
                 onMouseLeave={() => {
                   setIshover(false);
                 }}
-                sx={hoverCss}
+                sx={isMobileMode ? hoverMobileTabletCss : hoverLaptopMonitorCss}
               >
                 <Box
                   component="img"
@@ -117,8 +129,8 @@ const TopRatedMovies = ({
                       xl: "91.5%",
                     },
                     height: {
-                      xs: "41vh",
-                      md: "73vh",
+                      xs: "30vh",
+                      md: "35vh",
                       lg: "58vh",
                       xl: "50vh",
                     },
@@ -128,7 +140,11 @@ const TopRatedMovies = ({
                       md: "30px 0 10px 0px",
                       lg: "50px 0 20px 5.5px",
                     },
-                    borderRadius: "10px",
+                    borderRadius: {
+                      md: "0px",
+                      lg: "10px",
+                      xl: "10px",
+                    },
                   }}
                   src={`${URL}${movie.poster_path}`}
                   alt={movie.title}
@@ -140,6 +156,7 @@ const TopRatedMovies = ({
                       flexDirection: "column",
                       position: "absolute",
                       bottom: {
+                        xs: "10px",
                         lg: "20px",
                       },
                       left: "20px",
@@ -163,10 +180,12 @@ const TopRatedMovies = ({
                         height: "40px",
                         color: "white",
                         fontSize: {
+                          xs: "17px",
                           lg: "15px",
                           xl: "14px",
                         },
                         fontWeight: {
+                          xs: "300",
                           lg: "300",
                           xl: "300",
                         },
@@ -178,14 +197,17 @@ const TopRatedMovies = ({
                     <Box
                       sx={{
                         marginTop: {
+                          xs: "10px",
                           lg: "12px",
                           xl: "15px",
                         },
                         fontSize: {
+                          xs: "18px",
                           lg: "15px",
                           xl: "16px",
                         },
                         fontWeight: {
+                          xs: "300",
                           lg: "300",
                           xl: "300",
                         },
@@ -201,6 +223,7 @@ const TopRatedMovies = ({
                           xl: "start",
                         },
                         fontSize: {
+                          xs: "18px",
                           lg: "15px",
                           xl: "16px",
                         },
@@ -208,13 +231,16 @@ const TopRatedMovies = ({
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         maxWidth: {
+                          xs: "130px",
                           lg: "200px",
                           xl: "220px",
                         },
                         fontWeight: {
+                          xs: "300",
                           lg: "300",
                         },
                         marginTop: {
+                          xs: "15px",
                           lg: "12px",
                           xl: "15px",
                         },

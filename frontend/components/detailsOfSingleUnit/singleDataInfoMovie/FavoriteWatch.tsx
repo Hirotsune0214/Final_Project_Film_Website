@@ -62,6 +62,23 @@ const FavoriteWatch = ({ id }: { id: string }) => {
     fetchFavorites();
   }, []);
 
+  const handleScroll = () => {
+    // window.innerHeightで現在の高さを取得する
+
+    const windowHeight = window.innerHeight;
+
+    if (windowHeight < 375) {
+      window.scrollTo({ top: 100, behavior: "smooth" });
+    } else if (windowHeight < 768) {
+      window.scrollTo({ top: 770, behavior: "smooth" });
+      // } else if (windowHeight >= 768 && windowHeight < 1024) {
+      //   window.scrollTo({ top: 750, behavior: "smooth" });
+      // }
+    } else {
+      window.scrollTo({ top: 1000, behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <Box
@@ -69,11 +86,13 @@ const FavoriteWatch = ({ id }: { id: string }) => {
           display: "flex",
           alignItems: "center",
           gap: {
+            xs: "20px",
             md: "20px",
             lg: "30px",
             xl: "40px",
           },
           marginTop: {
+            xs: "30px",
             md: "30px",
             lg: "40px",
             xl: "50px",
@@ -94,10 +113,7 @@ const FavoriteWatch = ({ id }: { id: string }) => {
           />
         )}
 
-        <Button
-          sx={movieButton}
-          onClick={() => window.scrollTo({ top: 750, behavior: "smooth" })}
-        >
+        <Button sx={movieButton} onClick={handleScroll}>
           <PlayArrowIcon />
           WATCH NOW
         </Button>

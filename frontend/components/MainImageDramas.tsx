@@ -18,16 +18,18 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
 
   const dramaButton = {
     width: {
-      xs: "250px",
+      xs: "170px",
       md: "170px",
       lg: "170px",
       xl: "180px",
     },
     height: {
+      xs: "40px",
       lg: "45px",
       xl: "55px",
     },
     fontSize: {
+      xs: "14px",
       md: "15px",
       xl: "17px",
     },
@@ -50,19 +52,35 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
             <Box
               sx={{
                 backgroundImage: `URL(${URL}${drama.backdrop_path})`,
-                backgroundSize: "cover",
+                backgroundSize: {
+                  xs: "cover",
+                  md: "cover",
+                  lg: "cover",
+                  xl: "cover",
+                },
                 backgroundRepeat: "no-repeat",
-                width: "100%",
+                width: {
+                  xs: "100%",
+                  md: "100%",
+                  lg: "100%",
+                },
                 height: {
-                  xs: "50vh",
-                  md: "100vh",
+                  xs: "45vh",
+                  md: "50vh",
                   lg: "100vh",
                   xl: "100vh",
                 },
                 position: "relative",
-                top: {
-                  md: "4rem",
+                alignItems: "center",
+                marginTop: {
+                  xs: "13px",
+                  md: "20px",
                 },
+                backgroundPosition: {
+                  xs: "center",
+                  md: "center",
+                },
+                padding: "10px 0",
               }}
             >
               <Box
@@ -79,9 +97,23 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
               <Box
                 sx={{
                   position: "absolute",
-                  top: "42%",
-                  left: "30%",
-                  width: "450px",
+                  top: {
+                    xs: "55%",
+                    md: "55%",
+                    lg: "42%",
+                    xl: "42%",
+                  },
+                  left: {
+                    xs: "42%",
+                    md: "35%",
+                    lg: "30%",
+                    xl: "30%",
+                  },
+                  width: {
+                    xs: "250px",
+                    md: "450px",
+                    lg: "450px",
+                  },
                   transform: "translate(-50%, -50%)",
                   textAlign: "center",
                   color: "black",
@@ -94,19 +126,25 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                 <Box
                   sx={{
                     fontSize: {
-                      xs: "100px",
+                      xs: "35px",
                       md: "35px", // tablet
                       lg: "40px", // laptop
                       xl: "70px", // monitor
                     },
                     width: {
-                      md: "900px",
+                      xs: "335px",
+                      md: "600px",
                       lg: "550px",
                       xl: "740px",
                     },
-
                     fontWeight: "bold",
                     textAlign: "left",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2, // 2行に制限
+                    WebkitBoxOrient: "vertical",
+                    whiteSpace: "normal",
                   }}
                 >
                   {drama.name}
@@ -147,16 +185,18 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                 <Box
                   sx={{
                     fontSize: {
-                      md: "16px",
+                      md: "20px",
                       lg: "19px",
                       xl: "21px",
                     },
                     width: {
-                      md: "800px",
+                      xs: "340px",
+                      md: "700px",
                       lg: "450px",
                       xl: "700px",
                     },
                     lineHeight: {
+                      xs: "27px",
                       md: "30px",
                       lg: "25px",
                       xl: "35px",
@@ -167,7 +207,6 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                       xl: "530",
                     },
                     letterSpacing: "0.02000em",
-                    // margin: "32px 0 0 50px",
                     marginTop: "32px",
                     whiteSpace: "normal",
                     overflow: "hidden",
@@ -180,12 +219,21 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                 >
                   {drama.overview}
                 </Box>
-                <Link href={`/dramas/${drama.id}`} passHref>
-                  <Button sx={dramaButton}>
-                    <PlayArrowIcon />
-                    WATCH NOW
-                  </Button>
-                </Link>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <Link href={`/dramas/${drama.id}`} passHref>
+                    <Button sx={dramaButton}>
+                      <PlayArrowIcon />
+                      WATCH NOW
+                    </Button>
+                  </Link>
+                </Box>
               </Box>
             </Box>
           </SwiperSlide>

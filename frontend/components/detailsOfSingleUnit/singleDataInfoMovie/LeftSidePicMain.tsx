@@ -18,13 +18,22 @@ const LeftSidePicMain = ({ leftPic }: { leftPic: Movie | null }) => {
           backgroundSize: "contain",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
-          height: "90vh",
+          height: {
+            xs: "55vh",
+            md: "80vh",
+            lg: "90vh",
+            xl: "90vh",
+          },
           width: {
+            md: "750px",
             lg: "470px",
             xl: "650px",
           },
           fontWeight: {
             md: "bold",
+          },
+          marginTop: {
+            md: "70px",
           },
         }}
       ></Box>

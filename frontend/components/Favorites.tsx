@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 type Props = {
   favorites: never[];
   extractYearFromDate: (dateString: string) => string;
-  handleDelete: () => void;
+  handleDelete: ({ id, category }: any) => void;
 };
 
 const Favorites = ({ favorites, extractYearFromDate, handleDelete }: Props) => {
@@ -18,6 +18,8 @@ const Favorites = ({ favorites, extractYearFromDate, handleDelete }: Props) => {
   const [ishover, setIshover] = useState(false);
   const [visibleMovies, setVisibleMovies] = useState(8);
   const moviesToShow = 8;
+  // const { id }: any = Router.query;
+  // console.log(id);
 
   return (
     <>
@@ -47,22 +49,29 @@ const Favorites = ({ favorites, extractYearFromDate, handleDelete }: Props) => {
               alt={favorite.title}
               style={{
                 width: "95%",
-                height: "95%",
+                height: "75%",
                 objectFit: "cover",
                 zIndex: "1",
                 borderRadius: "10px",
-                marginTop: "20px",
+                marginTop: "70px",
               }}
             />
             <Box className="text">
               <div>{favorite.vote_average}</div>
               <div>{extractYearFromDate(favorite.date)}</div>
               <div>{favorite.title}</div>
+              <div>{favorite.id}</div>
             </Box>
             <Button
               variant="outlined"
               startIcon={<DeleteIcon />}
-              onClick={handleDelete}
+              onClick={() =>
+                handleDelete(
+                  favorite.favorite?.movieId === null
+                    ? { id: favorite.favorite?.dramaId, category: "drama" }
+                    : { id: favorite.favorite?.movieId, category: "movie" }
+                )
+              }
             >
               Delete
             </Button>

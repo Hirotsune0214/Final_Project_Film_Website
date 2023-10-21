@@ -13,7 +13,7 @@ import SinglePageInfo from "@/components/detailsOfSingleUnit/singleDataInfoMovie
 
 import { Toaster, toast } from "react-hot-toast";
 
-export const RecommendCss = {
+export const RecommendLaptopMonitorCss = {
   maxWidth: "500px",
   margin: "0 auto",
   position: "relative",
@@ -29,7 +29,7 @@ export const RecommendCss = {
     zIndex: "2",
     // TODO: 下記2つの色の微調整を行う
     boxShadow: "10px -9px 20px -2px rgba(119,119,119,0.7)",
-    borderColor: "rgba(11, 64, 188, 0.775)",
+    borderColor: "rgba(242, 30, 30, 0.8)",
   },
   "& .image": {
     transition: "transform 0.2s",
@@ -37,10 +37,18 @@ export const RecommendCss = {
   },
   "& .text": {
     position: "absolute",
-    width: "93%",
-    height: "57.5vh",
+    width: {
+      lg: "92.5%",
+      xl: "91.5%",
+    },
+    height: {
+      lg: "54.3vh",
+      xl: "53.5vh",
+    },
     top: 0,
-    left: 0,
+    left: {
+      lg: "0%",
+    },
     textAlign: "center",
     color: "#fff",
     background:
@@ -56,6 +64,51 @@ export const RecommendCss = {
     marginTop: "65.1px",
     marginLeft: "11.5px",
     borderRadius: "10px",
+  },
+};
+
+export const RecommendMobileTabletCss = {
+  maxWidth: "500px",
+  margin: "0 auto",
+  position: "relative",
+  cursor: "pointer",
+  "& .image": {
+    transition: "transform 0.2s",
+    border: {
+      md: "none",
+      lg: "5px solid transparent",
+      xl: "5px solid transparent",
+    },
+  },
+  "& .text": {
+    position: "absolute",
+    width: {
+      xs: "92.5%",
+      md: "95.5%",
+      lg: "93%",
+      xl: "92%",
+    },
+    height: {
+      xs: "20vh",
+      md: "28.8vh",
+      lg: "57.5vh",
+      xl: "48.3vh",
+    },
+    top: "30px",
+    left: -7.5,
+    textAlign: "center",
+    color: "#fff",
+    background:
+      "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    transform: "scale(1.05)",
+    zIndex: "2",
+    marginTop: "65.1px",
+    marginLeft: "11.5px",
+    fontSize: "20px",
   },
 };
 
@@ -130,9 +183,13 @@ const single_unit = () => {
         <Layout>
           <Box
             sx={{
-              backgroundColor: "#dc6969",
+              backgroundColor: "#dfd5d5",
               padding: "20px",
               height: "100%",
+              marginTop: {
+                lg: "10px",
+                xl: "65px",
+              },
             }}
           >
             <SinglePageInfo id={id} />

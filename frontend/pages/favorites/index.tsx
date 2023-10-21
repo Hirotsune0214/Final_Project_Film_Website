@@ -3,8 +3,9 @@ import Layout from "@/components/Layout";
 import { userState } from "@/src/state/auth";
 import { Box } from "@mui/material";
 import axios from "axios";
-import { useRouter } from "next/router";
+
 import { useEffect, useState } from "react";
+
 import { useRecoilState } from "recoil";
 
 export const favoriteCss = {
@@ -39,7 +40,7 @@ export const favoriteCss = {
   "& .text": {
     position: "absolute",
     width: "95%",
-    height: "100.5%",
+    height: "60%",
     top: 0,
     left: 0,
     textAlign: "center",
@@ -62,6 +63,8 @@ const favorites = () => {
   const [user, setUser] = useRecoilState(userState);
   const [favorites, setFavorites] = useState([]);
   const userId = user.username;
+  // const { id }: any = Router.query;
+  // console.log(id);
 
   const fetchFavorites = async () => {
     try {
@@ -69,6 +72,8 @@ const favorites = () => {
         `http://localhost:8080/api/favorites/user/${userId}`
       );
       setFavorites(responseFav.data.result);
+      console.log(responseFav.data.result);
+      console.log(responseFav.data.result.favorite);
     } catch (err) {
       console.log(err);
     }
@@ -82,8 +87,26 @@ const favorites = () => {
     return dateString.substring(0, 4);
   };
 
-  const handleDelete = () => {
-    console.log("test");
+  const handleDelete = async ({ id, category }: any) => {
+    try {
+      console.log(id);
+      console.log(category);
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
+
+      const DeleteFav = await axios.delete(
+        `http://localhost:8080/api/favorites/user/${id}?category=${category}`,
+        {
+          data: {
+            userId: user.username,
+          },
+        }
+      );
+      setFavorites(DeleteFav.data.result);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

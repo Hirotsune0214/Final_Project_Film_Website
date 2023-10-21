@@ -10,8 +10,9 @@ import React, { useEffect, useState } from "react";
 
 import { Drama } from "@/src/state/category";
 import { Toaster, toast } from "react-hot-toast";
+import { Box } from "@mui/material";
 
-export const MovieDramaCss = {
+export const MovieDramaLaptopMonitorCss = {
   maxWidth: "500px",
   margin: "0 auto",
   position: "relative",
@@ -55,6 +56,50 @@ export const MovieDramaCss = {
     transform: "scaleX(1.05)",
     zIndex: "2",
     marginLeft: "5px",
+  },
+};
+
+export const MovieDramaMobileTabletCss = {
+  maxWidth: "500px",
+  margin: "0 auto",
+  position: "relative",
+  cursor: "pointer",
+  "& .image": {
+    transition: "transform 0.2s",
+    border: {
+      md: "none",
+      lg: "5px solid transparent",
+      xl: "5px solid transparent",
+    },
+  },
+  "& .text": {
+    position: "absolute",
+    width: {
+      xs: "95.1%",
+      lg: "93%",
+      xl: "92%",
+    },
+    height: {
+      xs: "16.2vh",
+      lg: "57.5vh",
+      xl: "48.3vh",
+    },
+    top: "30px",
+    left: -7.5,
+    textAlign: "center",
+    color: "#fff",
+    background:
+      "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    transform: "scale(1.05)",
+    zIndex: "2",
+    marginTop: "65.1px",
+    marginLeft: "11.5px",
+    fontSize: "20px",
+    borderRadius: "10px",
   },
 };
 
@@ -122,7 +167,17 @@ const dramas = () => {
         <title>TV series</title>
       </Head>
       <Toaster />
-      <div>
+      <Box
+        sx={{
+          width: {
+            xs: "100%",
+            md: "100%",
+          },
+          height: {
+            xs: "80vh",
+          },
+        }}
+      >
         <Layout>
           <MainImageDramas dramas={dramas} />
           <Dramas
@@ -133,7 +188,7 @@ const dramas = () => {
             handleAddDramasPages={handleAddDramasPages}
           />
         </Layout>
-      </div>
+      </Box>
     </>
   );
 };

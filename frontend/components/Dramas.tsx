@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress, useMediaQuery } from "@mui/material";
 
 import Link from "next/link";
 
 import { Drama } from "@/src/state/category";
 
-import { MovieDramaCss } from "@/pages/dramas";
+import { MovieDramaLaptopMonitorCss } from "@/pages/movies";
+import { MovieDramaMobileTabletCss } from "@/pages/movies";
+import theme from "@/src/theme/theme";
 
 /******************************************************************************************/
 
@@ -33,11 +35,14 @@ const Dramas = ({
 
   const [ishover, setIshover] = useState(false);
 
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <Box
       sx={{
         width: {
-          xs: "92%",
+          xs: "auto",
+          md: "auto",
           lg: "auto",
         },
         display: "block",
@@ -109,7 +114,7 @@ const Dramas = ({
             onClick={() => setDramaLists("popular")}
             sx={{
               fontSize: {
-                xs: "14px",
+                xs: "15px",
                 lg: "13px",
               },
               padding: {
@@ -194,7 +199,11 @@ const Dramas = ({
               onMouseLeave={() => {
                 setIshover(false);
               }}
-              sx={MovieDramaCss}
+              sx={
+                isMobileMode
+                  ? MovieDramaMobileTabletCss
+                  : MovieDramaLaptopMonitorCss
+              }
               key={drama.id}
             >
               {drama.poster_path ? (
@@ -204,8 +213,8 @@ const Dramas = ({
                   sx={{
                     width: { xs: "100%", md: "95%", lg: "99%", xl: "99%" },
                     height: {
-                      xs: "41vh",
-                      md: "67vh",
+                      xs: "27vh",
+                      md: "35vh",
                       lg: "64vh",
                       xl: "61.5vh",
                     },
@@ -222,17 +231,19 @@ const Dramas = ({
                   className="image"
                   sx={{
                     width: {
+                      xs: "97%",
                       md: "97%",
                       lg: "96%",
                       xl: "99%",
                     },
                     height: {
-                      md: "73.5vh",
-                      lg: "63.6vh",
+                      xs: "26.1vh",
+                      md: "61.5vh",
+                      lg: "62.8vh",
                       xl: "60.5vh",
                     },
                     zIndex: "1",
-                    borderRadius: "4px",
+                    borderRadius: "10px",
                     backgroundColor: "darkgrey",
                     margin: "5px 0 0 5px",
                   }}
@@ -245,6 +256,7 @@ const Dramas = ({
                     flexDirection: "column",
                     position: "absolute",
                     bottom: {
+                      xs: "10px",
                       lg: "20px",
                     },
                     left: "20px",
@@ -267,9 +279,11 @@ const Dramas = ({
                       width: "40px",
                       height: "40px",
                       color: "white",
-                      fontSize: { lg: "15px", xl: "15px" },
+                      fontSize: { xs: "17px", lg: "15px", xl: "15px" },
                       fontWeight: {
+                        xs: "300",
                         lg: "300",
+                        xl: "300",
                       },
                       left: "20px",
                     }}
@@ -279,15 +293,19 @@ const Dramas = ({
                   <Box
                     sx={{
                       marginTop: {
+                        xs: "10px",
                         lg: "12px",
                         xl: "15px",
                       },
                       fontSize: {
+                        xs: "17px",
                         lg: "16px",
                         xl: "15px",
                       },
                       fontWeight: {
+                        xs: "300",
                         lg: "300",
+                        xl: "300",
                       },
                     }}
                   >
@@ -300,16 +318,20 @@ const Dramas = ({
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       maxWidth: {
+                        xs: "130px",
                         lg: "230px",
                       },
                       fontWeight: {
+                        xs: "300",
                         lg: "300",
                       },
                       marginTop: {
+                        xs: "15px",
                         lg: "12px",
                         xl: "15px",
                       },
                       fontSize: {
+                        xs: "18px",
                         lg: "16px",
                         xl: "17px",
                       },

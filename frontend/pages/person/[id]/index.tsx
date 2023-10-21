@@ -18,7 +18,7 @@ import { Category, PersonDetail } from "@/src/state/category";
 import Head from "next/head";
 import { Toaster } from "react-hot-toast";
 
-export const personCss = {
+export const personLaptopMonitorCss = {
   maxWidth: "500px",
   margin: "0 auto",
   position: "relative",
@@ -34,7 +34,7 @@ export const personCss = {
     transition: ".3s ease-in-out",
     position: "relative",
     zIndex: "2",
-    borderColor: "rgba(11, 64, 188, 0.775)",
+    borderColor: "rgba(242, 30, 30, 0.8)",
   },
   "& .image": {
     transition: "transform 0.2",
@@ -65,6 +65,52 @@ export const personCss = {
     transform: "scaleX(1.05)",
     zIndex: "2",
     marginLeft: "5px",
+  },
+};
+
+export const personMobileTabletCss = {
+  maxWidth: "500px",
+  margin: "0 auto",
+  position: "relative",
+  cursor: "pointer",
+  "& .image": {
+    transition: "transform 0.2s",
+    border: {
+      md: "none",
+      lg: "5px solid transparent",
+      xl: "5px solid transparent",
+    },
+  },
+  "& .text": {
+    position: "absolute",
+    width: {
+      xs: "95%",
+      md: "95.5%",
+      lg: "93%",
+      xl: "92%",
+    },
+    height: {
+      xs: "15.5vh",
+      md: "25.5vh",
+      lg: "57.5vh",
+      xl: "48.3vh",
+    },
+    top: "30px",
+    left: -7.5,
+    textAlign: "center",
+    color: "#fff",
+    background:
+      "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    transform: "scale(1.05)",
+    zIndex: "2",
+    marginTop: "65.1px",
+    marginLeft: "11.5px",
+    fontSize: "20px",
+    borderRadius: "10px",
   },
 };
 
@@ -126,8 +172,9 @@ const single_unit = () => {
           <Box
             sx={{
               backgroundColor: "#F5F5F5",
-              padding: { md: "15px", lg: "20px", xl: "30px 100px" },
+              padding: { xs: "8px", md: "15px", lg: "20px", xl: "30px 100px" },
               marginTop: {
+                xs: "25px",
                 lg: "60px",
               },
               position: "relative",

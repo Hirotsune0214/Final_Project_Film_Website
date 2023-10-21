@@ -8,16 +8,20 @@ import { Movie } from "@/src/state/category";
 const Posters = ({ posters }: { posters: Movie[] }) => {
   const URL = process.env.NEXT_PUBLIC_IMAGE_780;
 
+  const firstFivePosters = posters.slice(0, 10);
+
   return (
     <Box>
       <Typography
         sx={{
           fontSize: {
+            xs: "18px",
             md: "22px",
             lg: "24px",
             xl: "25px",
           },
           fontWeight: {
+            xs: "bold",
             md: "bold",
             lg: "bold",
             xl: "bold",
@@ -26,9 +30,15 @@ const Posters = ({ posters }: { posters: Movie[] }) => {
           display: "inline-block",
           position: "relative",
           left: {
+            lg: "2.1em",
             xl: "3.7em",
           },
-          margin: "30px 0 20px 0",
+          margin: {
+            xs: "30px 0 40px 0",
+            md: "50px 0 40px 0",
+            lg: "30px 0 20px 0",
+            xl: "30px 0 20px 0",
+          },
         }}
       >
         POSTERS
@@ -46,6 +56,8 @@ const Posters = ({ posters }: { posters: Movie[] }) => {
       <Box
         sx={{
           width: {
+            xs: "345px",
+            md: "700px",
             lg: "1000px",
             xl: "1300px",
           },
@@ -57,7 +69,7 @@ const Posters = ({ posters }: { posters: Movie[] }) => {
           breakpoints={{
             375: {
               slidesPerView: 2,
-              spaceBetween: 10,
+              // spaceBetween: 10,
             },
             520: {
               slidesPerView: 3,
@@ -75,28 +87,30 @@ const Posters = ({ posters }: { posters: Movie[] }) => {
           grabCursor={true}
           direction="horizontal"
         >
-          {posters.map((poster: any) => (
+          {firstFivePosters.map((poster: any) => (
             <SwiperSlide key={poster.file_path}>
               <Box
                 component="img"
                 sx={{
                   width: {
-                    md: "260px",
-                    lg: "75px",
+                    xs: "175px",
+                    md: "250px",
+                    lg: "253px",
                     xl: "265px",
                   },
                   height: {
-                    md: "70vh",
+                    xs: "30vh",
+                    md: "40vh",
                     lg: "60vh",
                     xl: "50vh",
                   },
                   objectFit: {
+                    xs: "contain",
                     md: "contain",
                     lg: "contain",
                     xl: "cover",
                   },
                   marginTop: {
-                    md: "30px",
                     lg: "30px",
                     xl: "30px",
                   },

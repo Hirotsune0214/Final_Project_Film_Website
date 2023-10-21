@@ -81,7 +81,14 @@ const ReviewArea = ({
         }}
       >
         <Box
-          sx={{ display: "inline-block", position: "relative", left: "4.5em" }}
+          sx={{
+            display: "inline-block",
+            position: "relative",
+            left: {
+              lg: "1em",
+              xl: "4.5em",
+            },
+          }}
         >
           <h1
             style={{

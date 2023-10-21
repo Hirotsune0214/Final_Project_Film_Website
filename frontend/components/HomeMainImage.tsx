@@ -84,19 +84,23 @@ const HomeMainImage = () => {
                   lg: "100%",
                 },
                 height: {
-                  xs: "67vh",
-                  md: "85vh",
+                  xs: "45vh",
+                  md: "50vh",
                   lg: "100vh",
                   xl: "100vh",
                 },
                 position: "relative",
                 alignItems: "center",
-                marginTop: {
-                  xs: "13px",
+                margin: {
+                  xs: "13px 0 0 0",
                 },
-                padding: "10px 0",
+                padding: {
+                  // lg: "10px 30px",
+                  xl: "10px 0",
+                },
                 backgroundPosition: {
                   xs: "center",
+                  md: "center",
                 },
               }}
             >
@@ -116,13 +120,13 @@ const HomeMainImage = () => {
                   position: "absolute",
                   top: {
                     xs: "55%",
-                    md: "42%",
+                    md: "55%",
                     lg: "42%",
                     xl: "42%",
                   },
                   left: {
                     xs: "42%",
-                    md: "30%",
+                    md: "35%",
                     lg: "30%",
                     xl: "30%",
                   },
@@ -144,13 +148,13 @@ const HomeMainImage = () => {
                   sx={{
                     fontSize: {
                       xs: "35px", // mobile
-                      md: "40px", // tablet
+                      md: "36px", // tablet
                       lg: "40px", // laptop
                       xl: "70px", // monitor
                     },
                     width: {
                       xs: "335px",
-                      md: "900px",
+                      md: "780px",
                       lg: "550px",
                       xl: "740px",
                     },
@@ -204,12 +208,13 @@ const HomeMainImage = () => {
                   sx={{
                     fontSize: {
                       xs: "20px",
+                      md: "19px",
                       lg: "19px",
                       xl: "20px",
                     },
                     width: {
                       xs: "340px",
-                      md: "900px",
+                      md: "700px",
                       lg: "450px",
                       xl: "700px",
                     },

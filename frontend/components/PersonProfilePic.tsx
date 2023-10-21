@@ -6,7 +6,19 @@ const PersonProfile = ({ personPic }: { personPic: Category | null }) => {
   const URL = process.env.NEXT_PUBLIC_IMAGE_ORIGINAL;
 
   return (
-    <div>
+    <Box
+      sx={{
+        display: {
+          md: "flex",
+        },
+        justifyContent: {
+          md: "center",
+        },
+        alignItems: {
+          md: "center",
+        },
+      }}
+    >
       {personPic && (
         <Box
           sx={{
@@ -14,16 +26,17 @@ const PersonProfile = ({ personPic }: { personPic: Category | null }) => {
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
-            height: { md: "80vh", lg: "60vh", xl: "55vh" },
-            width: { md: "360px", lg: "280px", xl: "250px" },
+            height: { xs: "50vh", md: "50vh", lg: "60vh", xl: "55vh" },
+            width: { xs: "350px", md: "360px", lg: "280px", xl: "250px" },
             marginTop: {
+              xs: "35px",
+              md: "10px",
               lg: "15px",
-              // xl: "30px",
             },
           }}
         ></Box>
       )}
-    </div>
+    </Box>
   );
 };
 

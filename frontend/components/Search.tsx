@@ -1,4 +1,10 @@
-import { Box, Button, CircularProgress, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 
 import React, { useState } from "react";
 
@@ -6,7 +12,9 @@ import Link from "next/link";
 
 import { Searching } from "@/src/state/category";
 
-import { SearchCss } from "@/pages/search";
+import { SearchLaptopMonitorCss } from "@/pages/search";
+import { SearchMobileTabletCss } from "@/pages/search";
+import theme from "@/src/theme/theme";
 /******************************************************************************************/
 
 type Props = {
@@ -33,10 +41,17 @@ const Search = ({
   const [ishover, setIshover] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const isMobileMode = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <Box
       sx={{
-        // width: "100%",
+        width: {
+          xs: "auto",
+          md: "auto",
+          lg: "100%",
+          xl: "100%",
+        },
         padding: {
           xs: "16px",
           md: "16px",
@@ -46,8 +61,8 @@ const Search = ({
         backgroundColor: "#ebebeb",
         height: "100%",
         minHeight: {
-          xs: "600px",
-          md: "540px",
+          xs: "800px",
+          md: "750px",
           lg: "700px",
           xl: "800px",
         },
@@ -60,7 +75,7 @@ const Search = ({
           gap: "10px",
           position: "relative",
           top: {
-            xs: "4.5rem",
+            xs: "3rem",
             md: "4rem",
             lg: "4rem",
           },
@@ -172,7 +187,7 @@ const Search = ({
             },
             position: "relative",
             top: {
-              xs: "4rem",
+              xs: "3rem",
               md: "3.5rem",
               lg: "3rem",
             },
@@ -204,6 +219,7 @@ const Search = ({
                 xl: "repeat(4, 1fr)",
               },
               gridGap: {
+                xs: "10px",
                 md: "10px",
                 lg: "5px",
                 xl: "10px",
@@ -216,6 +232,7 @@ const Search = ({
               },
               cursor: "pointer",
               marginTop: {
+                xs: "80px",
                 md: "75px",
                 lg: "50px",
               },
@@ -234,7 +251,11 @@ const Search = ({
                       onMouseLeave={() => {
                         setIshover(false);
                       }}
-                      sx={SearchCss}
+                      sx={
+                        isMobileMode
+                          ? SearchMobileTabletCss
+                          : SearchLaptopMonitorCss
+                      }
                     >
                       {searchResult.poster_path ? (
                         <Box
@@ -248,12 +269,17 @@ const Search = ({
                               xl: "100%",
                             },
                             height: {
-                              xs: "70vh",
-                              md: "75vh",
+                              xs: "27vh",
+                              md: "35vh",
                               lg: "65vh",
                               xl: "70vh",
                             },
-                            objectFit: "cover",
+                            objectFit: {
+                              xs: "contain",
+                              md: "cover",
+                              lg: "cover",
+                              xl: "cover",
+                            },
                             zIndex: "1",
                             borderRadius: "10px",
                           }}
@@ -266,19 +292,27 @@ const Search = ({
                           className="image"
                           sx={{
                             width: {
+                              xs: "95%",
                               md: "97%",
                               lg: "96%",
                               xl: "99%",
                             },
                             height: {
-                              md: "73.5vh",
-                              lg: "63.6vh",
+                              xs: "23.5vh",
+                              md: "66vh",
+                              lg: "63vh",
                               xl: "68.8vh",
                             },
+
                             zIndex: "1",
                             borderRadius: "4px",
                             backgroundColor: "darkgrey",
-                            margin: "5px 0 0 5px",
+                            margin: {
+                              xs: "10px 0 0 5px",
+                              md: "5px 0 0 5px",
+                              lg: "5px 0 0 5px",
+                              xl: "5px 0 0 5px",
+                            },
                           }}
                         ></Box>
                       )}
@@ -289,7 +323,10 @@ const Search = ({
                             display: "flex",
                             flexDirection: "column",
                             position: "absolute",
-                            bottom: "25px",
+                            bottom: {
+                              xs: "10px",
+                              lg: "25px",
+                            },
                             left: "20px",
                             fontSize: "20px",
                             textAlign: "left",
@@ -311,11 +348,14 @@ const Search = ({
                               height: "40px",
                               color: "white",
                               fontSize: {
+                                xs: "15px",
                                 md: "15px",
                                 lg: "14px",
                                 xl: "15px",
                               },
-                              fontWeight: "100",
+                              fontWeight: {
+                                xs: "300",
+                              },
                               left: "20px",
                             }}
                           >
@@ -326,10 +366,12 @@ const Search = ({
                           <Box
                             sx={{
                               marginTop: {
+                                xs: "13px",
                                 lg: "12px",
                                 xl: "13px",
                               },
                               fontSize: {
+                                xs: "18px",
                                 md: "17px",
                                 lg: "15px",
                                 xl: "17px",
@@ -346,16 +388,19 @@ const Search = ({
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                               maxWidth: {
+                                xs: "130px",
                                 md: "220px",
                                 lg: "200px",
                                 xl: "250px",
                               },
                               fontWeight: "300",
                               marginTop: {
+                                xs: "13px",
                                 lg: "12px",
                                 xl: "13px",
                               },
                               fontSize: {
+                                xs: "18px",
                                 md: "17px",
                                 lg: "16px",
                                 xl: "17px",
@@ -378,7 +423,11 @@ const Search = ({
                       onMouseLeave={() => {
                         setIshover(false);
                       }}
-                      sx={SearchCss}
+                      sx={
+                        isMobileMode
+                          ? SearchMobileTabletCss
+                          : SearchLaptopMonitorCss
+                      }
                     >
                       {searchResult.poster_path ? (
                         <Box
@@ -386,16 +435,23 @@ const Search = ({
                           className="image"
                           sx={{
                             width: {
+                              xs: "100%",
                               md: "100%",
                               lg: "100%",
                               xl: "100%",
                             },
                             height: {
-                              md: "75vh",
+                              xs: "27vh",
+                              md: "35vh",
                               lg: "65vh",
                               xl: "70vh",
                             },
-                            objectFit: "cover",
+                            objectFit: {
+                              xs: "contain",
+                              md: "cover",
+                              lg: "cover",
+                              xl: "cover",
+                            },
                             zIndex: "1",
                             borderRadius: "10px",
                           }}
@@ -408,19 +464,26 @@ const Search = ({
                           className="image"
                           sx={{
                             width: {
-                              md: "97%",
+                              xs: "97.3%",
+                              md: "96%",
                               lg: "96%",
                               xl: "99%",
                             },
                             height: {
-                              md: "73.5vh",
+                              xs: "26.3vh",
+                              md: "35vh",
                               lg: "63.6vh",
                               xl: "68.8vh",
                             },
                             zIndex: "1",
-                            borderRadius: "4px",
+                            borderRadius: "6px",
                             backgroundColor: "darkgrey",
-                            margin: "5px 0 0 5px",
+                            margin: {
+                              xs: "5px 0 0 2px",
+                              md: "5px 0 0 5px",
+                              lg: "5px 0 0 5px",
+                              xl: "5px 0 0 5px",
+                            },
                           }}
                         ></Box>
                       )}
@@ -452,11 +515,14 @@ const Search = ({
                               height: "40px",
                               color: "white",
                               fontSize: {
+                                xs: "15px",
                                 md: "15px",
                                 lg: "14px",
                                 xl: "15px",
                               },
-                              fontWeight: "100",
+                              fontWeight: {
+                                xs: "300",
+                              },
                               left: "20px",
                             }}
                           >
@@ -470,10 +536,12 @@ const Search = ({
                           <Box
                             sx={{
                               marginTop: {
+                                xs: "13px",
                                 lg: "12px",
                                 xl: "13px",
                               },
                               fontSize: {
+                                xs: "18px",
                                 md: "17px",
                                 lg: "16px",
                                 xl: "17px",
@@ -490,16 +558,19 @@ const Search = ({
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                               maxWidth: {
+                                xs: "130px",
                                 md: "220px",
                                 lg: "235px",
                                 xl: "250px",
                               },
                               fontWeight: "300",
                               marginTop: {
+                                xs: "13px",
                                 lg: "12px",
                                 xl: "13px",
                               },
                               fontSize: {
+                                xs: "18px",
                                 md: "17px",
                                 lg: "16px",
                                 xl: "17px",
@@ -526,15 +597,31 @@ const Search = ({
                           component="img"
                           className="image"
                           sx={{
-                            width: "100%",
-                            height: {
-                              md: "69.5vh",
-                              lg: "65vh",
-                              xl: "63vh",
+                            width: {
+                              xs: "100%",
+                              md: "100%",
+                              lg: "100%",
+                              xl: "100%",
                             },
-                            objectFit: "cover",
+                            height: {
+                              xs: "27vh",
+                              md: "35vh",
+                              lg: "65vh",
+                              xl: "70vh",
+                            },
+                            objectFit: {
+                              xs: "cover",
+                              md: "cover",
+                              lg: "cover",
+                              xl: "cover",
+                            },
                             zIndex: "1",
                             borderRadius: "10px",
+                            marginTop: {
+                              xs: "10px",
+                              // md: "75px",
+                              // lg: "50px",
+                            },
                           }}
                           src={`${URL}${searchResult.profile_path}`}
                           alt={searchResult.original_name}
@@ -545,19 +632,27 @@ const Search = ({
                           className="image"
                           sx={{
                             width: {
-                              md: "255px",
+                              xs: "152px",
+                              md: "265px",
                               lg: "255px",
-                              xl: "330px",
+                              xl: "360px",
                             },
                             height: {
-                              md: "69.5vh",
+                              xs: "27vh",
+                              md: "35vh",
                               lg: "65vh",
-                              xl: "63vh",
+                              xl: "70vh",
                             },
+
                             zIndex: "1",
                             borderRadius: "10px",
                             backgroundColor: "darkgrey",
-                            margin: "0 0 0 5px",
+                            margin: {
+                              xs: "0 0 0 5px",
+                              md: "10px 0 0 5px",
+                              lg: "10px 0 0 5px",
+                              xl: "13px 0 0 5px",
+                            },
                           }}
                         ></Box>
                       )}
@@ -566,7 +661,11 @@ const Search = ({
                         sx={{
                           position: "absolute",
                           left: 2,
-                          width: "99%",
+                          width: {
+                            xs: "99%",
+                            lg: "99%",
+                            xl: "99%",
+                          },
                           height: "max-content",
                           bottom: "4px",
                           padding: "15px 0",

@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import Search from "@/components/Search";
-import { Box } from "@mui/material";
+import theme from "@/src/theme/theme";
+import { Box, useMediaQuery } from "@mui/material";
 
 import axios from "axios";
 
@@ -11,7 +12,7 @@ import { Toaster, toast } from "react-hot-toast";
 
 /******************************************************************************************/
 
-export const SearchCss = {
+export const SearchLaptopMonitorCss = {
   maxWidth: "500px",
   margin: "0 auto",
   position: "relative",
@@ -36,7 +37,7 @@ export const SearchCss = {
     position: "absolute",
     width: {
       lg: "101%",
-      xl: "100.5%",
+      xl: "95%",
     },
     height: {
       md: "98%",
@@ -44,7 +45,10 @@ export const SearchCss = {
       xl: "99%",
     },
     top: 0,
-    left: -0.8,
+    left: {
+      lg: -0.8,
+      xl: 6,
+    },
     textAlign: "center",
     color: "#fff",
     background:
@@ -58,6 +62,55 @@ export const SearchCss = {
     transform: "scaleX(1.05)",
     zIndex: "2",
     marginLeft: "5px",
+    borderRadius: "10px",
+  },
+};
+
+export const SearchMobileTabletCss = {
+  maxWidth: "500px",
+  margin: "0 auto",
+  position: "relative",
+  cursor: "pointer",
+  "& .image": {
+    transition: "transform 0.2s",
+    border: {
+      md: "none",
+      lg: "5px solid transparent",
+      xl: "5px solid transparent",
+    },
+  },
+  "& .text": {
+    position: "absolute",
+    width: {
+      xs: "92%",
+      md: "95%",
+      lg: "93%",
+      xl: "92%",
+    },
+    height: {
+      xs: "15.5vh",
+      md: "26.3vh",
+      lg: "57.5vh",
+      xl: "48.3vh",
+    },
+    top: "30px",
+    left: {
+      xs: -4,
+    },
+    textAlign: "center",
+    color: "#fff",
+    background:
+      "linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    transform: "scale(1.05)",
+    zIndex: "2",
+    marginTop: "65.1px",
+    marginLeft: "11.5px",
+    fontSize: "20px",
+    borderRadius: "10px",
   },
 };
 

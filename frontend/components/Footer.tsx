@@ -60,10 +60,12 @@ const Footer = () => {
           sx={{
             display: {
               xs: "flex",
+              md: "flex",
               lg: "flex",
               xl: "flex",
             },
-            justifyItems: "center",
+            justifyContent: "center",
+            // justifyItems: "center",
             gap: {
               xs: "5px",
               lg: "15px",

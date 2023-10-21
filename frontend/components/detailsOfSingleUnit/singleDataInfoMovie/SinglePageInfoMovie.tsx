@@ -67,8 +67,7 @@ const SinglePageInfo = ({ id }: { id: string }) => {
             lg: "center",
             xl: "center",
           },
-          position: "relative",
-          top: "6rem",
+          alignItems: "center",
         }}
       >
         <LeftSidePicMain leftPic={leftPic} />
@@ -78,6 +77,11 @@ const SinglePageInfo = ({ id }: { id: string }) => {
             width: "60%",
             marginRight: {
               lg: "40px",
+            },
+            marginTop: {
+              md: "40px",
+              lg: "90px",
+              xl: "90px",
             },
           }}
         >

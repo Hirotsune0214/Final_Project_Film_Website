@@ -13,13 +13,15 @@ const CastList = ({ casts }: { casts: never[] }) => {
     <Box
       sx={{
         marginTop: {
+          xs: "25px",
           md: "30px",
           lg: "40px",
           xl: "50px",
         },
         width: {
+          xs: "350px",
           md: "700px",
-          lg: "730px",
+          lg: "680px",
         },
       }}
     >
@@ -29,6 +31,7 @@ const CastList = ({ casts }: { casts: never[] }) => {
           display: "inline-block",
           position: "relative",
           fontSize: {
+            xs: "18px",
             md: "20px",
             lg: "25px",
             xl: "30px",
@@ -54,8 +57,11 @@ const CastList = ({ casts }: { casts: never[] }) => {
       </Typography>
       <Box
         sx={{
+          height: {
+            md: "45vh",
+          },
           width: {
-            lg: "680px",
+            lg: "675px",
           },
         }}
       >
@@ -68,7 +74,7 @@ const CastList = ({ casts }: { casts: never[] }) => {
             },
             520: {
               slidesPerView: 2,
-              spaceBetween: 70,
+              spaceBetween: 39,
             },
             // 960px以上(laptop)になると3になる
             960: {
@@ -93,21 +99,25 @@ const CastList = ({ casts }: { casts: never[] }) => {
                       component="img"
                       sx={{
                         width: {
-                          md: "350px",
+                          xs: "170px",
+                          md: "330px",
                           lg: "160px",
                           xl: "150px",
                         },
                         height: {
-                          md: "90vh",
+                          xs: "30vh",
+                          md: "35vh",
                           lg: "35vh",
                           xl: "25vh",
                         },
                         objectFit: {
+                          xs: "cover",
                           md: "cover",
                           lg: "cover",
                           xl: "cover",
                         },
                         marginTop: {
+                          xs: "30px",
                           md: "30px",
                           lg: "20px",
                           xl: "30px",
@@ -124,10 +134,15 @@ const CastList = ({ casts }: { casts: never[] }) => {
                           xl: "175px",
                         },
                         height: {
+                          md: "65.6vh",
                           lg: "277px",
                           xl: "25.8vh",
                         },
-                        marginTop: "18px",
+                        marginTop: {
+                          md: "29.5px",
+                          lg: "18px",
+                          xl: "18px",
+                        },
                         backgroundColor: "darkgrey",
                       }}
                     ></Box>
