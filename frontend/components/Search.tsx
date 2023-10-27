@@ -269,7 +269,7 @@ const Search = ({
                               xl: "100%",
                             },
                             height: {
-                              xs: "27vh",
+                              xs: "35vh",
                               md: "35vh",
                               lg: "65vh",
                               xl: "70vh",
@@ -441,7 +441,7 @@ const Search = ({
                               xl: "100%",
                             },
                             height: {
-                              xs: "27vh",
+                              xs: "35vh",
                               md: "35vh",
                               lg: "65vh",
                               xl: "70vh",
@@ -598,13 +598,13 @@ const Search = ({
                           className="image"
                           sx={{
                             width: {
-                              xs: "100%",
+                              xs: "150px",
                               md: "100%",
                               lg: "100%",
                               xl: "100%",
                             },
                             height: {
-                              xs: "27vh",
+                              xs: "35vh",
                               md: "35vh",
                               lg: "65vh",
                               xl: "70vh",
@@ -638,7 +638,7 @@ const Search = ({
                               xl: "360px",
                             },
                             height: {
-                              xs: "27vh",
+                              xs: "35vh",
                               md: "35vh",
                               lg: "65vh",
                               xl: "70vh",
@@ -662,7 +662,7 @@ const Search = ({
                           position: "absolute",
                           left: 2,
                           width: {
-                            xs: "99%",
+                            xs: "97.7%",
                             lg: "99%",
                             xl: "99%",
                           },

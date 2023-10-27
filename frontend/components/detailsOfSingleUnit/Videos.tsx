@@ -137,7 +137,7 @@ const Videos = ({ videos }: { videos: never[] }) => {
                       videoId={video.key}
                       opts={{
                         width: "1000",
-                        height: "500",
+                        height: "550",
                         objectFit: "cover",
                       }}
                     />

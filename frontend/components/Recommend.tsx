@@ -133,7 +133,7 @@ const Recommend = ({ recommends, extractYearFromDate }: Props) => {
                       xl: "90%",
                     },
                     height: {
-                      xs: "30vh",
+                      xs: "35vh",
                       md: "35vh",
                       lg: "59vh",
                     },

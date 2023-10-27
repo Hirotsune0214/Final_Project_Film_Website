@@ -34,6 +34,7 @@ const LeftSidePicMain = ({ leftPic }: { leftPic: Movie | null }) => {
           },
           marginTop: {
             md: "70px",
+            lg: "10px",
           },
         }}
       ></Box>

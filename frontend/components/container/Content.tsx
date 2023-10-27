@@ -84,7 +84,7 @@ export const hoverMobileTabletCss = {
       xl: "92%",
     },
     height: {
-      xs: "22vh",
+      xs: "25vh",
       md: "28.8vh",
       lg: "57.5vh",
       xl: "48.3vh",

@@ -129,7 +129,7 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                       lg: "100%",
                       xl: "100%",
                     },
-                    height: { xs: "27vh", md: "35vh", lg: "65vh" },
+                    height: { xs: "35vh", md: "35vh", lg: "65vh" },
                     objectFit: {
                       xs: "cover",
                       md: "contain",
@@ -154,7 +154,7 @@ const Medias = ({ extractYearFromDate, personCasts }: Props) => {
                       lg: "95%",
                     },
                     height: {
-                      xs: "26.3vh",
+                      xs: "35vh",
                       md: "35vh",
                       lg: "63.3vh",
                       xl: "63.6vh",

@@ -85,7 +85,7 @@ export const MovieDramaMobileTabletCss = {
       xl: "92%",
     },
     height: {
-      xs: "15.5vh",
+      xs: "20.5vh",
       md: "26.3vh",
       lg: "57.5vh",
       xl: "48.3vh",

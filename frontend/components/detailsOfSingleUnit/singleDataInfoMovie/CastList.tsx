@@ -131,17 +131,17 @@ const CastList = ({ casts }: { casts: never[] }) => {
                       className="img"
                       sx={{
                         width: {
-                          xl: "175px",
+                          xl: "150px",
                         },
                         height: {
                           md: "65.6vh",
-                          lg: "277px",
-                          xl: "25.8vh",
+                          lg: "35.7vh",
+                          xl: "25.5vh",
                         },
                         marginTop: {
                           md: "29.5px",
-                          lg: "18px",
-                          xl: "18px",
+                          lg: "19px",
+                          xl: "30px",
                         },
                         backgroundColor: "darkgrey",
                       }}
