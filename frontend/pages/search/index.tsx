@@ -82,20 +82,20 @@ export const SearchMobileTabletCss = {
   "& .text": {
     position: "absolute",
     width: {
-      xs: "92%",
+      xs: "90%",
       md: "95%",
       lg: "93%",
       xl: "92%",
     },
     height: {
-      xs: "15.5vh",
+      xs: "20.5vh",
       md: "26.3vh",
       lg: "57.5vh",
       xl: "48.3vh",
     },
     top: "30px",
     left: {
-      xs: -4,
+      xs: -1.5,
     },
     textAlign: "center",
     color: "#fff",

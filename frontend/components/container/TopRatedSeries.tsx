@@ -127,7 +127,7 @@ const TopRatedSeries = ({
                       xl: "91.5%",
                     },
                     height: {
-                      xs: "30vh",
+                      xs: "35vh",
                       md: "35vh",
                       lg: "58vh",
                       xl: "50vh",

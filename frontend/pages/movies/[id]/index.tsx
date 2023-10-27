@@ -90,7 +90,7 @@ export const RecommendMobileTabletCss = {
     },
     height: {
       xs: "20vh",
-      md: "28.8vh",
+      md: "26.5vh",
       lg: "57.5vh",
       xl: "48.3vh",
     },

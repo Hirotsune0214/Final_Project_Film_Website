@@ -65,7 +65,7 @@ const MainImageDramas = ({ dramas }: { dramas: Drama[] }) => {
                   lg: "100%",
                 },
                 height: {
-                  xs: "45vh",
+                  xs: "60vh",
                   md: "50vh",
                   lg: "100vh",
                   xl: "100vh",

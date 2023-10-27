@@ -213,7 +213,7 @@ const Dramas = ({
                   sx={{
                     width: { xs: "100%", md: "95%", lg: "99%", xl: "99%" },
                     height: {
-                      xs: "27vh",
+                      xs: "35vh",
                       md: "35vh",
                       lg: "64vh",
                       xl: "61.5vh",
